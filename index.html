@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <link rel="stylesheet" type="text/css" href="css/md.css" />
+  <title>HJSON by laktak</title>
+</head>
+
+<body>
+
+<div class="content">
+<h1 id="hjson-is-json-for-humans">HJSON is JSON for Humans</h1>
+<p>JSON is a data-interchange format that can be easily processed by machines.</p>
+<p>HJSON&#39;s goal is to be a <em>&quot;JSON&quot; that can be easily parsed and written by humans</em>.</p>
+<p>In HJSON, you can</p>
+<ul>
+<li>omit <code>,</code> at the end of a line.</li>
+<li>omit <code>&quot;&quot;</code> for keys that contain only <code>letters</code> and <code>digits</code>.</li>
+<li>omit <code>&quot;&quot;</code> for strings values that<ul>
+<li>do not start with a <code>digit</code>, <code>-</code>, <code>{</code>, <code>[</code> or <code>#</code>,</li>
+<li>do not start with the keywords <code>true</code>, <code>false</code> or <code>null</code> and</li>
+<li>do not use escapes.<br>(The string terminates at the newline.)</li>
+</ul>
+</li>
+<li>add <code># comments</code>  (the parser treats comments like whitespace).</li>
+<li>or use JSON (HJSON is a superset).</li>
+</ul>
+<p>That means that you can write:</p>
+<pre><code>{
+  # look, no quotes or commas!
+  foo: Hello World!
+  bar: Hello HJSON!
+}
+</code></pre><p>instead of:</p>
+<pre><code>{
+  &quot;foo&quot;: &quot;Hello World!&quot;,
+  &quot;bar&quot;: &quot;Hello HJSON!&quot;
+}
+</code></pre><h2 id="why-">Why?</h2>
+<p>Plain JSON is not optimal for humans to write because we often forget commas, add trailing commas by mistake or simply wish to add a comment.</p>
+<p>Existing formats like XML or Yaml are completely different from JSON while HJSON tries to be JSON with a little less syntax.</p>
+<p>HJSON is not intended to replace JSON. It should be used when transferring data from and to humans but not between machines.</p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>JavaScript<ul>
+<li><a href="https://github.com/laktak/hjson-js">https://github.com/laktak/hjson-js</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="sample-">Sample:</h2>
+<pre><code>{
+  # comments are treated like whitespace - they are not parsed
+
+  # text
+  text:        This is a valid string value.
+  quote:       &quot;You need quotes\nfor escapes&quot;
+  otherwise:   a \ is just a \
+
+  # keys
+  abc123:      no quotes for keys that contain only a-z, A-Z and 0-9
+  &quot;a/b.c &quot;:    a key with any other characters still needs quotes
+
+  # comma
+  commas:      &quot;can be omitted at the end of the line&quot;
+  but:         [ 1, 2, 3 ] # not between elements on the same line
+  trailing:    [ 1, 2, 3, ] # a trailing comma is OK
+
+  # numbers, keywords and arrays work just like in JSON
+  number:      5
+  negative:    -4.2
+  yes:         true
+  no:          false
+  null:        null
+  array:       [ 1, 2 ]
+  array2:      [
+    1
+    2
+  ]
+}
+</code></pre><p>is equivalent to the following JSON:</p>
+<pre><code>{
+  &quot;text&quot;: &quot;This is a valid string value.&quot;,
+  &quot;quote&quot;: &quot;You need quotes\nfor escapes&quot;,
+  &quot;otherwise&quot;: &quot;a \\ is just a \\&quot;,
+  &quot;abc123&quot;: &quot;no quotes for keys that contain only a-z, A-Z and 0-9&quot;,
+  &quot;a/b.c &quot;: &quot;a key with any other characters still needs quotes&quot;,
+  &quot;commas&quot;: &quot;can be omitted at the end of the line&quot;,
+  &quot;but&quot;: [ 1, 2, 3 ],
+  &quot;trailing&quot;: [ 1, 2, 3 ],
+  &quot;number&quot;: 5,
+  &quot;negative&quot;: -4.2,
+  &quot;yes&quot;: true,
+  &quot;no&quot;: false,
+  &quot;null&quot;: null,
+  &quot;array&quot;: [ 1, 2 ],
+  &quot;array2&quot;: [
+    1,
+    2
+  ]
+}
+</code></pre>
+</div>
+
+<div class="footer">
+  <p class="repo-owner"><a href="https://github.com/laktak/hjson">HJSON</a> is maintained by <a href="https://github.com/laktak">laktak</a>.</p>
+</div>
+
+</body>
+</html>
