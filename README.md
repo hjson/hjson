@@ -1,4 +1,4 @@
-# HJSON is JSON for Humans
+# HJSON is JSON - commas + comments
 
 This repository contains the [HJSON site](http://laktak.github.io/hjson).
 

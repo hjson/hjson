@@ -1,9 +1,9 @@
 
-# HJSON is JSON for Humans
+# HJSON is JSON - commas + comments
 
 JSON is a data-interchange format that can be easily processed by machines.
 
-HJSON's goal is to be a *"JSON" that can be easily parsed and written by humans*.
+HJSON's goal is to be a *"JSON" that can be easily parsed and written by humans*. It should be used for configuration files, for debug output or where it is likely that JSON data is read or will be edited by a human.
 
 In HJSON, you can
 
