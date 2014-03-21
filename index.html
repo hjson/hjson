@@ -13,7 +13,7 @@
 <div class="content">
 <h1 id="hjson-is-json-commas-comments">HJSON is JSON - commas + comments</h1>
 <p>JSON is a data-interchange format that can be easily processed by machines.</p>
-<p>HJSON&#39;s goal is to be a <em>&quot;JSON&quot; that can be easily parsed and written by humans</em>. It should be used for configuration files, for debug output or where it is likely that JSON data is read or will be edited by a human.</p>
+<p>HJSON&#39;s goal is to be close to JSON, so you don&#39;t have to learn anything new, but to make it easier to be parsed and written by humans. It should be used for configuration files, for debug output or where it is likely that JSON data is read or will be edited by a human.</p>
 <p>In HJSON, you can</p>
 <ul>
 <li>omit <code>,</code> at the end of a line.</li>
@@ -40,8 +40,14 @@
 }
 </code></pre><h2 id="why-">Why?</h2>
 <p>Plain JSON is not optimal for humans to write because we often forget commas, add trailing commas by mistake or simply wish to add a comment.</p>
-<p>Existing formats like XML or Yaml are completely different from JSON while HJSON tries to be JSON with a little less syntax.</p>
-<p>HJSON is not intended to replace JSON. It should be used when transferring data from and to humans but not between machines.</p>
+<p>HJSON is not intended to replace JSON. It should be used when &quot;transferring&quot; data from and to humans but not between machines.</p>
+<h3 id="why-not-use-an-existing-format-">Why not use an existing format?</h3>
+<ul>
+<li>XML is too verbose.</li>
+<li>YAML introduces <a href="http://en.wikipedia.org/wiki/YAML#Advanced_components_of_YAML">features</a> that make it more complex than it should be. You can&#39;t just not use them since they may be used by someone else so you will have to deal with them.</li>
+<li>&quot;CSON is fantastic for developers writing their own configuration to be executed on their own machines, but bad for configuration you can&#39;t trust.&quot;</li>
+<li>JSON - see above.</li>
+</ul>
 <h2 id="implementation">Implementation</h2>
 <ul>
 <li>JavaScript<ul>
@@ -81,21 +87,21 @@
 }
 </code></pre><p>is equivalent to the following JSON:</p>
 <pre><code>{
-  &quot;text&quot;: &quot;This is a valid string value.&quot;,
-  &quot;quote&quot;: &quot;You need quotes\nfor escapes&quot;,
+  &quot;text&quot;:      &quot;This is a valid string value.&quot;,
+  &quot;quote&quot;:     &quot;You need quotes\nfor escapes&quot;,
   &quot;otherwise&quot;: &quot;a \\ is just a \\&quot;,
-  &quot;abc123&quot;: &quot;no quotes for keys that contain only a-z, A-Z and 0-9&quot;,
-  &quot;a/b.c &quot;: &quot;a key with any other characters still needs quotes&quot;,
-  &quot;commas&quot;: &quot;can be omitted at the end of the line&quot;,
-  &quot;but&quot;: [ 1, 2, 3 ],
-  &quot;trailing&quot;: [ 1, 2, 3 ],
-  &quot;number&quot;: 5,
-  &quot;negative&quot;: -4.2,
-  &quot;yes&quot;: true,
-  &quot;no&quot;: false,
-  &quot;null&quot;: null,
-  &quot;array&quot;: [ 1, 2 ],
-  &quot;array2&quot;: [
+  &quot;abc123&quot;:    &quot;no quotes for keys that contain only a-z, A-Z and 0-9&quot;,
+  &quot;a/b.c &quot;:    &quot;a key with any other characters still needs quotes&quot;,
+  &quot;commas&quot;:    &quot;can be omitted at the end of the line&quot;,
+  &quot;but&quot;:       [ 1, 2, 3 ],
+  &quot;trailing&quot;:  [ 1, 2, 3 ],
+  &quot;number&quot;:    5,
+  &quot;negative&quot;:  -4.2,
+  &quot;yes&quot;:       true,
+  &quot;no&quot;:        false,
+  &quot;null&quot;:      null,
+  &quot;array&quot;:     [ 1, 2 ],
+  &quot;array2&quot;:    [
     1,
     2
   ]
