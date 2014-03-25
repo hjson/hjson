@@ -3,7 +3,7 @@
 <head>
   <meta charset='utf-8'>
   <link rel="stylesheet" type="text/css" href="css/md.css" />
-  <title>HJSON</title>
+  <title>Hjson</title>
 </head>
 
 <body>
@@ -11,10 +11,10 @@
 <a href="https://github.com/laktak/hjson"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 
 <div class="content">
-<h1 id="hjson-is-json-commas-comments">HJSON is JSON - commas + comments</h1>
+<h1 id="hjson-is-json-commas-comments-for-humans">Hjson is JSON - commas + comments for Humans</h1>
 <p>JSON is a data-interchange format that can be easily processed by machines.</p>
-<p>HJSON&#39;s goal is to be close to JSON, so you don&#39;t have to learn anything new, but to make it easier to be parsed and written by humans. It should be used for configuration files, for debug output or where it is likely that JSON data is read or will be edited by a human.</p>
-<p>In HJSON, you can</p>
+<p>Hjson tries to be close to JSON, so you don&#39;t have to learn anything new, but to make it easier to be parsed and written by humans. It should be used for configuration files, for debug output or where it is likely that JSON data is read or will be edited by a human.</p>
+<p>In Hjson, you can</p>
 <ul>
 <li>omit <code>,</code> at the end of a line.</li>
 <li>omit <code>&quot;&quot;</code> for keys that contain only <code>letters</code> and <code>digits</code>.</li>
@@ -25,22 +25,22 @@
 </ul>
 </li>
 <li>add <code># comments</code>  (the parser treats comments like whitespace).</li>
-<li>or use JSON (HJSON is a superset).</li>
+<li>or use JSON (Hjson is a superset).</li>
 </ul>
 <p>That means that you can write:</p>
 <pre><code>{
   # look, no quotes or commas!
   foo: Hello World!
-  bar: Hello HJSON!
+  bar: Hello Hjson!
 }
 </code></pre><p>instead of:</p>
 <pre><code>{
   &quot;foo&quot;: &quot;Hello World!&quot;,
-  &quot;bar&quot;: &quot;Hello HJSON!&quot;
+  &quot;bar&quot;: &quot;Hello Hjson!&quot;
 }
 </code></pre><h2 id="why-">Why?</h2>
 <p>Plain JSON is not optimal for humans to write because we often forget commas, add trailing commas by mistake or simply wish to add a comment.</p>
-<p>HJSON is not intended to replace JSON. It should be used when &quot;transferring&quot; data from and to humans but not between machines.</p>
+<p>Hjson is not intended to replace JSON. Hjson should be used when humans have to view or edit a file. JSON should be used when transferring data between machines.</p>
 <h3 id="why-not-use-an-existing-format-">Why not use an existing format?</h3>
 <ul>
 <li>XML is too verbose.</li>
@@ -48,10 +48,17 @@
 <li>&quot;CSON is fantastic for developers writing their own configuration to be executed on their own machines, but bad for configuration you can&#39;t trust.&quot;</li>
 <li>JSON - see above.</li>
 </ul>
-<h2 id="implementation">Implementation</h2>
+<p>The modifications to the JSON parser/stringifier (below) are minimal so it should be quite easy to port it to other languages.</p>
+<h2 id="implementations">Implementations</h2>
 <ul>
-<li>JavaScript<ul>
+<li><p>JavaScript</p>
+<ul>
 <li><a href="https://github.com/laktak/hjson-js">https://github.com/laktak/hjson-js</a></li>
+</ul>
+</li>
+<li><p>C#</p>
+<ul>
+<li><a href="https://github.com/laktak/hjson-cs">https://github.com/laktak/hjson-cs</a></li>
 </ul>
 </li>
 </ul>
