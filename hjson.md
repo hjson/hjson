@@ -1,11 +1,11 @@
 
-# HJSON is JSON - commas + comments
+# Hjson is JSON - commas + comments for Humans
 
 JSON is a data-interchange format that can be easily processed by machines.
 
-HJSON's goal is to be close to JSON, so you don't have to learn anything new, but to make it easier to be parsed and written by humans. It should be used for configuration files, for debug output or where it is likely that JSON data is read or will be edited by a human.
+Hjson tries to be close to JSON, so you don't have to learn anything new, but to make it easier to be parsed and written by humans. It should be used for configuration files, for debug output or where it is likely that JSON data is read or will be edited by a human.
 
-In HJSON, you can
+In Hjson, you can
 
 - omit `,` at the end of a line.
 - omit `""` for keys that contain only `letters` and `digits`.
@@ -15,7 +15,7 @@ In HJSON, you can
   - do not use escapes.
   (The string terminates at the newline.)
 - add `# comments`  (the parser treats comments like whitespace).
-- or use JSON (HJSON is a superset).
+- or use JSON (Hjson is a superset).
 
 
 That means that you can write:
@@ -23,7 +23,7 @@ That means that you can write:
 {
   # look, no quotes or commas!
   foo: Hello World!
-  bar: Hello HJSON!
+  bar: Hello Hjson!
 }
 ```
 
@@ -31,7 +31,7 @@ instead of:
 ```
 {
   "foo": "Hello World!",
-  "bar": "Hello HJSON!"
+  "bar": "Hello Hjson!"
 }
 ```
 
@@ -39,7 +39,7 @@ instead of:
 
 Plain JSON is not optimal for humans to write because we often forget commas, add trailing commas by mistake or simply wish to add a comment.
 
-HJSON is not intended to replace JSON. It should be used when "transferring" data from and to humans but not between machines.
+Hjson is not intended to replace JSON. Hjson should be used when humans have to view or edit a file. JSON should be used when transferring data between machines.
 
 ### Why not use an existing format?
 
@@ -48,10 +48,15 @@ HJSON is not intended to replace JSON. It should be used when "transferring" dat
 - "CSON is fantastic for developers writing their own configuration to be executed on their own machines, but bad for configuration you can't trust."
 - JSON - see above.
 
-## Implementation
+The modifications to the JSON parser/stringifier (below) are minimal so it should be quite easy to port it to other languages.
+
+## Implementations
 
 - JavaScript
   - https://github.com/laktak/hjson-js
+
+- C#
+  - https://github.com/laktak/hjson-cs
 
 ## Sample:
 

@@ -1,7 +1,13 @@
-# HJSON is JSON - commas + comments
+# Hjson is JSON - commas + comments for Humans
 
-This repository contains the [HJSON site](http://laktak.github.io/hjson).
+This repository contains the [Hjson site](http://laktak.github.io/hjson).
 
 For the markdown document see [hjson.md](hjson.md).
 
-JavaScript Implementation: https://github.com/laktak/hjson-js
+## Implementations
+
+- JavaScript
+  - https://github.com/laktak/hjson-js
+
+- C#
+  - https://github.com/laktak/hjson-cs
