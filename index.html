@@ -4,16 +4,23 @@
   <meta charset='utf-8'>
   <link rel="stylesheet" type="text/css" href="css/md.css" />
   <title>Hjson</title>
+  <style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial, sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#060;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:absolute;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style>
 </head>
 
 <body>
 
-<a href="https://github.com/laktak/hjson"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<span id="forkongithub"><a href="https://github.com/laktak/hjson">Feedback on GitHub</a></span>
 
 <div class="content">
 <h1 id="hjson-is-json-commas-comments-for-humans">Hjson is JSON - commas + comments for Humans</h1>
-<p>JSON is a data-interchange format that can be easily processed by machines.</p>
-<p>Hjson tries to be close to JSON, so you don&#39;t have to learn anything new, but to make it easier to be parsed and written by humans. It should be used for configuration files, for debug output or where it is likely that JSON data is read or will be edited by a human.</p>
+<p>JSON is a data-interchange format for machines. Hjson tries to be close its syntax, so you don&#39;t have to learn anything new, but to make it more readable and easier to edit.</p>
+<p>Use it</p>
+<ul>
+<li>for configuration files,</li>
+<li>for debug output</li>
+<li>or where it will be primarily read/edited by a human.</li>
+</ul>
 <p>In Hjson, you can</p>
 <ul>
 <li>omit <code>,</code> at the end of a line.</li>
@@ -38,28 +45,65 @@
   &quot;foo&quot;: &quot;Hello World!&quot;,
   &quot;bar&quot;: &quot;Hello Hjson!&quot;
 }
-</code></pre><h2 id="why-">Why?</h2>
-<p>Plain JSON is not optimal for humans to write because we often forget commas, add trailing commas by mistake or simply wish to add a comment.</p>
-<p>Hjson is not intended to replace JSON. Hjson should be used when humans have to view or edit a file. JSON should be used when transferring data between machines.</p>
-<h3 id="why-not-use-an-existing-format-">Why not use an existing format?</h3>
+</code></pre><h2 id="implementations">Implementations</h2>
 <ul>
-<li>XML is too verbose.</li>
-<li>YAML introduces <a href="http://en.wikipedia.org/wiki/YAML#Advanced_components_of_YAML">features</a> that make it more complex than it should be. You can&#39;t just not use them since they may be used by someone else so you will have to deal with them.</li>
-<li>&quot;CSON is fantastic for developers writing their own configuration to be executed on their own machines, but bad for configuration you can&#39;t trust.&quot;</li>
-<li>JSON - see above.</li>
-</ul>
-<p>The modifications to the JSON parser/stringifier (below) are minimal so it should be quite easy to port it to other languages.</p>
-<h2 id="implementations">Implementations</h2>
+<li><p>JavaScript &amp; CLI Tool</p>
 <ul>
-<li><p>JavaScript</p>
-<ul>
-<li><a href="https://github.com/laktak/hjson-js">https://github.com/laktak/hjson-js</a></li>
+<li><a href="https://github.com/laktak/hjson-js">https://github.com/laktak/hjson-js</a><br>I took the standard JSON parser/stringifier and modified it for Hjson. Since they often served as a template for porting JSON to other languages it should make it easier to port Hjson.</li>
 </ul>
 </li>
 <li><p>C#</p>
 <ul>
 <li><a href="https://github.com/laktak/hjson-cs">https://github.com/laktak/hjson-cs</a></li>
 </ul>
+</li>
+</ul>
+<h2 id="why-">Why?</h2>
+<ul>
+<li><p>JSON does not allow comments.</p>
+<p>In configuration files, comments make it easier to describe what each setting does. It also allows you to comment out/toggle settings.</p>
+</li>
+</ul>
+<pre><code># LogLevel: Control the number of messages logged to the error_log.
+# Possible values include: debug, info, notice, warn, error, crit, alert, emerg.
+#
+#LogLevel: warn
+#LogLevel: debug
+LogLevel: notice
+</code></pre><ul>
+<li>JSON requires commas but does not allow trailing commas. We often get them wrong, especially when using copy &amp; paste.</li>
+</ul>
+<pre><code>{
+  &quot;foo&quot;: &quot;Hello World!&quot;,
+  &quot;bar&quot;: &quot;Hello Hjson!&quot;
+  &quot;bar2&quot;: &quot;Hello Again!&quot;
+}
+</code></pre><ul>
+<li>JSON requires quotes for keys and all strings. This does not help readability.</li>
+</ul>
+<h2 id="why-not-">Why not ...</h2>
+<ul>
+<li><p>XML</p>
+<p>It&#39;s widely supported but its syntax is too verbose and it&#39;s hard to read.</p>
+</li>
+<li><p>YAML</p>
+<p>YAML tries to be a <em>human friendly data serialization standard for all programming languages</em>.</p>
+<p>While the basic idea is good, its weak points are:</p>
+<ul>
+<li>it introduces more syntax</li>
+<li>its structure relies on identation</li>
+<li>tabs are not allowed</li>
+</ul>
+<p>The last two points are can be fixed by a good editor. However configuration files often have to be changed in environments that may not have your favorite editor installed.</p>
+</li>
+<li><p>CSON</p>
+<p>CSONs parser is not secure, it recommends to be used only with configuration you can trust.</p>
+</li>
+</ul>
+<h2 id="faq-">FAQ:</h2>
+<ul>
+<li><p>Why aren&#39;t <code>{</code> and <code>}</code> optional?</p>
+<p>If they were optional you would have to use identation to define the structure of your data. This can cause problems with tabs and when using unfamiliar editors. In Hjson, like JSON, whitespace is ignored. You can, but you don&#39;t have to indent your data.</p>
 </li>
 </ul>
 <h2 id="sample-">Sample:</h2>
