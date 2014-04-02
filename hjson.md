@@ -1,9 +1,13 @@
 
 # Hjson is JSON - commas + comments for Humans
 
-JSON is a data-interchange format that can be easily processed by machines.
+JSON is a data-interchange format for machines. Hjson tries to be close its syntax, so you don't have to learn anything new, but to make it more readable and easier to edit.
 
-Hjson tries to be close to JSON, so you don't have to learn anything new, but to make it easier to be parsed and written by humans. It should be used for configuration files, for debug output or where it is likely that JSON data is read or will be edited by a human.
+Use it
+
+- for configuration files,
+- for debug output
+- or where it will be primarily read/edited by a human.
 
 In Hjson, you can
 
@@ -35,28 +39,69 @@ instead of:
 }
 ```
 
-## Why?
-
-Plain JSON is not optimal for humans to write because we often forget commas, add trailing commas by mistake or simply wish to add a comment.
-
-Hjson is not intended to replace JSON. Hjson should be used when humans have to view or edit a file. JSON should be used when transferring data between machines.
-
-### Why not use an existing format?
-
-- XML is too verbose.
-- YAML introduces [features](http://en.wikipedia.org/wiki/YAML#Advanced_components_of_YAML) that make it more complex than it should be. You can't just not use them since they may be used by someone else so you will have to deal with them.
-- "CSON is fantastic for developers writing their own configuration to be executed on their own machines, but bad for configuration you can't trust."
-- JSON - see above.
-
-The modifications to the JSON parser/stringifier (below) are minimal so it should be quite easy to port it to other languages.
-
 ## Implementations
 
-- JavaScript
+- JavaScript & CLI Tool
   - https://github.com/laktak/hjson-js
+  I took the standard JSON parser/stringifier and modified it for Hjson. Since they often served as a template for porting JSON to other languages it should make it easier to port Hjson.
 
 - C#
   - https://github.com/laktak/hjson-cs
+
+## Why?
+
+- JSON does not allow comments.
+
+  In configuration files, comments make it easier to describe what each setting does. It also allows you to comment out/toggle settings.
+
+```
+# LogLevel: Control the number of messages logged to the error_log.
+# Possible values include: debug, info, notice, warn, error, crit, alert, emerg.
+#
+#LogLevel: warn
+#LogLevel: debug
+LogLevel: notice
+```
+
+- JSON requires commas but does not allow trailing commas. We often get them wrong, especially when using copy & paste.
+
+```
+{
+  "foo": "Hello World!",
+  "bar": "Hello Hjson!"
+  "bar2": "Hello Again!"
+}
+```
+
+- JSON requires quotes for keys and all strings. This does not help readability.
+
+## Why not ...
+
+- XML
+
+  It's widely supported but its syntax is too verbose and it's hard to read.
+
+- YAML
+
+  YAML tries to be a *human friendly data serialization standard for all programming languages*.
+
+  While the basic idea is good, its weak points are:
+
+  - it introduces more syntax
+  - its structure relies on identation
+  - tabs are not allowed
+
+  The last two points are can be fixed by a good editor. However configuration files often have to be changed in environments that may not have your favorite editor installed.
+
+- CSON
+
+  CSONs parser is not secure, it recommends to be used only with configuration you can trust.
+
+## FAQ:
+
+- Why aren't `{` and `}` optional?
+
+  If they were optional you would have to use identation to define the structure of your data. This can cause problems with tabs and when using unfamiliar editors. In Hjson, like JSON, whitespace is ignored. You can, but you don't have to indent your data.
 
 ## Sample:
 
