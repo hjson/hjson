@@ -14,7 +14,7 @@
 
 <div class="content">
 <h1 id="hjson-is-json-commas-comments-for-humans">Hjson is JSON - commas + comments for Humans</h1>
-<p>JSON is a data-interchange format for machines. Hjson tries to be close its syntax, so you don&#39;t have to learn anything new, but to make it more readable and easier to edit.</p>
+<p>JSON is a data-interchange format for machines. Hjson tries to be close to its syntax, so you don&#39;t have to learn anything new, but to make it more readable and easier to edit.</p>
 <p>Use it</p>
 <ul>
 <li>for configuration files,</li>
@@ -23,15 +23,22 @@
 </ul>
 <p>In Hjson, you can</p>
 <ul>
-<li>omit <code>,</code> at the end of a line.</li>
-<li>omit <code>&quot;&quot;</code> for keys that contain only <code>letters</code> and <code>digits</code>.</li>
+<li>omit <code>,</code> at the end of a line,</li>
+<li>omit <code>&quot;&quot;</code> for keys that contain only <code>letters</code> and <code>digits</code>,</li>
 <li>omit <code>&quot;&quot;</code> for strings values that<ul>
 <li>do not start with a <code>digit</code>, <code>-</code>, <code>{</code>, <code>[</code> or <code>#</code>,</li>
 <li>do not start with the keywords <code>true</code>, <code>false</code> or <code>null</code> and</li>
-<li>do not use escapes.<br>(The string terminates at the newline.)</li>
+<li>do not use escapes<br>(The string terminates at the newline.)</li>
 </ul>
 </li>
-<li>add <code># comments</code>  (the parser treats comments like whitespace).</li>
+<li>add <code># comments</code>  (the parser treats comments like whitespace),</li>
+<li>use multiline strings with proper whitespace handling:<ul>
+<li>starts with triple quotes <code>&#39;&#39;&#39;</code>, whitespace on the first line is ignored</li>
+<li><code>&#39;&#39;&#39;</code> defines the head, on the following lines all whitespace up to this column is ignored</li>
+<li>all other whitespace is assumed to be part of the string.</li>
+<li>ends with triple quotes <code>&#39;&#39;&#39;</code>.</li>
+</ul>
+</li>
 <li>or use JSON (Hjson is a superset).</li>
 </ul>
 <p>That means that you can write:</p>
@@ -112,8 +119,16 @@ LogLevel: notice
 
   # text
   text:        This is a valid string value.
-  quote:       &quot;You need quotes\nfor escapes&quot;
+  quote:       &quot;You need quotes\tfor escapes&quot;
   otherwise:   a \ is just a \
+
+  # multiline text
+  multiline:
+    &#39;&#39;&#39;
+    first line
+      indented line
+    third line
+    &#39;&#39;&#39;
 
   # keys
   abc123:      no quotes for keys that contain only a-z, A-Z and 0-9
@@ -139,8 +154,9 @@ LogLevel: notice
 </code></pre><p>is equivalent to the following JSON:</p>
 <pre><code>{
   &quot;text&quot;:      &quot;This is a valid string value.&quot;,
-  &quot;quote&quot;:     &quot;You need quotes\nfor escapes&quot;,
+  &quot;quote&quot;:     &quot;You need quotes\tfor escapes&quot;,
   &quot;otherwise&quot;: &quot;a \\ is just a \\&quot;,
+  &quot;multiline&quot;: &quot;first line\n  indented line\nthird line\n&quot;,
   &quot;abc123&quot;:    &quot;no quotes for keys that contain only a-z, A-Z and 0-9&quot;,
   &quot;a/b.c &quot;:    &quot;a key with any other characters still needs quotes&quot;,
   &quot;commas&quot;:    &quot;can be omitted at the end of the line&quot;,
