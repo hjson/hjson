@@ -1,7 +1,7 @@
 
 # Hjson is JSON - commas + comments for Humans
 
-JSON is a data-interchange format for machines. Hjson tries to be close its syntax, so you don't have to learn anything new, but to make it more readable and easier to edit.
+JSON is a data-interchange format for machines. Hjson tries to be close to its syntax, so you don't have to learn anything new, but to make it more readable and easier to edit.
 
 Use it
 
@@ -11,16 +11,20 @@ Use it
 
 In Hjson, you can
 
-- omit `,` at the end of a line.
-- omit `""` for keys that contain only `letters` and `digits`.
+- omit `,` at the end of a line,
+- omit `""` for keys that contain only `letters` and `digits`,
 - omit `""` for strings values that
   - do not start with a `digit`, `-`, `{`, `[` or `#`,
   - do not start with the keywords `true`, `false` or `null` and
-  - do not use escapes.
+  - do not use escapes
   (The string terminates at the newline.)
-- add `# comments`  (the parser treats comments like whitespace).
+- add `# comments`  (the parser treats comments like whitespace),
+- use multiline strings with proper whitespace handling:
+  - starts with triple quotes `'''`, whitespace on the first line is ignored
+  - `'''` defines the head, on the following lines all whitespace up to this column is ignored
+  - all other whitespace is assumed to be part of the string.
+  - ends with triple quotes `'''`.
 - or use JSON (Hjson is a superset).
-
 
 That means that you can write:
 ```
@@ -111,8 +115,16 @@ LogLevel: notice
 
   # text
   text:        This is a valid string value.
-  quote:       "You need quotes\nfor escapes"
+  quote:       "You need quotes\tfor escapes"
   otherwise:   a \ is just a \
+
+  # multiline text
+  multiline:
+    '''
+    first line
+      indented line
+    third line
+    '''
 
   # keys
   abc123:      no quotes for keys that contain only a-z, A-Z and 0-9
@@ -142,8 +154,9 @@ is equivalent to the following JSON:
 ```
 {
   "text":      "This is a valid string value.",
-  "quote":     "You need quotes\nfor escapes",
+  "quote":     "You need quotes\tfor escapes",
   "otherwise": "a \\ is just a \\",
+  "multiline": "first line\n  indented line\nthird line\n",
   "abc123":    "no quotes for keys that contain only a-z, A-Z and 0-9",
   "a/b.c ":    "a key with any other characters still needs quotes",
   "commas":    "can be omitted at the end of the line",
