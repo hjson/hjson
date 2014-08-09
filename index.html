@@ -46,11 +46,19 @@
   # look, no quotes or commas!
   foo: Hello World!
   bar: Hello Hjson!
+
+  # don&#39;t bother with escapes
+  html: &lt;div class=&quot;hello&quot;&gt;world&lt;/div&gt;
+
+  # Hjson is a superset so the normal JSON syntax can be used
+  &quot;array&quot;: [ 1, &quot;two&quot; ]
 }
 </code></pre><p>instead of:</p>
 <pre><code>{
   &quot;foo&quot;: &quot;Hello World!&quot;,
-  &quot;bar&quot;: &quot;Hello Hjson!&quot;
+  &quot;bar&quot;: &quot;Hello Hjson!&quot;,
+  &quot;html&quot;: &quot;&lt;div class=\&quot;hello\&quot;&gt;world&lt;/div&gt;&quot;,
+  &quot;array&quot;: [ 1, &quot;two&quot; ]
 }
 </code></pre><h2 id="implementations">Implementations</h2>
 <ul>
