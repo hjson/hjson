@@ -1,0 +1,123 @@
+
+.big
+{
+  font-size: 22px;
+  line-height: 30px;
+}
+
+.sam
+{
+  font-size: 16px;
+  line-height: 1.4;
+}
+.sam h3
+{
+  color: #AAA;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin: 0;
+}
+.sam h4
+{
+  margin: 5px 0;
+  line-height: 1.4;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+}
+
+.sam hr
+{
+  margin: 35px auto 50px;
+}
+
+.clear { clear: both; }
+
+.aa
+{
+}
+.bb
+{
+}
+
+@media (min-width: 768px)
+{
+  .aa
+  {
+    float: left;
+    width: 40%;
+    margin: 0 40px 0 0;
+  }
+  .bb
+  {
+    float: left;
+    width: 45%;
+  }
+
+}
+
+.get
+{
+  text-align: center;
+}
+
+.xbt
+{
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 10px;
+  color: #f0f0e0;
+  background-color: #0769AD;
+  font-size: 18px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  width: 100px;
+}
+
+.xbt:hover, .xbt:active, .xbt:focus
+{
+  color: #f0f0e0;
+  background-color: #00599D;
+}
+
+.xbt2
+{
+  background-color: #9A1B1E;
+}
+
+.xbt2:hover, .xbt2:active, .xbt2:focus
+{
+  background-color: #8A0B0E;
+}
+
+
+#forkongithub a
+{ background:#000;color:#fff;text-decoration:none;font-family:arial, sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s; }
+#forkongithub a:hover
+{ background:#060;color:#fff; }
+@media screen and (min-width:800px)
+{
+  #forkongithub
+  { position:absolute;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index: 1; }
+  #forkongithub a
+  { width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8); }
+  #forkongithub a::before, #forkongithub a::after
+  { content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff; }
+  #forkongithub a::after
+  { bottom:1px;top:auto; }
+}
+
+@media screen and (max-width:799px)
+{
+  #forkongithub
+  {
+    text-align: right;
+    margin: 2px;
+  }
+  #forkongithub a
+  {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+  }
+}
