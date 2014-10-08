@@ -22,7 +22,7 @@ Sure, comments allow you to document your data.
 
 **"Why do I have to place key names in quotes?"**
 
-Glad you asked. Actually you don't need to do that.
+Glad you asked. Actually you don't need to do that. [(see syntax)](#syntax)
 
 ```
 {
@@ -34,7 +34,7 @@ Glad you asked. Actually you don't need to do that.
 
 **"Come to think of it, why do I have to place strings in quotes?"**
 
-You don't. Quotes for strings are optional as well.
+You don't. Quotes for strings are optional as well. [(with exceptions)](#syntax)
 
 ```
 {
