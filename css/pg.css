@@ -5,6 +5,11 @@
   line-height: 30px;
 }
 
+.ref
+{
+  font-size: 60%;
+}
+
 .sam
 {
   font-size: 16px;
@@ -32,13 +37,6 @@
 
 .clear { clear: both; }
 
-.aa
-{
-}
-.bb
-{
-}
-
 @media (min-width: 768px)
 {
   .aa
@@ -52,7 +50,6 @@
     float: left;
     width: 45%;
   }
-
 }
 
 .get
