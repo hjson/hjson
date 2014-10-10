@@ -40,8 +40,7 @@ See the full intro at [laktak.github.io/hjson](http://laktak.github.io/hjson/).
     This is so much better.
     '''
 
-  # Arrays are sometimes easier to read
-  # when written on a single line.
+  # You can still use standard JSON
   favNumbers: [ 1, 2, 3, 6, 42 ]
 }
 ```
