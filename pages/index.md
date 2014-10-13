@@ -50,7 +50,10 @@ No, escapes are gone from unquoted strings.
 
 ```
 {
-  path: c:\windows
+  # write a regex without escaping the escape
+  regex: ^\d*\.{0,1}\d+$
+
+  # quotes in the content need no escapes
   inject: <div class="important"></div>
 
   # escapes work inside quotes
