@@ -23,7 +23,10 @@
   text: look ma, no quotes!
 }
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="escapes">Escapes</h3><h4><strong>"When there are no quotes, do I need escapes?"</strong></h4><p>No, escapes are gone from unquoted strings.</p></div><div class="bb"><pre><code>{
-  path: c:\windows
+  # write a regex without escaping the escape
+  regex: ^\d*\.{0,1}\d+$
+
+  # quotes in the content need no escapes
   inject: &lt;div class="important"&gt;&lt;/div&gt;
 
   # escapes work inside quotes
