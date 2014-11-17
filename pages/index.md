@@ -178,15 +178,18 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
   - all other whitespace is assumed to be part of the string.
   - ends with triple quotes `'''`.
 
-
 ## Download
 
-- [C, C++](https://github.com/GlenDC/hjson-c) (in dev.)
-- [C#, .Net](https://github.com/laktak/hjson-cs)
-- Go (in dev.)
 - [JavaScript](https://github.com/laktak/hjson-js) (Node.js & Browser)
+- [C#, .Net](https://github.com/laktak/hjson-cs)
+- Under devlopment:
+  - [C, C++](https://github.com/GlenDC/hjson-c)
 
 ## Tools
 
 - [Conversion Tool/CLI](https://www.npmjs.org/package/hjson) (multi-platform)
 - [Gulp Task](https://github.com/laktak/gulp-hjson)
+
+## Editor Syntax
+
+- [Sublime Text](https://github.com/laktak/sublime-hjson) (`Hjson` in Package Control)

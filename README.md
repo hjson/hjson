@@ -15,7 +15,7 @@ See the full intro at [laktak.github.io/hjson](http://laktak.github.io/hjson/).
   # key names do not need to be placed in quotes
   key: "value"
 
-  # most of the time you don't need quotes for strings
+  # you don't need quotes for strings (see intro)
   text: look ma, no quotes!
 
   # commas are optional
@@ -40,7 +40,7 @@ See the full intro at [laktak.github.io/hjson](http://laktak.github.io/hjson/).
     This is so much better.
     '''
 
-  # You can still use standard JSON
+  # or go with standard JSON
   favNumbers: [ 1, 2, 3, 6, 42 ]
 }
 ```
@@ -66,12 +66,17 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
 
 ## Download
 
-- [C, C++](https://github.com/GlenDC/hjson-c) (in dev.)
-- [C#, .Net](https://github.com/laktak/hjson-cs)
-- Go (in dev.)
 - [JavaScript](https://github.com/laktak/hjson-js) (Node.js & Browser)
+- [C#, .Net](https://github.com/laktak/hjson-cs)
+- Under devlopment:
+  - [C, C++](https://github.com/GlenDC/hjson-c)
 
 ## Tools
 
 - [Conversion Tool/CLI](https://www.npmjs.org/package/hjson) (multi-platform)
 - [Gulp Task](https://github.com/laktak/gulp-hjson)
+
+## Editor Syntax
+
+- [Sublime Text](https://github.com/laktak/sublime-hjson) (`Hjson` in Package Control)
+
