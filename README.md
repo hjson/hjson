@@ -63,6 +63,10 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
   - all other whitespace is assumed to be part of the string.
   - ends with triple quotes `'''`.
 
+## Mime Type & File Extension
+
+- mime type: `text/hjson`
+- file extension: `.hjson`
 
 ## Download
 
