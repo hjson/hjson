@@ -15,11 +15,12 @@
 <div class="get"><a class="xbt" href="#download">Get Hjson!</a><a class="xbt xbt2" href="try.html">Try It!</a></div><h2 id="intro">Intro</h2><div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
   # specify rate in requests/second
   "rate": 1000
+  // js style comments are supported as well
 }
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quotes">Quotes</h3><h4><strong>"Why do I have to place key names in quotes?"</strong></h4><p>Glad you asked. Actually you don't need to do that. <a href="#syntax" class="ref">(see syntax)</a></p></div><div class="bb"><pre><code>{
   key: "value"
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="more-quotes">More Quotes</h3><h4><strong>"Come to think of it, why do I have to place strings in quotes?"</strong></h4><p>You don't. Quotes for strings are optional as well. <a href="#syntax" class="ref">(with exceptions)</a></p></div><div class="bb"><pre><code>{
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="more-quotes">More Quotes</h3><h4><strong>"Come to think of it, why do I have to place strings in quotes?"</strong></h4><p>You don't. Quotes for strings are optional as well. <a href="#syntax" class="ref">(see exceptions)</a></p></div><div class="bb"><pre><code>{
   text: look ma, no quotes!
 }
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="escapes">Escapes</h3><h4><strong>"When there are no quotes, do I need escapes?"</strong></h4><p>No, escapes are gone from unquoted strings.</p></div><div class="bb"><pre><code>{
@@ -116,7 +117,7 @@ text = Hjson.stringify(data, { keepWsc: true });
 <li>do not use escapes<br>(The string terminates at the newline.)</li>
 </ul>
 </li>
-<li>add <code># comments</code>  (the parser treats comments like whitespace),</li>
+<li>add <code>#</code> or <code>//</code> comments (the parser treats comments like whitespace),</li>
 <li>use multiline strings with proper whitespace handling:<ul>
 <li>starts with triple quotes <code>'''</code>, whitespace on the first line is ignored</li>
 <li><code>'''</code> defines the head, on the following lines all whitespace up to this column is ignored</li>
