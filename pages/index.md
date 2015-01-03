@@ -15,7 +15,8 @@ Sure, comments allow you to document your data.
 {
   # specify rate in requests/second
   "rate": 1000
-  // js style comments are supported as well
+  // maybe you prefer js style comments
+  /* or if you feel old fashioned */
 }
 ```
 
@@ -172,7 +173,7 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
   - do not start with the keywords `true`, `false` or `null` and
   - do not use escapes
   (The string terminates at the newline.)
-- add `#` or `//` comments (the parser treats comments like whitespace),
+- add `#`, `//` or `/**/` comments (the parser treats comments like whitespace),
 - use multiline strings with proper whitespace handling:
   - starts with triple quotes `'''`, whitespace on the first line is ignored
   - `'''` defines the head, on the following lines all whitespace up to this column is ignored

@@ -10,7 +10,8 @@ See the full intro at [laktak.github.io/hjson](http://laktak.github.io/hjson/).
 ```
 {
   # comments are useful
-  // you can also use js style comments
+  // maybe you prefer js style comments
+  /* or if you feel old fashioned */
 
   "rate": 1000 # specify in requests/second
 
@@ -58,7 +59,7 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
   - do not start with the keywords `true`, `false` or `null` and
   - do not use escapes
   (The string terminates at the newline.)
-- add `#` or `//` comments (the parser treats comments like whitespace),
+- add `#`, `//` or `/**/` comments (the parser treats comments like whitespace),
 - use multiline strings with proper whitespace handling:
   - starts with triple quotes `'''`, whitespace on the first line is ignored
   - `'''` defines the head, on the following lines all whitespace up to this column is ignored
