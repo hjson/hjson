@@ -1,11 +1,11 @@
 
 # Hjson, the Human JSON
 
-A data format that caters to humans and helps reduce the errors they make.
+A configuration file format that caters to humans and helps reduce the errors they make.
 
 ## Intro
 
-See the full intro at [laktak.github.io/hjson](http://laktak.github.io/hjson/).
+See the full intro and explanation at [laktak.github.io/hjson](http://laktak.github.io/hjson/).
 
 ```
 {
@@ -74,16 +74,18 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
 ## Download
 
 - [JavaScript](https://github.com/laktak/hjson-js) (Node.js & Browser)
+- [Python](https://github.com/laktak/hjson-py)
 - [C#, .Net](https://github.com/laktak/hjson-cs)
-- Under devlopment:
-  - [C, C++](https://github.com/GlenDC/hjson-c)
+
+Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson to another platform/language.
 
 ## Tools
 
 - [Conversion Tool/CLI](https://www.npmjs.org/package/hjson) (multi-platform)
 - [Gulp Task](https://github.com/laktak/gulp-hjson)
+- [Grunt Task](https://github.com/laktak/grunt-hjson)
 
 ## Editor Syntax
 
 - [Sublime Text](https://github.com/laktak/sublime-hjson) (`Hjson` in Package Control)
-
+- [Notepad++](https://github.com/laktak/npp-hjson)

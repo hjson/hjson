@@ -1,7 +1,7 @@
 
 # Hjson, the Human JSON
 
-<span class="big">A data format that caters to humans and helps reduce the errors they make.</span>
+<span class="big">A configuration file format that caters to humans and helps reduce the errors they make.</span>
 
 ## Intro
 
@@ -63,7 +63,6 @@ No, escapes are gone from unquoted strings.
 }
 ```
 
-
 ### Commas
 
 **"Now I forgot the comma at the end."**
@@ -109,6 +108,35 @@ Hjson totally respects your choice of trailing commas. Actually, it ignores them
 }
 ```
 
+### JavaScript
+
+**"OMG, you broke JavaScript!"**
+
+JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It shares some of JavaScripts syntax but it's not JavaScript.
+
+```
+JSON is not JavaScript.
+```
+
+### JSON
+
+**"OK but OMG, now you broke JSON!"**
+
+JSON is a great tool that does its job very well. Maybe too well. JSON is a great *hammer* but not everything is a nail.
+
+Configuration files are edited by end-users, not developers. Users should not have to worry about putting commas in the correct place. Software should empower the user not hinder him.
+
+```
+JSON is a great hammer but
+not everything is a nail.
+
+Hjson does not replace JSON.
+Use it for configuration files
+and things like debug dumps.
+
+For anything else use JSON.
+```
+
 ### Round trip
 
 **"Can Hjson keep my comments when updating a config file?"**
@@ -125,42 +153,6 @@ data.foo = "text";
 text = Hjson.stringify(data, { keepWsc: true });
 ```
 
-### JSON
-
-**"But maybe I want to use JSON here."**
-
-Feel free to use JSON anywhere you like.
-
-```
-{
-  # Arrays are sometimes easier to read
-  # when written on a single line.
-  favNumbers: [ 1, 2, 3, 6, 42 ]
-}
-```
-
-### Finally
-
-**"So where can I use it?"**
-
-You should use it whenever data will be edited or looked at by an actual person.
-
-The best example are configuration files. It also makes debug data dumps easier to read.
-
-```
-{
-  # npm config
-  name: hjson
-  description: JSON like data format
-  main: ./lib/hjson.js
-  version: 1.0.1
-  tags:
-  [
-    json
-    hjson
-  ]
-}
-```
 
 ## Syntax
 
@@ -188,16 +180,18 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
 ## Download
 
 - [JavaScript](https://github.com/laktak/hjson-js) (Node.js & Browser)
+- [Python](https://github.com/laktak/hjson-py)
 - [C#, .Net](https://github.com/laktak/hjson-cs)
-- Under devlopment:
-  - [C, C++](https://github.com/GlenDC/hjson-c)
+
+Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson to another platform/language.
 
 ## Tools
 
 - [Conversion Tool/CLI](https://www.npmjs.org/package/hjson) (multi-platform)
 - [Gulp Task](https://github.com/laktak/gulp-hjson)
+- [Grunt Task](https://github.com/laktak/grunt-hjson)
 
 ## Editor Syntax
 
 - [Sublime Text](https://github.com/laktak/sublime-hjson) (`Hjson` in Package Control)
-
+- [Notepad++](https://github.com/laktak/npp-hjson)
