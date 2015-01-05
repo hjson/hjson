@@ -10,8 +10,7 @@
 
     hjson_parse(text, options)
 
-      options
-      {
+      options {
         keepWsc     boolean, keep white space and comments. This is useful
                     if you want to edit an hjson file and save it while
                     preserving comments (default false)
@@ -29,8 +28,7 @@
 
       value         any JavaScript value, usually an object or array.
 
-      options
-      {
+      options {
         keepWsc     boolean, keep white space. See parse.
 
         space       an optional parameter that specifies the indentation
@@ -42,7 +40,7 @@
 
       replacer    do not use / obsolete.
 
-      This method produces a Hjson text from a JavaScript value.
+      This method produces Hjson text from a JavaScript value.
 
       Values that do not have JSON representations, such as undefined or
       functions, will not be serialized. Such values in objects will be
@@ -60,11 +58,9 @@
 */
 
 var hjson_EOL = '\n';
-
 var hjson_bracesSameLine = false;
 
-var hjson_parse = (function ()
-{
+var hjson_parse = (function () {
   "use strict";
 
   // This is a function that can parse a Hjson text, producing a JavaScript
@@ -78,8 +74,7 @@ var hjson_parse = (function ()
   var text;
   var at;   // The index of the current character
   var ch;   // The current character
-  var escapee =
-  {
+  var escapee = {
     '"': '"',
     '\\': '\\',
     '/': '/',
@@ -92,16 +87,14 @@ var hjson_parse = (function ()
   var keepWsc; // keep whitespace
 
   // Call error when something is wrong.
-  var error = function (m)
-  {
+  var error = function (m) {
     var i, col=0, line=1;
     for (i = at-1; i > 0 && text[i] !== '\n'; i--, col++) {}
     for (; i > 0; i--) if (text[i] === '\n') line++;
     throw new Error(m + " at line " + line + "," + col + " >>>" + text.substr(at-col, 20) + " ...");
   };
 
-  var next = function (c)
-  {
+  var next = function (c) {
     // If a c parameter is provided, verify that it matches the current character.
 
     if (c && c !== ch)
@@ -115,45 +108,37 @@ var hjson_parse = (function ()
     return ch;
   };
 
-  var peek = function (offs)
-  {
+  var peek = function (offs) {
     // range check is not required
     return text.charAt(at + offs);
   }
 
-  var number = function ()
-  {
+  var number = function () {
     // Parse a number value.
 
     var number, string = '';
 
-    if (ch === '-')
-    {
+    if (ch === '-') {
       string = '-';
       next('-');
     }
-    while (ch >= '0' && ch <= '9')
-    {
+    while (ch >= '0' && ch <= '9') {
       string += ch;
       next();
     }
-    if (ch === '.')
-    {
+    if (ch === '.') {
       string += '.';
       while (next() && ch >= '0' && ch <= '9')
         string += ch;
     }
-    if (ch === 'e' || ch === 'E')
-    {
+    if (ch === 'e' || ch === 'E') {
       string += ch;
       next();
-      if (ch === '-' || ch === '+')
-      {
+      if (ch === '-' || ch === '+') {
         string += ch;
         next();
       }
-      while (ch >= '0' && ch <= '9')
-      {
+      while (ch >= '0' && ch <= '9') {
         string += ch;
         next();
       }
@@ -163,29 +148,22 @@ var hjson_parse = (function ()
     else return number;
   };
 
-  var string = function ()
-  {
+  var string = function () {
     // Parse a string value.
     var hex, i, string = '', uffff;
 
     // When parsing for string values, we must look for " and \ characters.
-    if (ch === '"')
-    {
-      while (next())
-      {
-        if (ch === '"')
-        {
+    if (ch === '"') {
+      while (next()) {
+        if (ch === '"') {
           next();
           return string;
         }
-        if (ch === '\\')
-        {
+        if (ch === '\\') {
           next();
-          if (ch === 'u')
-          {
+          if (ch === 'u') {
             uffff = 0;
-            for (i = 0; i < 4; i++)
-            {
+            for (i = 0; i < 4; i++) {
               hex = parseInt(next(), 16);
               if (!isFinite(hex))
                 break;
@@ -202,22 +180,19 @@ var hjson_parse = (function ()
     error("Bad string");
   };
 
-  var mlString = function ()
-  {
+  var mlString = function () {
     // Parse a multiline string value.
     var string = '', triple = 0;
 
     // we are at ''' +1 - get indent
     var indent = 0;
-    while (true)
-    {
+    while (true) {
       var c=peek(-indent-5);
       if (!c || c=='\n') break;
       indent++;
     }
 
-    var skipIndent = function ()
-    {
+    var skipIndent = function () {
       var skip = indent;
       while (ch && ch <= ' ' && ch !== '\n' && skip-- > 0) next();
     }
@@ -226,45 +201,38 @@ var hjson_parse = (function ()
     while (ch && ch <= ' ' && ch !== '\n') next();
     if (ch === '\n') { next(); skipIndent(); }
 
-    // When parsing for string values, we must look for " and \ characters.
-    while (true)
-    {
+    // When parsing multiline string values, we must look for ' characters.
+    while (true) {
       if (!ch) error("Bad multiline string");
-      else if (ch === '\'')
-      {
+      else if (ch === '\'') {
         triple++;
         next();
         if (triple === 3) return string;
         else continue;
       }
-      else while (triple > 0)
-      {
+      else while (triple > 0) {
         string += '\'';
         triple--;
       }
-      if (ch === '\n')
-      {
+      if (ch === '\n') {
         string += ch;
         next();
         skipIndent();
       }
-      else
-      {
+      else {
         string += ch;
         next();
       }
     }
   };
 
-  var keyname = function ()
-  {
+  var keyname = function () {
     // quotes for keys that consist only of letters and digits are optional in Hjson
 
     if (ch === '"') return string();
 
     var name = ch;
-    while (next())
-    {
+    while (next()) {
       if (ch === ':') return name;
       else if (ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch >= '0' && ch <= '9')
         name += ch;
@@ -273,31 +241,31 @@ var hjson_parse = (function ()
     error("Bad name");
   };
 
-  var white = function ()
-  {
-    while (ch)
-    {
+  var white = function () {
+    while (ch) {
       // Skip whitespace.
       while (ch && ch <= ' ') next();
       // Hjson allows comments
-      if (ch === "#")
-      {
+      if (ch === "#" || ch === "/" && peek(0) === "/") {
         while (ch && ch !== '\n') next();
+      }
+      else if (ch === "/" && peek(0) === "*")
+      {
+        next(); next();
+        while (ch && !(ch === '*' && peek(0) === "/")) next();
+        if (ch) { next(); next(); }
       }
       else break;
     }
   };
 
-  var wordOrString = function ()
-  {
+  var wordOrString = function () {
     // Hjson strings can be quoteless
     // returns string, true, false, or null.
     var value = ch;
-    while (next())
-    {
+    while (next()) {
       if (value.length === 3 && value === "'''") return mlString();
-      else if (value.length === 4)
-      {
+      else if (value.length === 4) {
         if (value === "true") return true;
         else if (value === "null") return null;
       }
@@ -310,8 +278,7 @@ var hjson_parse = (function ()
     error("Bad value");
   };
 
-  var getComment = function (wat)
-  {
+  var getComment = function (wat) {
     wat--;
     // remove trailing whitespace
     for (var i=at-2; i > wat && text[i] <= ' ' && text[i] !== '\n'; i--);
@@ -324,39 +291,33 @@ var hjson_parse = (function ()
     return "";
   }
 
-  var array = function ()
-  {
+  var array = function () {
     // Parse an array value.
 
     var array = [];
     var kw, wat;
-    if (keepWsc)
-    {
+    if (keepWsc) {
       if (Object.defineProperty) Object.defineProperty(array, "__WSC__", { enumerable: false, writable: true });
       array.__WSC__ = kw = [];
     }
 
-    if (ch === '[')
-    {
+    if (ch === '[') {
       next('[');
       wat = at;
       white();
       if (kw) kw.push(getComment(wat));
-      if (ch === ']')
-      {
+      if (ch === ']') {
         next(']');
         return array;  // empty array
       }
-      while (ch)
-      {
+      while (ch) {
         array.push(value());
         wat = at;
         white();
         // in Hjson the comma is optional and trailing commas are allowed
         if (ch === ',') { next(); wat = at; white(); }
         if (kw) kw.push(getComment(wat));
-        if (ch === ']')
-        {
+        if (ch === ']') {
           next(']');
           return array;
         }
@@ -366,33 +327,28 @@ var hjson_parse = (function ()
     error("Bad array");
   };
 
-  var object = function ()
-  {
+  var object = function () {
     // Parse an object value.
 
     var key, object = {};
     var kw, wat;
-    if (keepWsc)
-    {
+    if (keepWsc) {
       if (Object.defineProperty) Object.defineProperty(object, "__WSC__", { enumerable: false, writable: true });
       object.__WSC__ = kw = { c: {}, o: []  };
     }
 
     function pushWhite(key) { kw.c[key]=getComment(wat); if (key) kw.o.push(key); }
 
-    if (ch === '{')
-    {
+    if (ch === '{') {
       next('{');
       wat = at;
       white();
       if (kw) pushWhite("");
-      if (ch === '}')
-      {
+      if (ch === '}') {
         next('}');
         return object;  // empty object
       }
-      while (ch)
-      {
+      while (ch) {
         key = keyname();
         white();
         next(':');
@@ -403,8 +359,7 @@ var hjson_parse = (function ()
         // in Hjson the comma is optional and trailing commas are allowed
         if (ch === ',') { next(); wat = at; white(); }
         if (kw) pushWhite(key);
-        if (ch === '}')
-        {
+        if (ch === '}') {
           next('}');
           return object;
         }
@@ -414,13 +369,11 @@ var hjson_parse = (function ()
     error("Bad object");
   };
 
-  var value = function ()
-  {
+  var value = function () {
     // Parse a Hjson value. It could be an object, an array, a string, a number or a word.
 
     white();
-    switch (ch)
-    {
+    switch (ch) {
       case '{': return object();
       case '[': return array();
       case '"': return string();
@@ -432,8 +385,7 @@ var hjson_parse = (function ()
   // Return the hjson_parse function. It will have access to all of the above
   // functions and variables.
 
-  return function (source, options)
-  {
+  return function (source, options) {
     var result;
 
     keepWsc = options && options.keepWsc;
@@ -449,13 +401,12 @@ var hjson_parse = (function ()
 }());
 
 
-var hjson_stringify = (function ()
-{
+var hjson_stringify = (function () {
   "use strict";
 
   var needsEscape = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
-  var needsEscapeExceptBS = /[\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; // like needsEscape but without \\
-  var needsEscapeExceptBSLF = /[\"\x00-\x09\x0b\x0c\x0e-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; // like needsEscape but without \\, \n and \r
+  var needsQuotes = /[\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; // like needsEscape but without \\ and \"
+  var needsEscapeML = /'''|[\x00-\x09\x0b\x0c\x0e-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; // ''' || (needsQuotes but without \n and \r)
   var meta =
   {  // table of character substitutions
     '\b': '\\b',
@@ -475,10 +426,8 @@ var hjson_stringify = (function ()
   function isDigit(c) { return c >= '0' && c <= '9'; }
   function isKeyword(value) { return value == 'true' || value == 'false' || value == 'null'; }
 
-  function quoteReplace(string)
-  {
-    return string.replace(needsEscape, function (a)
-    {
+  function quoteReplace(string) {
+    return string.replace(needsEscape, function (a) {
       var c = meta[a];
       return typeof c === 'string'
         ? c
@@ -486,12 +435,11 @@ var hjson_stringify = (function ()
     });
   }
 
-  function quote(string, gap, hasComment)
-  {
+  function quote(string, gap, hasComment) {
     if (!string) return '""';
 
-    needsEscapeExceptBS.lastIndex = 0;
-    var doEscape = hasComment || needsEscapeExceptBS.test(string);
+    needsQuotes.lastIndex = 0;
+    var doEscape = hasComment || needsQuotes.test(string);
 
     // Check if we can insert this string without quotes
 
@@ -499,73 +447,76 @@ var hjson_stringify = (function ()
     if (doEscape ||
       isWhite(first) ||
       isDigit(first) ||
+      first === '"' ||
       first === '#' ||
       first === '-' ||
       first === '{' ||
       first === '[' ||
       isWhite(last) ||
-      isKeyword(string))
-    {
+      isKeyword(string)) {
       // If the string contains no control characters, no quote characters, and no
       // backslash characters, then we can safely slap some quotes around it.
-      // Otherwise we must also replace the offending characters with safe escape
+      // Otherwise we first check if the string can be expressed in multiline
+      // format or we must replace the offending characters with safe escape
       // sequences.
 
       needsEscape.lastIndex = 0;
-      needsEscapeExceptBSLF.lastIndex = 0;
+      needsEscapeML.lastIndex = 0;
       if (!needsEscape.test(string)) return '"' + string + '"';
-      else if (!needsEscapeExceptBSLF.test(string)) return mlString(string, gap);
+      else if (!needsEscapeML.test(string)) return mlString(string, gap);
       else return '"' + quoteReplace(string) + '"';
     }
-    else
-    {
+    else {
       // return without quotes
       return string;
     }
   }
 
-  function mlString(string, gap)
-  {
+  function mlString(string, gap) {
+    // wrap the string into the ''' (multiline) format
+
     var i, a = string.replace(/\r/g, "").split('\n');
     gap += indent;
 
-    var res = hjson_EOL + gap + "'''";
-    for (i = 0; i < a.length; i++)
-    {
-      res += hjson_EOL + gap + a[i];
+    var res;
+    if (a.length === 1) {
+      // The string contains only a single line. We still use the multiline
+      // format as it avoids escaping the \ character (e.g. when used in a
+      // regex).
+      res = "'''" + a[0];
     }
+    else {
+      res = hjson_EOL + gap + "'''";
+      for (i = 0; i < a.length; i++)
+        res += hjson_EOL + gap + a[i];
+    }
+
     return res + "'''";
   }
 
-  function quoteName(name)
-  {
+  function quoteName(name) {
     if (!name) return '""';
 
     // Check if we can insert this name without quotes
 
-    if (needsEscapeName.test(name))
-    {
+    if (needsEscapeName.test(name)) {
       needsEscape.lastIndex = 0;
       return '"' + (needsEscape.test(name) ? quoteReplace(name) : name) + '"';
     }
-    else
-    {
+    else {
       // return without quotes
       return name;
     }
   }
 
-  function str(key, holder, hasComment)
-  {
-    // Produce a string from holder[key].
+  function str(value, hasComment, rootObject) {
+    // Produce a string from value.
 
     function startsWithNL(str) { return str && str[str[0] === '\r' ? 1 : 0] === '\n'; }
     function testWsc(str) { return str && !startsWithNL(str); }
-    function wsc(str)
-    {
+    function wsc(str) {
       if (!str) return "";
-      for (var i = 0; i < str.length; i++)
-      {
+      for (var i = 0; i < str.length; i++) {
         var c = str[i];
         if (c === '\n' || c === '#') break;
         if (c > ' ') return ' # ' + str;
@@ -573,12 +524,9 @@ var hjson_stringify = (function ()
       return str;
     }
 
-    var value = holder[key];
-
     // What happens next depends on the value's type.
 
-    switch (typeof value)
-    {
+    switch (typeof value) {
       case 'string':
         return quote(value, gap, hasComment);
 
@@ -607,7 +555,7 @@ var hjson_stringify = (function ()
         gap += indent;
         var eolMind = hjson_EOL + mind;
         var eolGap = hjson_EOL + gap;
-        var prefix = hjson_bracesSameLine ? '' : eolMind;
+        var prefix = rootObject || hjson_bracesSameLine ? '' : eolMind;
         var partial = [];
 
         var i, length; // loop
@@ -616,17 +564,15 @@ var hjson_stringify = (function ()
 
         // Is the value an array?
 
-        if (Object.prototype.toString.apply(value) === '[object Array]')
-        {
+        if (Object.prototype.toString.apply(value) === '[object Array]') {
           // The value is an array. Stringify every element. Use null as a placeholder
           // for non-JSON values.
 
           if (keepWsc) kw = value.__WSC__;
 
-          for (i = 0, length = value.length; i < length; i++)
-          {
+          for (i = 0, length = value.length; i < length; i++) {
             if (kw) partial.push(wsc(kw[i]) + eolGap);
-            partial.push(str(i, value, kw ? testWsc(kw[i + 1]) : false) || 'null');
+            partial.push(str(value[i], kw ? testWsc(kw[i + 1]) : false) || 'null');
           }
           if (kw) partial.push(wsc(kw[i]) + eolMind);
 
@@ -637,38 +583,31 @@ var hjson_stringify = (function ()
           else if (partial.length === 0) v = '[]';
           else v = prefix + '[' + eolGap + partial.join(eolGap) + eolMind + ']';
         }
-        else
-        {
+        else {
           // Otherwise, iterate through all of the keys in the object.
 
-          if (keepWsc && value.__WSC__)
-          {
+          if (keepWsc && value.__WSC__) {
             kw = value.__WSC__;
             kwl = wsc(kw.c[""]);
             var keys=kw.o.slice();
-            for (k in value)
-            {
+            for (k in value) {
               if (Object.prototype.hasOwnProperty.call(value, k) && keys.indexOf(k) < 0)
                 keys.push(k);
             }
 
-            for (i = 0, length = keys.length; i < length; i++)
-            {
+            for (i = 0, length = keys.length; i < length; i++) {
               k = keys[i];
               partial.push(kwl + eolGap);
               kwl = wsc(kw.c[k]);
-              v = str(k, value, testWsc(kwl));
+              v = str(value[k], testWsc(kwl));
               if (v) partial.push(quoteName(k) + (startsWithNL(v) ? ':' : ': ') + v);
             }
             partial.push(kwl + eolMind);
           }
-          else
-          {
-            for (k in value)
-            {
-              if (Object.prototype.hasOwnProperty.call(value, k))
-              {
-                v = str(k, value);
+          else {
+            for (k in value) {
+              if (Object.prototype.hasOwnProperty.call(value, k)) {
+                v = str(value[k]);
                 if (v) partial.push(quoteName(k) + (startsWithNL(v) ? ':' : ': ') + v);
               }
             }
@@ -690,8 +629,7 @@ var hjson_stringify = (function ()
   // Return the hjson_stringify function. It will have access to all of the above
   // functions and variables.
 
-  return function (value, opt, space)
-  {
+  return function (value, opt, space) {
     // The stringify method takes a value and an optional replacer, and an optional
     // space parameter, and returns a Hjson text. The replacer can be a function
     // that can replace values, or an array of strings that will select the keys.
@@ -703,8 +641,7 @@ var hjson_stringify = (function ()
     indent = '  ';
     keepWsc = false;
 
-    if (typeof opt === 'object')
-    {
+    if (typeof opt === 'object') {
       indent = opt.space || '  ';
       keepWsc = opt.keepWsc;
     }
@@ -712,33 +649,29 @@ var hjson_stringify = (function ()
     // If the space parameter is a number, make an indent string containing that
     // many spaces. If it is a string, it will be used as the indent string.
 
-    if (typeof space === 'number')
-    {
+    if (typeof space === 'number') {
       indent = '';
       for (i = 0; i < space; i++) indent += ' ';
     }
     else if (typeof space === 'string')
       indent = space;
 
-    // Make a fake root object containing our value under the key of ''.
     // Return the result of stringifying the value.
-
-    return str('', { '': value });
+    return str(value, null, true);
   };
 }());
 
 
 // node.js
-if (typeof module!=='undefined' && module.exports)
-{
+if (typeof module!=='undefined' && module.exports) {
   var os=require('os');
   hjson_EOL=os.EOL;
-  module.exports=
-  {
+  module.exports= {
     parse: hjson_parse,
     stringify: hjson_stringify,
     endOfLine: function() { return hjson_EOL; },
     setEndOfLine: function(eol) { hjson_EOL = eol; },
-    setBracesSameLine: function(v) { hjson_bracesSameLine = v; }
+    bracesSameLine: function() { return hjson_bracesSameLine; },
+    setBracesSameLine: function(v) { hjson_bracesSameLine = v; },
   };
 }

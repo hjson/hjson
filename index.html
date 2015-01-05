@@ -11,7 +11,7 @@
 
 <div class="content">
 <h1 id="hjson-the-human-json">Hjson, the Human JSON</h1>
-<p><span class="big">A data format that caters to humans and helps reduce the errors they make.</span></p>
+<p><span class="big">A configuration file format that caters to humans and helps reduce the errors they make.</span></p>
 <div class="get"><a class="xbt" href="#download">Get Hjson!</a><a class="xbt xbt2" href="try.html">Try It!</a></div><h2 id="intro">Intro</h2><div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
   # specify rate in requests/second
   "rate": 1000
@@ -50,6 +50,15 @@
     This, so much better.
     '''
 }
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="javascript">JavaScript</h3><h4><strong>"OMG, you broke JavaScript!"</strong></h4><p>JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It shares some of JavaScripts syntax but it's not JavaScript.</p></div><div class="bb"><pre><code>JSON is not JavaScript.
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="json">JSON</h3><h4><strong>"OK but OMG, now you broke JSON!"</strong></h4><p>JSON is a great tool that does its job very well. Maybe too well. JSON is a great <em>hammer</em> but not everything is a nail.</p><p>Configuration files are edited by end-users, not developers. Users should not have to worry about putting commas in the correct place. Software should empower the user not hinder him.</p></div><div class="bb"><pre><code>JSON is a great hammer but
+not everything is a nail.
+
+Hjson does not replace JSON.
+Use it for configuration files
+and things like debug dumps.
+
+For anything else use JSON.
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="round-trip">Round trip</h3><h4><strong>"Can Hjson keep my comments when updating a config file?"</strong></h4><p>Yes, Hjson allows you to round-trip your data, including your comments.</p></div><div class="bb"><pre><code>var data = Hjson.parse(text, { keepWsc: true });
 
 // use data like a normal object
@@ -57,23 +66,6 @@ data.foo = "text";
 
 // stringify with comments
 text = Hjson.stringify(data, { keepWsc: true });
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="json">JSON</h3><h4><strong>"But maybe I want to use JSON here."</strong></h4><p>Feel free to use JSON anywhere you like.</p></div><div class="bb"><pre><code>{
-  # Arrays are sometimes easier to read
-  # when written on a single line.
-  favNumbers: [ 1, 2, 3, 6, 42 ]
-}
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="finally">Finally</h3><h4><strong>"So where can I use it?"</strong></h4><p>You should use it whenever data will be edited or looked at by an actual person.</p><p>The best example are configuration files. It also makes debug data dumps easier to read.</p></div><div class="bb"><pre><code>{
-  # npm config
-  name: hjson
-  description: JSON like data format
-  main: ./lib/hjson.js
-  version: 1.0.1
-  tags:
-  [
-    json
-    hjson
-  ]
-}
 </code></pre></div><div class="clear"></div></div>
 
 
@@ -135,20 +127,20 @@ text = Hjson.stringify(data, { keepWsc: true });
 <h2 id="download">Download</h2>
 <ul>
 <li><a href="https://github.com/laktak/hjson-js">JavaScript</a> (Node.js &amp; Browser)</li>
+<li><a href="https://github.com/laktak/hjson-py">Python</a></li>
 <li><a href="https://github.com/laktak/hjson-cs">C#, .Net</a></li>
-<li>Under devlopment:<ul>
-<li><a href="https://github.com/GlenDC/hjson-c">C, C++</a></li>
 </ul>
-</li>
-</ul>
+<p>Please <a href="https://github.com/laktak/hjson/issues">open an issue</a> if you port Hjson to another platform/language.</p>
 <h2 id="tools">Tools</h2>
 <ul>
 <li><a href="https://www.npmjs.org/package/hjson">Conversion Tool/CLI</a> (multi-platform)</li>
 <li><a href="https://github.com/laktak/gulp-hjson">Gulp Task</a></li>
+<li><a href="https://github.com/laktak/grunt-hjson">Grunt Task</a></li>
 </ul>
 <h2 id="editor-syntax">Editor Syntax</h2>
 <ul>
 <li><a href="https://github.com/laktak/sublime-hjson">Sublime Text</a> (<code>Hjson</code> in Package Control)</li>
+<li><a href="https://github.com/laktak/npp-hjson">Notepad++</a></li>
 </ul>
 
 </div>
