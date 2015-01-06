@@ -24,7 +24,7 @@ Sure, comments allow you to document your data.
 
 **"Why do I have to place key names in quotes?"**
 
-Glad you asked. Actually you don't need to do that. [(see syntax)](#syntax)
+Glad you asked. Actually you don't need to do that for alphanumeric keys.
 
 ```
 {
@@ -36,7 +36,7 @@ Glad you asked. Actually you don't need to do that. [(see syntax)](#syntax)
 
 **"Come to think of it, why do I have to place strings in quotes?"**
 
-You don't. Quotes for strings are optional as well. [(see exceptions)](#syntax)
+You don't. Quotes for strings are optional as well!
 
 ```
 {
@@ -82,7 +82,7 @@ So you did. But lucky for you, in Hjson they are optional.
 
 Can't make up your mind or was that copy & paste?
 
-Hjson totally respects your choice of trailing commas. Actually, it ignores them.
+Like JavaScript, Hjson totally respects your choice of trailing commas.
 
 ```
 {
@@ -158,19 +158,17 @@ text = Hjson.stringify(data, { keepWsc: true });
 
 The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but allows you to
 
-- omit `,` at the end of a line,
-- omit `""` for keys that contain only `letters` and `digits`,
-- omit `""` for strings values that
-  - do not start with a `digit`, `-`, `{`, `[` or `#`,
-  - do not start with the keywords `true`, `false` or `null` and
-  - do not use escapes
-  (The string terminates at the newline.)
-- add `#`, `//` or `/**/` comments (the parser treats comments like whitespace),
+- omit `,` at the end of a line
+- omit `""` for *alphanumeric* keys
+- omit `""` for strings values (unless they start with `{` or `[`)
+- add `#`, `//` or `/**/` comments (the parser treats comments like whitespace)
 - use multiline strings with proper whitespace handling:
   - starts with triple quotes `'''`, whitespace on the first line is ignored
   - `'''` defines the head, on the following lines all whitespace up to this column is ignored
   - all other whitespace is assumed to be part of the string.
   - ends with triple quotes `'''`.
+
+For quoteless strings, be aware that if a string contains a single *number*, `true`, `false` or `null`, it will be converted.
 
 ## Mime Type & File Extension
 
@@ -195,3 +193,9 @@ Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson
 
 - [Sublime Text](https://github.com/laktak/sublime-hjson) (`Hjson` in Package Control)
 - [Notepad++](https://github.com/laktak/npp-hjson)
+
+## History
+
+- 2015-01-06
+
+  Simplified the syntax for quoteless strings. Previously strings starting with a *number*, `true`, `false` or `null` would throw an error.
