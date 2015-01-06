@@ -80,7 +80,7 @@ So you did. But lucky for you, in Hjson they are optional.
 
 **"So what if I added a trailing comma?"**
 
-Can't make up or mind or was that copy & paste?
+Can't make up your mind or was that copy & paste?
 
 Hjson totally respects your choice of trailing commas. Actually, it ignores them.
 
