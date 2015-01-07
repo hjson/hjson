@@ -18,10 +18,10 @@
   // maybe you prefer js style comments
   /* or if you feel old fashioned */
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quotes">Quotes</h3><h4><strong>"Why do I have to place key names in quotes?"</strong></h4><p>Glad you asked. Actually you don't need to do that. <a href="#syntax" class="ref">(see syntax)</a></p></div><div class="bb"><pre><code>{
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quotes">Quotes</h3><h4><strong>"Why do I have to place key names in quotes?"</strong></h4><p>Glad you asked. Actually you don't need to do that for alphanumeric keys.</p></div><div class="bb"><pre><code>{
   key: "value"
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="more-quotes">More Quotes</h3><h4><strong>"Come to think of it, why do I have to place strings in quotes?"</strong></h4><p>You don't. Quotes for strings are optional as well. <a href="#syntax" class="ref">(see exceptions)</a></p></div><div class="bb"><pre><code>{
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="more-quotes">More Quotes</h3><h4><strong>"Come to think of it, why do I have to place strings in quotes?"</strong></h4><p>You don't. Quotes for strings are optional as well!</p></div><div class="bb"><pre><code>{
   text: look ma, no quotes!
 }
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="escapes">Escapes</h3><h4><strong>"When there are no quotes, do I need escapes?"</strong></h4><p>No, escapes are gone from unquoted strings.</p></div><div class="bb"><pre><code>{
@@ -38,7 +38,7 @@
   one: 1
   two: 2
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="more-commas">More Commas</h3><h4><strong>"So what if I added a trailing comma?"</strong></h4><p>Can't make up your mind or was that copy &amp; paste?</p><p>Hjson totally respects your choice of trailing commas. Actually, it ignores them.</p></div><div class="bb"><pre><code>{
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="more-commas">More Commas</h3><h4><strong>"So what if I added a trailing comma?"</strong></h4><p>Can't make up your mind or was that copy &amp; paste?</p><p>Like JavaScript, Hjson totally respects your choice of trailing commas.</p></div><div class="bb"><pre><code>{
   one: 1,
   two: 2,
 }
@@ -102,15 +102,10 @@ text = Hjson.stringify(data, { keepWsc: true });
 <h2 id="syntax">Syntax</h2>
 <p>The Hjson syntax is a superset of JSON (<a href="http://json.org/">see json.org</a>) but allows you to</p>
 <ul>
-<li>omit <code>,</code> at the end of a line,</li>
-<li>omit <code>""</code> for keys that contain only <code>letters</code> and <code>digits</code>,</li>
-<li>omit <code>""</code> for strings values that<ul>
-<li>do not start with a <code>digit</code>, <code>-</code>, <code>{</code>, <code>[</code> or <code>#</code>,</li>
-<li>do not start with the keywords <code>true</code>, <code>false</code> or <code>null</code> and</li>
-<li>do not use escapes<br>(The string terminates at the newline.)</li>
-</ul>
-</li>
-<li>add <code>#</code>, <code>//</code> or <code>/**/</code> comments (the parser treats comments like whitespace),</li>
+<li>omit <code>,</code> at the end of a line</li>
+<li>omit <code>""</code> for <em>alphanumeric</em> keys</li>
+<li>omit <code>""</code> for strings values (unless they start with <code>{</code> or <code>[</code>)</li>
+<li>add <code>#</code>, <code>//</code> or <code>/**/</code> comments (the parser treats comments like whitespace)</li>
 <li>use multiline strings with proper whitespace handling:<ul>
 <li>starts with triple quotes <code>'''</code>, whitespace on the first line is ignored</li>
 <li><code>'''</code> defines the head, on the following lines all whitespace up to this column is ignored</li>
@@ -119,6 +114,7 @@ text = Hjson.stringify(data, { keepWsc: true });
 </ul>
 </li>
 </ul>
+<p>For quoteless strings, be aware that if a string contains a single <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code>, it will be converted.</p>
 <h2 id="mime-type-file-extension">Mime Type &amp; File Extension</h2>
 <ul>
 <li>mime type: <code>text/hjson</code></li>
@@ -141,6 +137,12 @@ text = Hjson.stringify(data, { keepWsc: true });
 <ul>
 <li><a href="https://github.com/laktak/sublime-hjson">Sublime Text</a> (<code>Hjson</code> in Package Control)</li>
 <li><a href="https://github.com/laktak/npp-hjson">Notepad++</a></li>
+</ul>
+<h2 id="history">History</h2>
+<ul>
+<li><p>2015-01-06</p>
+<p>Simplified the syntax for quoteless strings. Previously strings starting with a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> would throw an error.</p>
+</li>
 </ul>
 
 </div>

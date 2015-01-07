@@ -113,10 +113,16 @@ var hjson_parse = (function () {
     return text.charAt(at + offs);
   }
 
+  var move = function (pos) {
+    at = pos - 1;
+    return next();
+  };
+
   var number = function () {
     // Parse a number value.
 
     var number, string = '';
+    var pos = at;
 
     if (ch === '-') {
       string = '-';
@@ -143,8 +149,17 @@ var hjson_parse = (function () {
         next();
       }
     }
-    number = +string;
-    if (!isFinite(number)) error("Bad number");
+
+    // skip white/to (newline)
+    while (ch && ch <= ' ' && ch !== '\n') next();
+
+    if (ch === '\n' || ch === ',' || ch === '}' || ch ===']') number = +string;
+
+    if (!isFinite(number)) {
+      // treat as a string
+      move(pos);
+      return wordOrString();
+    }
     else return number;
   };
 
@@ -265,13 +280,15 @@ var hjson_parse = (function () {
     var value = ch;
     while (next()) {
       if (value.length === 3 && value === "'''") return mlString();
-      else if (value.length === 4) {
-        if (value === "true") return true;
-        else if (value === "null") return null;
-      }
-      else if (value.length === 5 && value === "false") return false;
 
-      if (ch === '\r' || ch === '\n') return value;
+      if (ch === '\r' || ch === '\n' || ch === ',' || ch === '}' || ch ===']') {
+        switch (value[0]) {
+          case 'f': if (value.trim() === "false") return false; break;
+          case 'n': if (value.trim() === "null") return null; break;
+          case 't': if (value.trim() === "true") return true; break;
+        }
+        if (ch === '\r' || ch === '\n') return value;
+      }
       value += ch;
     }
 
