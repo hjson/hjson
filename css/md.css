@@ -205,6 +205,7 @@ body table
   display:block;
   overflow:auto;
   width:100%;
+  border-collapse: collapse;
 }
 
 body table th
@@ -226,7 +227,7 @@ body table tr
 
 body table tr:nth-child(2n)
 {
-  background-color:#f8f8f8;
+  /*background-color:#f8f8f8;*/
 }
 
 body img

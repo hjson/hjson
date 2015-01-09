@@ -95,7 +95,7 @@
   {
     if (locked) return;
     var text=hjson.getSession().getValue();
-    try { text=JSON.stringify(hjson_parse(text), null, "  "); }
+    try { text=JSON.stringify(Hjson.parse(text), null, "  "); }
     catch (e) { text=e.toString(); }
     locked=true;
     json.getSession().setValue(text);
@@ -106,7 +106,7 @@
   {
     if (locked) return;
     var text=json.getSession().getValue();
-    try { text=hjson_stringify(JSON.parse(text)); }
+    try { text=Hjson.stringify(JSON.parse(text)); }
     catch (e) { text=e.toString(); }
     locked=true;
     hjson.getSession().setValue(text);
