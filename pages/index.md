@@ -175,24 +175,34 @@ For quoteless strings, be aware that if a string contains a single *number*, `tr
 - mime type: `text/hjson`
 - file extension: `.hjson`
 
-## Download
+## Platforms
 
-- [JavaScript](https://github.com/laktak/hjson-js) (Node.js & Browser)
-- [Python](https://github.com/laktak/hjson-py)
-- [C#, .Net](https://github.com/laktak/hjson-cs)
+Platform | Source | Download
+-------- | ------ | --------
+JavaScript, Node.js & Browser | [GitHub](https://github.com/laktak/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
+Python   | [GitHub](https://github.com/laktak/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
+C#, .Net | [GitHub](https://github.com/laktak/hjson-cs) | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
 
 Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson to another platform/language.
 
+#### Use with
+
+- [config (npm)](https://www.npmjs.com/package/config)
+
 ## Tools
 
-- [Conversion Tool/CLI](https://www.npmjs.org/package/hjson) (multi-platform)
-- [Gulp Task](https://github.com/laktak/gulp-hjson)
-- [Grunt Task](https://github.com/laktak/grunt-hjson)
+Name     | Source | Download
+-------- | ------ | --------
+Conversion Tool/CLI (multi-platform) | [GitHub](https://github.com/laktak/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
+Gulp Task  | [GitHub](https://github.com/laktak/gulp-hjson)  | [![NPM version](https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square)](http://www.npmjs.com/package/gulp-hjson)
+Grunt Task | [GitHub](https://github.com/laktak/grunt-hjson) | [![NPM version](https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square)](http://www.npmjs.com/package/grunt-hjson)
 
 ## Editor Syntax
 
-- [Sublime Text](https://github.com/laktak/sublime-hjson) (`Hjson` in Package Control)
-- [Notepad++](https://github.com/laktak/npp-hjson)
+Name     | Source | Download
+-------- | ------ | --------
+Sublime Text | [GitHub](https://github.com/laktak/sublime-hjson) | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
+Notepad++    | [GitHub](https://github.com/laktak/npp-hjson) | see source
 
 ## History
 

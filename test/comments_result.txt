@@ -1,8 +1,0 @@
-{
-  foo1: This is a string value. # not a comment
-  foo2: This is a string value.
-  bar1: This is a string value. // not a comment
-  bar2: This is a string value.
-  foobar1: This is a string value./* not a comment */
-  foobar2: This is a string value.
-}

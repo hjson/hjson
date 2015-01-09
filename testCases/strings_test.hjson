@@ -62,12 +62,15 @@
   }
 
   # special quoted
+  special:
+  {
+    true: "true"
+    false: "false"
+    null: "null"
+    one: "1"
+    two: "2"
+    minus: "-3"
+  }
 
-  true: "true"
-  false: "false"
-  null: "null"
-  one: "1"
-  two: "2"
-  minus: "-3"
-
+  "": empty
 }

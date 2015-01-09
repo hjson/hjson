@@ -37,7 +37,7 @@ $(function()
   g.insertAfter($("h2").first());
 
   var getIt=$("<div>").addClass("get");
-  $('<a class="xbt" href="#download">Get Hjson!</a>').appendTo(getIt);
+  $('<a class="xbt" href="#platforms">Get Hjson!</a>').appendTo(getIt);
   $('<a class="xbt xbt2" href="try.html">Try It!</a>').appendTo(getIt);
 
   getIt.insertBefore($("h2").first());
