@@ -1,0 +1,8 @@
+{
+  # unquoted keys
+  unquoted_key: test
+  _unquoted: test
+  test-key: test
+  -test: test
+  .key: test
+}

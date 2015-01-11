@@ -14,19 +14,21 @@
     '''
     first line
       indented line
-    third line
+    last line
     '''
 
   multiline2:
+    '''first line
+      indented line
+    last line'''
+
+  multiline3:
     '''
     first line
       indented line
-    third line''' # no trailing lf
+    last line
 
-  multiline3:
-    '''first line
-      indented line
-    third line'''
+    ''' # trailing lf
 
   # escapes/no escape
 
