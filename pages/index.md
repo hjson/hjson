@@ -208,4 +208,4 @@ Notepad++    | [GitHub](https://github.com/laktak/npp-hjson) | see source
 
 - 2015-01-06
 
-  Simplified the syntax for quoteless strings. Previously strings starting with a *number*, `true`, `false` or `null` would throw an error.
+  Simplified the syntax for quoteless strings. Previously unquoted strings starting with a *number*, `true`, `false` or `null` would throw an error.
