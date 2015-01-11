@@ -211,6 +211,7 @@ body table
 body table th
 {
   font-weight:700;
+  text-align:left;
 }
 
 body table th,body table td
