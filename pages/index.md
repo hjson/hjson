@@ -24,7 +24,7 @@ Sure, comments allow you to document your data.
 
 **"Why do I have to place key names in quotes?"**
 
-Glad you asked. Actually you don't need to do that for alphanumeric keys.
+Glad you asked. Actually you don't need to do that!
 
 ```
 {
