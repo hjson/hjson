@@ -70,6 +70,7 @@
 */
 
 var Hjson = (function () {
+  "use strict";
 
   var EOL = '\n';
   var bracesSameLine = false;
@@ -129,7 +130,6 @@ var Hjson = (function () {
   };
 
   var hjson_parse = (function () {
-    "use strict";
 
     // This is a function that can parse a Hjson text, producing a JavaScript
     // data structure. It is a simple, recursive descent parser. It does not use
@@ -221,7 +221,7 @@ var Hjson = (function () {
       var indent = 0;
       while (true) {
         var c=peek(-indent-5);
-        if (!c || c=='\n') break;
+        if (!c || c === '\n') break;
         indent++;
       }
 
@@ -240,7 +240,10 @@ var Hjson = (function () {
         else if (ch === '\'') {
           triple++;
           next();
-          if (triple === 3) return string;
+          if (triple === 3) {
+            if (string.slice(-1) === '\n') string=string.slice(0, -1); // remove last EOL
+            return string;
+          }
           else continue;
         }
         else while (triple > 0) {
@@ -248,30 +251,35 @@ var Hjson = (function () {
           triple--;
         }
         if (ch === '\n') {
-          string += ch;
+          string += '\n';
           next();
           skipIndent();
         }
         else {
-          string += ch;
+          if (ch !== '\r') string += ch;
           next();
         }
       }
     };
 
     var keyname = function () {
-      // quotes for keys that consist only of letters and digits are optional in Hjson
+      // quotes for keys are optional in Hjson
+      // unless they include {}[],: or whitespace.
 
       if (ch === '"') return string();
 
-      var name = ch;
-      while (next()) {
-        if (ch === ':') return name;
-        else if (ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch >= '0' && ch <= '9')
-          name += ch;
-        else error("Bad name");
+      var name = "";
+      while (true) {
+        if (ch === ':') {
+          if (!name) error("Empty key name requires quotes");
+          return name;
+        }
+        else if (ch <= ' ' || ch === '{' || ch === '}' || ch === '[' || ch === ']' || ch === ',')
+          error("Key names that include {}[],: or whitespace require quotes");
+
+        name += ch;
+        next();
       }
-      error("Bad name");
     };
 
     var white = function () {
@@ -446,7 +454,6 @@ var Hjson = (function () {
 
 
   var hjson_stringify = (function () {
-    "use strict";
 
     var needsEscape = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
     var needsQuotes = /[\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; // like needsEscape but without \\ and \"
@@ -461,7 +468,7 @@ var Hjson = (function () {
       '"' : '\\"',
       '\\': '\\\\'
     };
-    var needsEscapeName = /[^a-zA-Z0-9]/;
+    var needsEscapeName = /[,\{\[\}\]\s]/;
     var gap = '';
     var indent = '  ';
     var keepWsc;
@@ -528,15 +535,16 @@ var Hjson = (function () {
         // The string contains only a single line. We still use the multiline
         // format as it avoids escaping the \ character (e.g. when used in a
         // regex).
-        res = "'''" + a[0];
+        return "'''" + a[0] + "'''";
       }
       else {
         res = EOL + gap + "'''";
-        for (i = 0; i < a.length; i++)
-          res += EOL + gap + a[i];
+        for (i = 0; i < a.length; i++) {
+          res += EOL;
+          if (a[i]) res += gap + a[i];
+        }
+        return res + EOL + gap + "'''";
       }
-
-      return res + "'''";
     }
 
     function quoteName(name) {

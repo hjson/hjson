@@ -103,23 +103,49 @@ text = Hjson.stringify(data, { keepWsc: true });
 <h2 id="syntax">Syntax</h2>
 <p>The Hjson syntax is a superset of JSON (<a href="http://json.org/">see json.org</a>) but allows you to</p>
 <ul>
-<li>omit <code>,</code> at the end of a line</li>
-<li>omit <code>""</code> for <em>alphanumeric</em> keys</li>
-<li>omit <code>""</code> for strings values (unless they start with <code>{</code> or <code>[</code>)</li>
-<li>add <code>#</code>, <code>//</code> or <code>/**/</code> comments (the parser treats comments like whitespace)</li>
-<li>use multiline strings with proper whitespace handling:<ul>
-<li>starts with triple quotes <code>'''</code>, whitespace on the first line is ignored</li>
+<li>add <code>#</code>, <code>//</code> or <code>/**/</code> comments,</li>
+<li>omit <code>""</code> for keys,</li>
+<li>omit <code>""</code> for strings,</li>
+<li>omit <code>,</code> at the end of a line and</li>
+<li>use multiline strings with proper whitespace handling.</li>
+</ul>
+<h4 id="details">Details</h4>
+<ul>
+<li><p>Keys</p>
+<p>You only need to add quotes if the key name includes whitespace or any of these characters: <code>{}[],:</code>.</p>
+</li>
+<li><p>Strings</p>
+<p>When you omit quotes the string ends at the newline. Preceding and trailing whitespace is ignored as are escapes.</p>
+<p>A value that is a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> in JSON is not considered a string. E.g. <code>3</code> is a number but <code>3 times</code> is a string. <code>true</code> is the value <em>true</em> but <code>true or false</code> is a string.</p>
+<p>Naturally a quoteless string cannot start with <code>{</code> or <code>[</code>.</p>
+<p>Use quotes to have your string handled like in JSON. This also allows you to specify a comment after the string.</p>
+</li>
+<li><p>Multiline Strings</p>
+<ul>
+<li>Start with triple quotes <code>'''</code>, whitespace on the first line is ignored</li>
 <li><code>'''</code> defines the head, on the following lines all whitespace up to this column is ignored</li>
 <li>all other whitespace is assumed to be part of the string.</li>
-<li>ends with triple quotes <code>'''</code>.</li>
+<li>ends with triple quotes <code>'''</code>. The last newline is ignored to allow for better formatting.</li>
 </ul>
+<p>A multiline string is OS and file independent. The line feed is always <code>\n</code>.</p>
 </li>
-</ul>
-<p>For quoteless strings, be aware that if a string contains a single <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code>, it will be converted.</p>
-<h2 id="mime-type-file-extension">Mime Type &amp; File Extension</h2>
-<ul>
-<li>mime type: <code>text/hjson</code></li>
-<li>file extension: <code>.hjson</code></li>
+<li><p>Commas</p>
+<p>Commas are optional at the end of a line. You only need commas to specify multiple values on one line (e.g. <code>[1,2,3]</code>).</p>
+<p>Trailing commas are ignored.</p>
+</li>
+<li><p>Comments</p>
+<p><code>#</code> and <code>//</code> start a single line comment.</p>
+<p><code>/*</code> starts a multiline comment that ends with <code>*/</code>.</p>
+</li>
+<li><p>Mime Type</p>
+<p><code>text/hjson</code></p>
+</li>
+<li><p>File extension</p>
+<p><code>.hjson</code></p>
+</li>
+<li><p>Header</p>
+<p>Hjson does not hava a header but if you want to indicate the file type (in an rc file or in a database) you can use <code>#hjson</code> in the first line.</p>
+</li>
 </ul>
 <h2 id="platforms">Platforms</h2>
 <table>
@@ -204,9 +230,13 @@ text = Hjson.stringify(data, { keepWsc: true });
 </table>
 <h2 id="history">History</h2>
 <ul>
-<li><p>2015-01-06</p>
-<p>Simplified the syntax for quoteless strings. Previously strings starting with a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> would throw an error.</p>
-</li>
+<li>2015-01-11: Simplified the syntax for quoteless keys. Previously only alphanumeric keys were allowed without quotes.</li>
+<li>2015-01-11: Fixed multiline strings: OS/file independent (EOL is always <code>\n</code>). Also the last LF is removed to allow for better formatting.</li>
+<li>2015-01-06: Simplified the syntax for quoteless strings. Previously unquoted strings starting with a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> were not allowed.</li>
+<li>2015-01-02: Added // and /**/ comment support</li>
+<li>2014-12-02: Added mime type and file extension.</li>
+<li>2014-05-09: Added multiline strings.</li>
+<li>2014-03-19: First draft</li>
 </ul>
 
 </div>
