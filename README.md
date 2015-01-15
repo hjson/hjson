@@ -5,7 +5,7 @@ A configuration file format that caters to humans and helps reduce the errors th
 
 ## Intro
 
-See the full intro and explanation at [laktak.github.io/hjson](http://laktak.github.io/hjson/).
+See the full intro and explanation at [hjson.org](http://hjson.org/).
 
 ```
 {
