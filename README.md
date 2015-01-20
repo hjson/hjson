@@ -48,6 +48,7 @@ See the full intro and explanation at [hjson.org](http://hjson.org/).
 }
 ```
 
+
 ## Syntax
 
 The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but allows you to
@@ -117,24 +118,50 @@ C#, .Net | [GitHub](https://github.com/laktak/hjson-cs) | [![nuget version](http
 
 Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson to another platform/language.
 
-#### Use with
-
-- [config (npm)](https://www.npmjs.com/package/config)
-
-## Tools
-
-Name     | Source | Download
--------- | ------ | --------
-Conversion Tool/CLI (multi-platform) | [GitHub](https://github.com/laktak/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
-Gulp Task  | [GitHub](https://github.com/laktak/gulp-hjson)  | [![NPM version](https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square)](http://www.npmjs.com/package/gulp-hjson)
-Grunt Task | [GitHub](https://github.com/laktak/grunt-hjson) | [![NPM version](https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square)](http://www.npmjs.com/package/grunt-hjson)
-
-## Editor Syntax
+#### Editor Syntax
 
 Name     | Source | Download
 -------- | ------ | --------
 Sublime Text | [GitHub](https://github.com/laktak/sublime-hjson) | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
 Notepad++    | [GitHub](https://github.com/laktak/npp-hjson) | see source
+
+#### Integrated with
+
+Name     | Details
+-------- | -------
+node-config: node.js application configuration [![NPM version](https://img.shields.io/npm/v/config.svg?style=flat-square)](http://www.npmjs.com/package/config) | [see wiki](https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson)
+nconf: hierarchical node.js configuration [![NPM version](https://img.shields.io/npm/v/nconf.svg?style=flat-square)](http://www.npmjs.com/package/nconf) | `nconf.file({ file: 'file.hjson', format: require('hjson').rt });`<br>(round trips your comments)
+gulp: the streaming build system [![NPM version](https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square)](http://www.npmjs.com/package/gulp-hjson) | [see readme](https://github.com/laktak/gulp-hjson#usage)
+Grunt: the JavaScript task runner [![NPM version](https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square)](http://www.npmjs.com/package/grunt-hjson) | [see readme](https://github.com/laktak/grunt-hjson#usage)
+
+## Conversion
+
+All versions work on Linux, OS X & Windows.
+
+[**node.js**](http://nodejs.org/)
+
+Install with `npm i hjson -g`
+
+`hjson file.json` will convert to Hjson.
+`hjson -j file.hjson` will convert to JSON.
+
+[**Python**](https://www.python.org/)
+
+Install with `pip install hjson`
+
+`python -m hjson.tool file.json` will convert to Hjson.
+`python -m hjson.tool -j file.hjson` will convert to JSON.
+
+[**C# .Net**](http://www.visualstudio.com/en-US/products/visual-studio-express-vs) & [**Mono**](http://www.mono-project.com/)
+
+As Nuget does not install commandline tools
+
+- please build [from source](https://github.com/laktak/hjson-cs)
+- and add `cli\bin\Release` to your path.
+
+`hjsonc file.json` will convert to Hjson.
+`hjsonc -j file.hjson` will convert to JSON.
+
 
 ## History
 
