@@ -177,38 +177,7 @@ text = Hjson.stringify(data, { keepWsc: true });
 </tbody>
 </table>
 <p>Please <a href="https://github.com/laktak/hjson/issues">open an issue</a> if you port Hjson to another platform/language.</p>
-<h4 id="use-with">Use with</h4>
-<ul>
-<li><a href="https://www.npmjs.com/package/config">config (npm)</a></li>
-</ul>
-<h2 id="tools">Tools</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Source</th>
-<th>Download</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Conversion Tool/CLI (multi-platform)</td>
-<td><a href="https://github.com/laktak/hjson-js">GitHub</a></td>
-<td><a href="http://www.npmjs.com/package/hjson"><img src="https://img.shields.io/npm/v/hjson.svg?style=flat-square" alt="NPM version"></a></td>
-</tr>
-<tr>
-<td>Gulp Task</td>
-<td><a href="https://github.com/laktak/gulp-hjson">GitHub</a></td>
-<td><a href="http://www.npmjs.com/package/gulp-hjson"><img src="https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square" alt="NPM version"></a></td>
-</tr>
-<tr>
-<td>Grunt Task</td>
-<td><a href="https://github.com/laktak/grunt-hjson">GitHub</a></td>
-<td><a href="http://www.npmjs.com/package/grunt-hjson"><img src="https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square" alt="NPM version"></a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="editor-syntax">Editor Syntax</h2>
+<h4 id="editor-syntax">Editor Syntax</h4>
 <table>
 <thead>
 <tr>
@@ -230,6 +199,48 @@ text = Hjson.stringify(data, { keepWsc: true });
 </tr>
 </tbody>
 </table>
+<h4 id="integrated-with">Integrated with</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node-config: node.js application configuration <a href="http://www.npmjs.com/package/config"><img src="https://img.shields.io/npm/v/config.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a href="https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson">see wiki</a></td>
+</tr>
+<tr>
+<td>nconf: hierarchical node.js configuration <a href="http://www.npmjs.com/package/nconf"><img src="https://img.shields.io/npm/v/nconf.svg?style=flat-square" alt="NPM version"></a></td>
+<td><code>nconf.file({ file: 'file.hjson', format: require('hjson').rt });</code><br>(round trips your comments)</td>
+</tr>
+<tr>
+<td>gulp: the streaming build system <a href="http://www.npmjs.com/package/gulp-hjson"><img src="https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a href="https://github.com/laktak/gulp-hjson#usage">see readme</a></td>
+</tr>
+<tr>
+<td>Grunt: the JavaScript task runner <a href="http://www.npmjs.com/package/grunt-hjson"><img src="https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a href="https://github.com/laktak/grunt-hjson#usage">see readme</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="conversion">Conversion</h2>
+<p>All versions work on Linux, OS X &amp; Windows.</p>
+<p><a href="http://nodejs.org/"><strong>node.js</strong></a></p>
+<p>Install with <code>npm i hjson -g</code></p>
+<p><code>hjson file.json</code> will convert to Hjson.<br><code>hjson -j file.hjson</code> will convert to JSON.</p>
+<p><a href="https://www.python.org/"><strong>Python</strong></a></p>
+<p>Install with <code>pip install hjson</code></p>
+<p><code>python -m hjson.tool file.json</code> will convert to Hjson.<br><code>python -m hjson.tool -j file.hjson</code> will convert to JSON.</p>
+<p><a href="http://www.visualstudio.com/en-US/products/visual-studio-express-vs"><strong>C# .Net</strong></a> &amp; <a href="http://www.mono-project.com/"><strong>Mono</strong></a></p>
+<p>As Nuget does not install commandline tools</p>
+<ul>
+<li>please build <a href="https://github.com/laktak/hjson-cs">from source</a></li>
+<li>and add <code>cli\bin\Release</code> to your path.</li>
+</ul>
+<p><code>hjsonc file.json</code> will convert to Hjson.<br><code>hjsonc -j file.hjson</code> will convert to JSON.</p>
 <h2 id="history">History</h2>
 <ul>
 <li>2015-01-11: Simplified the syntax for quoteless keys. Previously only alphanumeric keys were allowed without quotes.</li>
