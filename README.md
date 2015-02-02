@@ -5,48 +5,32 @@ A configuration file format that caters to humans and helps reduce the errors th
 
 ## Intro
 
-See the full intro and explanation at [hjson.org](http://hjson.org/).
-
 ```
 {
-  # comments are useful
-  // maybe you prefer js style comments
-  /* or if you feel old fashioned */
+  # This is Hjson
 
-  "rate": 1000 # specify in requests/second
+  /*
 
-  # key names do not need to be placed in quotes
-  key: "value"
+  Why?
 
-  # you don't need quotes for strings (see intro)
-  text: look ma, no quotes!
+  JSON is a great tool that does its job very well. Maybe too well. JSON is a
+  great hammer but not everything is a nail.
 
-  # commas are optional
-  commas:
-  {
-    one: 1
-    two: 2
-  }
+  Configuration files are edited by end-users, not developers. Users should not
+  have to worry about putting commas in the correct place. Software should
+  empower the user not hinder him.
 
-  # trailing commas are allowed
-  trailing:
-  {
-    one: 1,
-    two: 2,
-  }
+  */
 
-  # multiline string
-  haiku:
-    '''
-    JSON I love you.
-    But you strangle my expression.
-    This is so much better.
-    '''
+  "JSON": "is Hjson",
 
-  # or go with standard JSON
-  favNumbers: [ 1, 2, 3, 6, 42 ]
+  but: commas and quotes are optional!
+  and: those are allowed: // /**/ #
+  so:  less mistakes, more comments ;-)
 }
 ```
+
+For details see [hjson.org](http://hjson.org).
 
 
 ## Syntax
@@ -98,7 +82,7 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
 
 - Mime Type
 
-  `text/hjson`
+  `text/hjson` (pending)
 
 - File extension
 
@@ -129,10 +113,10 @@ Notepad++    | [GitHub](https://github.com/laktak/npp-hjson) | see source
 
 Name     | Details
 -------- | -------
-node-config: node.js application configuration [![NPM version](https://img.shields.io/npm/v/config.svg?style=flat-square)](http://www.npmjs.com/package/config) | [see wiki](https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson)
-nconf: hierarchical node.js configuration [![NPM version](https://img.shields.io/npm/v/nconf.svg?style=flat-square)](http://www.npmjs.com/package/nconf) | `nconf.file({ file: 'file.hjson', format: require('hjson').rt });`<br>(round trips your comments)
-gulp: the streaming build system [![NPM version](https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square)](http://www.npmjs.com/package/gulp-hjson) | [see readme](https://github.com/laktak/gulp-hjson#usage)
-Grunt: the JavaScript task runner [![NPM version](https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square)](http://www.npmjs.com/package/grunt-hjson) | [see readme](https://github.com/laktak/grunt-hjson#usage)
+**node-config**: node.js application configuration [![NPM version](https://img.shields.io/npm/v/config.svg?style=flat-square)](http://www.npmjs.com/package/config) | [see wiki](https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson)
+**nconf**: hierarchical node.js configuration [![NPM version](https://img.shields.io/npm/v/nconf.svg?style=flat-square)](http://www.npmjs.com/package/nconf) | `nconf.file({ file: 'file.hjson', format: require('hjson').rt });`<br>(round trips your comments)
+**gulp**: the streaming build system [![NPM version](https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square)](http://www.npmjs.com/package/gulp-hjson) | [see readme](https://github.com/laktak/gulp-hjson#usage)
+**Grunt**: the JavaScript task runner [![NPM version](https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square)](http://www.npmjs.com/package/grunt-hjson) | [see readme](https://github.com/laktak/grunt-hjson#usage)
 
 ## Conversion
 

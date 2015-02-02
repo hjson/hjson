@@ -36,11 +36,13 @@ Glad you asked. Actually you don't need to do that!
 
 **"Come to think of it, why do I have to place strings in quotes?"**
 
-You don't. Quotes for strings are optional as well!
+You are right. Let's make quotes for strings optional as well.
 
 ```
 {
   text: look ma, no quotes!
+  # quoteless strings end with
+  # the new-line.
 }
 ```
 
@@ -82,7 +84,7 @@ So you did. But lucky for you, in Hjson they are optional.
 
 Can't make up your mind or was that copy & paste?
 
-Like JavaScript, Hjson totally respects your choice of trailing commas.
+Hjson totally respects your choice of trailing commas.
 
 ```
 {
@@ -137,6 +139,26 @@ and things like debug dumps.
 For anything else use JSON.
 ```
 
+### YAML
+
+**"OK but still, do we need another YAML?"**
+
+The YAML spec starts with *"YAML is a human-friendly [..] data serialization language."* And then makes you read 69(!) pages of it.
+
+You could get away by using only the *good parts* but why sacrifice readability?
+
+```
+Do you know what the strip, clip
+and keep indicators do?
+
+What's the meaning of '|1'?
+
+Have you ever used an anchor or an alias?
+
+Did you know YAML has tags?
+Tags as in multiple types of tags.
+```
+
 ### Round trip
 
 **"Can Hjson keep my comments when updating a config file?"**
@@ -144,13 +166,13 @@ For anything else use JSON.
 Yes, Hjson allows you to round-trip your data, including your comments.
 
 ```
-var data = Hjson.parse(text, { keepWsc: true });
+var data = Hjson.rt.parse(text);
 
 // use data like a normal object
 data.foo = "text";
 
 // stringify with comments
-text = Hjson.stringify(data, { keepWsc: true });
+text = Hjson.rt.stringify(data);
 ```
 
 
@@ -203,7 +225,7 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
 
 - Mime Type
 
-  `text/hjson`
+  `text/hjson` (pending)
 
 - File extension
 
@@ -234,10 +256,10 @@ Notepad++    | [GitHub](https://github.com/laktak/npp-hjson) | see source
 
 Name     | Details
 -------- | -------
-node-config: node.js application configuration [![NPM version](https://img.shields.io/npm/v/config.svg?style=flat-square)](http://www.npmjs.com/package/config) | [see wiki](https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson)
-nconf: hierarchical node.js configuration [![NPM version](https://img.shields.io/npm/v/nconf.svg?style=flat-square)](http://www.npmjs.com/package/nconf) | `nconf.file({ file: 'file.hjson', format: require('hjson').rt });`<br>(round trips your comments)
-gulp: the streaming build system [![NPM version](https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square)](http://www.npmjs.com/package/gulp-hjson) | [see readme](https://github.com/laktak/gulp-hjson#usage)
-Grunt: the JavaScript task runner [![NPM version](https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square)](http://www.npmjs.com/package/grunt-hjson) | [see readme](https://github.com/laktak/grunt-hjson#usage)
+**node-config**: node.js application configuration [![NPM version](https://img.shields.io/npm/v/config.svg?style=flat-square)](http://www.npmjs.com/package/config) | [see wiki](https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson)
+**nconf**: hierarchical node.js configuration [![NPM version](https://img.shields.io/npm/v/nconf.svg?style=flat-square)](http://www.npmjs.com/package/nconf) | `nconf.file({ file: 'file.hjson', format: require('hjson').rt });`<br>(round trips your comments)
+**gulp**: the streaming build system [![NPM version](https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square)](http://www.npmjs.com/package/gulp-hjson) | [see readme](https://github.com/laktak/gulp-hjson#usage)
+**Grunt**: the JavaScript task runner [![NPM version](https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square)](http://www.npmjs.com/package/grunt-hjson) | [see readme](https://github.com/laktak/grunt-hjson#usage)
 
 ## Conversion
 
