@@ -220,25 +220,35 @@ text = Hjson.rt.stringify(data);
 <thead>
 <tr>
 <th>Name</th>
+<th>Link</th>
 <th>Details</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>node-config</strong>: node.js application configuration <a href="http://www.npmjs.com/package/config"><img src="https://img.shields.io/npm/v/config.svg?style=flat-square" alt="NPM version"></a></td>
-<td><a href="https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson">see wiki</a></td>
-</tr>
-<tr>
-<td><strong>nconf</strong>: hierarchical node.js configuration <a href="http://www.npmjs.com/package/nconf"><img src="https://img.shields.io/npm/v/nconf.svg?style=flat-square" alt="NPM version"></a></td>
-<td><code>nconf.file({ file: 'file.hjson', format: require('hjson').rt });</code><br>(round trips your comments)</td>
-</tr>
-<tr>
-<td><strong>gulp</strong>: the streaming build system <a href="http://www.npmjs.com/package/gulp-hjson"><img src="https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square" alt="NPM version"></a></td>
+<td><strong>gulp</strong>: the streaming build system</td>
+<td><a href="http://www.npmjs.com/package/gulp-hjson"><img src="https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square" alt="NPM version"></a></td>
 <td><a href="https://github.com/laktak/gulp-hjson#usage">see readme</a></td>
 </tr>
 <tr>
-<td><strong>Grunt</strong>: the JavaScript task runner <a href="http://www.npmjs.com/package/grunt-hjson"><img src="https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square" alt="NPM version"></a></td>
+<td><strong>Grunt</strong>: the JavaScript task runner</td>
+<td><a href="http://www.npmjs.com/package/grunt-hjson"><img src="https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square" alt="NPM version"></a></td>
 <td><a href="https://github.com/laktak/grunt-hjson#usage">see readme</a></td>
+</tr>
+<tr>
+<td><strong>node-config</strong>: node.js application configuration</td>
+<td><a href="http://www.npmjs.com/package/config"><img src="https://img.shields.io/npm/v/config.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a href="https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson">see wiki</a></td>
+</tr>
+<tr>
+<td><strong>nconf</strong>: hierarchical node.js configuration</td>
+<td><a href="http://www.npmjs.com/package/nconf"><img src="https://img.shields.io/npm/v/nconf.svg?style=flat-square" alt="NPM version"></a></td>
+<td><code>nconf.file({ file: 'file.hjson',</code><br><code>format: require('hjson').rt });</code><br><code>// round trips your comments</code></td>
+</tr>
+<tr>
+<td><strong>rc</strong>: non-configurable configuration loader for lazy people.</td>
+<td><a href="http://www.npmjs.com/package/rc"><img src="https://img.shields.io/npm/v/rc.svg?style=flat-square" alt="NPM version"></a></td>
+<td><code>var conf=require('rc')('appname', {/*defaults*/},</code><br><code>null, require('hjson').parse);</code></td>
 </tr>
 </tbody>
 </table>
