@@ -25,8 +25,10 @@
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quotes">Quotes</h3><h4><strong>"Why do I have to place key names in quotes?"</strong></h4><p>Glad you asked. Actually you don't need to do that!</p></div><div class="bb"><pre><code>{
   key: "value"
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="more-quotes">More Quotes</h3><h4><strong>"Come to think of it, why do I have to place strings in quotes?"</strong></h4><p>You don't. Quotes for strings are optional as well!</p></div><div class="bb"><pre><code>{
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="more-quotes">More Quotes</h3><h4><strong>"Come to think of it, why do I have to place strings in quotes?"</strong></h4><p>You are right. Let's make quotes for strings optional as well.</p></div><div class="bb"><pre><code>{
   text: look ma, no quotes!
+  # quoteless strings end with
+  # the new-line.
 }
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="escapes">Escapes</h3><h4><strong>"When there are no quotes, do I need escapes?"</strong></h4><p>No, escapes are gone from unquoted strings.</p></div><div class="bb"><pre><code>{
   # write a regex without escaping the escape
@@ -42,7 +44,7 @@
   one: 1
   two: 2
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="more-commas">More Commas</h3><h4><strong>"So what if I added a trailing comma?"</strong></h4><p>Can't make up your mind or was that copy &amp; paste?</p><p>Like JavaScript, Hjson totally respects your choice of trailing commas.</p></div><div class="bb"><pre><code>{
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="more-commas">More Commas</h3><h4><strong>"So what if I added a trailing comma?"</strong></h4><p>Can't make up your mind or was that copy &amp; paste?</p><p>Hjson totally respects your choice of trailing commas.</p></div><div class="bb"><pre><code>{
   one: 1,
   two: 2,
 }
@@ -63,14 +65,27 @@ Use it for configuration files
 and things like debug dumps.
 
 For anything else use JSON.
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="round-trip">Round trip</h3><h4><strong>"Can Hjson keep my comments when updating a config file?"</strong></h4><p>Yes, Hjson allows you to round-trip your data, including your comments.</p></div><div class="bb"><pre><code>var data = Hjson.parse(text, { keepWsc: true });
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="yaml">YAML</h3><h4><strong>"OK but still, do we need another YAML?"</strong></h4><p>The YAML spec starts with <em>"YAML is a human-friendly [..] data serialization language."</em> And then makes you read 69(!) pages of it.</p><p>You could get away by using only the <em>good parts</em> but why sacrifice readability?</p></div><div class="bb"><pre><code>Do you know what the strip, clip
+and keep indicators do?
+
+What's the meaning of '|1'?
+
+Have you ever used an anchor or an alias?
+
+Did you know YAML has tags?
+Tags as in multiple types of tags.
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="round-trip">Round trip</h3><h4><strong>"Can Hjson keep my comments when updating a config file?"</strong></h4><p>Yes, Hjson allows you to round-trip your data, including your comments.</p></div><div class="bb"><pre><code>var data = Hjson.rt.parse(text);
 
 // use data like a normal object
 data.foo = "text";
 
 // stringify with comments
-text = Hjson.stringify(data, { keepWsc: true });
+text = Hjson.rt.stringify(data);
 </code></pre></div><div class="clear"></div></div>
+
+
+
+
 
 
 
@@ -141,7 +156,7 @@ text = Hjson.stringify(data, { keepWsc: true });
 <p><code>/*</code> starts a multiline comment that ends with <code>*/</code>.</p>
 </li>
 <li><p>Mime Type</p>
-<p><code>text/hjson</code></p>
+<p><code>text/hjson</code> (pending)</p>
 </li>
 <li><p>File extension</p>
 <p><code>.hjson</code></p>
