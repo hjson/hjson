@@ -114,7 +114,7 @@ Hjson totally respects your choice of trailing commas.
 
 **"OMG, you broke JavaScript!"**
 
-JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It shares some of JavaScripts syntax but it's not JavaScript.
+JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It shares some of JavaScript's syntax but it's not JavaScript.
 
 ```
 JSON is not JavaScript.
