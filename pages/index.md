@@ -233,7 +233,7 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
 
 - Header
 
-  Hjson does not hava a header but if you want to indicate the file type (in an rc file or in a database) you can use `#hjson` in the first line.
+  Hjson does not have a header but if you want to indicate the file type (in an rc file or in a database) you can use `#hjson` in the first line.
 
 ## Platforms
 
