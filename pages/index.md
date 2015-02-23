@@ -249,7 +249,8 @@ Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson
 
 Name     | Source | Download
 -------- | ------ | --------
-Sublime Text | [GitHub](https://github.com/laktak/sublime-hjson) | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
+Atom | [GitHub](https://github.com/dannyfritz/language-hjson) | [package](https://atom.io/packages/language-hjson)
+Sublime Text / TextMate | [GitHub](https://github.com/laktak/sublime-hjson) | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
 Notepad++    | [GitHub](https://github.com/laktak/npp-hjson) | see source
 
 #### Integrated with
