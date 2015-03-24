@@ -143,20 +143,18 @@ For anything else use JSON.
 
 **"OK but still, do we need another YAML?"**
 
-The YAML spec starts with *"YAML is a human-friendly [..] data serialization language."* And then makes you read 69(!) pages of it.
+No matter if people are messy in their editor or if they like to copy/paste from a webpage. Incorrect indentation or tabs should not affect your data.
 
-You could get away by using only the *good parts* but why sacrifice readability?
+YAML claims to be *human-friendly* yet its specs fill 69 pages.
 
 ```
-Do you know what the strip, clip
-and keep indicators do?
+Hjson is no YAML.
 
-What's the meaning of '|1'?
+We treat whitespace as, er,
+white space!
 
-Have you ever used an anchor or an alias?
-
-Did you know YAML has tags?
-Tags as in multiple types of tags.
+Hjson is easier as it has
+less rules to remember.
 ```
 
 ### Round trip
@@ -186,6 +184,13 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
 - omit `,` at the end of a line and
 - use multiline strings with proper whitespace handling.
 
+#### Cheat Sheet
+
+Simple rules to remember:
+
+- if your key includes a JSON control character like `{}[],:` or space, use quotes
+- if your string starts with `{` or `[`, use quotes
+
 #### Details
 
 - Keys
@@ -196,7 +201,7 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
 
   When you omit quotes the string ends at the newline. Preceding and trailing whitespace is ignored as are escapes.
 
-  A value that is a *number*, `true`, `false` or `null` in JSON is not considered a string. E.g. `3` is a number but `3 times` is a string. `true` is the value *true* but `true or false` is a string.
+  A value that is a *number*, `true`, `false` or `null` in JSON is parsed as a value. E.g. `3` is a valid *number* while `3 times` is a string.
 
   Naturally a quoteless string cannot start with `{` or `[`.
 
@@ -265,9 +270,9 @@ Name     | Link | Details
 **nconf**: hierarchical node.js configuration | [![NPM version](https://img.shields.io/npm/v/nconf.svg?style=flat-square)](http://www.npmjs.com/package/nconf) | `nconf.file({ file: 'file.hjson',`<br>`   format: require('hjson').rt });`<br>`// round trips your comments`
 **rc**: non-configurable configuration loader for lazy people. | [![NPM version](https://img.shields.io/npm/v/rc.svg?style=flat-square)](http://www.npmjs.com/package/rc) | `var conf=require('rc')('appname', {/*defaults*/},`<br>`  null, require('hjson').parse);`
 
-## Conversion
+## Tools
 
-All versions work on Linux, OS X & Windows.
+All versions work on Linux, OS X & Windows and allow you to convert Hjson from/to JSON.
 
 [**node.js**](http://nodejs.org/)
 

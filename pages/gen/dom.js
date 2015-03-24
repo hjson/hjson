@@ -42,6 +42,12 @@ $(function()
 
   getIt.insertBefore($("h2").first());
 
+  var info=$("<div>").addClass("info");
+  $('<a href="#tools">Tools</a>').appendTo(info);
+  info.append(" - ");
+  $('<a href="#cheat-sheet">Cheat Sheet</a>').appendTo(info);
+  info.insertBefore($("h2").first());
+
   //footnote
   $("a[href='#syntax']").addClass("ref");
 
