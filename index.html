@@ -16,7 +16,7 @@
 <div class="content">
 <h1 id="hjson-the-human-json">Hjson, the Human JSON</h1>
 <p><span class="big">A configuration file format that caters to humans and helps reduce the errors they make.</span></p>
-<div class="get"><a class="xbt" href="#platforms">Get Hjson!</a><a class="xbt xbt2" href="try.html">Try It!</a></div><h2 id="intro">Intro</h2><div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
+<div class="get"><a class="xbt" href="#platforms">Get Hjson!</a><a class="xbt xbt2" href="try.html">Try It!</a></div><div class="info"><a href="#tools">Tools</a> - <a href="#cheat-sheet">Cheat Sheet</a></div><h2 id="intro">Intro</h2><div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
   # specify rate in requests/second
   "rate": 1000
   // maybe you prefer js style comments
@@ -65,15 +65,13 @@ Use it for configuration files
 and things like debug dumps.
 
 For anything else use JSON.
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="yaml">YAML</h3><h4><strong>"OK but still, do we need another YAML?"</strong></h4><p>The YAML spec starts with <em>"YAML is a human-friendly [..] data serialization language."</em> And then makes you read 69(!) pages of it.</p><p>You could get away by using only the <em>good parts</em> but why sacrifice readability?</p></div><div class="bb"><pre><code>Do you know what the strip, clip
-and keep indicators do?
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="yaml">YAML</h3><h4><strong>"OK but still, do we need another YAML?"</strong></h4><p>No matter if people are messy in their editor or if they like to copy/paste from a webpage. Incorrect indentation or tabs should not affect your data.</p><p>YAML claims to be <em>human-friendly</em> yet its specs fill 69 pages.</p></div><div class="bb"><pre><code>Hjson is no YAML.
 
-What's the meaning of '|1'?
+We treat whitespace as, er,
+white space!
 
-Have you ever used an anchor or an alias?
-
-Did you know YAML has tags?
-Tags as in multiple types of tags.
+Hjson is easier as it has
+less rules to remember.
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="round-trip">Round trip</h3><h4><strong>"Can Hjson keep my comments when updating a config file?"</strong></h4><p>Yes, Hjson allows you to round-trip your data, including your comments.</p></div><div class="bb"><pre><code>var data = Hjson.rt.parse(text);
 
 // use data like a normal object
@@ -127,6 +125,12 @@ text = Hjson.rt.stringify(data);
 <li>omit <code>,</code> at the end of a line and</li>
 <li>use multiline strings with proper whitespace handling.</li>
 </ul>
+<h4 id="cheat-sheet">Cheat Sheet</h4>
+<p>Simple rules to remember:</p>
+<ul>
+<li>if your key includes a JSON control character like <code>{}[],:</code> or space, use quotes</li>
+<li>if your string starts with <code>{</code> or <code>[</code>, use quotes</li>
+</ul>
 <h4 id="details">Details</h4>
 <ul>
 <li><p>Keys</p>
@@ -134,7 +138,7 @@ text = Hjson.rt.stringify(data);
 </li>
 <li><p>Strings</p>
 <p>When you omit quotes the string ends at the newline. Preceding and trailing whitespace is ignored as are escapes.</p>
-<p>A value that is a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> in JSON is not considered a string. E.g. <code>3</code> is a number but <code>3 times</code> is a string. <code>true</code> is the value <em>true</em> but <code>true or false</code> is a string.</p>
+<p>A value that is a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> in JSON is parsed as a value. E.g. <code>3</code> is a valid <em>number</em> while <code>3 times</code> is a string.</p>
 <p>Naturally a quoteless string cannot start with <code>{</code> or <code>[</code>.</p>
 <p>Use quotes to have your string handled like in JSON. This also allows you to specify a comment after the string.</p>
 </li>
@@ -267,8 +271,8 @@ text = Hjson.rt.stringify(data);
 </tr>
 </tbody>
 </table>
-<h2 id="conversion">Conversion</h2>
-<p>All versions work on Linux, OS X &amp; Windows.</p>
+<h2 id="tools">Tools</h2>
+<p>All versions work on Linux, OS X &amp; Windows and allow you to convert Hjson from/to JSON.</p>
 <p><a href="http://nodejs.org/"><strong>node.js</strong></a></p>
 <p>Install with <code>npm i hjson -g</code></p>
 <p><code>hjson file.json</code> will convert to Hjson.<br><code>hjson -j file.hjson</code> will convert to JSON.</p>

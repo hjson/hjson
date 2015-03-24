@@ -52,6 +52,13 @@
   }
 }
 
+.info
+{
+  padding-top: 5px;
+  font-size: 90%;
+  text-align: center;
+}
+
 .get
 {
   text-align: center;
