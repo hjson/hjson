@@ -15,8 +15,9 @@ Sure, comments allow you to document your data.
 {
   # specify rate in requests/second
   "rate": 1000
-  // maybe you prefer js style comments
-  /* or if you feel old fashioned */
+
+  // prefer c-style comments?
+  /* feeling old fashioned? */
 }
 ```
 
@@ -242,9 +243,10 @@ Simple rules to remember:
 
 ## Platforms
 
-Platform | Source | Download
--------- | ------ | --------
+Platform | Source | Package
+-------- | ------ | -------
 JavaScript, Node.js & Browser | [GitHub](https://github.com/laktak/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
+Java     | [GitHub](https://github.com/laktak/hjson-java) | [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
 Python   | [GitHub](https://github.com/laktak/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
 C#, .Net | [GitHub](https://github.com/laktak/hjson-cs) | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
 
@@ -252,8 +254,8 @@ Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson
 
 #### Editor Syntax
 
-Name     | Source | Download
--------- | ------ | --------
+Name     | Source | Package
+-------- | ------ | -------
 Atom | [GitHub](https://github.com/dannyfritz/language-hjson) | [package](https://atom.io/packages/language-hjson)
 Sublime Text / TextMate | [GitHub](https://github.com/laktak/sublime-hjson) | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
 Notepad++    | [GitHub](https://github.com/laktak/npp-hjson) | see source

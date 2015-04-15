@@ -1,3 +1,7 @@
+[![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
+[![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
+[![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
+[![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
 
 # Hjson, the Human JSON
 
@@ -7,26 +11,20 @@ A configuration file format that caters to humans and helps reduce the errors th
 
 ```
 {
-  # This is Hjson
+  # specify rate in requests/second (because comments are helpful!)
+  rate: 1000
 
-  /*
+  // prefer c-style comments?
+  /* feeling old fashioned? */
 
-  Why?
+  # did you notice that rate doesn't need quotes?
+  hey: look ma, no quotes for strings either!
 
-  JSON is a great tool that does its job very well. Maybe too well. JSON is a
-  great hammer but not everything is a nail.
+  # best of all
+  notice: []
+  anything: ?
 
-  Configuration files are edited by end-users, not developers. Users should not
-  have to worry about putting commas in the correct place. Software should
-  empower the user not hinder him.
-
-  */
-
-  "JSON": "is Hjson",
-
-  but: commas and quotes are optional!
-  and: those are allowed: // /**/ #
-  so:  less mistakes, more comments ;-)
+  # yes, commas are optional!
 }
 ```
 
@@ -101,9 +99,10 @@ Simple rules to remember:
 
 ## Platforms
 
-Platform | Source | Download
--------- | ------ | --------
+Platform | Source | Package
+-------- | ------ | -------
 JavaScript, Node.js & Browser | [GitHub](https://github.com/laktak/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
+Java     | [GitHub](https://github.com/laktak/hjson-java) | [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
 Python   | [GitHub](https://github.com/laktak/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
 C#, .Net | [GitHub](https://github.com/laktak/hjson-cs) | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
 
@@ -111,8 +110,8 @@ Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson
 
 #### Editor Syntax
 
-Name     | Source | Download
--------- | ------ | --------
+Name     | Source | Package
+-------- | ------ | -------
 Atom | [GitHub](https://github.com/dannyfritz/language-hjson) | [package](https://atom.io/packages/language-hjson)
 Sublime Text / TextMate | [GitHub](https://github.com/laktak/sublime-hjson) | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
 Notepad++    | [GitHub](https://github.com/laktak/npp-hjson) | see source

@@ -11,12 +11,10 @@ var args=process.argv;
 if (args.length>2) mkHtml("../index.md", args[2]);
 else console.log("mdgen TARGET");
 
-function mkHtml(source, target)
-{
+function mkHtml(source, target) {
   var md=fs.readFileSync(source, "utf8");
 
-  var content=marked(md,
-  {
+  var content=marked(md, {
     gfm: true,
     tables: true,
     breaks: true,
@@ -25,11 +23,9 @@ function mkHtml(source, target)
   var tpl=fs.readFileSync(__dirname+"/tpl.html", "utf8");
   var html=tpl.replace(/%%%/, content);
 
-  jsdom.env(html, ["node_modules/jquery/dist/jquery.js", "dom.js"], function (errors, window)
-  {
+  jsdom.env(html, ["node_modules/jquery/dist/jquery.js", "dom.js"], function (errors, window) {
     var $=window.$;
-    $(function()
-    {
+    $(function() {
       html=window.document.documentElement.outerHTML;
       fs.writeFileSync(target, html);
       console.log(target);
