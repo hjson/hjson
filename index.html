@@ -126,6 +126,7 @@ text = Hjson.rt.stringify(data);
 <li>omit <code>,</code> at the end of a line and</li>
 <li>use multiline strings with proper whitespace handling.</li>
 </ul>
+<p>You are also allowed to omit the root <code>{}</code> braces for objects.</p>
 <h4 id="cheat-sheet">Cheat Sheet</h4>
 <p>Simple rules to remember:</p>
 <ul>
@@ -159,6 +160,9 @@ text = Hjson.rt.stringify(data);
 <li><p>Comments</p>
 <p><code>#</code> and <code>//</code> start a single line comment.</p>
 <p><code>/*</code> starts a multiline comment that ends with <code>*/</code>.</p>
+</li>
+<li><p>Root braces</p>
+<p>Can be omitted for objects.</p>
 </li>
 <li><p>Mime Type</p>
 <p><code>text/hjson</code> (pending)</p>
@@ -294,6 +298,7 @@ text = Hjson.rt.stringify(data);
 <p><code>hjsonc file.json</code> will convert to Hjson.<br><code>hjsonc -j file.hjson</code> will convert to JSON.</p>
 <h2 id="history">History</h2>
 <ul>
+<li>2015-05-06: Allow root braces to be omitted.</li>
 <li>2015-01-11: Simplified the syntax for quoteless keys. Previously only alphanumeric keys were allowed without quotes.</li>
 <li>2015-01-11: Fixed multiline strings: OS/file independent (EOL is always <code>\n</code>). Also the last LF is removed to allow for better formatting.</li>
 <li>2015-01-06: Simplified the syntax for quoteless strings. Previously unquoted strings starting with a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> were not allowed.</li>
