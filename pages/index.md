@@ -185,6 +185,8 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
 - omit `,` at the end of a line and
 - use multiline strings with proper whitespace handling.
 
+You are also allowed to omit the root `{}` braces for objects.
+
 #### Cheat Sheet
 
 Simple rules to remember:
@@ -228,6 +230,10 @@ Simple rules to remember:
   `#` and `//` start a single line comment.
 
   `/*` starts a multiline comment that ends with `*/`.
+
+- Root braces
+
+  Can be omitted for objects.
 
 - Mime Type
 
@@ -303,6 +309,7 @@ As Nuget does not install commandline tools
 
 ## History
 
+- 2015-05-06: Allow root braces to be omitted.
 - 2015-01-11: Simplified the syntax for quoteless keys. Previously only alphanumeric keys were allowed without quotes.
 - 2015-01-11: Fixed multiline strings: OS/file independent (EOL is always `\n`). Also the last LF is removed to allow for better formatting.
 - 2015-01-06: Simplified the syntax for quoteless strings. Previously unquoted strings starting with a *number*, `true`, `false` or `null` were not allowed.
