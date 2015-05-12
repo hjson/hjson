@@ -33,7 +33,23 @@ Glad you asked. Actually you don't need to do that!
 }
 ```
 
-### More Quotes
+### Commas
+
+**"Now I forgot the comma at the end."**
+
+So you did. But lucky for you, in Hjson they are only required if two or more values are on the same line.
+
+```
+{
+  one: 1
+  two: 2
+  # only multiple values on
+  # the same line need them:
+  array: [1,2,3]
+}
+```
+
+### Quoteless
 
 **"Come to think of it, why do I have to place strings in quotes?"**
 
@@ -42,8 +58,8 @@ You are right. Let's make quotes for strings optional as well.
 ```
 {
   text: look ma, no quotes!
-  # quoteless strings end with
-  # the new-line.
+  # quoteless stings include everything
+  # up to the end of the line (so no comma).
 }
 ```
 
@@ -61,36 +77,8 @@ No, escapes are gone from unquoted strings.
   # quotes in the content need no escapes
   inject: <div class="important"></div>
 
-  # escapes work inside quotes
-  escape: "c:\\windows"
-}
-```
-
-### Commas
-
-**"Now I forgot the comma at the end."**
-
-So you did. But lucky for you, in Hjson they are optional.
-
-```
-{
-  one: 1
-  two: 2
-}
-```
-
-### More Commas
-
-**"So what if I added a trailing comma?"**
-
-Can't make up your mind or was that copy & paste?
-
-Hjson totally respects your choice of trailing commas.
-
-```
-{
-  one: 1,
-  two: 2,
+  # escapes work like in JSON inside quotes
+  escape: "\\ \n \t \""
 }
 ```
 
@@ -115,47 +103,48 @@ Hjson totally respects your choice of trailing commas.
 
 **"OMG, you broke JavaScript!"**
 
-JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It shares some of JavaScript's syntax but it's not JavaScript.
+JSON is not JavaScript, it's a data interchange format that can be used in many languages.
 
 ```
-JSON is not JavaScript.
+/*
+ * Hjson, like JSON, is not limited
+ * to JavaScript.
+ */
 ```
 
 ### JSON
 
 **"OK but OMG, now you broke JSON!"**
 
-JSON is a great tool that does its job very well. Maybe too well. JSON is a great *hammer* but not everything is a nail.
+JSON is a great data format that can be edited by hand but it has a very strict syntax.
 
-Configuration files are edited by end-users, not developers. Users should not have to worry about putting commas in the correct place. Software should empower the user not hinder him.
+A more forgiving format makes it easier for Humans to write, it reduces unnecessary mistakes and is also nicer to read.
 
 ```
-JSON is a great hammer but
-not everything is a nail.
-
-Hjson does not replace JSON.
-Use it for configuration files
-and things like debug dumps.
-
-For anything else use JSON.
+/*
+ * Hjson does not replace JSON.
+ * Use it for configuration files
+ * and things like debug dumps.
+ *
+ * For protocols and anything
+ * else use JSON.
+ */
 ```
 
 ### YAML
 
-**"OK but still, do we need another YAML?"**
+**"OK but still, do we need another YAML/HOCON/etc.?"**
 
-No matter if people are messy in their editor or if they like to copy/paste from a webpage. Incorrect indentation or tabs should not affect your data.
+YAML expresses structure through whitespace. Significant whitespace is a common source of mistakes that we shouldn't have to deal with.
 
-YAML claims to be *human-friendly* yet its specs fill 69 pages.
+Both HOCON and YAML make the mistake of implementing too many features (like anchors, sustitutions or concatenation).
+
 
 ```
-Hjson is no YAML.
-
-We treat whitespace as, er,
-white space!
-
-Hjson is easier as it has
-less rules to remember.
+/*
+ * A data format for Humans
+ * should be lean and simple.
+ */
 ```
 
 ### Round trip
@@ -193,6 +182,7 @@ Simple rules to remember:
 
 - if your key includes a JSON control character like `{}[],:` or space, use quotes
 - if your string starts with `{` or `[`, use quotes
+- remember that quoteless stings include everything up to the end of the line.
 
 #### Details
 
