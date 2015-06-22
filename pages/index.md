@@ -58,7 +58,7 @@ You are right. Let's make quotes for strings optional as well.
 ```
 {
   text: look ma, no quotes!
-  # quoteless stings include everything
+  # quoteless strings include everything
   # up to the end of the line (so no comma).
 }
 ```
@@ -182,7 +182,7 @@ Simple rules to remember:
 
 - if your key includes a JSON control character like `{}[],:` or space, use quotes
 - if your string starts with `{` or `[`, use quotes
-- remember that quoteless stings include everything up to the end of the line.
+- remember that quoteless strings include everything up to the end of the line.
 
 #### Details
 
