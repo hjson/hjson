@@ -49,7 +49,7 @@ Simple rules to remember:
 
 - if your key includes a JSON control character like `{}[],:` or space, use quotes
 - if your string starts with `{` or `[`, use quotes
-- remember that quoteless stings include everything up to the end of the line.
+- remember that quoteless strings include everything up to the end of the line.
 
 #### Details
 
