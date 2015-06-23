@@ -35,7 +35,7 @@
 }
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quoteless">Quoteless</h3><h4><strong>"Come to think of it, why do I have to place strings in quotes?"</strong></h4><p>You are right. Let's make quotes for strings optional as well.</p></div><div class="bb"><pre><code>{
   text: look ma, no quotes!
-  # quoteless stings include everything
+  # quoteless strings include everything
   # up to the end of the line (so no comma).
 }
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="escapes">Escapes</h3><h4><strong>"When there are no quotes, do I need escapes?"</strong></h4><p>No, escapes are gone from unquoted strings.</p></div><div class="bb"><pre><code>{
@@ -127,7 +127,7 @@ text = Hjson.rt.stringify(data);
 <ul>
 <li>if your key includes a JSON control character like <code>{}[],:</code> or space, use quotes</li>
 <li>if your string starts with <code>{</code> or <code>[</code>, use quotes</li>
-<li>remember that quoteless stings include everything up to the end of the line.</li>
+<li>remember that quoteless strings include everything up to the end of the line.</li>
 </ul>
 <h4 id="details">Details</h4>
 <ul>
