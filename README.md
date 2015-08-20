@@ -49,7 +49,8 @@ Simple rules to remember:
 
 - if your key includes a JSON control character like `{}[],:` or space, use quotes
 - if your string starts with `{` or `[`, use quotes
-- remember that quoteless strings include everything up to the end of the line.
+- remember that quoteless strings include everything up to the end of the line, excluding trailing whitespace.
+- remember that quoteless strings include everything up to the end of the line and preceding whitespace.
 
 #### Details
 
