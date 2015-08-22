@@ -1,5 +1,5 @@
 /*! @preserve
- * Hjson v1.7.2
+ * Hjson v1.7.4
  * http://hjson.org
  *
  * Copyright 2014, 2015 Christian Zangl, MIT license
@@ -298,11 +298,11 @@ var Hjson = (function () {
       var name = "";
       while (true) {
         if (ch === ':') {
-          if (!name) error("Empty key name requires quotes");
+          if (!name) error("Found ':' but no key name (for an empty key name use quotes)");
           return name;
         }
         else if (ch <= ' ' || ch === '{' || ch === '}' || ch === '[' || ch === ']' || ch === ',')
-          error("Key names that include {}[],: or whitespace require quotes");
+          error("Found '" + ch + "' where a key name was expected (check your syntax or use quotes if the key name includes {}[],: or whitespace)");
 
         name += ch;
         next();
@@ -350,12 +350,15 @@ var Hjson = (function () {
                 if (n !== undefined) return n;
               }
           }
-          if (isEol) return value;
+          if (isEol) {
+            // remove any whitespace at the end (ignored in quoteless strings)
+            return value.trim();
+          }
         }
         value += ch;
       }
 
-      error("Bad value");
+      error("End of input while parsing a value");
     };
 
     var getComment = function (wat) {
@@ -374,6 +377,7 @@ var Hjson = (function () {
 
     var array = function () {
       // Parse an array value.
+      // assumeing ch === '['
 
       var array = [];
       var kw, wat;
@@ -382,30 +386,30 @@ var Hjson = (function () {
         array.__WSC__ = kw = [];
       }
 
-      if (ch === '[') {
+      next();
+      wat = at;
+      white();
+      if (kw) kw.push(getComment(wat));
+      if (ch === ']') {
         next();
+        return array;  // empty array
+      }
+
+      while (ch) {
+        array.push(value());
         wat = at;
         white();
+        // in Hjson the comma is optional and trailing commas are allowed
+        if (ch === ',') { next(); wat = at; white(); }
         if (kw) kw.push(getComment(wat));
         if (ch === ']') {
           next();
-          return array;  // empty array
+          return array;
         }
-        while (ch) {
-          array.push(value());
-          wat = at;
-          white();
-          // in Hjson the comma is optional and trailing commas are allowed
-          if (ch === ',') { next(); wat = at; white(); }
-          if (kw) kw.push(getComment(wat));
-          if (ch === ']') {
-            next();
-            return array;
-          }
-          white();
-        }
+        white();
       }
-      error("Bad array");
+
+      error("End of input while parsing an array (did you forget a closing ']'?)");
     };
 
     var object = function (withoutBraces) {
@@ -422,7 +426,7 @@ var Hjson = (function () {
       function pushWhite(key) { kw.c[key]=getComment(wat); if (key) kw.o.push(key); }
 
       if (!withoutBraces) {
-        if (ch !== '{') return error("Bad object");
+        // assuming ch === '{'
         next();
         wat = at;
       }
@@ -453,7 +457,7 @@ var Hjson = (function () {
       }
 
       if (withoutBraces) return object;
-      else error("Bad object");
+      else error("End of input while parsing an object (did you forget a closing '}'?)");
     };
 
     var value = function () {
@@ -479,10 +483,9 @@ var Hjson = (function () {
 
       // look if we are dealing with a single JSON value (true/false/null/num/"")
       // if it is multiline we assume it's a Hjson object without root braces.
-      var i, lines = 0;
-      // length - 1 to ignore \n suffix
-      for (i = 0; i < text.length - 1; i++) if (text[i] === '\n') { lines++; break; }
-      return lines ? object(true) : value();
+      for (var i = 0; i < text.length; i++)
+        if (text[i] === '\n') return object(true);
+      return value();
     };
 
     // Return the hjson_parse function. It will have access to all of the above
@@ -497,7 +500,7 @@ var Hjson = (function () {
       ch = ' ';
       result = rootValue();
       white();
-      if (ch) error("Syntax error");
+      if (ch) error("Syntax error, found trailing characters");
 
       return result;
     };
@@ -774,8 +777,8 @@ var Hjson = (function () {
     setEndOfLine: function(eol) {
       if (eol === '\n' || eol === '\r\n') EOL = eol;
     },
-    bracesSameLine: function() { return bracesSameLine; },
-    setBracesSameLine: function(v) { bracesSameLine = v; },
+    bracesSameLine: function() { return defaultBracesSameLine; },
+    setBracesSameLine: function(v) { defaultBracesSameLine = v; },
 
     // round trip shortcut
     rt: {
