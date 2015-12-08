@@ -37,15 +37,13 @@ Glad you asked. Actually you don't need to do that!
 
 **"Now I forgot the comma at the end."**
 
-So you did. But lucky for you, in Hjson they are only required if two or more values are on the same line.
+So you did. But Hjson does not mind as long as you put each value on a new line.
 
 ```
 {
   one: 1
   two: 2
-  # only multiple values on
-  # the same line need them:
-  array: [1,2,3]
+  three: 4 # oops
 }
 ```
 
@@ -58,8 +56,10 @@ You are right. Let's make quotes for strings optional as well.
 ```
 {
   text: look ma, no quotes!
-  # quoteless strings include everything
-  # up to the end of the line (so no comma).
+
+  # To make your life easy, put the next
+  # value or comment on a new line.
+  # It's also easier to read!
 }
 ```
 
@@ -77,7 +77,8 @@ No, escapes are gone from unquoted strings.
   # quotes in the content need no escapes
   inject: <div class="important"></div>
 
-  # escapes work like in JSON inside quotes
+  # inside quotes, escapes work
+  # just like in JSON
   escape: "\\ \n \t \""
 }
 ```
@@ -152,6 +153,8 @@ Both HOCON and YAML make the mistake of implementing too many features (like anc
 **"Can Hjson keep my comments when updating a config file?"**
 
 Yes, Hjson allows you to round-trip your data, including your comments.
+
+\* But not yet with all implementations, PRs welcome :)
 
 ```
 var data = Hjson.rt.parse(text);
