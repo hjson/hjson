@@ -26,17 +26,17 @@
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quotes">Quotes</h3><h4><strong>"Why do I have to place key names in quotes?"</strong></h4><p>Glad you asked. Actually you don't need to do that!</p></div><div class="bb"><pre><code>{
   key: "value"
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="commas">Commas</h3><h4><strong>"Now I forgot the comma at the end."</strong></h4><p>So you did. But lucky for you, in Hjson they are only required if two or more values are on the same line.</p></div><div class="bb"><pre><code>{
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="commas">Commas</h3><h4><strong>"Now I forgot the comma at the end."</strong></h4><p>So you did. But Hjson does not mind as long as you put each value on a new line.</p></div><div class="bb"><pre><code>{
   one: 1
   two: 2
-  # only multiple values on
-  # the same line need them:
-  array: [1,2,3]
+  three: 4 # oops
 }
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quoteless">Quoteless</h3><h4><strong>"Come to think of it, why do I have to place strings in quotes?"</strong></h4><p>You are right. Let's make quotes for strings optional as well.</p></div><div class="bb"><pre><code>{
   text: look ma, no quotes!
-  # quoteless strings include everything
-  # up to the end of the line (so no comma).
+
+  # To make your life easy, put the next
+  # value or comment on a new line.
+  # It's also easier to read!
 }
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="escapes">Escapes</h3><h4><strong>"When there are no quotes, do I need escapes?"</strong></h4><p>No, escapes are gone from unquoted strings.</p></div><div class="bb"><pre><code>{
   # write a regex without escaping the escape
@@ -45,7 +45,8 @@
   # quotes in the content need no escapes
   inject: &lt;div class="important"&gt;&lt;/div&gt;
 
-  # escapes work like in JSON inside quotes
+  # inside quotes, escapes work
+  # just like in JSON
   escape: "\\ \n \t \""
 }
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="multiline">Multiline</h3><h4><strong>"Multiline strings are kind of hard to read."</strong></h4><p><code>"I wonder\nwhy you\nsay that."</code> Hjson will let you write them with proper whitespace handling.</p></div><div class="bb"><pre><code>{
@@ -72,7 +73,7 @@
  * A data format for Humans
  * should be lean and simple.
  */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="round-trip">Round trip</h3><h4><strong>"Can Hjson keep my comments when updating a config file?"</strong></h4><p>Yes, Hjson allows you to round-trip your data, including your comments.</p></div><div class="bb"><pre><code>var data = Hjson.rt.parse(text);
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="round-trip">Round trip</h3><h4><strong>"Can Hjson keep my comments when updating a config file?"</strong></h4><p>Yes, Hjson allows you to round-trip your data, including your comments.</p><p>* But not yet with all implementations, PRs welcome :)</p></div><div class="bb"><pre><code>var data = Hjson.rt.parse(text);
 
 // use data like a normal object
 data.foo = "text";
@@ -80,6 +81,7 @@ data.foo = "text";
 // stringify with comments
 text = Hjson.rt.stringify(data);
 </code></pre></div><div class="clear"></div></div>
+
 
 
 
