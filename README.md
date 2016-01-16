@@ -112,6 +112,7 @@ JavaScript, Node.js & Browser | [GitHub](https://github.com/laktak/hjson-js) | [
 Java     | [GitHub](https://github.com/laktak/hjson-java) | [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
 Python   | [GitHub](https://github.com/laktak/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
 C#, .Net | [GitHub](https://github.com/laktak/hjson-cs) | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
+PHP      | [wanted](https://github.com/laktak/hjson/issues/19) | See this [issue](https://github.com/laktak/hjson/issues/19#issuecomment-171825899)!
 
 Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson to another platform/language.
 
