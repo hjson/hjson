@@ -3,5 +3,7 @@
   "_unquoted": "test",
   "test-key": "test",
   "-test": "test",
-  ".key": "test"
+  ".key": "test",
+  "trailing": "test",
+  "trailing2": "test"
 }
