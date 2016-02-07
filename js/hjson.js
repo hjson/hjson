@@ -1,5 +1,5 @@
 /*! @preserve
- * Hjson v1.7.4
+ * Hjson v1.7.6
  * http://hjson.org
  *
  * Copyright 2014, 2015 Christian Zangl, MIT license
@@ -295,16 +295,20 @@ var Hjson = (function () {
 
       if (ch === '"') return string();
 
-      var name = "";
+      var name = "", start = at, space = -1;
       while (true) {
         if (ch === ':') {
           if (!name) error("Found ':' but no key name (for an empty key name use quotes)");
+          else if (space >=0 && space !== name.length) { at = start + space; error("Found whitespace in your key name (use quotes to include)"); }
           return name;
         }
-        else if (ch <= ' ' || ch === '{' || ch === '}' || ch === '[' || ch === ']' || ch === ',')
+        else if (ch <= ' ') {
+          if (space < 0) space = name.length;
+        }
+        else if (ch === '{' || ch === '}' || ch === '[' || ch === ']' || ch === ',') {
           error("Found '" + ch + "' where a key name was expected (check your syntax or use quotes if the key name includes {}[],: or whitespace)");
-
-        name += ch;
+        }
+        else name += ch;
         next();
       }
     };
