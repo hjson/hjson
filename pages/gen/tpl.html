@@ -6,6 +6,7 @@
   <meta name="description" content="Hjson is a configuration file format that caters to humans and helps reduce errors. It's JSON with comments but without trailing comma problems.">
   <meta name="viewport" content="width=device-width">
   <link rel="canonical" href="http://hjson.org/"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/md.css" />
   <link rel="stylesheet" type="text/css" href="css/pg.css" />
   <script type="text/javascript">if (window.location.href.indexOf("github.io")>0) window.location.href="http://hjson.org";</script>
@@ -13,14 +14,51 @@
 
 <body>
 
-<div id="forkongithub"><a href="https://github.com/laktak/hjson">Star on GitHub</a></div>
+<script src="http://code.jquery.netdna-cdn.com/jquery-2.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#get-hjson">Get Hjson</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a class="btn navbar-btn btn-danger" href="try.html">Try It!</a>
+        </li>
+        <li>
+          <a href="#tools">Tools</a>
+        </li>
+        <li>
+          <a href="#cheat-sheet">Cheat Sheet</a>
+        </li>
+        <li>
+          <a href="https://github.com/laktak/hjson/issues">Issues</a>
+        </li>
+        <li>
+          <a href="https://github.com/laktak">Contact</a>
+        </li>
+        <li>
+          <a aria-label="Star laktak/hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/laktak/hjson#stargazers_count" data-count-href="/laktak/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/laktak/hjson" class="github-button">Star</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
 
 <div class="content">
 %%%
-</div>
-
-<div class="footer">
-  <a href="https://github.com/laktak/hjson/issues">Feedback &amp; Issues</a> | <a href="https://github.com/laktak">Contact</a>
 </div>
 
 </body>
@@ -34,6 +72,11 @@
   ga('create', 'UA-49208230-1', 'auto');
   ga('send', 'pageview');
 
+  $(document).on("click", ".navbar-collapse.in", function(e) {
+    if ($(e.target).is("a") && $(e.target).attr("class")!="dropdown-toggle")
+      $(this).collapse("hide");
+  });
 </script>
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
 </html>

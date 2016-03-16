@@ -5,7 +5,7 @@
 
 # Hjson, the Human JSON
 
-A configuration file format that caters to humans and helps reduce the errors they make.
+A configuration file format for humans. Relaxed syntax, less mistakes, more comments.
 
 ## Intro
 
@@ -25,6 +25,9 @@ A configuration file format that caters to humans and helps reduce the errors th
   anything: ?
 
   # yes, commas are optional!
+
+  # Obviously you can always use standard JSON syntax as well:
+  favNumbers: [ 1, 2, 3, 6, 42 ]
 }
 ```
 
@@ -104,15 +107,22 @@ Simple rules to remember:
 
   Hjson does not have a header but if you want to indicate the file type (in an rc file or in a database) you can use `#hjson` in the first line.
 
-## Platforms
+## Get Hjson
 
 Platform | Source | Package
 -------- | ------ | -------
-JavaScript, Node.js & Browser | [GitHub](https://github.com/laktak/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
-Java     | [GitHub](https://github.com/laktak/hjson-java) | [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
-Python   | [GitHub](https://github.com/laktak/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
-C#, .Net | [GitHub](https://github.com/laktak/hjson-cs) | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
-PHP      | [wanted](https://github.com/laktak/hjson/issues/19) | See this [issue](https://github.com/laktak/hjson/issues/19#issuecomment-171825899)!
+JavaScript, Node.js & Browser | [hjson-js](https://github.com/laktak/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
+Java     | [hjson-java](https://github.com/laktak/hjson-java) | [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
+Python   | [hjson-py](https://github.com/laktak/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
+C#, .Net | [hjson-cs](https://github.com/laktak/hjson-cs) | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
+PHP      | [hjson-php](https://github.com/laktak/hjson-php) | [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson)
+
+#### Partial implementations
+
+Platform | Description | Source |
+-------- | ------ | -------
+Go       | Parser and unmarshaller using a [slightly different syntax](https://github.com/client9/xson/tree/master/hjson#differences-andor-bugs) | [xson](https://github.com/client9/xson)
+C        | jzon variant, based on Hjson | [jzon-c](https://github.com/KarlZylinski/jzon-c)
 
 Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson to another platform/language.
 
@@ -120,9 +130,9 @@ Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson
 
 Name     | Source | Package
 -------- | ------ | -------
-Atom | [GitHub](https://github.com/dannyfritz/language-hjson) | [package](https://atom.io/packages/language-hjson)
-Sublime Text / TextMate | [GitHub](https://github.com/laktak/sublime-hjson) | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
-Notepad++    | [GitHub](https://github.com/laktak/npp-hjson) | see source
+Atom | [language-hjson](https://github.com/dannyfritz/language-hjson) | [package](https://atom.io/packages/language-hjson)
+Sublime Text / TextMate | [sublime-hjson](https://github.com/laktak/sublime-hjson) | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
+Notepad++    | [npp-hjson](https://github.com/laktak/npp-hjson) | see source
 
 #### Integrated with
 

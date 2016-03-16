@@ -36,6 +36,7 @@ $(function()
 
   g.insertAfter($("h2").first());
 
+  /*
   var getIt=$("<div>").addClass("get");
   $('<a class="xbt" href="#platforms">Get Hjson!</a>').appendTo(getIt);
   $('<a class="xbt xbt2" href="try.html">Try It!</a>').appendTo(getIt);
@@ -47,6 +48,7 @@ $(function()
   info.append(" - ");
   $('<a href="#cheat-sheet">Cheat Sheet</a>').appendTo(info);
   info.insertBefore($("h2").first());
+  */
 
   //footnote
   $("a[href='#syntax']").addClass("ref");
