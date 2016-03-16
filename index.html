@@ -4,6 +4,7 @@
   <meta name="description" content="Hjson is a configuration file format that caters to humans and helps reduce errors. It's JSON with comments but without trailing comma problems.">
   <meta name="viewport" content="width=device-width">
   <link rel="canonical" href="http://hjson.org/">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/md.css">
   <link rel="stylesheet" type="text/css" href="css/pg.css">
   <script type="text/javascript">if (window.location.href.indexOf("github.io")>0) window.location.href="http://hjson.org";</script>
@@ -11,12 +12,53 @@
 
 <body>
 
-<div id="forkongithub"><a href="https://github.com/laktak/hjson">Star on GitHub</a></div>
+<script src="http://code.jquery.netdna-cdn.com/jquery-2.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#get-hjson">Get Hjson</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a class="btn navbar-btn btn-danger" href="try.html">Try It!</a>
+        </li>
+        <li>
+          <a href="#tools">Tools</a>
+        </li>
+        <li>
+          <a href="#cheat-sheet">Cheat Sheet</a>
+        </li>
+        <li>
+          <a href="https://github.com/laktak/hjson/issues">Issues</a>
+        </li>
+        <li>
+          <a href="https://github.com/laktak">Contact</a>
+        </li>
+        <li>
+          <a aria-label="Star laktak/hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/laktak/hjson#stargazers_count" data-count-href="/laktak/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/laktak/hjson" class="github-button">Star</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
 
 <div class="content">
 <h1 id="hjson-the-human-json">Hjson, the Human JSON</h1>
-<p><span class="big">A configuration file format that caters to humans and helps reduce the errors they make.</span></p>
-<div class="get"><a class="xbt" href="#platforms">Get Hjson!</a><a class="xbt xbt2" href="try.html">Try It!</a></div><div class="info"><a href="#tools">Tools</a> - <a href="#cheat-sheet">Cheat Sheet</a></div><h2 id="intro">Intro</h2><div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
+<p><span class="big">A configuration file format for humans. Relaxed syntax, less mistakes, more comments.</span></p>
+<h2 id="intro">Intro</h2><div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
   # specify rate in requests/second
   "rate": 1000
 
@@ -172,7 +214,7 @@ text = Hjson.rt.stringify(data);
 <p>Hjson does not have a header but if you want to indicate the file type (in an rc file or in a database) you can use <code>#hjson</code> in the first line.</p>
 </li>
 </ul>
-<h2 id="platforms">Platforms</h2>
+<h2 id="get-hjson">Get Hjson</h2>
 <table>
 <thead>
 <tr>
@@ -184,28 +226,50 @@ text = Hjson.rt.stringify(data);
 <tbody>
 <tr>
 <td>JavaScript, Node.js &amp; Browser</td>
-<td><a href="https://github.com/laktak/hjson-js">GitHub</a></td>
+<td><a href="https://github.com/laktak/hjson-js">hjson-js</a></td>
 <td><a href="http://www.npmjs.com/package/hjson"><img src="https://img.shields.io/npm/v/hjson.svg?style=flat-square" alt="NPM version"></a></td>
 </tr>
 <tr>
 <td>Java</td>
-<td><a href="https://github.com/laktak/hjson-java">GitHub</a></td>
+<td><a href="https://github.com/laktak/hjson-java">hjson-java</a></td>
 <td><a href="http://search.maven.org/#search|ga|1|g%3A%22org.hjson%22%20a%3A%22hjson%22"><img src="https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square" alt="Maven Central"></a></td>
 </tr>
 <tr>
 <td>Python</td>
-<td><a href="https://github.com/laktak/hjson-py">GitHub</a></td>
+<td><a href="https://github.com/laktak/hjson-py">hjson-py</a></td>
 <td><a href="https://pypi.python.org/pypi/hjson"><img src="https://img.shields.io/pypi/v/hjson.svg?style=flat-square" alt="PyPI version"></a></td>
 </tr>
 <tr>
 <td>C#, .Net</td>
-<td><a href="https://github.com/laktak/hjson-cs">GitHub</a></td>
+<td><a href="https://github.com/laktak/hjson-cs">hjson-cs</a></td>
 <td><a href="https://www.nuget.org/packages/Hjson/"><img src="https://img.shields.io/nuget/v/Hjson.svg?style=flat-square" alt="nuget version"></a></td>
 </tr>
 <tr>
 <td>PHP</td>
-<td><a href="https://github.com/laktak/hjson/issues/19">wanted</a></td>
-<td>See this <a href="https://github.com/laktak/hjson/issues/19#issuecomment-171825899">issue</a>!</td>
+<td><a href="https://github.com/laktak/hjson-php">hjson-php</a></td>
+<td><a href="https://packagist.org/packages/laktak/hjson"><img src="https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square" alt="Packagist"></a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="partial-implementations">Partial implementations</h4>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Description</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Go</td>
+<td>Parser and unmarshaller using a <a href="https://github.com/client9/xson/tree/master/hjson#differences-andor-bugs">slightly different syntax</a></td>
+<td><a href="https://github.com/client9/xson">xson</a></td>
+</tr>
+<tr>
+<td>C</td>
+<td>jzon variant, based on Hjson</td>
+<td><a href="https://github.com/KarlZylinski/jzon-c">jzon-c</a></td>
 </tr>
 </tbody>
 </table>
@@ -222,17 +286,17 @@ text = Hjson.rt.stringify(data);
 <tbody>
 <tr>
 <td>Atom</td>
-<td><a href="https://github.com/dannyfritz/language-hjson">GitHub</a></td>
+<td><a href="https://github.com/dannyfritz/language-hjson">language-hjson</a></td>
 <td><a href="https://atom.io/packages/language-hjson">package</a></td>
 </tr>
 <tr>
 <td>Sublime Text / TextMate</td>
-<td><a href="https://github.com/laktak/sublime-hjson">GitHub</a></td>
+<td><a href="https://github.com/laktak/sublime-hjson">sublime-hjson</a></td>
 <td><a href="https://packagecontrol.io/packages/Hjson">packagecontrol.io</a></td>
 </tr>
 <tr>
 <td>Notepad++</td>
-<td><a href="https://github.com/laktak/npp-hjson">GitHub</a></td>
+<td><a href="https://github.com/laktak/npp-hjson">npp-hjson</a></td>
 <td>see source</td>
 </tr>
 </tbody>
@@ -313,10 +377,6 @@ text = Hjson.rt.stringify(data);
 
 </div>
 
-<div class="footer">
-  <a href="https://github.com/laktak/hjson/issues">Feedback &amp; Issues</a> | <a href="https://github.com/laktak">Contact</a>
-</div>
-
 
 
 <script>
@@ -328,7 +388,12 @@ text = Hjson.rt.stringify(data);
   ga('create', 'UA-49208230-1', 'auto');
   ga('send', 'pageview');
 
+  $(document).on("click", ".navbar-collapse.in", function(e) {
+    if ($(e.target).is("a") && $(e.target).attr("class")!="dropdown-toggle")
+      $(this).collapse("hide");
+  });
 </script>
+<script async="" defer="" id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
 
 </body><script class="jsdom" src="node_modules/jquery/dist/jquery.js"></script><script class="jsdom" src="dom.js"></script></html>

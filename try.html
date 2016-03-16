@@ -14,24 +14,52 @@
       height: 200px;
     }
   </style>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 
 <body>
 
-<div id="forkongithub"><a href="https://github.com/laktak/hjson">Star on GitHub</a></div>
+<script src="http://code.jquery.netdna-cdn.com/jquery-2.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href=".">Hjson</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="javascript:void(0)" onclick="reset();">Reset Demo</a>
+        </li>
+        <li>
+          <a aria-label="Star laktak/hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/laktak/hjson#stargazers_count" data-count-href="/laktak/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/laktak/hjson" class="github-button">Star</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
 
 <div class="content">
   <h1 id="hjson-the-human-json">Hjson, the Human JSON</h1>
 
   <p>Live demo. Type either into the Hjson or JSON input to convert to the other format.</p>
 
-  <div class="get"><a class="xbt" href=".">Home</a><a class="xbt xbt2" href="javascript:void(0)" onclick="reset();">Reset</a></div>
-
   <h2>Hjson</h2>
   <div id="hjson">{
   # comments are useful
-  "rate": 1000 # specify in requests/second
+  # specify rate in requests/second
+  "rate": 1000
 
   // maybe you prefer js style comments
   /* or if you feel old fashioned */
@@ -39,7 +67,7 @@
   # key names do not need to be placed in quotes
   key: "value"
 
-  # most of the time you don't need quotes for strings
+  # you don't need quotes for strings
   text: look ma, no quotes!
 
   # commas are optional
@@ -64,20 +92,13 @@
     This is so much better.
     '''
 
-  # Arrays are sometimes easier to read
-  # when written on a single line.
+  # Obviously you can always use standard JSON syntax as well:
   favNumbers: [ 1, 2, 3, 6, 42 ]
 }</div>
 
 <h2>JSON</h2>
   <div id="json"></div>
-
 </div>
-
-<div class="footer">
-  <a href="https://github.com/laktak/hjson/issues">Feedback &amp; Issues</a> | <a href="https://github.com/laktak">Contact</a>
-</div>
-
 
 <script src="js/hjson.js" type="text/javascript" charset="utf-8"></script>
 <script src="http://ajaxorg.github.io/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -135,6 +156,7 @@
   ga('send', 'pageview');
 
 </script>
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
 </body>
 </html>

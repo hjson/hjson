@@ -21,7 +21,7 @@ body
   .content
   {
     margin: 2em auto;
-    width: 720px;
+    width: 780px;
     border: solid 1px #e2e0d8;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -373,7 +373,7 @@ body .highlight pre,body pre
 {
   background-color:#f8f8f8;
   border:1px solid #ddd;
-  font-size:13px;
+  font-size:12px;
   line-height:19px;
   overflow:auto;
   padding:6px 10px;
