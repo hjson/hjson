@@ -1,11 +1,9 @@
 // see mdgen.js
 
-$(function()
-{
+$(function() {
   var g;
 
-  $("h3").each(function()
-  {
+  $("h3").each(function() {
     var x=$(this);
 
     if (!g) g=$("<div>").addClass("sam");
@@ -16,13 +14,11 @@ $(function()
     $("<div>").addClass("clear").appendTo(g);
 
     var first=true;
-    for (;;)
-    {
+    for (;;) {
       var y=x.next();
       x.remove();
 
-      if (first && !x.is("h3"))
-      {
+      if (first && !x.is("h3")) {
         first=false;
         x=$('<h4>'+x.html()+'</h4>');
       }

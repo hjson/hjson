@@ -27,6 +27,7 @@ function mkHtml(source, target) {
     var $=window.$;
     $(function() {
       html=window.document.documentElement.outerHTML;
+      html=html.replace(/<\/body>.*<\/html>/g, '</body></html>');
       fs.writeFileSync(target, html);
       console.log(target);
     });
