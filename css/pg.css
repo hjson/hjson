@@ -75,3 +75,15 @@ body {
   height:70px;
   margin:-70px 0 0;
 }
+
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
