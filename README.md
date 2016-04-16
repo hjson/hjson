@@ -6,7 +6,7 @@
 
 # Hjson, the Human JSON
 
-A configuration file format for humans. Relaxed syntax, less mistakes, more comments.
+A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.
 
 ## Intro
 
