@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hjson, the Human JSON</title>
+  <meta name="description" content="Hjson is a configuration file format that caters to humans and helps reduce errors. It's JSON with comments but without trailing comma problems.">
+  <meta name="viewport" content="width=device-width">
+  <link rel="canonical" href="https://hjson.org/"/>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/md.css" />
+  <link rel="stylesheet" type="text/css" href="css/pg.css" />
+  <script type="text/javascript">if (window.location.href.indexOf("github.io")>0) window.location.href="https://hjson.org";</script>
+</head>
+
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href=".">Hjson</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a class="btn navbar-btn btn-success" href="download.html">Download</a>
+        </li>
+        <li>
+          <a href="syntax.html">Syntax</a>
+        </li>
+        <li>
+          <a class="btn navbar-btn btn-danger" href="try.html">Try It!</a>
+        </li>
+        <li>
+          <a href="https://github.com/laktak/hjson/issues">Issues</a>
+        </li>
+        <li>
+          <a href="history.html">History</a>
+        </li>
+        <li>
+          <a aria-label="Star laktak/hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/laktak/hjson#stargazers_count" data-count-href="/laktak/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/laktak/hjson" class="github-button">Star</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<div class="content">
+<h2 id="get-hjson">Get Hjson</h2>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Source</th>
+<th>Package</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JavaScript, Node.js &amp; Browser</td>
+<td><a href="https://github.com/laktak/hjson-js">hjson-js</a></td>
+<td><a href="http://www.npmjs.com/package/hjson"><img src="https://img.shields.io/npm/v/hjson.svg?style=flat-square" alt="NPM version"></a></td>
+</tr>
+<tr>
+<td>Java</td>
+<td><a href="https://github.com/laktak/hjson-java">hjson-java</a></td>
+<td><a href="http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22"><img src="https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square" alt="Maven Central"></a></td>
+</tr>
+<tr>
+<td>Python</td>
+<td><a href="https://github.com/laktak/hjson-py">hjson-py</a></td>
+<td><a href="https://pypi.python.org/pypi/hjson"><img src="https://img.shields.io/pypi/v/hjson.svg?style=flat-square" alt="PyPI version"></a></td>
+</tr>
+<tr>
+<td>C#, .Net</td>
+<td><a href="https://github.com/laktak/hjson-cs">hjson-cs</a></td>
+<td><a href="https://www.nuget.org/packages/Hjson/"><img src="https://img.shields.io/nuget/v/Hjson.svg?style=flat-square" alt="nuget version"></a></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td><a href="https://github.com/laktak/hjson-php">hjson-php</a></td>
+<td><a href="https://packagist.org/packages/laktak/hjson"><img src="https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square" alt="Packagist"></a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="partial-implementations">Partial implementations</h4>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Description</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Go</td>
+<td>Parser and unmarshaller using a <a href="https://github.com/client9/xson/tree/master/hjson#differences-andor-bugs">slightly different syntax</a></td>
+<td><a href="https://github.com/client9/xson">xson</a></td>
+</tr>
+<tr>
+<td>C</td>
+<td>jzon variant, based on Hjson</td>
+<td><a href="https://github.com/KarlZylinski/jzon-c">jzon-c</a></td>
+</tr>
+</tbody>
+</table>
+<p>Please <a href="https://github.com/laktak/hjson/issues">open an issue</a> if you port Hjson to another platform/language.</p>
+<h2 id="tools">Tools</h2>
+<p>All versions work on Linux, OS X &amp; Windows and allow you to convert Hjson from/to JSON.</p>
+<p><a href="http://nodejs.org/"><strong>node.js</strong></a></p>
+<p>Install with <code>npm i hjson -g</code></p>
+<p><code>hjson file.json</code> will convert to Hjson.<br><code>hjson -j file.hjson</code> will convert to JSON.</p>
+<p><a href="https://www.python.org/"><strong>Python</strong></a></p>
+<p>Install with <code>pip install hjson</code></p>
+<p><code>python -m hjson.tool file.json</code> will convert to Hjson.<br><code>python -m hjson.tool -j file.hjson</code> will convert to JSON.</p>
+<p><a href="http://www.visualstudio.com/en-US/products/visual-studio-express-vs"><strong>C# .Net</strong></a> &amp; <a href="http://www.mono-project.com/"><strong>Mono</strong></a></p>
+<p>As Nuget does not install commandline tools</p>
+<ul>
+<li>please build <a href="https://github.com/laktak/hjson-cs">from source</a></li>
+<li>and add <code>cli\bin\Release</code> to your path.</li>
+</ul>
+<p><code>hjsonc file.json</code> will convert to Hjson.<br><code>hjsonc -j file.hjson</code> will convert to JSON.</p>
+<h2 id="editor-syntax">Editor Syntax</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Source</th>
+<th>Package</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Atom</td>
+<td><a href="https://github.com/dannyfritz/language-hjson">language-hjson</a></td>
+<td><a href="https://atom.io/packages/language-hjson">package</a></td>
+</tr>
+<tr>
+<td>Sublime Text / TextMate</td>
+<td><a href="https://github.com/laktak/sublime-hjson">sublime-hjson</a></td>
+<td><a href="https://packagecontrol.io/packages/Hjson">packagecontrol.io</a></td>
+</tr>
+<tr>
+<td>Notepad++</td>
+<td><a href="https://github.com/laktak/npp-hjson">npp-hjson</a></td>
+<td>see source</td>
+</tr>
+</tbody>
+</table>
+<h2 id="integrated-with">Integrated with</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>any-json</strong>: convert (almost) anything to JSON</td>
+<td><a href="http://www.npmjs.com/package/any-json"><img src="https://img.shields.io/npm/v/any-json.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a href="https://github.com/laktak/any-json#usage">see readme</a></td>
+</tr>
+<tr>
+<td><strong>gulp</strong>: the streaming build system</td>
+<td><a href="http://www.npmjs.com/package/gulp-hjson"><img src="https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a href="https://github.com/laktak/gulp-hjson#usage">see readme</a></td>
+</tr>
+<tr>
+<td><strong>grunt</strong>: the JavaScript task runner</td>
+<td><a href="http://www.npmjs.com/package/grunt-hjson"><img src="https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a href="https://github.com/laktak/grunt-hjson#usage">see readme</a></td>
+</tr>
+<tr>
+<td><strong>hjsonify</strong>: a browserify transform to require Hjson files</td>
+<td><a href="http://www.npmjs.com/package/hjsonify"><img src="https://img.shields.io/npm/v/hjsonify.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a href="https://github.com/dannyfritz/hjsonify#usage">see readme</a></td>
+</tr>
+<tr>
+<td><strong>node-config</strong>: node.js application configuration</td>
+<td><a href="http://www.npmjs.com/package/config"><img src="https://img.shields.io/npm/v/config.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a href="https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson">see wiki</a></td>
+</tr>
+<tr>
+<td><strong>nconf</strong>: hierarchical node.js configuration</td>
+<td><a href="http://www.npmjs.com/package/nconf"><img src="https://img.shields.io/npm/v/nconf.svg?style=flat-square" alt="NPM version"></a></td>
+<td><code>nconf.file({ file: &#39;file.hjson&#39;,</code><br><code>format: require(&#39;hjson&#39;).rt });</code><br><code>// round trips your comments</code></td>
+</tr>
+<tr>
+<td><strong>rc</strong>: non-configurable configuration loader for lazy people.</td>
+<td><a href="http://www.npmjs.com/package/rc"><img src="https://img.shields.io/npm/v/rc.svg?style=flat-square" alt="NPM version"></a></td>
+<td><code>var conf=require(&#39;rc&#39;)(&#39;appname&#39;, {/*defaults*/},</code><br><code>null, require(&#39;hjson&#39;).parse);</code></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<div class="footer">
+  <a href="download.html">Download</a>
+  <a href="syntax.html">Syntax</a>
+  <a href="try.html">Try It!</a>
+  <a href="https://github.com/laktak/hjson/issues">Issues</a>
+  <a href="history.html">History</a>
+</div>
+
+</body>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49208230-1', 'auto');
+  ga('send', 'pageview');
+
+  $(document).on("click", ".navbar-collapse.in", function(e) {
+    if ($(e.target).is("a") && $(e.target).attr("class")!="dropdown-toggle")
+      $(this).collapse("hide");
+  });
+</script>
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+
+</html>

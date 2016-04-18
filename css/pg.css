@@ -58,7 +58,7 @@ body {
   line-height: 0;
 }
 
-.navbar-nav>li>a.btn-danger {
+.navbar-nav>li>a.btn-danger, .navbar-nav>li>a.btn-success {
   color: #fff;
 }
 
@@ -86,4 +86,21 @@ body {
   display: block;
   margin-right: auto;
   margin-left: auto;
+}
+
+.footer {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.footer > a:after {
+  content: "-";
+  display: inline-block;
+  text-decoration: none;
+  margin: 5px;
+}
+
+.footer > a:last-child:after {
+  display: none;
 }

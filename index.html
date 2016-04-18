@@ -26,25 +26,25 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#get-hjson">Get Hjson</a>
+      <a class="navbar-brand" href=".">Hjson</a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>
+          <a class="btn navbar-btn btn-success" href="download.html">Download</a>
+        </li>
+        <li>
+          <a href="syntax.html">Syntax</a>
+        </li>
+        <li>
           <a class="btn navbar-btn btn-danger" href="try.html">Try It!</a>
-        </li>
-        <li>
-          <a href="#tools">Tools</a>
-        </li>
-        <li>
-          <a href="#cheat-sheet">Cheat Sheet</a>
         </li>
         <li>
           <a href="https://github.com/laktak/hjson/issues">Issues</a>
         </li>
         <li>
-          <a href="https://github.com/laktak">Contact</a>
+          <a href="history.html">History</a>
         </li>
         <li>
           <a aria-label="Star laktak/hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/laktak/hjson#stargazers_count" data-count-href="/laktak/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/laktak/hjson" class="github-button">Star</a>
@@ -57,8 +57,7 @@
 </nav>
 
 <div class="content">
-<img src="hjson1.gif" class="img-responsive center-block">
-
+<p><img src="hjson1.gif" class="img-responsive center-block"></p>
 <h1 id="hjson-the-human-json">Hjson, the Human JSON</h1>
 <p><span class="big">A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.</span></p>
 <h2 id="intro">Intro</h2><div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
@@ -114,9 +113,19 @@
  * For protocols and anything
  * else use JSON.
  */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="yaml">YAML</h3><h4><strong>"OK but still, do we need another YAML/HOCON/etc.?"</strong></h4><p>YAML expresses structure through whitespace. Significant whitespace is a common source of mistakes that we shouldn't have to deal with.</p><p>Both HOCON and YAML make the mistake of implementing too many features (like anchors, sustitutions or concatenation).</p></div><div class="bb"><pre><code>/*
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="yaml">YAML</h3><h4><strong>"OK but still, do we need another YAML/HOCON/etc.?"</strong></h4><p>YAML expresses structure through whitespace. Significant whitespace is a common source of mistakes that we shouldn't have to deal with.</p><p>Both HOCON and YAML make the mistake of implementing too many features (like anchors, sustitutions or concatenation).</p><p>JSON5 adds "some minimal syntax features directly from ECMAScript 5". It's focused on developers.</p><p>Using JSON for config files is an antipattern. But <a href="https://docs.npmjs.com/files/package.json">apparently</a> it's still better than YAML. Hjson is trying to change that.</p></div><div class="bb"><pre><code>/*
  * A data format for Humans
  * should be lean and simple.
+ *
+ * Human !== Developer
+ * Human != Developer
+ * Human &lt;&gt; Developer
+ * Human .NE. Developer
+ * Human ne Developer
+ * Human /= Developer
+ * Human '= Developer
+ * Human ~= Developer
+ * Human -ne Developer
  */
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="round-trip">Round trip</h3><h4><strong>"Can Hjson keep my comments when updating a config file?"</strong></h4><p>Yes, Hjson allows you to round-trip your data, including your comments.</p><p>* But not yet with all implementations, PRs welcome :)</p></div><div class="bb"><pre><code>var data = Hjson.rt.parse(text);
 
@@ -159,225 +168,17 @@ text = Hjson.rt.stringify(data);
 
 
 
-<h2 id="syntax">Syntax</h2>
-<p>The Hjson syntax is a superset of JSON (<a href="http://json.org/">see json.org</a>) but allows you to</p>
-<ul>
-<li>add <code>#</code>, <code>//</code> or <code>/**/</code> comments,</li>
-<li>omit <code>""</code> for keys,</li>
-<li>omit <code>""</code> for strings,</li>
-<li>omit <code>,</code> at the end of a line and</li>
-<li>use multiline strings with proper whitespace handling.</li>
-</ul>
-<p>You are also allowed to omit the root <code>{}</code> braces for objects.</p>
-<h4 id="cheat-sheet">Cheat Sheet</h4>
-<p>Simple rules to remember:</p>
-<ul>
-<li>if your key includes a JSON control character like <code>{}[],:</code> or space, use quotes</li>
-<li>if your string starts with <code>{</code> or <code>[</code>, use quotes</li>
-<li>remember that quoteless strings include everything up to the end of the line, excluding trailing whitespace.</li>
-</ul>
-<h4 id="details">Details</h4>
-<ul>
-<li><p>Keys</p>
-<p>You only need to add quotes if the key name includes whitespace or any of these characters: <code>{}[],:</code>.</p>
-</li>
-<li><p>Strings</p>
-<p>When you omit quotes the string ends at the newline. Preceding and trailing whitespace is ignored as are escapes.</p>
-<p>A value that is a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> in JSON is parsed as a value. E.g. <code>3</code> is a valid <em>number</em> while <code>3 times</code> is a string.</p>
-<p>Naturally a quoteless string cannot start with <code>{</code> or <code>[</code>.</p>
-<p>Use quotes to have your string handled like in JSON. This also allows you to specify a comment after the string.</p>
-</li>
-<li><p>Multiline Strings</p>
-<ul>
-<li>Start with triple quotes <code>'''</code>, whitespace on the first line is ignored</li>
-<li><code>'''</code> defines the head, on the following lines all whitespace up to this column is ignored</li>
-<li>all other whitespace is assumed to be part of the string.</li>
-<li>ends with triple quotes <code>'''</code>. The last newline is ignored to allow for better formatting.</li>
-</ul>
-<p>A multiline string is OS and file independent. The line feed is always <code>\n</code>.</p>
-</li>
-<li><p>Commas</p>
-<p>Commas are optional at the end of a line. You only need commas to specify multiple values on one line (e.g. <code>[1,2,3]</code>).</p>
-<p>Trailing commas are ignored.</p>
-</li>
-<li><p>Comments</p>
-<p><code>#</code> and <code>//</code> start a single line comment.</p>
-<p><code>/*</code> starts a multiline comment that ends with <code>*/</code>.</p>
-</li>
-<li><p>Root braces</p>
-<p>Can be omitted for objects.</p>
-</li>
-<li><p>Mime Type</p>
-<p><code>text/hjson</code> (pending)</p>
-</li>
-<li><p>File extension</p>
-<p><code>.hjson</code></p>
-</li>
-<li><p>Header</p>
-<p>Hjson does not have a header but if you want to indicate the file type (in an rc file or in a database) you can use <code>#hjson</code> in the first line.</p>
-</li>
-</ul>
-<h2 id="get-hjson">Get Hjson</h2>
-<table>
-<thead>
-<tr>
-<th>Platform</th>
-<th>Source</th>
-<th>Package</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>JavaScript, Node.js &amp; Browser</td>
-<td><a href="https://github.com/laktak/hjson-js">hjson-js</a></td>
-<td><a href="http://www.npmjs.com/package/hjson"><img src="https://img.shields.io/npm/v/hjson.svg?style=flat-square" alt="NPM version"></a></td>
-</tr>
-<tr>
-<td>Java</td>
-<td><a href="https://github.com/laktak/hjson-java">hjson-java</a></td>
-<td><a href="http://search.maven.org/#search|ga|1|g%3A%22org.hjson%22%20a%3A%22hjson%22"><img src="https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square" alt="Maven Central"></a></td>
-</tr>
-<tr>
-<td>Python</td>
-<td><a href="https://github.com/laktak/hjson-py">hjson-py</a></td>
-<td><a href="https://pypi.python.org/pypi/hjson"><img src="https://img.shields.io/pypi/v/hjson.svg?style=flat-square" alt="PyPI version"></a></td>
-</tr>
-<tr>
-<td>C#, .Net</td>
-<td><a href="https://github.com/laktak/hjson-cs">hjson-cs</a></td>
-<td><a href="https://www.nuget.org/packages/Hjson/"><img src="https://img.shields.io/nuget/v/Hjson.svg?style=flat-square" alt="nuget version"></a></td>
-</tr>
-<tr>
-<td>PHP</td>
-<td><a href="https://github.com/laktak/hjson-php">hjson-php</a></td>
-<td><a href="https://packagist.org/packages/laktak/hjson"><img src="https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square" alt="Packagist"></a></td>
-</tr>
-</tbody>
-</table>
-<h4 id="partial-implementations">Partial implementations</h4>
-<table>
-<thead>
-<tr>
-<th>Platform</th>
-<th>Description</th>
-<th>Source</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Go</td>
-<td>Parser and unmarshaller using a <a href="https://github.com/client9/xson/tree/master/hjson#differences-andor-bugs">slightly different syntax</a></td>
-<td><a href="https://github.com/client9/xson">xson</a></td>
-</tr>
-<tr>
-<td>C</td>
-<td>jzon variant, based on Hjson</td>
-<td><a href="https://github.com/KarlZylinski/jzon-c">jzon-c</a></td>
-</tr>
-</tbody>
-</table>
-<p>Please <a href="https://github.com/laktak/hjson/issues">open an issue</a> if you port Hjson to another platform/language.</p>
-<h4 id="editor-syntax">Editor Syntax</h4>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Source</th>
-<th>Package</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Atom</td>
-<td><a href="https://github.com/dannyfritz/language-hjson">language-hjson</a></td>
-<td><a href="https://atom.io/packages/language-hjson">package</a></td>
-</tr>
-<tr>
-<td>Sublime Text / TextMate</td>
-<td><a href="https://github.com/laktak/sublime-hjson">sublime-hjson</a></td>
-<td><a href="https://packagecontrol.io/packages/Hjson">packagecontrol.io</a></td>
-</tr>
-<tr>
-<td>Notepad++</td>
-<td><a href="https://github.com/laktak/npp-hjson">npp-hjson</a></td>
-<td>see source</td>
-</tr>
-</tbody>
-</table>
-<h4 id="integrated-with">Integrated with</h4>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Link</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>any-json</strong>: convert (almost) anything to JSON</td>
-<td><a href="http://www.npmjs.com/package/any-json"><img src="https://img.shields.io/npm/v/any-json.svg?style=flat-square" alt="NPM version"></a></td>
-<td><a href="https://github.com/laktak/any-json#usage">see readme</a></td>
-</tr>
-<tr>
-<td><strong>gulp</strong>: the streaming build system</td>
-<td><a href="http://www.npmjs.com/package/gulp-hjson"><img src="https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square" alt="NPM version"></a></td>
-<td><a href="https://github.com/laktak/gulp-hjson#usage">see readme</a></td>
-</tr>
-<tr>
-<td><strong>grunt</strong>: the JavaScript task runner</td>
-<td><a href="http://www.npmjs.com/package/grunt-hjson"><img src="https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square" alt="NPM version"></a></td>
-<td><a href="https://github.com/laktak/grunt-hjson#usage">see readme</a></td>
-</tr>
-<tr>
-<td><strong>hjsonify</strong>: a browserify transform to require Hjson files</td>
-<td><a href="http://www.npmjs.com/package/hjsonify"><img src="https://img.shields.io/npm/v/hjsonify.svg?style=flat-square" alt="NPM version"></a></td>
-<td><a href="https://github.com/dannyfritz/hjsonify#usage">see readme</a></td>
-</tr>
-<tr>
-<td><strong>node-config</strong>: node.js application configuration</td>
-<td><a href="http://www.npmjs.com/package/config"><img src="https://img.shields.io/npm/v/config.svg?style=flat-square" alt="NPM version"></a></td>
-<td><a href="https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson">see wiki</a></td>
-</tr>
-<tr>
-<td><strong>nconf</strong>: hierarchical node.js configuration</td>
-<td><a href="http://www.npmjs.com/package/nconf"><img src="https://img.shields.io/npm/v/nconf.svg?style=flat-square" alt="NPM version"></a></td>
-<td><code>nconf.file({ file: 'file.hjson',</code><br><code>format: require('hjson').rt });</code><br><code>// round trips your comments</code></td>
-</tr>
-<tr>
-<td><strong>rc</strong>: non-configurable configuration loader for lazy people.</td>
-<td><a href="http://www.npmjs.com/package/rc"><img src="https://img.shields.io/npm/v/rc.svg?style=flat-square" alt="NPM version"></a></td>
-<td><code>var conf=require('rc')('appname', {/*defaults*/},</code><br><code>null, require('hjson').parse);</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="tools">Tools</h2>
-<p>All versions work on Linux, OS X &amp; Windows and allow you to convert Hjson from/to JSON.</p>
-<p><a href="http://nodejs.org/"><strong>node.js</strong></a></p>
-<p>Install with <code>npm i hjson -g</code></p>
-<p><code>hjson file.json</code> will convert to Hjson.<br><code>hjson -j file.hjson</code> will convert to JSON.</p>
-<p><a href="https://www.python.org/"><strong>Python</strong></a></p>
-<p>Install with <code>pip install hjson</code></p>
-<p><code>python -m hjson.tool file.json</code> will convert to Hjson.<br><code>python -m hjson.tool -j file.hjson</code> will convert to JSON.</p>
-<p><a href="http://www.visualstudio.com/en-US/products/visual-studio-express-vs"><strong>C# .Net</strong></a> &amp; <a href="http://www.mono-project.com/"><strong>Mono</strong></a></p>
-<p>As Nuget does not install commandline tools</p>
-<ul>
-<li>please build <a href="https://github.com/laktak/hjson-cs">from source</a></li>
-<li>and add <code>cli\bin\Release</code> to your path.</li>
-</ul>
-<p><code>hjsonc file.json</code> will convert to Hjson.<br><code>hjsonc -j file.hjson</code> will convert to JSON.</p>
-<h2 id="history">History</h2>
-<ul>
-<li>2015-05-06: Allow root braces to be omitted.</li>
-<li>2015-01-11: Simplified the syntax for quoteless keys. Previously only alphanumeric keys were allowed without quotes.</li>
-<li>2015-01-11: Fixed multiline strings: OS/file independent (EOL is always <code>\n</code>). Also the last LF is removed to allow for better formatting.</li>
-<li>2015-01-06: Simplified the syntax for quoteless strings. Previously unquoted strings starting with a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> were not allowed.</li>
-<li>2015-01-02: Added // and /**/ comment support</li>
-<li>2014-12-02: Added mime type and file extension.</li>
-<li>2014-05-09: Added multiline strings.</li>
-<li>2014-03-19: First draft</li>
-</ul>
 
+
+
+</div>
+
+<div class="footer">
+  <a href="download.html">Download</a>
+  <a href="syntax.html">Syntax</a>
+  <a href="try.html">Try It!</a>
+  <a href="https://github.com/laktak/hjson/issues">Issues</a>
+  <a href="history.html">History</a>
 </div>
 
 
@@ -399,4 +200,4 @@ text = Hjson.rt.stringify(data);
 <script async="" defer="" id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
 
-</body></html>
+<script class="jsdom" src="node_modules/jquery/dist/jquery.js"></script><script class="jsdom" src="dom.js"></script></body></html>

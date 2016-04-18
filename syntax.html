@@ -59,108 +59,64 @@
 </nav>
 
 <div class="content">
-
-<style type="text/css" media="screen">
-  #hjson, #json
-  {
-    width: 100%;
-    height: 200px;
-  }
-</style>
-
-<div>
-  <p>Live demo. Type either into the Hjson or JSON input to convert to the other format.</p>
-
-  <h2>Hjson</h2>
-  <div id="hjson">{
-  # comments are useful
-  # specify rate in requests/second
-  "rate": 1000
-
-  // maybe you prefer js style comments
-  /* or if you feel old fashioned */
-
-  # key names do not need to be placed in quotes
-  key: "value"
-
-  # you don't need quotes for strings
-  text: look ma, no quotes!
-
-  # commas are optional
-  commas:
-  {
-    one: 1
-    two: 2
-  }
-
-  # trailing commas are allowed
-  trailing:
-  {
-    one: 1,
-    two: 2,
-  }
-
-  # multiline string
-  haiku:
-    '''
-    JSON I love you.
-    But you strangle my expression.
-    This is so much better.
-    '''
-
-  # Obviously you can always use standard JSON syntax as well:
-  favNumbers: [ 1, 2, 3, 6, 42 ]
-}</div>
-
-<h2>JSON</h2>
-  <div id="json"></div>
-</div>
-
-<script src="js/hjson.js" type="text/javascript" charset="utf-8"></script>
-<script src="http://ajaxorg.github.io/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-  var locked, orgText;
-  var hjson=ace.edit("hjson");
-  hjson.setTheme("ace/theme/monokai");
-  hjson.on("change", changeHjson);
-  hjson.on("paste", changeHjson);
-
-  var json=ace.edit("json");
-  json.setTheme("ace/theme/monokai");
-  json.on("change", changeJson);
-  json.on("paste", changeJson);
-
-  function changeHjson()
-  {
-    if (locked) return;
-    var text=hjson.getSession().getValue();
-    try { text=JSON.stringify(Hjson.parse(text), null, "  "); }
-    catch (e) { text=e.toString(); }
-    locked=true;
-    json.getSession().setValue(text);
-    locked=false;
-  }
-
-  function changeJson()
-  {
-    if (locked) return;
-    var text=json.getSession().getValue();
-    try { text=Hjson.stringify(JSON.parse(text)); }
-    catch (e) { text=e.toString(); }
-    locked=true;
-    hjson.getSession().setValue(text);
-    locked=false;
-  }
-
-  function reset()
-  {
-    locked=false;
-    hjson.getSession().setValue(orgText);
-  }
-
-  orgText=hjson.getSession().getValue();
-  changeHjson();
-</script>
+<h2 id="syntax">Syntax</h2>
+<p>The Hjson syntax is a superset of JSON (<a href="http://json.org/">see json.org</a>) but allows you to</p>
+<ul>
+<li>add <code>#</code>, <code>//</code> or <code>/**/</code> comments,</li>
+<li>omit <code>&quot;&quot;</code> for keys,</li>
+<li>omit <code>&quot;&quot;</code> for strings,</li>
+<li>omit <code>,</code> at the end of a line and</li>
+<li>use multiline strings with proper whitespace handling.</li>
+</ul>
+<p>You are also allowed to omit the root <code>{}</code> braces for objects.</p>
+<h4 id="cheat-sheet">Cheat Sheet</h4>
+<p>Simple rules to remember:</p>
+<ul>
+<li>if your key includes a JSON control character like <code>{}[],:</code> or space, use quotes</li>
+<li>if your string starts with <code>{</code> or <code>[</code>, use quotes</li>
+<li>remember that quoteless strings include everything up to the end of the line, excluding trailing whitespace.</li>
+</ul>
+<h4 id="details">Details</h4>
+<ul>
+<li><p>Keys</p>
+<p>You only need to add quotes if the key name includes whitespace or any of these JSON control characters: <code>{}[],:</code>.</p>
+</li>
+<li><p>Strings</p>
+<p>When you omit quotes the string ends at the newline. Preceding and trailing whitespace is ignored as are escapes.</p>
+<p>A value that is a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> in JSON is parsed as a value. E.g. <code>3</code> is a valid <em>number</em> while <code>3 times</code> is a string.</p>
+<p>Naturally a quoteless string cannot start with <code>{</code> or <code>[</code>.</p>
+<p>Use quotes to have your string handled like in JSON. This also allows you to specify a comment after the string.</p>
+</li>
+<li><p>Multiline Strings</p>
+<ul>
+<li>Start with triple quotes <code>&#39;&#39;&#39;</code>, whitespace on the first line is ignored</li>
+<li><code>&#39;&#39;&#39;</code> defines the head, on the following lines all whitespace up to this column is ignored</li>
+<li>all other whitespace is assumed to be part of the string.</li>
+<li>ends with triple quotes <code>&#39;&#39;&#39;</code>. The last newline is ignored to allow for better formatting.</li>
+</ul>
+<p>A multiline string is OS and file independent. The line feed is always <code>\n</code>.</p>
+</li>
+<li><p>Commas</p>
+<p>Commas are optional at the end of a line. You only need commas to specify multiple values on one line (e.g. <code>[1,2,3]</code>).</p>
+<p>Trailing commas are ignored.</p>
+</li>
+<li><p>Comments</p>
+<p><code>#</code> and <code>//</code> start a single line comment.</p>
+<p><code>/*</code> starts a multiline comment that ends with <code>*/</code>.</p>
+</li>
+<li><p>Root braces</p>
+<p>Can be omitted for objects.</p>
+</li>
+<li><p>Mime Type</p>
+<p><code>text/hjson</code> (pending)</p>
+</li>
+<li><p>File extension</p>
+<p><code>.hjson</code></p>
+</li>
+<li><p>Header</p>
+<p>Hjson does not have a header but if you want to indicate the file type (in an rc file or in a database) you can use <code>#hjson</code> in the first line.</p>
+</li>
+</ul>
 
 </div>
 
