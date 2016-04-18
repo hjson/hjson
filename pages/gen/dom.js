@@ -14,7 +14,8 @@ $(function() {
     $("<div>").addClass("clear").appendTo(g);
 
     var first=true;
-    for (;;) {
+    for (var i=0; i<10; i++) {
+
       var y=x.next();
       x.remove();
 
@@ -26,27 +27,11 @@ $(function() {
       x.appendTo(x.is("pre")?b:a);
       x=y;
 
-      if (!x || x.is("h3") || x.is("h2")) break;
+      if (!x || !x.prop("nodeName") || x.is("h3") || x.is("h2")) break;
     }
+
   });
 
-  g.insertAfter($("h2").first());
-
-  /*
-  var getIt=$("<div>").addClass("get");
-  $('<a class="xbt" href="#platforms">Get Hjson!</a>').appendTo(getIt);
-  $('<a class="xbt xbt2" href="try.html">Try It!</a>').appendTo(getIt);
-
-  getIt.insertBefore($("h2").first());
-
-  var info=$("<div>").addClass("info");
-  $('<a href="#tools">Tools</a>').appendTo(info);
-  info.append(" - ");
-  $('<a href="#cheat-sheet">Cheat Sheet</a>').appendTo(info);
-  info.insertBefore($("h2").first());
-  */
-
-  //footnote
-  $("a[href='#syntax']").addClass("ref");
+  if (g) g.insertAfter($("h2").first());
 
 });

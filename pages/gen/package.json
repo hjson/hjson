@@ -5,8 +5,8 @@
   "author": "Christian Zangl",
   "dependencies": {},
   "devDependencies": {
-    "jquery": "^2.1.1",
-    "jsdom": "^1.0.1",
-    "marked": "^0.3.2"
+    "jquery": "^2.2.3",
+    "jsdom": "^8.4.0",
+    "marked": "^0.3.5"
   }
 }
