@@ -60,7 +60,8 @@
 <p><img src="hjson1.gif" class="img-responsive center-block"></p>
 <h1 id="hjson-the-human-json">Hjson, the Human JSON</h1>
 <p><span class="big">A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.</span></p>
-<h2 id="intro">Intro</h2><div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
+<h2 id="intro">Intro</h2>
+<div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
   # specify rate in requests/second
   "rate": 1000
 
@@ -101,11 +102,48 @@
     This, so much better.
     '''
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="javascript">JavaScript</h3><h4><strong>"OMG, you broke JavaScript!"</strong></h4><p>JSON is not JavaScript, it's a data interchange format that can be used in many languages.</p></div><div class="bb"><pre><code>/*
+</code></pre></div><div class="clear"></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="faq">FAQ</h2>
+<div class="sam"><div class="aa"><h3 id="what-are-good-uses-for-human-json-">What are good uses for Human JSON?</h3><h4><strong>"I'd like to use Hjson everywhere!"</strong></h4><p>Use it for</p><ul>
+<li>config files</li>
+<li>resource files (e.g. a language definition)</li>
+<li>inspection/debugging (e.g. the watch output)</li>
+<li>anytime where the primary purpose is for a Human to view or edit</li>
+</ul></div><div class="bb"><pre><code>/*
+ * Hjson is for Humans,
+ * not machines!
+ *
+ * You should convert Hjson to JSON
+ * before you send it to one.
+ */
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="what-are-bad-uses-for-human-json-">What are bad uses for Human JSON?</h3><h4><strong>"Hjson is a bad idea!"</strong></h4><p>Do not use it for</p><ul>
+<li>protocols</li>
+<li>databases</li>
+</ul><p>Something like a REST service should never use Hjson. If you are writing a REST debugger you can convert to/from Hjson when the data is viewed by a human.</p></div><div class="bb"><pre><code>/*
+ * Always use the right tool for the job.
+ */
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-javascript-">But JavaScript!?</h3><h4><strong>"OMG, you broke JavaScript!"</strong></h4><p>JSON is not JavaScript, it's a data interchange format that can be used in many languages.</p></div><div class="bb"><pre><code>/*
  * Hjson, like JSON, is not limited
  * to JavaScript.
  */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="json">JSON</h3><h4><strong>"OK but OMG, now you broke JSON!"</strong></h4><p>JSON is a great data format that can be edited by hand but it has a very strict syntax.</p><p>A more forgiving format makes it easier for Humans to write, it reduces unnecessary mistakes and is also nicer to read.</p></div><div class="bb"><pre><code>/*
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-json-">But JSON!?</h3><h4><strong>"OK but OMG, now you broke JSON!"</strong></h4><p>JSON is a great data format that can be edited by hand but it has a very strict syntax.</p><p>A more forgiving format makes it easier for Humans to write, it reduces unnecessary mistakes and is also nicer to read.</p></div><div class="bb"><pre><code>/*
  * Hjson does not replace JSON.
  * Use it for configuration files
  * and things like debug dumps.
@@ -113,7 +151,7 @@
  * For protocols and anything
  * else use JSON.
  */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="yaml">YAML</h3><h4><strong>"OK but still, do we need another YAML/HOCON/etc.?"</strong></h4><p>YAML expresses structure through whitespace. Significant whitespace is a common source of mistakes that we shouldn't have to deal with.</p><p>Both HOCON and YAML make the mistake of implementing too many features (like anchors, sustitutions or concatenation).</p><p>JSON5 adds "some minimal syntax features directly from ECMAScript 5". It's focused on developers.</p><p>Using JSON for config files is an antipattern. But <a href="https://docs.npmjs.com/files/package.json">apparently</a> it's still better than YAML. Hjson is trying to change that.</p></div><div class="bb"><pre><code>/*
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-yaml-hocon-">But YAML/HOCON/...!?</h3><h4><strong>"OK but still, do we need another YAML/HOCON/etc.?"</strong></h4><p>YAML expresses structure through whitespace. Significant whitespace is a common source of mistakes that we shouldn't have to deal with.</p><p>Both HOCON and YAML make the mistake of implementing too many features (like anchors, sustitutions or concatenation).</p><p>JSON5 adds "some minimal syntax features directly from ECMAScript 5". It's focused on developers.</p><p>Using JSON for config files is an antipattern. But <a href="https://docs.npmjs.com/files/package.json">apparently</a> it's still better than YAML. Hjson is trying to change that.</p></div><div class="bb"><pre><code>/*
  * A data format for Humans
  * should be lean and simple.
  *
@@ -127,6 +165,9 @@
  * Human ~= Developer
  * Human -ne Developer
  */
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="can-i-minify-hjson-">Can I minify Hjson?</h3><h4><strong>"Just because!"</strong></h4><p>Hjson is for Humans so minifying it would kind of defeat its purpose.</p></div><div class="bb"><pre><code>/*
+ * Er... no!
+ */
 </code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="round-trip">Round trip</h3><h4><strong>"Can Hjson keep my comments when updating a config file?"</strong></h4><p>Yes, Hjson allows you to round-trip your data, including your comments.</p><p>* But not yet with all implementations, PRs welcome :)</p></div><div class="bb"><pre><code>var data = Hjson.rt.parse(text);
 
 // use data like a normal object
@@ -135,13 +176,6 @@ data.foo = "text";
 // stringify with comments
 text = Hjson.rt.stringify(data);
 </code></pre></div><div class="clear"></div></div>
-
-
-
-
-
-
-
 
 
 
