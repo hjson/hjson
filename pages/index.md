@@ -102,7 +102,47 @@ No, escapes are gone from unquoted strings.
 }
 ```
 
-### JavaScript
+## FAQ
+
+### What are good uses for Human JSON?
+
+**"I'd like to use Hjson everywhere!"**
+
+Use it for
+
+- config files
+- resource files (e.g. a language definition)
+- inspection/debugging (e.g. the watch output)
+- anytime where the primary purpose is for a Human to view or edit
+
+```
+/*
+ * Hjson is for Humans,
+ * not machines!
+ *
+ * You should convert Hjson to JSON
+ * before you send it to one.
+ */
+```
+
+### What are bad uses for Human JSON?
+
+**"Hjson is a bad idea!"**
+
+Do not use it for
+
+- protocols
+- databases
+
+Something like a REST service should never use Hjson. If you are writing a REST debugger you can convert to/from Hjson when the data is viewed by a human.
+
+```
+/*
+ * Always use the right tool for the job.
+ */
+```
+
+### But JavaScript!?
 
 **"OMG, you broke JavaScript!"**
 
@@ -115,7 +155,7 @@ JSON is not JavaScript, it's a data interchange format that can be used in many 
  */
 ```
 
-### JSON
+### But JSON!?
 
 **"OK but OMG, now you broke JSON!"**
 
@@ -134,7 +174,7 @@ A more forgiving format makes it easier for Humans to write, it reduces unnecess
  */
 ```
 
-### YAML
+### But YAML/HOCON/...!?
 
 **"OK but still, do we need another YAML/HOCON/etc.?"**
 
@@ -163,6 +203,18 @@ Using JSON for config files is an antipattern. But [apparently](https://docs.npm
  */
 ```
 
+### Can I minify Hjson?
+
+**"Just because!"**
+
+Hjson is for Humans so minifying it would kind of defeat its purpose.
+
+```
+/*
+ * Er... no!
+ */
+```
+
 ### Round trip
 
 **"Can Hjson keep my comments when updating a config file?"**
@@ -180,4 +232,6 @@ data.foo = "text";
 // stringify with comments
 text = Hjson.rt.stringify(data);
 ```
+
+
 

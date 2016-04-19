@@ -6,8 +6,10 @@ $(function() {
   $("h3").each(function() {
     var x=$(this);
 
-    if (!g) g=$("<div>").addClass("sam");
-    else $("<hr>").appendTo(g);
+    if (!g || x.prev().is("h2")) {
+      g=$("<div>").addClass("sam");
+      g.insertBefore(x);
+    } else $("<hr>").appendTo(g);
 
     var a=$("<div>").addClass("aa").appendTo(g);
     var b=$("<div>").addClass("bb").appendTo(g);
@@ -31,7 +33,5 @@ $(function() {
     }
 
   });
-
-  if (g) g.insertAfter($("h2").first());
 
 });

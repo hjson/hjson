@@ -60,15 +60,14 @@ Simple rules to remember:
 
   Can be omitted for objects.
 
-- Mime Type
-
-  `text/hjson` (pending)
-
 - File extension
 
   `.hjson`
 
 - Header
 
-  Hjson does not have a header but if you want to indicate the file type (in an rc file or in a database) you can use `#hjson` in the first line.
+  Hjson does not have a header but if you want to indicate the file type you can use `#hjson` on the first line.
 
+- Encoding
+
+  Hjson files should always use UTF-8.
