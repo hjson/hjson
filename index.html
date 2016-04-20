@@ -175,7 +175,19 @@ data.foo = "text";
 
 // stringify with comments
 text = Hjson.rt.stringify(data);
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="-insert-name-here-does-not-yet-support-hjson-can-i-still-use-it-">[insert name here] does not yet support Hjson, can I still use it?</h3><h4><strong>"I really need comments in my config!"</strong></h4><p>If <em>[insert name here]</em> supports at least JSON configs you can.</p></div><div class="bb"><pre><code># convert to Hjson (once)
+$ hjson config.json &gt; config.hjson
+
+# edit/document the config
+$ nano config.hjson
+
+# then convert back to json
+# every time you update config.hjson
+$ hjson -j config.hjson &gt; config.json
 </code></pre></div><div class="clear"></div></div>
+
+
+
 
 
 
@@ -210,6 +222,7 @@ text = Hjson.rt.stringify(data);
 <div class="footer">
   <a href="download.html">Download</a>
   <a href="syntax.html">Syntax</a>
+  <a href=".#faq">FAQ</a>
   <a href="try.html">Try It!</a>
   <a href="https://github.com/laktak/hjson/issues">Issues</a>
   <a href="history.html">History</a>

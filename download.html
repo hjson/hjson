@@ -59,7 +59,51 @@
 </nav>
 
 <div class="content">
-<h2 id="get-hjson">Get Hjson</h2>
+<h2 id="downloads">Downloads</h2>
+<ul>
+<li><a href="#users">Tools for Users</a></li>
+<li><a href="#dev">Packages for Developers</a></li>
+<li><a href="#ed">Editor Support</a></li>
+<li><a href="#native">Tools with native support</a></li>
+</ul>
+<h2 id="-a-id-users-a-tools-for-users"><a id="users"></a> Tools for Users</h2>
+<p>You can always check the syntax of an Hjson file by simply running <code>hjson FILE</code>. It will show you the exact location if it contains any errors.</p>
+<p>If an application does not yet use native Hjson configs you use it to convert your config to JSON.</p>
+<p>The preferred tool works on all operating systems and only requires node.js.</p>
+<h3 id="setup">Setup</h3>
+<ul>
+<li>Install <a href="http://nodejs.org/"><strong>node.js</strong></a> if it&#39;s not already on your system</li>
+<li>Install the Hjson tool by running <code>npm install hjson -g</code> on the command line</li>
+</ul>
+<h3 id="usage">Usage</h3>
+<ul>
+<li><p><code>hjson FILE</code></p>
+<p>Loads a <code>.json</code> or <code>.hjson</code> file and outputs it as Hjson.</p>
+<p>You can also use it to checks the specified file for syntax errors (it will print the exact location).</p>
+<p>E.g. <code>hjson config.json</code></p>
+</li>
+<li><p><code>hjson -j FILE</code></p>
+<p>Will convert an Hjson file to JSON.</p>
+<p>E.g. <code>hjson -j config.hjson &gt; config.json</code>.</p>
+</li>
+</ul>
+<h3 id="alternative-tools">Alternative tools</h3>
+<p>If you don&#39;t want to install node.js you can also use one of the following tools.</p>
+<h4 id="python">Python</h4>
+<ul>
+<li>Install <a href="https://www.python.org/"><strong>Python</strong></a></li>
+<li>Install <a href="https://pypi.python.org/pypi/hjson">Hjson</a> with <code>pip install hjson</code></li>
+<li><code>python -m hjson.tool file.json</code> will convert to Hjson.</li>
+<li><code>python -m hjson.tool -j file.hjson</code> will convert to JSON.</li>
+</ul>
+<h4 id="chocolatey-windows-only-">chocolatey (Windows only)</h4>
+<ul>
+<li>Install <a href="https://chocolatey.org">chocolatey</a></li>
+<li>Install <a href="https://chocolatey.org/packages/hjson">Hjson</a> with <code>choco install hjson</code></li>
+<li><code>hjsonc file.json</code> will convert to Hjson.</li>
+<li><code>hjsonc -j file.hjson</code> will convert to JSON.</li>
+</ul>
+<h2 id="-a-id-dev-a-packages-for-developers"><a id="dev"></a> Packages for Developers</h2>
 <table>
 <thead>
 <tr>
@@ -119,22 +163,7 @@
 </tbody>
 </table>
 <p>Please <a href="https://github.com/laktak/hjson/issues">open an issue</a> if you port Hjson to another platform/language.</p>
-<h2 id="tools">Tools</h2>
-<p>All versions work on Linux, OS X &amp; Windows and allow you to convert Hjson from/to JSON.</p>
-<p><a href="http://nodejs.org/"><strong>node.js</strong></a></p>
-<p>Install with <code>npm i hjson -g</code></p>
-<p><code>hjson file.json</code> will convert to Hjson.<br><code>hjson -j file.hjson</code> will convert to JSON.</p>
-<p><a href="https://www.python.org/"><strong>Python</strong></a></p>
-<p>Install with <code>pip install hjson</code></p>
-<p><code>python -m hjson.tool file.json</code> will convert to Hjson.<br><code>python -m hjson.tool -j file.hjson</code> will convert to JSON.</p>
-<p><a href="http://www.visualstudio.com/en-US/products/visual-studio-express-vs"><strong>C# .Net</strong></a> &amp; <a href="http://www.mono-project.com/"><strong>Mono</strong></a></p>
-<p>As Nuget does not install commandline tools</p>
-<ul>
-<li>please build <a href="https://github.com/laktak/hjson-cs">from source</a></li>
-<li>and add <code>cli\bin\Release</code> to your path.</li>
-</ul>
-<p><code>hjsonc file.json</code> will convert to Hjson.<br><code>hjsonc -j file.hjson</code> will convert to JSON.</p>
-<h2 id="editor-syntax">Editor Syntax</h2>
+<h2 id="-a-id-ed-a-editor-support"><a id="ed"></a> Editor Support</h2>
 <table>
 <thead>
 <tr>
@@ -161,7 +190,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="integrated-with">Integrated with</h2>
+<h2 id="-a-id-native-a-tools-with-native-support"><a id="native"></a> Tools with native support</h2>
 <table>
 <thead>
 <tr>
@@ -214,6 +243,7 @@
 <div class="footer">
   <a href="download.html">Download</a>
   <a href="syntax.html">Syntax</a>
+  <a href=".#faq">FAQ</a>
   <a href="try.html">Try It!</a>
   <a href="https://github.com/laktak/hjson/issues">Issues</a>
   <a href="history.html">History</a>
