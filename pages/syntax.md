@@ -64,10 +64,11 @@ Simple rules to remember:
 
   `.hjson`
 
+- Encoding
+
+  `.hjson` files must be encoded in UTF-8 (preferably without a BOM).
+
 - Header
 
   Hjson does not have a header but if you want to indicate the file type you can use `#hjson` on the first line.
 
-- Encoding
-
-  Hjson files should always use UTF-8.

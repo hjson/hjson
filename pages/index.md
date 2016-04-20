@@ -233,5 +233,20 @@ data.foo = "text";
 text = Hjson.rt.stringify(data);
 ```
 
+### [insert name here] does not yet support Hjson, can I still use it?
 
+**"I really need comments in my config!"**
 
+If *[insert name here]* supports at least JSON configs you can.
+
+```
+# convert to Hjson (once)
+$ hjson config.json > config.hjson
+
+# edit/document the config
+$ nano config.hjson
+
+# then convert back to json
+# every time you update config.hjson
+$ hjson -j config.hjson > config.json
+```

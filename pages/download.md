@@ -1,5 +1,58 @@
+## Downloads
 
-## Get Hjson
+- [Tools for Users](#users)
+- [Packages for Developers](#dev)
+- [Editor Support](#ed)
+- [Tools with native support](#native)
+
+## <a id="users"></a> Tools for Users
+
+You can always check the syntax of an Hjson file by simply running `hjson FILE`. It will show you the exact location if it contains any errors.
+
+If an application does not yet use native Hjson configs you use it to convert your config to JSON.
+
+The preferred tool works on all operating systems and only requires node.js.
+
+### Setup
+
+- Install [**node.js**](http://nodejs.org/) if it's not already on your system
+- Install the Hjson tool by running `npm install hjson -g` on the command line
+
+### Usage
+
+- `hjson FILE`
+
+  Loads a `.json` or `.hjson` file and outputs it as Hjson.
+
+  You can also use it to checks the specified file for syntax errors (it will print the exact location).
+
+  E.g. `hjson config.json`
+
+- `hjson -j FILE`
+
+  Will convert an Hjson file to JSON.
+
+  E.g. `hjson -j config.hjson > config.json`.
+
+### Alternative tools
+
+If you don't want to install node.js you can also use one of the following tools.
+
+#### Python
+
+- Install [**Python**](https://www.python.org/)
+- Install [Hjson](https://pypi.python.org/pypi/hjson) with `pip install hjson`
+- `python -m hjson.tool file.json` will convert to Hjson.
+- `python -m hjson.tool -j file.hjson` will convert to JSON.
+
+#### chocolatey (Windows only)
+
+- Install [chocolatey](https://chocolatey.org)
+- Install [Hjson](https://chocolatey.org/packages/hjson) with `choco install hjson`
+- `hjsonc file.json` will convert to Hjson.
+- `hjsonc -j file.hjson` will convert to JSON.
+
+## <a id="dev"></a> Packages for Developers
 
 Platform | Source | Package
 -------- | ------ | -------
@@ -18,35 +71,7 @@ C        | jzon variant, based on Hjson | [jzon-c](https://github.com/KarlZylins
 
 Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson to another platform/language.
 
-## Tools
-
-All versions work on Linux, OS X & Windows and allow you to convert Hjson from/to JSON.
-
-[**node.js**](http://nodejs.org/)
-
-Install with `npm i hjson -g`
-
-`hjson file.json` will convert to Hjson.
-`hjson -j file.hjson` will convert to JSON.
-
-[**Python**](https://www.python.org/)
-
-Install with `pip install hjson`
-
-`python -m hjson.tool file.json` will convert to Hjson.
-`python -m hjson.tool -j file.hjson` will convert to JSON.
-
-[**C# .Net**](http://www.visualstudio.com/en-US/products/visual-studio-express-vs) & [**Mono**](http://www.mono-project.com/)
-
-As Nuget does not install commandline tools
-
-- please build [from source](https://github.com/laktak/hjson-cs)
-- and add `cli\bin\Release` to your path.
-
-`hjsonc file.json` will convert to Hjson.
-`hjsonc -j file.hjson` will convert to JSON.
-
-## Editor Syntax
+## <a id="ed"></a> Editor Support
 
 Name     | Source | Package
 -------- | ------ | -------
@@ -54,7 +79,7 @@ Atom | [language-hjson](https://github.com/dannyfritz/language-hjson) | [package
 Sublime Text / TextMate | [sublime-hjson](https://github.com/laktak/sublime-hjson) | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
 Notepad++    | [npp-hjson](https://github.com/laktak/npp-hjson) | see source
 
-## Integrated with
+## <a id="native"></a> Tools with native support
 
 Name     | Link | Details
 -------- | ---- | -------
@@ -65,4 +90,3 @@ Name     | Link | Details
 **node-config**: node.js application configuration | [![NPM version](https://img.shields.io/npm/v/config.svg?style=flat-square)](http://www.npmjs.com/package/config) | [see wiki](https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson)
 **nconf**: hierarchical node.js configuration | [![NPM version](https://img.shields.io/npm/v/nconf.svg?style=flat-square)](http://www.npmjs.com/package/nconf) | `nconf.file({ file: 'file.hjson',`<br>`   format: require('hjson').rt });`<br>`// round trips your comments`
 **rc**: non-configurable configuration loader for lazy people. | [![NPM version](https://img.shields.io/npm/v/rc.svg?style=flat-square)](http://www.npmjs.com/package/rc) | `var conf=require('rc')('appname', {/*defaults*/},`<br>`  null, require('hjson').parse);`
-
