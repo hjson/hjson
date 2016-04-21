@@ -63,7 +63,7 @@ body {
 }
 
 @media only screen and (max-width : 768px) {
-  .navbar-collapse li a.btn-danger {
+  .navbar-collapse li a.btn-danger, .navbar-collapse li a.btn-success {
     width: 100px;
     margin-left: 10px;
   }

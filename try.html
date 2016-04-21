@@ -49,6 +49,9 @@
           <a href="history.html">History</a>
         </li>
         <li>
+          <a href="https://twitter.com/laktakk" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name="false" data-dnt="true">Follow @laktakk</a>
+        </li>
+        <li>
           <a aria-label="Star laktak/hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/laktak/hjson#stargazers_count" data-count-href="/laktak/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/laktak/hjson" class="github-button">Star</a>
         </li>
       </ul>
@@ -58,21 +61,41 @@
   <!-- /.container -->
 </nav>
 
-<div class="content">
-
+<div id="main">
 <style type="text/css" media="screen">
-  #hjson, #json
-  {
-    width: 100%;
-    height: 200px;
-  }
+#main
+{
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.all {
+  height: 100%;
+}
+
+.edcon {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.footer {
+  display: none;
+}
+
 </style>
 
-<div>
-  <p>Live demo. Type either into the Hjson or JSON input to convert to the other format.</p>
+<div class="all">
+  <div class="edcon" id="hjson">{
 
-  <h2>Hjson</h2>
-  <div id="hjson">{
+  // Live demo.
+  // Type either into the Hjson or JSON input
+  // to convert to the other format.
+  // Reload to reset.
+
   # comments are useful
   # specify rate in requests/second
   "rate": 1000
@@ -110,10 +133,9 @@
 
   # Obviously you can always use standard JSON syntax as well:
   favNumbers: [ 1, 2, 3, 6, 42 ]
-}</div>
-
-<h2>JSON</h2>
-  <div id="json"></div>
+}
+  </div>
+  <div class="edcon" id="json"></div>
 </div>
 
 <script src="js/hjson.js" type="text/javascript" charset="utf-8"></script>
@@ -162,7 +184,6 @@
   changeHjson();
 </script>
 
-</div>
 
 <div class="footer">
   <a href="download.html">Download</a>
@@ -171,6 +192,7 @@
   <a href="try.html">Try It!</a>
   <a href="https://github.com/laktak/hjson/issues">Issues</a>
   <a href="history.html">History</a>
+</div>
 </div>
 
 </body>
@@ -190,5 +212,6 @@
   });
 </script>
 <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+<script async defer>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 </html>
