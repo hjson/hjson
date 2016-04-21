@@ -32,6 +32,7 @@ function mkHtml(source, target, type) {
       tables: true,
       breaks: true,
     });
+    content='<div class="content">'+content+'</div>';
   }
 
   var tpl=fs.readFileSync(__dirname+"/tpl.html", "utf8");
