@@ -58,6 +58,14 @@ body {
   line-height: 0;
 }
 
+.navbar-brand img {
+  display: inline;
+  vertical-align: text-top;
+  width: 40px;
+  height: 40px;
+  margin-top: -10px;
+}
+
 .navbar-nav>li>a.btn-danger, .navbar-nav>li>a.btn-success {
   color: #fff;
 }
@@ -103,4 +111,14 @@ body {
 
 .footer > a:last-child:after {
   display: none;
+}
+
+.hicon {
+  background-image: url("../icon/hjson-m.png");
+  background-position: 0;
+  background-size: 100%;
+  border-radius: 4px;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
 }

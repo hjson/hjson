@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/md.css">
-  <link rel="stylesheet" type="text/css" href="css/pg.css">
+  <link rel="stylesheet" type="text/css" href="css/pg1.css">
   <script type="text/javascript">if (window.location.href.indexOf("github.io")>0) window.location.href="https://hjson.org";</script>
 
   <meta name="twitter:card" content="summary">
@@ -15,6 +15,13 @@
   <meta name="twitter:creator" content="@laktakk">
   <meta name="twitter:title" content="Hjson, the Human JSON">
   <meta name="twitter:description" content="A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.">
+  <meta name="twitter:image" content="http://hjson.org/icon/hjson-s.png">
+
+  <link rel="icon" type="image/png" sizes="192x192" href="fav/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="fav/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="fav/icon-96x96.png">
+  <link rel="apple-touch-icon" href="fav/icon-192x192.png">
+  <meta name="msapplication-TileImage" content="fav/icon-192x192.png">
 </head>
 
 <body>
@@ -24,7 +31,6 @@
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
@@ -32,9 +38,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href=".">Hjson</a>
+      <a class="navbar-brand" href="."><img src="icon/hjson-st.png">Hjson</a>
     </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>
@@ -129,7 +134,7 @@
 
 
 
-<h2 id="faq">FAQ</h2>
+<h2 id="-a-id-faq-a-div-class-hicon-div-faq"><a id="faq"></a><div class="hicon"></div> FAQ</h2>
 <div class="sam"><div class="aa"><h3 id="what-are-good-uses-for-human-json-">What are good uses for Human JSON?</h3><h4><strong>"I'd like to use Hjson everywhere!"</strong></h4><p>Use it for</p><ul>
 <li>config files</li>
 <li>resource files (e.g. a language definition)</li>
@@ -148,7 +153,7 @@
 </ul><p>Something like a REST service should never use Hjson. If you are writing a REST debugger you can convert to/from Hjson when the data is viewed by a human.</p></div><div class="bb"><pre><code>/*
  * Always use the right tool for the job.
  */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-javascript-">But JavaScript!?</h3><h4><strong>"OMG, you broke JavaScript!"</strong></h4><p>JSON is not JavaScript, it's a data interchange format that can be used in many languages.</p></div><div class="bb"><pre><code>/*
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-javascript-">But JavaScript!?</h3><h4><strong>"OMG, you broke JavaScript!"</strong></h4><p>JSON is not JavaScript, it's a data interchange format that can be used in many languages (50+, see <a href="http://hjson.org">hjson.org</a>).</p></div><div class="bb"><pre><code>/*
  * Hjson, like JSON, is not limited
  * to JavaScript.
  */
@@ -193,7 +198,14 @@ $ nano config.hjson
 # then convert back to json
 # every time you update config.hjson
 $ hjson -j config.hjson &gt; config.json
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="-a-id-pronounce-a-how-do-i-pronounce-hjson-"><a id="pronounce"></a> How do I pronounce Hjson?</h3><h4><strong>What should I call this thing?</strong></h4><p>You should/can pronounce it "H-json".</p><p>As for how to pronounce JSON, <a href="https://www.youtube.com/watch?v=zhVdWQWKRqM">watch this</a>.</p></div><div class="bb"><pre><code>/*
+ * h-jason
+ */
 </code></pre></div><div class="clear"></div></div>
+
+
+
+
 
 
 
