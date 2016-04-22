@@ -6,6 +6,8 @@
 
 # Hjson, the Human JSON
 
+![Hjson](http://hjson.org/icon/hjson-xs.png)
+
 A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.
 
 ## Intro

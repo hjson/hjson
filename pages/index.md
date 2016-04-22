@@ -3,7 +3,7 @@
 
 # Hjson, the Human JSON
 
-<span class="big">A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.</span>
+<span class="big">A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.</span> <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hjson.org/" data-text="Human JSON for configs!" data-hashtags="hjson" data-dnt="true">Tweet</a>
 
 ## Intro
 
@@ -102,7 +102,7 @@ No, escapes are gone from unquoted strings.
 }
 ```
 
-## FAQ
+## <a id="faq"></a><div class="hicon"></div> FAQ
 
 ### What are good uses for Human JSON?
 
@@ -146,7 +146,7 @@ Something like a REST service should never use Hjson. If you are writing a REST 
 
 **"OMG, you broke JavaScript!"**
 
-JSON is not JavaScript, it's a data interchange format that can be used in many languages.
+JSON is not JavaScript, it's a data interchange format that can be used in many languages (50+, see [hjson.org](http://hjson.org)).
 
 ```
 /*
@@ -249,4 +249,18 @@ $ nano config.hjson
 # then convert back to json
 # every time you update config.hjson
 $ hjson -j config.hjson > config.json
+```
+
+### <a id="pronounce"></a> How do I pronounce Hjson?
+
+**What should I call this thing?**
+
+You should/can pronounce it "H-json".
+
+As for how to pronounce JSON, [watch this](https://www.youtube.com/watch?v=zhVdWQWKRqM).
+
+```
+/*
+ * h-jason
+ */
 ```

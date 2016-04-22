@@ -1,5 +1,5 @@
 
-# History
+# <div class="hicon" style="font-size: 80px;"></div> History
 
 Human JSON was born out of frustration while editing JSON config files (e.g. `package.json`).
 
