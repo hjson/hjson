@@ -1,8 +1,8 @@
 /*! @preserve
- * Hjson v1.7.6
+ * Hjson v1.8.3
  * http://hjson.org
  *
- * Copyright 2014, 2015 Christian Zangl, MIT license
+ * Copyright 2014-2016 Christian Zangl, MIT license
  * Details and documentation:
  * https://github.com/laktak/hjson-js
  *
@@ -181,6 +181,11 @@ var Hjson = (function () {
     };
     var keepWsc; // keep whitespace
 
+    function resetAt() {
+      at = 0;
+      ch = ' ';
+    }
+
     // Call error when something is wrong.
     var error = function (m) {
       var i, col=0, line=1;
@@ -303,7 +308,8 @@ var Hjson = (function () {
           return name;
         }
         else if (ch <= ' ') {
-          if (space < 0) space = name.length;
+          if (!ch) error("Found EOF while looking for a key name (check your syntax)");
+          else if (space < 0) space = name.length;
         }
         else if (ch === '{' || ch === '}' || ch === '[' || ch === ']' || ch === ',') {
           error("Found '" + ch + "' where a key name was expected (check your syntax or use quotes if the key name includes {}[],: or whitespace)");
@@ -335,9 +341,10 @@ var Hjson = (function () {
       // Hjson strings can be quoteless
       // returns string, true, false, or null.
       var value = ch;
-      while (next()) {
+      for(;;) {
+        next();
         if (value.length === 3 && value === "'''") return mlString();
-        var isEol = ch === '\r' || ch === '\n';
+        var isEol = ch === '\r' || ch === '\n' || ch === '';
         if (isEol || ch === ',' ||
           ch === '}' || ch === ']' ||
           ch === '#' ||
@@ -361,8 +368,6 @@ var Hjson = (function () {
         }
         value += ch;
       }
-
-      error("End of input while parsing a value");
     };
 
     var getComment = function (wat) {
@@ -485,11 +490,15 @@ var Hjson = (function () {
         case '[': return array();
       }
 
-      // look if we are dealing with a single JSON value (true/false/null/num/"")
-      // if it is multiline we assume it's a Hjson object without root braces.
-      for (var i = 0; i < text.length; i++)
-        if (text[i] === '\n') return object(true);
-      return value();
+      try {
+        // assume we have a root object without braces
+        return object(true);
+      } catch (e) {
+        // test if we are dealing with a single JSON value instead (true/false/null/num/"")
+        resetAt();
+        try { return value(); }
+        catch (e2) { throw e; } // throw original error
+      }
     };
 
     // Return the hjson_parse function. It will have access to all of the above
@@ -500,8 +509,7 @@ var Hjson = (function () {
 
       keepWsc = options && options.keepWsc;
       text = source;
-      at = 0;
-      ch = ' ';
+      resetAt();
       result = rootValue();
       white();
       if (ch) error("Syntax error, found trailing characters");
@@ -527,7 +535,7 @@ var Hjson = (function () {
       '"' : '\\"',
       '\\': '\\\\'
     };
-    var needsEscapeName = /[,\{\[\}\]\s]/;
+    var needsEscapeName = /[,\{\[\}\]\s:#]|\/\/|\/\*/;
     var gap = '';
     var indent = '  ';
     // options
