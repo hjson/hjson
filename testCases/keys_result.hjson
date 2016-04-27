@@ -6,14 +6,18 @@
   .key: test
   trailing: test
   trailing2: test
-  "# c1": test
-  "foo # c1 bar": test
-  "// c2": test
-  "foo // c2 bar": test
-  "/* c3 */": test
-  "foo /* c3 */ bar": test
+  "#c1": test
+  "foo#bar": test
+  "//bar": test
+  "foo//bar": test
+  "/*foo*/": test
+  "foo/*foo*/bar": test
   "/*": test
-  "foo /* bar": test
+  "foo/*bar": test
+  "\"": test
+  "foo\"bar": test
+  "'''": test
+  "foo'''bar": test
   ":": test
   "foo:bar": test
   "{": test
@@ -24,4 +28,7 @@
   "foo[bar": test
   "]": test
   "foo]bar": test
+  nl1: test
+  nl2: test
+  nl3: test
 }

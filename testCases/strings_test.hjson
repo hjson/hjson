@@ -39,9 +39,11 @@
   foo2a: "\"asdf\""
   foo2b: '''"asdf"'''
 
-  foo3: "asdf'''"
+  foo3a: "asdf'''"
+  foo3b: "'''asdf"
 
-  foo4: "asdf'''\nasdf"
+  foo4a: "asdf'''\nasdf"
+  foo4b: "asdf\n'''asdf"
 
   # in arrays
   arr:

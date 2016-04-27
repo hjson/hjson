@@ -27,8 +27,10 @@
   foo1c: asdf\"'a\s\w
   foo2a: '''"asdf"'''
   foo2b: '''"asdf"'''
-  foo3: asdf'''
-  foo4: "asdf'''\nasdf"
+  foo3a: asdf'''
+  foo3b: "'''asdf"
+  foo4a: "asdf'''\nasdf"
+  foo4b: "asdf\n'''asdf"
   arr:
   [
     one
