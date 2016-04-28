@@ -1,0 +1,550 @@
+---
+title: The Human JSON (Hjson) Configuration Format
+abbrev: Hjson
+docname: hjson-draft
+date: 2016-05
+
+# stand_alone: true
+
+ipr: pre5378Trust200902
+area: Applications
+wg: none
+kw: Internet-Draft
+cat: std
+
+coding: utf-8
+pi:
+  toc: yes
+  sortrefs:   # defaults to yes
+  symrefs: yes
+
+author:
+      -
+        name: Christian Zangl
+        email: laktak@cdak.net
+
+normative:
+  RFC4627:
+  RFC7159:
+  RFC2119:
+  RFC5234:
+  UNICODE:
+    title: The Unicode Standard
+    author:
+      org: The Unicode Consortium
+    target: http://www.unicode.org/versions/latest/
+  SABNF:
+    title: Superset Augmented Backus-Naur Form
+    author:
+      name: Lowell D. Thomas
+    seriesinfo:
+      version: 2.2.1
+    target: https://github.com/ldthomas/apg-js2/blob/2fa136e00e5932d70ed1bd4786101c87afa8ca2e/SABNF.md
+
+informative:
+
+entity:
+  SELF: "[RFCXXXX]"
+
+# --- note_IESG_Note
+#
+
+--- abstract
+
+Human JSON (Hjson) is a configuration file format based on the JavaScript Object Notation {{RFC7159}}. Its focus is to provide a reasonable alternative to plain JSON configs that are hard to edit and do not allow comments.
+
+--- middle
+
+# Introduction        {#intro}
+
+Human JSON (Hjson) is a configuration file format. It is a superset of the JavaScript Object Notation {{RFC7159}}.
+
+Hjson uses the same four primitive types (strings, numbers, booleans, and null) and two structured types (objects and arrays) as JSON.
+
+A string is a sequence of zero or more Unicode characters {{UNICODE}}.
+Note that this citation references the latest version of Unicode
+rather than a specific release. It is not expected that future
+changes in the UNICODE specification will impact the syntax of Hjson.
+
+An object is an unordered collection of zero or more name/value
+pairs, where a name is a string and a value is a string, number,
+boolean, null, object, or array.
+
+An array is an ordered sequence of zero or more values.
+
+The terms "object" and "array" come from the conventions of
+JavaScript.
+
+Hjson's design goals were
+
+- to improve readability and editability over JSON while keeping the familiar syntax intact
+- to maintain backward compatibility, so that any valid JSON is valid Hjson
+- to provide a reasonable alternative to plain JSON configs
+
+## Conventions Used in This Document
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in {{RFC2119}}.
+
+The grammatical rules in this document are to be interpreted as described in {{RFC5234}} except where they are specifically marked as {{SABNF}}.
+
+SABNF is used to express grammars that are not possible in ABNF, like the block-comment, and to define terminators, like ql-end, that allow us to exclude certain sequences. These constructs allow us to generate parsers and to verify the grammar against test cases. For the general understanding of the language they can be ignored.
+
+## Specifications of Hjson
+
+This document describes Hjson and registers the media type "application/hjson".
+
+# Hjson Grammar
+
+A Hjson text is a sequence of tokens. The set of tokens includes seven structural characters, comments, strings, numbers, and three literal names.
+
+A Hjson text is either a serialized value or a root object.
+
+~~~abnf
+   Hjson-text = ws-c ( root-object / value ) ws-c
+~~~
+
+These are the seven structural characters:
+
+~~~abnf
+   begin-array      = ws-c %x5B ws-c     ; [ left square bracket
+
+   begin-object     = ws-c %x7B ws-c     ; { left curly bracket
+
+   end-array        = ws-c %x5D ws-c     ; ] right square bracket
+
+   end-object       = ws-c %x7D ws-c     ; } right curly bracket
+
+   name-separator   = ws-c %x3A ws-c     ; : colon
+
+   comma-separator  = ws-c %x2C ws-c     ; , comma
+
+   lf-separator     = *( comment /
+                        *(space / tab / cr) )
+                      lf ws-c            ; Line feed or New line
+~~~
+
+Insignificant whitespace and comments are allowed before or after any of the first six structural characters.
+
+~~~abnf
+   ws-c  = *( comment / ws )
+
+   ws    = *( space / tab / lf / cr )
+
+   space = %x20    ; Space
+   tab   = %x09    ; Horizontal tab
+   lf    = %x0A    ; Line feed or New line
+   cr    = %x0D    ; Carriage return
+~~~
+
+Comments can be specified as line or block comments.
+
+~~~abnf
+   comment = line-comment / block-comment
+
+   line-comment  = ( %x23 /        ; # hash
+                     %x2F.2F )     ; // slash + slash
+                   *( tab / cr / %x20-10FFFF ) ; until lf
+
+   block-comment = start-block-comment
+                   *( !end-block-comment anychar )
+                   end-block-comment
+
+   start-block-comment = %x2F.2A   ; /* slash + star
+
+   end-block-comment = %x2A.2F     ; */ star + slash
+
+   anychar = tab / cr / lf / %x20-10FFFF
+
+   ; SABNF: block-comment requies the use of the
+   ;        ! operator to allow * and / in the text
+   ;        while stopping at */
+~~~
+
+# Values
+
+A Hjson value MUST be an object, array, number, or string, or one of
+the following three literal names:
+
+~~~abnf
+   false = %x66.61.6C.73.65   ; false
+
+   null  = %x6E.75.6C.6C      ; null
+
+   true  = %x74.72.75.65      ; true
+~~~
+
+The literal names MUST be lowercase. No other literal names are allowed.
+
+~~~abnf
+   value = literal / object / array / number / string
+
+   literal = ( false / null / true ) !literal-end
+
+   literal-end =
+            *( space / tab )
+            ( %x21-22 / %x24-2B / %x2D-2E / %x30-5A /
+              %x5C / %x5E-7A / %x7C / %x7E-10FFFF )
+            ; exclude #/,[]{}
+
+   ; SABNF: define literal-end to prevent matches
+   ;        that are actually a ql-string
+   ;        (like "true blue")
+~~~
+
+# Value Separators
+
+Values can be separated directly by a comma or indirectly by one or more linefeeds.
+
+~~~abnf
+   value-separator = comma-separator / lf-separator
+~~~
+
+Note that while Hjson allows the use of lf as a separator, the cr character is generally ignored. This should not be an issue as all modern operating systems use either lf or cr+lf as their line terminator.
+
+# Objects
+
+An object structure is represented as a pair of curly brackets surrounding zero or more name/value pairs (or members). A single colon comes after each name, separating the name from the value. A comma separates a value from the next name unless the value is followed by a linefeed, in which case the comma is optional. Trailing separators are allowed. The names within an object SHOULD be unique.
+
+~~~abnf
+   object = begin-object
+            *( member [value-separator] )
+            end-object
+
+   member = name name-separator value
+~~~
+
+If the Hjson text defines an object it does not have to include the braces at the root level:
+
+~~~abnf
+   root-object =
+            1*( member [value-separator] )
+~~~
+
+A name can be specified as a JSON string (with quotes) or as a name without quotes.
+
+~~~abnf
+   name = json-string / keyname
+
+   keyname =  1*non-control-char
+
+   non-control-char = %x21-2B / %x2D-39 / %x3B-5A /
+                      %x5C / %x5E-7A / %x7C / %x7E-10FFFF
+      ; any non-control character (excludes ,:[]{} and ws)
+~~~
+
+For interoperability issues regarding the uniquness of names and object member ordering, see {{RFC7159}} Section 4.
+
+
+# Arrays
+
+An array structure is represented as square brackets surrounding zero or more values (or elements). Elements are separated by commas or linefeeds. Trailing commas are allowed.
+
+~~~abnf
+   array =  begin-array
+            *( value [value-separator] )
+            end-array
+~~~
+
+There is no requirement that the values in an array be of the same type.
+
+# Numbers
+
+The representation of numbers is similar to that used in most
+programming languages. A number is represented in base 10 using
+decimal digits. It contains an integer component that may be
+prefixed with an optional minus sign, which may be followed by a
+fraction part and/or an exponent part. Leading zeros are not
+allowed.
+
+A fraction part is a decimal point followed by one or more digits.
+
+An exponent part begins with the letter E in upper or lower case,
+which may be followed by a plus or minus sign. The E and optional
+sign are followed by one or more digits.
+
+Numeric values that cannot be represented in the grammar below (such
+as Infinity and NaN) are not permitted.
+
+~~~abnf
+   number = [ minus ] int [ frac ] [ exp ] !num-end
+
+   decimal-point = %x2E       ; .
+
+   digit = %x30-39            ; 0-9
+
+   digit1-9 = %x31-39         ; 1-9
+
+   e = %x65 / %x45            ; e E
+
+   exp = e [ minus / plus ] 1*digit
+
+   frac = decimal-point 1*digit
+
+   int = zero / ( digit1-9 *digit )
+
+   minus = %x2D               ; -
+
+   plus = %x2B                ; +
+
+   zero = %x30                ; 0
+
+   num-end =  *( space / tab )
+              ( %x21-22 / %x24-2B / %x2D-2E / %x30-5A /
+              %x5C / %x5E-7A / %x7C / %x7E-10FFFF )
+              ; exclude #/,[]{}
+
+   ; SABNF: define num-end to prevent matches
+   ;        that are actually a ql-string
+   ;        (like "1 minute")
+~~~
+
+For limits on the range and precision of numbers see {{RFC7159}} Section 6.
+
+
+# Strings
+
+Hjson allows strings to be represented in three different formats.
+
+~~~abnf
+   string = json-string / ml-string / ql-string
+~~~
+
+
+## JSON Strings
+
+The representation of JSON strings is similar to conventions used in the C
+family of programming languages. A string begins and ends with
+quotation marks. All Unicode characters may be placed within the
+quotation marks, except for the characters that must be escaped:
+quotation mark, reverse solidus, and the control characters (U+0000
+through U+001F).
+
+Any character may be escaped. If the character is in the Basic
+Multilingual Plane (U+0000 through U+FFFF), then it may be
+represented as a six-character sequence: a reverse solidus, followed
+by the lowercase letter u, followed by four hexadecimal digits that
+encode the character's code point. The hexadecimal letters A though
+F can be upper or lower case. So, for example, a string containing
+only a single reverse solidus character may be represented as
+"\u005C".
+
+Alternatively, there are two-character sequence escape
+representations of some popular characters. So, for example, a
+string containing only a single reverse solidus character may be
+represented more compactly as "\\".
+
+To escape an extended character that is not in the Basic Multilingual
+Plane, the character is represented as a 12-character sequence,
+encoding the UTF-16 surrogate pair. So, for example, a string
+containing only the G clef character (U+1D11E) may be represented as
+"\uD834\uDD1E".
+
+~~~abnf
+   json-string = quotation-mark *char quotation-mark
+
+   char = unescaped /
+       escape (
+           %x22 /          ; "    quotation mark  U+0022
+           %x5C /          ; \    reverse solidus U+005C
+           %x2F /          ; /    solidus         U+002F
+           %x62 /          ; b    backspace       U+0008
+           %x66 /          ; f    form feed       U+000C
+           %x6E /          ; n    line feed       U+000A
+           %x72 /          ; r    carriage return U+000D
+           %x74 /          ; t    tab             U+0009
+           %x75 4hexdig )  ; uXXXX                U+XXXX
+
+   hexdig = %x30-39 / "A" / "B" / "C" / "D" / "E" / "F"
+
+   escape = %x5C              ; \
+
+   quotation-mark = %x22      ; "
+
+   unescaped = %x20-21 / %x23-5B / %x5D-10FFFF
+~~~
+
+
+## Quoteless Strings
+
+Hjson allows strings to be represented only by their content without quotes. A quoteless string may contain any character except the control characters (U+0000 through U+001F) and excluding trailing whitespace. It ends at the first linefeed. Strings are taken as is without escapes.
+
+~~~abnf
+   ql-string = non-control-char
+               *( !ql-end ql-char )
+
+   ql-end    = *( space / tab / cr ) lf
+
+   ql-char   = space / tab / %x21-10FFFF
+
+   ; SABNF: define ql-end to exclude trailing
+   ;        whitespace from the ql-string
+~~~
+
+Valid Hjson tokens cannot start a quoteless string. That means that, for example, { will still start an object and a valid number will be parsed as such. Likewise a ] would end an array while it will create a quoteless string inside an object.
+
+Not allowing escapes inside the quoteless string allows you to specify HTML fragments, regular expressions or Windows style paths as-is, keeping them readable.
+
+
+## Multiline Strings
+
+A multiline string begins and ends with three single quotes.
+
+~~~abnf
+   ml-string =
+      ml-seq
+      *( !ml-seq ( ml-char / ml-ignore ) )
+      ml-seq
+
+   ml-seq = "'''"
+
+   ml-char = space / tab / lf / %x21-10FFFF
+
+   ml-ignore = cr
+
+   ; SABNF: ml-string requies the use of the
+   ;        ! operator to allow ' in the text
+   ;        while stopping at '''
+~~~
+
+The carrige return character is generally ignored to make the parser platform independent.
+
+Whitespace handling cannot be expressed in the ABNF grammar and is thus defined as text:
+
+- Whitespace on the first line is ignored.
+- The first three single quotes define the head. On the following lines all whitespace up to the column of the first single quote is ignored.
+- All other whitespace is assumed to be part of the string.
+- The last newline is ignored to allow for better formatting.
+
+
+# String and Character Issues
+
+## Character Encoding
+
+Hjson text SHALL be encoded in UTF-8. Since Hjson parsers can read JSON they may be able to read texts in other encodings (such as UTF-16 and UTF-32). Hjson texts that are encoded in UTF-8 are interoperable in the sense that they will be read successfully by the maximum number of implementations.
+
+Implementations MUST NOT add a byte order mark to the beginning of a Hjson text. In the interests of interoperability, implementations that parse Hjson texts MAY ignore the presence of a byte order mark rather than treating it as an error.
+
+## Unicode Characters
+
+When all the strings represented in a Hjson text are composed entirely
+of Unicode characters {{UNICODE}} (however escaped), then that Hjson
+text is interoperable in the sense that all software implementations
+that parse it will agree on the contents of names and of string
+values in objects and arrays.
+
+However, the ABNF in this specification allows member names and
+string values to contain bit sequences that cannot encode Unicode
+characters; for example, "\uDEAD" (a single unpaired UTF-16
+surrogate). Instances of this have been observed, for example, when
+a library truncates a UTF-16 string without checking whether the
+truncation split a surrogate pair. The behavior of software that
+receives Hjson texts containing such values is unpredictable; for
+example, implementations might return different values for the length
+of a string value or even suffer fatal runtime exceptions.
+
+## String Comparison
+
+Software implementations are typically required to test names of
+object members for equality. Implementations that transform the
+textual representation into sequences of Unicode code units and then
+perform the comparison numerically, code unit by code unit, are
+interoperable in the sense that implementations will agree in all
+cases on equality or inequality of two strings. For example,
+implementations that compare strings with escaped characters
+unconverted may incorrectly find that "a\\b" and "a\u005Cb" are not
+equal.
+
+
+# Parsers
+
+A Hjson parser transforms a Hjson text into another representation. A
+Hjson parser MUST accept all texts that conform to the Hjson grammar.
+A Hjson parser MAY accept non-Hjson forms or extensions.
+
+An implementation may set limits on the size of texts that it
+accepts. An implementation may set limits on the maximum depth of
+nesting. An implementation may set limits on the range and precision
+of numbers. An implementation may set limits on the length and
+character contents of strings.
+
+# Generators
+
+A Hjson generator produces Hjson text. The resulting text MUST
+strictly conform to the Hjson grammar.
+
+# IANA Considerations
+
+The MIME media type for Hjson text is application/hjson.
+
+Type name:  application
+
+Subtype name:  hjson
+
+Required parameters:  n/a
+
+Optional parameters:  n/a
+
+Encoding considerations:  binary
+
+Security considerations:  See TODO, Section 13.
+
+Interoperability considerations:  Described in TODO
+
+Published specification:  TODO
+
+Applications that use this media type:
+   Hjson has been used to provide configuration data for applications written in all of these programming languages: C#, Go, Java, JavaScript, PHP and Python
+
+Additional information:
+   Magic number(s): n/a
+   File extension(s): .hjson
+   Macintosh file type code(s): TEXT
+
+Person & email address to contact for further information:
+   IESG
+   <iesg@ietf.org>
+
+Intended usage:  COMMON
+
+Restrictions on usage:  none
+
+Author:
+   Christian Zangl
+   <laktak@cdak.net>
+
+Change controller:
+   IESG
+   <iesg@ietf.org>
+
+Note:  No "charset" parameter is defined for this registration.
+   Adding one really has no effect on compliant recipients.
+
+
+# Security Considerations
+
+Unlike JSON, Hjson is not a subset of Javascript and cannot be parsed using "eval()".
+
+
+# Examples
+
+This is a Hjson object:
+
+~~~
+   {
+     TODO
+   }
+~~~
+
+# Contributors
+
+This document is based on {{RFC4627}} and {{RFC7159}} which were written by Douglas Crockford and Tim Bray. This document was constructed by extending it with the elements of the Hjson syntax.
+
+
+--- fluff
+
+<!--  LocalWords:  Hjson JSON
+-->
+<!--  LocalWords:  IANA
+-->

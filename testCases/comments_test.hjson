@@ -1,3 +1,15 @@
+// test
+# all
+// comment
+/*
+styles
+*/
+# with lf
+
+
+
+# !
+
 {
   # hjson style comment
   foo1: This is a string value. # part of the string

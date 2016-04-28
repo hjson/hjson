@@ -1,0 +1,108 @@
+Hjson-text = ws-c ( root-object / value ) ws-c
+begin-array      = ws-c %x5B ws-c     ; [ left square bracket
+begin-object     = ws-c %x7B ws-c     ; { left curly bracket
+end-array        = ws-c %x5D ws-c     ; ] right square bracket
+end-object       = ws-c %x7D ws-c     ; } right curly bracket
+name-separator   = ws-c %x3A ws-c     ; : colon
+comma-separator  = ws-c %x2C ws-c     ; , comma
+lf-separator     = *( comment /
+                     *(space / tab / cr) )
+                   lf ws-c            ; Line feed or New line
+ws-c  = *( comment / ws )
+ws    = *( space / tab / lf / cr )
+space = %x20    ; Space
+tab   = %x09    ; Horizontal tab
+lf    = %x0A    ; Line feed or New line
+cr    = %x0D    ; Carriage return
+comment = line-comment / block-comment
+line-comment  = ( %x23 /        ; # hash
+                  %x2F.2F )     ; // slash + slash
+                *( tab / cr / %x20-10FFFF ) ; until lf
+block-comment = start-block-comment
+                *( !end-block-comment anychar )
+                end-block-comment
+start-block-comment = %x2F.2A   ; /* slash + star
+end-block-comment = %x2A.2F     ; */ star + slash
+anychar = tab / cr / lf / %x20-10FFFF
+; SABNF: block-comment requies the use of the
+;        ! operator to allow * and / in the text
+;        while stopping at */
+false = %x66.61.6C.73.65   ; false
+null  = %x6E.75.6C.6C      ; null
+true  = %x74.72.75.65      ; true
+value = literal / object / array / number / string
+literal = ( false / null / true ) !literal-end
+literal-end =
+         *( space / tab )
+         ( %x21-22 / %x24-2B / %x2D-2E / %x30-5A /
+           %x5C / %x5E-7A / %x7C / %x7E-10FFFF )
+         ; exclude #/,[]{}
+; SABNF: define literal-end to prevent matches
+;        that are actually a ql-string
+;        (like "true blue")
+value-separator = comma-separator / lf-separator
+object = begin-object
+         *( member [value-separator] )
+         end-object
+member = name name-separator value
+root-object =
+         1*( member [value-separator] )
+name = json-string / keyname
+keyname =  1*non-control-char
+non-control-char = %x21-2B / %x2D-39 / %x3B-5A /
+                   %x5C / %x5E-7A / %x7C / %x7E-10FFFF
+   ; any non-control character (excludes ,:[]{} and ws)
+array =  begin-array
+         *( value [value-separator] )
+         end-array
+number = [ minus ] int [ frac ] [ exp ] !num-end
+decimal-point = %x2E       ; .
+digit = %x30-39            ; 0-9
+digit1-9 = %x31-39         ; 1-9
+e = %x65 / %x45            ; e E
+exp = e [ minus / plus ] 1*digit
+frac = decimal-point 1*digit
+int = zero / ( digit1-9 *digit )
+minus = %x2D               ; -
+plus = %x2B                ; +
+zero = %x30                ; 0
+num-end =  *( space / tab )
+           ( %x21-22 / %x24-2B / %x2D-2E / %x30-5A /
+           %x5C / %x5E-7A / %x7C / %x7E-10FFFF )
+           ; exclude #/,[]{}
+; SABNF: define num-end to prevent matches
+;        that are actually a ql-string
+;        (like "1 minute")
+string = json-string / ml-string / ql-string
+json-string = quotation-mark *char quotation-mark
+char = unescaped /
+    escape (
+        %x22 /          ; "    quotation mark  U+0022
+        %x5C /          ; \    reverse solidus U+005C
+        %x2F /          ; /    solidus         U+002F
+        %x62 /          ; b    backspace       U+0008
+        %x66 /          ; f    form feed       U+000C
+        %x6E /          ; n    line feed       U+000A
+        %x72 /          ; r    carriage return U+000D
+        %x74 /          ; t    tab             U+0009
+        %x75 4hexdig )  ; uXXXX                U+XXXX
+hexdig = %x30-39 / "A" / "B" / "C" / "D" / "E" / "F"
+escape = %x5C              ; \
+quotation-mark = %x22      ; "
+unescaped = %x20-21 / %x23-5B / %x5D-10FFFF
+ql-string = non-control-char
+            *( !ql-end ql-char )
+ql-end    = *( space / tab / cr ) lf
+ql-char   = space / tab / %x21-10FFFF
+; SABNF: define ql-end to exclude trailing
+;        whitespace from the ql-string
+ml-string =
+   ml-seq
+   *( !ml-seq ( ml-char / ml-ignore ) )
+   ml-seq
+ml-seq = "'''"
+ml-char = space / tab / lf / %x21-10FFFF
+ml-ignore = cr
+; SABNF: ml-string requies the use of the
+;        ! operator to allow ' in the text
+;        while stopping at '''
