@@ -4,6 +4,7 @@
     "apg-lib": "^2.1.4"
   },
   "scripts": {
-    "test": "node ./test.js"
+    "test": "node ./test.js",
+    "test-dbg": "node ./test.js -d"
   }
 }

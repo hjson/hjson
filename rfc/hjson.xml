@@ -105,21 +105,19 @@ document are to be interpreted as described in <xref target="RFC2119"/>.</t>
 <t>These are the seven structural characters:</t>
 
 <figure><artwork type="abnf"><![CDATA[
-   begin-array      = ws-c %x5B ws-c     ; [ left square bracket
+   begin-array      = %x5B     ; [ left square bracket
 
-   begin-object     = ws-c %x7B ws-c     ; { left curly bracket
+   begin-object     = %x7B     ; { left curly bracket
 
-   end-array        = ws-c %x5D ws-c     ; ] right square bracket
+   end-array        = %x5D     ; ] right square bracket
 
-   end-object       = ws-c %x7D ws-c     ; } right curly bracket
+   end-object       = %x7D     ; } right curly bracket
 
-   name-separator   = ws-c %x3A ws-c     ; : colon
+   name-separator   = %x3A     ; : colon
 
-   comma-separator  = ws-c %x2C ws-c     ; , comma
+   comma-separator  = %x2C     ; , comma
 
-   lf-separator     = *( comment /
-                        *(space / tab / cr) )
-                      lf ws-c            ; Line feed or New line
+   lf-separator     = lf       ; Line feed or New line
 ]]></artwork></figure>
 
 <t>Insignificant whitespace and comments are allowed before or after any of the first six structural characters.</t>
@@ -197,7 +195,10 @@ the following three literal names:</t>
 <t>Values can be separated directly by a comma or indirectly by one or more linefeeds.</t>
 
 <figure><artwork type="abnf"><![CDATA[
-   value-separator = comma-separator / lf-separator
+   value-separator =  ( ws-c comma-separator ws-c ) /
+                      ( *( comment /
+                           *(space / tab / cr) )
+                        lf-separator ws-c )
 ]]></artwork></figure>
 
 <t>Note that while Hjson allows the use of lf as a separator, the cr character is generally ignored. This should not be an issue as all modern operating systems use either lf or cr+lf as their line terminator.</t>
@@ -209,10 +210,12 @@ the following three literal names:</t>
 
 <figure><artwork type="abnf"><![CDATA[
    object = begin-object
-            *( member [value-separator] )
+            ws-c
+            [ member *( value-separator member ) [value-separator] ]
+            ws-c
             end-object
 
-   member = name name-separator value
+   member = name ws-c name-separator ws-c value
 ]]></artwork></figure>
 
 <t>If the Hjson text defines an object it does not have to include the braces at the root level:</t>
@@ -243,7 +246,9 @@ the following three literal names:</t>
 
 <figure><artwork type="abnf"><![CDATA[
    array =  begin-array
-            *( value [value-separator] )
+            ws-c
+            [ value *( value-separator value ) [value-separator ] ]
+            ws-c
             end-array
 ]]></artwork></figure>
 
@@ -496,11 +501,11 @@ strictly conform to the Hjson grammar.</t>
 
 <t>Encoding considerations:  binary</t>
 
-<t>Security considerations:  See TODO, Section 13.</t>
+<t>Security considerations:  See &rfc.number;, <xref target="sec"/>.</t>
 
-<t>Interoperability considerations:  Described in TODO</t>
+<t>Interoperability considerations:  Described in &rfc.number;</t>
 
-<t>Published specification:  TODO</t>
+<t>Published specification:  &rfc.number;</t>
 
 <t>Applications that use this media type:
    Hjson has been used to provide configuration data for applications written in all of these programming languages: C#, Go, Java, JavaScript, PHP and Python</t>
@@ -530,7 +535,7 @@ strictly conform to the Hjson grammar.</t>
    Adding one really has no effect on compliant recipients.</t>
 
 </section>
-<section anchor="security-considerations" title="Security Considerations">
+<section anchor="sec" title="Security Considerations">
 
 <t>Unlike JSON, Hjson is not a subset of Javascript and cannot be parsed using “eval()”.</t>
 

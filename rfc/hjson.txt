@@ -3,7 +3,7 @@
 
 
 none                                                            C. Zangl
-Internet-Draft                                                  May 2016
+Internet-Draft                                               May 1, 2016
 Intended status: Standards Track
 Expires: November 2, 2016
 
@@ -182,21 +182,19 @@ Internet-Draft                    Hjson                         May 2016
 
    These are the seven structural characters:
 
-      begin-array      = ws-c %x5B ws-c     ; [ left square bracket
+      begin-array      = %x5B     ; [ left square bracket
 
-      begin-object     = ws-c %x7B ws-c     ; { left curly bracket
+      begin-object     = %x7B     ; { left curly bracket
 
-      end-array        = ws-c %x5D ws-c     ; ] right square bracket
+      end-array        = %x5D     ; ] right square bracket
 
-      end-object       = ws-c %x7D ws-c     ; } right curly bracket
+      end-object       = %x7D     ; } right curly bracket
 
-      name-separator   = ws-c %x3A ws-c     ; : colon
+      name-separator   = %x3A     ; : colon
 
-      comma-separator  = ws-c %x2C ws-c     ; , comma
+      comma-separator  = %x2C     ; , comma
 
-      lf-separator     = *( comment /
-                           *(space / tab / cr) )
-                         lf ws-c            ; Line feed or New line
+      lf-separator     = lf       ; Line feed or New line
 
    Insignificant whitespace and comments are allowed before or after any
    of the first six structural characters.
@@ -211,6 +209,8 @@ Internet-Draft                    Hjson                         May 2016
       cr    = %x0D    ; Carriage return
 
    Comments can be specified as line or block comments.
+
+
 
 
 
@@ -287,7 +287,10 @@ Internet-Draft                    Hjson                         May 2016
    Values can be separated directly by a comma or indirectly by one or
    more linefeeds.
 
-      value-separator = comma-separator / lf-separator
+      value-separator =  ( ws-c comma-separator ws-c ) /
+                         ( *( comment /
+                              *(space / tab / cr) )
+                           lf-separator ws-c )
 
    Note that while Hjson allows the use of lf as a separator, the cr
    character is generally ignored.  This should not be an issue as all
@@ -305,10 +308,12 @@ Internet-Draft                    Hjson                         May 2016
    be unique.
 
       object = begin-object
-               *( member [value-separator] )
+               ws-c
+               [ member *( value-separator member ) [value-separator] ]
+               ws-c
                end-object
 
-      member = name name-separator value
+      member = name ws-c name-separator ws-c value
 
    If the Hjson text defines an object it does not have to include the
    braces at the root level:
@@ -318,6 +323,20 @@ Internet-Draft                    Hjson                         May 2016
 
    A name can be specified as a JSON string (with quotes) or as a name
    without quotes.
+
+
+
+
+
+
+
+
+
+
+Zangl                   Expires November 2, 2016                [Page 6]
+
+Internet-Draft                    Hjson                         May 2016
+
 
       name = json-string / keyname
 
@@ -330,14 +349,6 @@ Internet-Draft                    Hjson                         May 2016
    For interoperability issues regarding the uniquness of names and
    object member ordering, see [RFC7159] Section 4.
 
-
-
-
-Zangl                   Expires November 2, 2016                [Page 6]
-
-Internet-Draft                    Hjson                         May 2016
-
-
 6.  Arrays
 
    An array structure is represented as square brackets surrounding zero
@@ -345,7 +356,9 @@ Internet-Draft                    Hjson                         May 2016
    linefeeds.  Trailing commas are allowed.
 
       array =  begin-array
-               *( value [value-separator] )
+               ws-c
+               [ value *( value-separator value ) [value-separator ] ]
+               ws-c
                end-array
 
    There is no requirement that the values in an array be of the same
@@ -368,19 +381,6 @@ Internet-Draft                    Hjson                         May 2016
 
    Numeric values that cannot be represented in the grammar below (such
    as Infinity and NaN) are not permitted.
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -654,11 +654,11 @@ Internet-Draft                    Hjson                         May 2016
 
    Encoding considerations: binary
 
-   Security considerations: See TODO, Section 13.
+   Security considerations: See XXXX, Section 13.
 
-   Interoperability considerations: Described in TODO
+   Interoperability considerations: Described in XXXX
 
-   Published specification: TODO
+   Published specification: XXXX
 
    Applications that use this media type: Hjson has been used to provide
    configuration data for applications written in all of these

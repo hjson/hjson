@@ -5,11 +5,11 @@ module.exports = function(){
   // SUMMARY
   //      rules = 60
   //       udts = 0
-  //    opcodes = 279
+  //    opcodes = 278
   //        ABNF original opcodes
   //        ALT = 30
-  //        CAT = 32
-  //        REP = 27
+  //        CAT = 29
+  //        REP = 29
   //        RNM = 111
   //        TLS = 7
   //        TBS = 40
@@ -169,59 +169,31 @@ module.exports = function(){
 
   /* begin-array */
   this.rules[1].opcodes = [];
-  this.rules[1].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
-  this.rules[1].opcodes[1] = {type: 4, index: 8};// RNM(ws-c)
-  this.rules[1].opcodes[2] = {type: 6, string: [91]};// TBS
-  this.rules[1].opcodes[3] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[1].opcodes[0] = {type: 6, string: [91]};// TBS
 
   /* begin-object */
   this.rules[2].opcodes = [];
-  this.rules[2].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
-  this.rules[2].opcodes[1] = {type: 4, index: 8};// RNM(ws-c)
-  this.rules[2].opcodes[2] = {type: 6, string: [123]};// TBS
-  this.rules[2].opcodes[3] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[2].opcodes[0] = {type: 6, string: [123]};// TBS
 
   /* end-array */
   this.rules[3].opcodes = [];
-  this.rules[3].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
-  this.rules[3].opcodes[1] = {type: 4, index: 8};// RNM(ws-c)
-  this.rules[3].opcodes[2] = {type: 6, string: [93]};// TBS
-  this.rules[3].opcodes[3] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[3].opcodes[0] = {type: 6, string: [93]};// TBS
 
   /* end-object */
   this.rules[4].opcodes = [];
-  this.rules[4].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
-  this.rules[4].opcodes[1] = {type: 4, index: 8};// RNM(ws-c)
-  this.rules[4].opcodes[2] = {type: 6, string: [125]};// TBS
-  this.rules[4].opcodes[3] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[4].opcodes[0] = {type: 6, string: [125]};// TBS
 
   /* name-separator */
   this.rules[5].opcodes = [];
-  this.rules[5].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
-  this.rules[5].opcodes[1] = {type: 4, index: 8};// RNM(ws-c)
-  this.rules[5].opcodes[2] = {type: 6, string: [58]};// TBS
-  this.rules[5].opcodes[3] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[5].opcodes[0] = {type: 6, string: [58]};// TBS
 
   /* comma-separator */
   this.rules[6].opcodes = [];
-  this.rules[6].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
-  this.rules[6].opcodes[1] = {type: 4, index: 8};// RNM(ws-c)
-  this.rules[6].opcodes[2] = {type: 6, string: [44]};// TBS
-  this.rules[6].opcodes[3] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[6].opcodes[0] = {type: 6, string: [44]};// TBS
 
   /* lf-separator */
   this.rules[7].opcodes = [];
-  this.rules[7].opcodes[0] = {type: 2, children: [1,9,10]};// CAT
-  this.rules[7].opcodes[1] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[7].opcodes[2] = {type: 1, children: [3,4]};// ALT
-  this.rules[7].opcodes[3] = {type: 4, index: 14};// RNM(comment)
-  this.rules[7].opcodes[4] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[7].opcodes[5] = {type: 1, children: [6,7,8]};// ALT
-  this.rules[7].opcodes[6] = {type: 4, index: 10};// RNM(space)
-  this.rules[7].opcodes[7] = {type: 4, index: 11};// RNM(tab)
-  this.rules[7].opcodes[8] = {type: 4, index: 13};// RNM(cr)
-  this.rules[7].opcodes[9] = {type: 4, index: 12};// RNM(lf)
-  this.rules[7].opcodes[10] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[7].opcodes[0] = {type: 4, index: 12};// RNM(lf)
 
   /* ws-c */
   this.rules[8].opcodes = [];
@@ -350,27 +322,48 @@ module.exports = function(){
 
   /* value-separator */
   this.rules[26].opcodes = [];
-  this.rules[26].opcodes[0] = {type: 1, children: [1,2]};// ALT
-  this.rules[26].opcodes[1] = {type: 4, index: 6};// RNM(comma-separator)
-  this.rules[26].opcodes[2] = {type: 4, index: 7};// RNM(lf-separator)
+  this.rules[26].opcodes[0] = {type: 1, children: [1,5]};// ALT
+  this.rules[26].opcodes[1] = {type: 2, children: [2,3,4]};// CAT
+  this.rules[26].opcodes[2] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[26].opcodes[3] = {type: 4, index: 6};// RNM(comma-separator)
+  this.rules[26].opcodes[4] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[26].opcodes[5] = {type: 2, children: [6,14,15]};// CAT
+  this.rules[26].opcodes[6] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[26].opcodes[7] = {type: 1, children: [8,9]};// ALT
+  this.rules[26].opcodes[8] = {type: 4, index: 14};// RNM(comment)
+  this.rules[26].opcodes[9] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[26].opcodes[10] = {type: 1, children: [11,12,13]};// ALT
+  this.rules[26].opcodes[11] = {type: 4, index: 10};// RNM(space)
+  this.rules[26].opcodes[12] = {type: 4, index: 11};// RNM(tab)
+  this.rules[26].opcodes[13] = {type: 4, index: 13};// RNM(cr)
+  this.rules[26].opcodes[14] = {type: 4, index: 7};// RNM(lf-separator)
+  this.rules[26].opcodes[15] = {type: 4, index: 8};// RNM(ws-c)
 
   /* object */
   this.rules[27].opcodes = [];
-  this.rules[27].opcodes[0] = {type: 2, children: [1,2,7]};// CAT
+  this.rules[27].opcodes[0] = {type: 2, children: [1,2,3,12,13]};// CAT
   this.rules[27].opcodes[1] = {type: 4, index: 2};// RNM(begin-object)
-  this.rules[27].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[27].opcodes[3] = {type: 2, children: [4,5]};// CAT
-  this.rules[27].opcodes[4] = {type: 4, index: 28};// RNM(member)
-  this.rules[27].opcodes[5] = {type: 3, min: 0, max: 1};// REP
-  this.rules[27].opcodes[6] = {type: 4, index: 26};// RNM(value-separator)
-  this.rules[27].opcodes[7] = {type: 4, index: 4};// RNM(end-object)
+  this.rules[27].opcodes[2] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[27].opcodes[3] = {type: 3, min: 0, max: 1};// REP
+  this.rules[27].opcodes[4] = {type: 2, children: [5,6,10]};// CAT
+  this.rules[27].opcodes[5] = {type: 4, index: 28};// RNM(member)
+  this.rules[27].opcodes[6] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[27].opcodes[7] = {type: 2, children: [8,9]};// CAT
+  this.rules[27].opcodes[8] = {type: 4, index: 26};// RNM(value-separator)
+  this.rules[27].opcodes[9] = {type: 4, index: 28};// RNM(member)
+  this.rules[27].opcodes[10] = {type: 3, min: 0, max: 1};// REP
+  this.rules[27].opcodes[11] = {type: 4, index: 26};// RNM(value-separator)
+  this.rules[27].opcodes[12] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[27].opcodes[13] = {type: 4, index: 4};// RNM(end-object)
 
   /* member */
   this.rules[28].opcodes = [];
-  this.rules[28].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
+  this.rules[28].opcodes[0] = {type: 2, children: [1,2,3,4,5]};// CAT
   this.rules[28].opcodes[1] = {type: 4, index: 30};// RNM(name)
-  this.rules[28].opcodes[2] = {type: 4, index: 5};// RNM(name-separator)
-  this.rules[28].opcodes[3] = {type: 4, index: 23};// RNM(value)
+  this.rules[28].opcodes[2] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[28].opcodes[3] = {type: 4, index: 5};// RNM(name-separator)
+  this.rules[28].opcodes[4] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[28].opcodes[5] = {type: 4, index: 23};// RNM(value)
 
   /* root-object */
   this.rules[29].opcodes = [];
@@ -404,14 +397,20 @@ module.exports = function(){
 
   /* array */
   this.rules[33].opcodes = [];
-  this.rules[33].opcodes[0] = {type: 2, children: [1,2,7]};// CAT
+  this.rules[33].opcodes[0] = {type: 2, children: [1,2,3,12,13]};// CAT
   this.rules[33].opcodes[1] = {type: 4, index: 1};// RNM(begin-array)
-  this.rules[33].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[33].opcodes[3] = {type: 2, children: [4,5]};// CAT
-  this.rules[33].opcodes[4] = {type: 4, index: 23};// RNM(value)
-  this.rules[33].opcodes[5] = {type: 3, min: 0, max: 1};// REP
-  this.rules[33].opcodes[6] = {type: 4, index: 26};// RNM(value-separator)
-  this.rules[33].opcodes[7] = {type: 4, index: 3};// RNM(end-array)
+  this.rules[33].opcodes[2] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[33].opcodes[3] = {type: 3, min: 0, max: 1};// REP
+  this.rules[33].opcodes[4] = {type: 2, children: [5,6,10]};// CAT
+  this.rules[33].opcodes[5] = {type: 4, index: 23};// RNM(value)
+  this.rules[33].opcodes[6] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[33].opcodes[7] = {type: 2, children: [8,9]};// CAT
+  this.rules[33].opcodes[8] = {type: 4, index: 26};// RNM(value-separator)
+  this.rules[33].opcodes[9] = {type: 4, index: 23};// RNM(value)
+  this.rules[33].opcodes[10] = {type: 3, min: 0, max: 1};// REP
+  this.rules[33].opcodes[11] = {type: 4, index: 26};// RNM(value-separator)
+  this.rules[33].opcodes[12] = {type: 4, index: 8};// RNM(ws-c)
+  this.rules[33].opcodes[13] = {type: 4, index: 3};// RNM(end-array)
 
   /* number */
   this.rules[34].opcodes = [];
@@ -621,15 +620,13 @@ module.exports = function(){
   this.toString = function(){
     var str = "";
     str += "Hjson-text = ws-c ( root-object / value ) ws-c\n";
-    str += "begin-array      = ws-c %x5B ws-c     ; [ left square bracket\n";
-    str += "begin-object     = ws-c %x7B ws-c     ; { left curly bracket\n";
-    str += "end-array        = ws-c %x5D ws-c     ; ] right square bracket\n";
-    str += "end-object       = ws-c %x7D ws-c     ; } right curly bracket\n";
-    str += "name-separator   = ws-c %x3A ws-c     ; : colon\n";
-    str += "comma-separator  = ws-c %x2C ws-c     ; , comma\n";
-    str += "lf-separator     = *( comment /\n";
-    str += "                     *(space / tab / cr) )\n";
-    str += "                   lf ws-c            ; Line feed or New line\n";
+    str += "begin-array      = %x5B     ; [ left square bracket\n";
+    str += "begin-object     = %x7B     ; { left curly bracket\n";
+    str += "end-array        = %x5D     ; ] right square bracket\n";
+    str += "end-object       = %x7D     ; } right curly bracket\n";
+    str += "name-separator   = %x3A     ; : colon\n";
+    str += "comma-separator  = %x2C     ; , comma\n";
+    str += "lf-separator     = lf       ; Line feed or New line\n";
     str += "ws-c  = *( comment / ws )\n";
     str += "ws    = *( space / tab / lf / cr )\n";
     str += "space = %x20    ; Space\n";
@@ -662,11 +659,16 @@ module.exports = function(){
     str += "; SABNF: define literal-end to prevent matches\n";
     str += ";        that are actually a ql-string\n";
     str += ";        (like \"true blue\")\n";
-    str += "value-separator = comma-separator / lf-separator\n";
+    str += "value-separator =  ( ws-c comma-separator ws-c ) /\n";
+    str += "                   ( *( comment /\n";
+    str += "                        *(space / tab / cr) )\n";
+    str += "                     lf-separator ws-c )\n";
     str += "object = begin-object\n";
-    str += "         *( member [value-separator] )\n";
+    str += "         ws-c\n";
+    str += "         [ member *( value-separator member ) [value-separator] ]\n";
+    str += "         ws-c\n";
     str += "         end-object\n";
-    str += "member = name name-separator value\n";
+    str += "member = name ws-c name-separator ws-c value\n";
     str += "root-object =\n";
     str += "         1*( member [value-separator] )\n";
     str += "name = json-string / keyname\n";
@@ -675,7 +677,9 @@ module.exports = function(){
     str += "                   %x5C / %x5E-7A / %x7C / %x7E-10FFFF\n";
     str += "   ; any non-control character (excludes ,:[]{} and ws)\n";
     str += "array =  begin-array\n";
-    str += "         *( value [value-separator] )\n";
+    str += "         ws-c\n";
+    str += "         [ value *( value-separator value ) [value-separator ] ]\n";
+    str += "         ws-c\n";
     str += "         end-array\n";
     str += "number = [ minus ] int [ frac ] [ exp ] !num-end\n";
     str += "decimal-point = %x2E       ; .\n";

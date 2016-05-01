@@ -1,13 +1,11 @@
 Hjson-text = ws-c ( root-object / value ) ws-c
-begin-array      = ws-c %x5B ws-c     ; [ left square bracket
-begin-object     = ws-c %x7B ws-c     ; { left curly bracket
-end-array        = ws-c %x5D ws-c     ; ] right square bracket
-end-object       = ws-c %x7D ws-c     ; } right curly bracket
-name-separator   = ws-c %x3A ws-c     ; : colon
-comma-separator  = ws-c %x2C ws-c     ; , comma
-lf-separator     = *( comment /
-                     *(space / tab / cr) )
-                   lf ws-c            ; Line feed or New line
+begin-array      = %x5B     ; [ left square bracket
+begin-object     = %x7B     ; { left curly bracket
+end-array        = %x5D     ; ] right square bracket
+end-object       = %x7D     ; } right curly bracket
+name-separator   = %x3A     ; : colon
+comma-separator  = %x2C     ; , comma
+lf-separator     = lf       ; Line feed or New line
 ws-c  = *( comment / ws )
 ws    = *( space / tab / lf / cr )
 space = %x20    ; Space
@@ -40,11 +38,16 @@ literal-end =
 ; SABNF: define literal-end to prevent matches
 ;        that are actually a ql-string
 ;        (like "true blue")
-value-separator = comma-separator / lf-separator
+value-separator =  ( ws-c comma-separator ws-c ) /
+                   ( *( comment /
+                        *(space / tab / cr) )
+                     lf-separator ws-c )
 object = begin-object
-         *( member [value-separator] )
+         ws-c
+         [ member *( value-separator member ) [value-separator] ]
+         ws-c
          end-object
-member = name name-separator value
+member = name ws-c name-separator ws-c value
 root-object =
          1*( member [value-separator] )
 name = json-string / keyname
@@ -53,7 +56,9 @@ non-control-char = %x21-2B / %x2D-39 / %x3B-5A /
                    %x5C / %x5E-7A / %x7C / %x7E-10FFFF
    ; any non-control character (excludes ,:[]{} and ws)
 array =  begin-array
-         *( value [value-separator] )
+         ws-c
+         [ value *( value-separator value ) [value-separator ] ]
+         ws-c
          end-array
 number = [ minus ] int [ frac ] [ exp ] !num-end
 decimal-point = %x2E       ; .
