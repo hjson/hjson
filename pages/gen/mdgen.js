@@ -13,7 +13,7 @@ function extractDoc(window) {
   return html.replace(/<\/body>.*<\/html>/g, '</body></html>');
 }
 
-function killHtml(html) {
+function unwrapDoc(html) {
   ['html', 'body', 'head'].forEach(function(name){
     html=html.replace(new RegExp("<"+name+">"), "");
     html=html.replace(new RegExp("<\\/"+name+">"), "");
@@ -59,7 +59,7 @@ if (args.length>2) {
               $(this).replaceWith($(svg[i]));
             });
             $("script").remove();
-            save(syntax.replace(/%%%/, extractDoc(window)));
+            save(syntax.replace(/%%%/, unwrapDoc(extractDoc(window))));
           });
         },
       });
