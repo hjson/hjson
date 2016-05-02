@@ -5,12 +5,12 @@ module.exports = function(){
   // SUMMARY
   //      rules = 60
   //       udts = 0
-  //    opcodes = 278
+  //    opcodes = 281
   //        ABNF original opcodes
   //        ALT = 30
-  //        CAT = 29
+  //        CAT = 30
   //        REP = 29
-  //        RNM = 111
+  //        RNM = 113
   //        TLS = 7
   //        TBS = 40
   //        TRG = 27
@@ -367,11 +367,14 @@ module.exports = function(){
 
   /* root-object */
   this.rules[29].opcodes = [];
-  this.rules[29].opcodes[0] = {type: 3, min: 1, max: Infinity};// REP
-  this.rules[29].opcodes[1] = {type: 2, children: [2,3]};// CAT
-  this.rules[29].opcodes[2] = {type: 4, index: 28};// RNM(member)
-  this.rules[29].opcodes[3] = {type: 3, min: 0, max: 1};// REP
+  this.rules[29].opcodes[0] = {type: 2, children: [1,2,6]};// CAT
+  this.rules[29].opcodes[1] = {type: 4, index: 28};// RNM(member)
+  this.rules[29].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[29].opcodes[3] = {type: 2, children: [4,5]};// CAT
   this.rules[29].opcodes[4] = {type: 4, index: 26};// RNM(value-separator)
+  this.rules[29].opcodes[5] = {type: 4, index: 28};// RNM(member)
+  this.rules[29].opcodes[6] = {type: 3, min: 0, max: 1};// REP
+  this.rules[29].opcodes[7] = {type: 4, index: 26};// RNM(value-separator)
 
   /* name */
   this.rules[30].opcodes = [];
@@ -670,7 +673,8 @@ module.exports = function(){
     str += "         end-object\n";
     str += "member = name ws-c name-separator ws-c value\n";
     str += "root-object =\n";
-    str += "         1*( member [value-separator] )\n";
+    str += "         member\n";
+    str += "         *( value-separator member ) [value-separator]\n";
     str += "name = json-string / keyname\n";
     str += "keyname =  1*non-control-char\n";
     str += "non-control-char = %x21-2B / %x2D-39 / %x3B-5A /\n";

@@ -222,7 +222,8 @@ the following three literal names:</t>
 
 <figure><artwork type="abnf"><![CDATA[
    root-object =
-            1*( member [value-separator] )
+            member
+            *( value-separator member ) [value-separator]
 ]]></artwork></figure>
 
 <t>A name can be specified as a JSON string (with quotes) or as a name without quotes.</t>

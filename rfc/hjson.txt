@@ -3,9 +3,9 @@
 
 
 none                                                            C. Zangl
-Internet-Draft                                               May 1, 2016
+Internet-Draft                                               May 2, 2016
 Intended status: Standards Track
-Expires: November 2, 2016
+Expires: November 3, 2016
 
 
               The Human JSON (Hjson) Configuration Format
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 2, 2016.
+   This Internet-Draft will expire on November 3, 2016.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Zangl                   Expires November 2, 2016                [Page 1]
+Zangl                   Expires November 3, 2016                [Page 1]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Zangl                   Expires November 2, 2016                [Page 2]
+Zangl                   Expires November 3, 2016                [Page 2]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -165,7 +165,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-Zangl                   Expires November 2, 2016                [Page 3]
+Zangl                   Expires November 3, 2016                [Page 3]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -221,7 +221,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-Zangl                   Expires November 2, 2016                [Page 4]
+Zangl                   Expires November 3, 2016                [Page 4]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -277,7 +277,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-Zangl                   Expires November 2, 2016                [Page 5]
+Zangl                   Expires November 3, 2016                [Page 5]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -319,7 +319,8 @@ Internet-Draft                    Hjson                         May 2016
    braces at the root level:
 
       root-object =
-               1*( member [value-separator] )
+               member
+               *( value-separator member ) [value-separator]
 
    A name can be specified as a JSON string (with quotes) or as a name
    without quotes.
@@ -332,8 +333,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-
-Zangl                   Expires November 2, 2016                [Page 6]
+Zangl                   Expires November 3, 2016                [Page 6]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -389,7 +389,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-Zangl                   Expires November 2, 2016                [Page 7]
+Zangl                   Expires November 3, 2016                [Page 7]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -445,7 +445,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-Zangl                   Expires November 2, 2016                [Page 8]
+Zangl                   Expires November 3, 2016                [Page 8]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -501,7 +501,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-Zangl                   Expires November 2, 2016                [Page 9]
+Zangl                   Expires November 3, 2016                [Page 9]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -557,7 +557,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-Zangl                   Expires November 2, 2016               [Page 10]
+Zangl                   Expires November 3, 2016               [Page 10]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -613,7 +613,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-Zangl                   Expires November 2, 2016               [Page 11]
+Zangl                   Expires November 3, 2016               [Page 11]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -669,7 +669,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-Zangl                   Expires November 2, 2016               [Page 12]
+Zangl                   Expires November 3, 2016               [Page 12]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -725,7 +725,7 @@ Internet-Draft                    Hjson                         May 2016
 
 
 
-Zangl                   Expires November 2, 2016               [Page 13]
+Zangl                   Expires November 3, 2016               [Page 13]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -781,4 +781,4 @@ Author's Address
 
 
 
-Zangl                   Expires November 2, 2016               [Page 14]
+Zangl                   Expires November 3, 2016               [Page 14]

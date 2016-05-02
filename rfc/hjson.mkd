@@ -222,7 +222,8 @@ If the Hjson text defines an object it does not have to include the braces at th
 
 ~~~abnf
    root-object =
-            1*( member [value-separator] )
+            member
+            *( value-separator member ) [value-separator]
 ~~~
 
 A name can be specified as a JSON string (with quotes) or as a name without quotes.

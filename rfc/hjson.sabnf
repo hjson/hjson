@@ -49,7 +49,8 @@ object = begin-object
          end-object
 member = name ws-c name-separator ws-c value
 root-object =
-         1*( member [value-separator] )
+         member
+         *( value-separator member ) [value-separator]
 name = json-string / keyname
 keyname =  1*non-control-char
 non-control-char = %x21-2B / %x2D-39 / %x3B-5A /
