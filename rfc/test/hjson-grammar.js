@@ -65,7 +65,7 @@ module.exports = function(){
   this.callbacks['ml-string'] = false;
   this.callbacks['name'] = false;
   this.callbacks['name-separator'] = false;
-  this.callbacks['non-control-char'] = false;
+  this.callbacks['non-punctuator-char'] = false;
   this.callbacks['null'] = false;
   this.callbacks['num-end'] = false;
   this.callbacks['number'] = false;
@@ -125,7 +125,7 @@ module.exports = function(){
   this.rules[29] = {name: 'root-object', lower: 'root-object', index: 29, isBkr: false};
   this.rules[30] = {name: 'name', lower: 'name', index: 30, isBkr: false};
   this.rules[31] = {name: 'keyname', lower: 'keyname', index: 31, isBkr: false};
-  this.rules[32] = {name: 'non-control-char', lower: 'non-control-char', index: 32, isBkr: false};
+  this.rules[32] = {name: 'non-punctuator-char', lower: 'non-punctuator-char', index: 32, isBkr: false};
   this.rules[33] = {name: 'array', lower: 'array', index: 33, isBkr: false};
   this.rules[34] = {name: 'number', lower: 'number', index: 34, isBkr: false};
   this.rules[35] = {name: 'decimal-point', lower: 'decimal-point', index: 35, isBkr: false};
@@ -385,9 +385,9 @@ module.exports = function(){
   /* keyname */
   this.rules[31].opcodes = [];
   this.rules[31].opcodes[0] = {type: 3, min: 1, max: Infinity};// REP
-  this.rules[31].opcodes[1] = {type: 4, index: 32};// RNM(non-control-char)
+  this.rules[31].opcodes[1] = {type: 4, index: 32};// RNM(non-punctuator-char)
 
-  /* non-control-char */
+  /* non-punctuator-char */
   this.rules[32].opcodes = [];
   this.rules[32].opcodes[0] = {type: 1, children: [1,2,3,4,5,6,7]};// ALT
   this.rules[32].opcodes[1] = {type: 5, min: 33, max: 43};// TRG
@@ -566,7 +566,7 @@ module.exports = function(){
   /* ql-string */
   this.rules[53].opcodes = [];
   this.rules[53].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[53].opcodes[1] = {type: 4, index: 32};// RNM(non-control-char)
+  this.rules[53].opcodes[1] = {type: 4, index: 32};// RNM(non-punctuator-char)
   this.rules[53].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
   this.rules[53].opcodes[3] = {type: 2, children: [4,6]};// CAT
   this.rules[53].opcodes[4] = {type: 13};// NOT
@@ -676,10 +676,10 @@ module.exports = function(){
     str += "         member\n";
     str += "         *( value-separator member ) [value-separator]\n";
     str += "name = json-string / keyname\n";
-    str += "keyname =  1*non-control-char\n";
-    str += "non-control-char = %x21-2B / %x2D-39 / %x3B-5A /\n";
-    str += "                   %x5C / %x5E-7A / %x7C / %x7E-10FFFF\n";
-    str += "   ; any non-control character (excludes ,:[]{} and ws)\n";
+    str += "keyname =  1*non-punctuator-char\n";
+    str += "non-punctuator-char = %x21-2B / %x2D-39 / %x3B-5A /\n";
+    str += "                      %x5C / %x5E-7A / %x7C / %x7E-10FFFF\n";
+    str += "; any non-punctuator character (excludes ,:[]{} and ws)\n";
     str += "array =  begin-array\n";
     str += "         ws-c\n";
     str += "         [ value *( value-separator value ) [value-separator ] ]\n";
@@ -720,7 +720,7 @@ module.exports = function(){
     str += "escape = %x5C              ; \\\n";
     str += "quotation-mark = %x22      ; \"\n";
     str += "unescaped = %x20-21 / %x23-5B / %x5D-10FFFF\n";
-    str += "ql-string = non-control-char\n";
+    str += "ql-string = non-punctuator-char\n";
     str += "            *( !ql-end ql-char )\n";
     str += "ql-end    = *( space / tab / cr ) lf\n";
     str += "ql-char   = space / tab / %x21-10FFFF\n";

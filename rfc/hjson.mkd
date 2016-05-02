@@ -231,11 +231,11 @@ A name can be specified as a JSON string (with quotes) or as a name without quot
 ~~~abnf
    name = json-string / keyname
 
-   keyname =  1*non-control-char
+   keyname =  1*non-punctuator-char
 
-   non-control-char = %x21-2B / %x2D-39 / %x3B-5A /
-                      %x5C / %x5E-7A / %x7C / %x7E-10FFFF
-      ; any non-control character (excludes ,:[]{} and ws)
+   non-punctuator-char = %x21-2B / %x2D-39 / %x3B-5A /
+                         %x5C / %x5E-7A / %x7C / %x7E-10FFFF
+   ; any non-punctuator character (excludes ,:[]{} and ws)
 ~~~
 
 For interoperability issues regarding the uniquness of names and object member ordering, see {{RFC7159}} Section 4.
@@ -374,10 +374,10 @@ containing only the G clef character (U+1D11E) may be represented as
 
 ## Quoteless Strings
 
-Hjson allows strings to be represented only by their content without quotes. A quoteless string may contain any character except the control characters (U+0000 through U+001F) and excluding trailing whitespace. It ends at the first linefeed. Strings are taken as is without escapes.
+Hjson allows strings to be represented only by their content without quotes. A quoteless string may contain any character except the control characters (U+0000 through U+001F), excluding trailing whitespace. It cannot start with a punctuator character (,:[]{}). It ends at the first linefeed. Strings are taken as is without escapes.
 
 ~~~abnf
-   ql-string = non-control-char
+   ql-string = non-punctuator-char
                *( !ql-end ql-char )
 
    ql-end    = *( space / tab / cr ) lf
@@ -388,7 +388,13 @@ Hjson allows strings to be represented only by their content without quotes. A q
    ;        whitespace from the ql-string
 ~~~
 
-Valid Hjson tokens cannot start a quoteless string. That means that, for example, { will still start an object and a valid number will be parsed as such. Likewise a ] would end an array while it will create a quoteless string inside an object.
+A Hjson parser must still detect values (*number*, `true`, `false` or `null`) and parse them correctly. For example
+
+- '3' is the number 3
+- '5 times' is the string "5 times"
+- 'true' is the boolean true
+- '7 # minutes' is the number 7 followed by a comment
+- '\s#([0-9a-fA-F]{3})' is the string "\\s#([0-9a-fA-F]{3})"
 
 Not allowing escapes inside the quoteless string allows you to specify HTML fragments, regular expressions or Windows style paths as-is, keeping them readable.
 
@@ -416,7 +422,7 @@ A multiline string begins and ends with three single quotes.
 
 The carrige return character is generally ignored to make the parser platform independent.
 
-Whitespace handling cannot be expressed in the ABNF grammar and is thus defined as text:
+Whitespace handling cannot be expressed in the ABNF grammar and is thus defined as:
 
 - Whitespace on the first line is ignored.
 - The first three single quotes define the head. On the following lines all whitespace up to the column of the first single quote is ignored.

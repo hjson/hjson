@@ -231,11 +231,11 @@ the following three literal names:</t>
 <figure><artwork type="abnf"><![CDATA[
    name = json-string / keyname
 
-   keyname =  1*non-control-char
+   keyname =  1*non-punctuator-char
 
-   non-control-char = %x21-2B / %x2D-39 / %x3B-5A /
-                      %x5C / %x5E-7A / %x7C / %x7E-10FFFF
-      ; any non-control character (excludes ,:[]{} and ws)
+   non-punctuator-char = %x21-2B / %x2D-39 / %x3B-5A /
+                         %x5C / %x5E-7A / %x7C / %x7E-10FFFF
+   ; any non-punctuator character (excludes ,:[]{} and ws)
 ]]></artwork></figure>
 
 <t>For interoperability issues regarding the uniquness of names and object member ordering, see <xref target="RFC7159"/> Section 4.</t>
@@ -374,10 +374,10 @@ containing only the G clef character (U+1D11E) may be represented as
 </section>
 <section anchor="quoteless-strings" title="Quoteless Strings">
 
-<t>Hjson allows strings to be represented only by their content without quotes. A quoteless string may contain any character except the control characters (U+0000 through U+001F) and excluding trailing whitespace. It ends at the first linefeed. Strings are taken as is without escapes.</t>
+<t>Hjson allows strings to be represented only by their content without quotes. A quoteless string may contain any character except the control characters (U+0000 through U+001F), excluding trailing whitespace. It cannot start with a punctuator character (,:[]{}). It ends at the first linefeed. Strings are taken as is without escapes.</t>
 
 <figure><artwork type="abnf"><![CDATA[
-   ql-string = non-control-char
+   ql-string = non-punctuator-char
                *( !ql-end ql-char )
 
    ql-end    = *( space / tab / cr ) lf
@@ -388,7 +388,15 @@ containing only the G clef character (U+1D11E) may be represented as
    ;        whitespace from the ql-string
 ]]></artwork></figure>
 
-<t>Valid Hjson tokens cannot start a quoteless string. That means that, for example, { will still start an object and a valid number will be parsed as such. Likewise a ] would end an array while it will create a quoteless string inside an object.</t>
+<t>A Hjson parser must still detect values (<spanx style="emph">number</spanx>, <spanx style="verb">true</spanx>, <spanx style="verb">false</spanx> or <spanx style="verb">null</spanx>) and parse them correctly. For example</t>
+
+<t><list style="symbols">
+  <t>‘3’ is the number 3</t>
+  <t>‘5 times’ is the string “5 times”</t>
+  <t>‘true’ is the boolean true</t>
+  <t>‘7 # minutes’ is the number 7 followed by a comment</t>
+  <t>‘\s#([0-9a-fA-F]{3})’ is the string “\s#([0-9a-fA-F]{3})”</t>
+</list></t>
 
 <t>Not allowing escapes inside the quoteless string allows you to specify HTML fragments, regular expressions or Windows style paths as-is, keeping them readable.</t>
 
@@ -416,7 +424,7 @@ containing only the G clef character (U+1D11E) may be represented as
 
 <t>The carrige return character is generally ignored to make the parser platform independent.</t>
 
-<t>Whitespace handling cannot be expressed in the ABNF grammar and is thus defined as text:</t>
+<t>Whitespace handling cannot be expressed in the ABNF grammar and is thus defined as:</t>
 
 <t><list style="symbols">
   <t>Whitespace on the first line is ignored.</t>

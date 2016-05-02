@@ -52,10 +52,10 @@ root-object =
          member
          *( value-separator member ) [value-separator]
 name = json-string / keyname
-keyname =  1*non-control-char
-non-control-char = %x21-2B / %x2D-39 / %x3B-5A /
-                   %x5C / %x5E-7A / %x7C / %x7E-10FFFF
-   ; any non-control character (excludes ,:[]{} and ws)
+keyname =  1*non-punctuator-char
+non-punctuator-char = %x21-2B / %x2D-39 / %x3B-5A /
+                      %x5C / %x5E-7A / %x7C / %x7E-10FFFF
+; any non-punctuator character (excludes ,:[]{} and ws)
 array =  begin-array
          ws-c
          [ value *( value-separator value ) [value-separator ] ]
@@ -96,7 +96,7 @@ hexdig = %x30-39 / "A" / "B" / "C" / "D" / "E" / "F"
 escape = %x5C              ; \
 quotation-mark = %x22      ; "
 unescaped = %x20-21 / %x23-5B / %x5D-10FFFF
-ql-string = non-control-char
+ql-string = non-punctuator-char
             *( !ql-end ql-char )
 ql-end    = *( space / tab / cr ) lf
 ql-char   = space / tab / %x21-10FFFF
