@@ -1,5 +1,5 @@
 /*! @preserve
- * Hjson v1.8.3
+ * Hjson v2.0.0
  * http://hjson.org
  *
  * Copyright 2014-2016 Christian Zangl, MIT license
@@ -186,6 +186,10 @@ var Hjson = (function () {
       ch = ' ';
     }
 
+    function isControlChar(c) {
+      return c === '{' || c === '}' || c === '[' || c === ']' || c === ',' || c === ':';
+    }
+
     // Call error when something is wrong.
     var error = function (m) {
       var i, col=0, line=1;
@@ -311,7 +315,7 @@ var Hjson = (function () {
           if (!ch) error("Found EOF while looking for a key name (check your syntax)");
           else if (space < 0) space = name.length;
         }
-        else if (ch === '{' || ch === '}' || ch === '[' || ch === ']' || ch === ',') {
+        else if (isControlChar(ch)) {
           error("Found '" + ch + "' where a key name was expected (check your syntax or use quotes if the key name includes {}[],: or whitespace)");
         }
         else name += ch;
@@ -341,12 +345,15 @@ var Hjson = (function () {
       // Hjson strings can be quoteless
       // returns string, true, false, or null.
       var value = ch;
+      if (isControlChar(ch))
+        error("Found a control character '" + ch + "' when excpecting a quoteless string (check your syntax)");
+
       for(;;) {
         next();
         if (value.length === 3 && value === "'''") return mlString();
         var isEol = ch === '\r' || ch === '\n' || ch === '';
-        if (isEol || ch === ',' ||
-          ch === '}' || ch === ']' ||
+        if (isEol ||
+          ch === ',' || ch === '}' || ch === ']' ||
           ch === '#' ||
           ch === '/' && (peek(0) === '/' || peek(0) === '*')
           ) {
@@ -521,9 +528,13 @@ var Hjson = (function () {
 
   var hjson_stringify = (function () {
 
+    // needsEscape is used to detect and replace characters
     var needsEscape = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
-    var needsQuotes = /[\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; // like needsEscape but without \\ and \"
-    var needsEscapeML = /'''|[\x00-\x09\x0b\x0c\x0e-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; // ''' || (needsQuotes but without \n and \r)
+    // like needsEscape but without \\ and \"
+    var needsQuotes = /[\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
+    // ''' || (needsQuotes but without \n and \r)
+    var needsEscapeML = /'''|[\x00-\x09\x0b\x0c\x0e-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
+    // starts with a keyword and optionally is followed by a comment
     var startsWithKeyword = /^(true|false|null)\s*((,|\]|\}|#|\/\/|\/\*).*)?$/;
     var meta =
     {  // table of character substitutions
@@ -535,7 +546,7 @@ var Hjson = (function () {
       '"' : '\\"',
       '\\': '\\\\'
     };
-    var needsEscapeName = /[,\{\[\}\]\s:#]|\/\/|\/\*/;
+    var needsEscapeName = /[,\{\[\}\]\s:#"]|\/\/|\/\*|'''/;
     var gap = '';
     var indent = '  ';
     // options
@@ -565,6 +576,7 @@ var Hjson = (function () {
       if (doEscape ||
         isWhite(first) ||
         first === '"' ||
+        first === '\'' && string[1] === '\'' && string[2] === '\'' ||
         first === '#' ||
         first === '/' && (string[1] === '*' || string[1] === '/') ||
         first === '{' ||

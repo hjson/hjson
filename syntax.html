@@ -74,15 +74,21 @@
 
 <div id="main">
 <div class="content"><h2 id="syntax">Syntax</h2>
-<p>The Hjson syntax is a superset of JSON (<a href="http://json.org/">see json.org</a>) but allows you to</p>
+<p>The Hjson syntax is like <a href="http://json.org/">JSON</a> but allows you to</p>
 <ul>
 <li>add <code>#</code>, <code>//</code> or <code>/**/</code> comments,</li>
 <li>omit <code>&quot;&quot;</code> for keys,</li>
-<li>omit <code>&quot;&quot;</code> for strings,</li>
+<li>omit <code>&quot;&quot;</code> for strings (terminated by LF),</li>
 <li>omit <code>,</code> at the end of a line and</li>
 <li>use multiline strings with proper whitespace handling.</li>
 </ul>
-<p>You are also allowed to omit the root <code>{}</code> braces for objects.</p>
+<p>Because the punctuators <code>{}[],:</code> are used to define the structure of the Hjson text, you need to use quotes</p>
+<ul>
+<li>if your key includes a punctuators or space</li>
+<li>if your string starts with a punctuators</li>
+</ul>
+<p>Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.</p>
+<p>Braces for the root object are optional.</p>
 <p><a href="rfc.html" target="_blank">View the RFC draft</a></p>
 <p>
 <style type="text/css">
@@ -181,23 +187,29 @@ svg.railroad-diagram g.diagram-text:hover path.diagram-text {
 <p>Character means any UNICODE character except the control characters.</p>
 
 </p>
-<h4 id="cheat-sheet">Cheat Sheet</h4>
-<p>Simple rules to remember:</p>
-<ul>
-<li>if your key includes a JSON control character like <code>{}[],:</code> or space, use quotes</li>
-<li>if your string starts with <code>{</code> or <code>[</code>, use quotes</li>
-<li>remember that quoteless strings include everything up to the end of the line, excluding trailing whitespace.</li>
-</ul>
-<h4 id="details">Details</h4>
+<h3 id="details">Details</h3>
+<p>As Hjson is a superset of <a href="http://json.org/">JSON</a>, the basic syntax is the same.</p>
 <ul>
 <li><p>Keys</p>
-<p>You only need to add quotes if the key name includes whitespace or any of the JSON control characters (<code>{}[],:</code>).</p>
+<p>You only need to add quotes if the key name includes whitespace or any of the punctuators (<code>{}[],:</code>).</p>
+<p>For example:</p>
+<ul>
+<li><code>foo</code></li>
+<li><code>&quot;test case&quot;</code></li>
+<li><code>&quot;{option}&quot;</code></li>
+</ul>
 </li>
-<li><p>Strings</p>
-<p>When you omit quotes the string ends at the newline. Preceding and trailing whitespace is ignored as are escapes.</p>
-<p>A value that is a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> in JSON is parsed as a value. E.g. <code>3</code> is a valid <em>number</em> while <code>3 times</code> is a string.</p>
-<p>A quoteless string cannot start with any of the JSON control characters (<code>{}[],:</code>).</p>
-<p>Use quotes to have your string handled like in JSON. This also allows you to specify a comment after the string.</p>
+<li><p>Quoteless Strings</p>
+<p>A quoteless string cannot start with any of the punctuators (<code>{}[],:</code>).</p>
+<p>It is taken exactly as is up to the linefeed/newline, preceding and trailing whitespace is ignored. As there are no escapes, you do not need to escape the backslash. If you wish to add comments place them on the previous or next line.</p>
+<p>The Hjson parser will still detect values (<em>number</em>, <code>true</code>, <code>false</code> or <code>null</code>) and parse them correctly. For example</p>
+<ul>
+<li><code>3</code> is the <em>number</em> <code>3</code></li>
+<li><code>5 times</code> is the <em>string</em> <code>&quot;5 times&quot;</code></li>
+<li><code>true</code> is the <em>boolean</em> <code>true</code></li>
+<li><code>7 # minutes</code> is the <em>number</em> <code>7</code> followed by a comment</li>
+<li><code>\s#([0-9a-fA-F]{3})</code> is the <em>string</em> <code>&quot;\\s#([0-9a-fA-F]{3})&quot;</code></li>
+</ul>
 </li>
 <li><p>Multiline Strings</p>
 <ul>
@@ -207,23 +219,45 @@ svg.railroad-diagram g.diagram-text:hover path.diagram-text {
 <li>ends with triple quotes <code>&#39;&#39;&#39;</code>. The last newline is ignored to allow for better formatting.</li>
 </ul>
 <p>A multiline string is OS and file independent. The line feed is always <code>\n</code>.</p>
+<p>For example</p>
+<pre><code>haiku:
+  &#39;&#39;&#39;
+  My half empty glass,
+  I will fill your empty half.
+  Now you are half full.
+  &#39;&#39;&#39;
+</code></pre><p>Is the <em>string</em> <code>&quot;My half empty glass,\nI will fill your empty half.\nNow you are half full.&quot;</code></p>
 </li>
 <li><p>Commas</p>
-<p>Commas are optional at the end of a line. You only need commas to specify multiple values on one line (e.g. <code>[1,2,3]</code>).</p>
-<p>Trailing commas are ignored.</p>
-</li>
+<p>You can separate your values/members either with a comma or a new line.</p>
+<p>Unlike JSON, trailing commas are ignored and do not produce a syntax error.</p>
+<p>For example:</p>
+<pre><code>{
+  one: 1
+  two: 2,
+  more: [3,4,5]
+  trailing: 6,
+}
+</code></pre></li>
 <li><p>Comments</p>
-<p><code>#</code> and <code>//</code> start a single line comment.</p>
+<p><code>#</code> or <code>//</code> starts a single line comment.</p>
 <p><code>/*</code> starts a multiline comment that ends with <code>*/</code>.</p>
 </li>
-<li><p>Root braces</p>
-<p>Can be omitted for objects.</p>
-</li>
+<li><p>Root Object</p>
+<p>Braces for the root object (meaning it is not included in another object) are optional.</p>
+<p>For example:</p>
+<pre><code># this is the root object
+top: blue
+side: { # a child object, requires braces
+  border: black
+}
+bottom: red
+</code></pre></li>
 <li><p>File extension</p>
 <p><code>.hjson</code></p>
 </li>
 <li><p>Encoding</p>
-<p><code>.hjson</code> files must be encoded in UTF-8 (preferably without a BOM).</p>
+<p><code>.hjson</code> files must be encoded in UTF-8 (without a BOM).</p>
 </li>
 <li><p>Header</p>
 <p>Hjson does not have a header but if you want to indicate the file type you can use <code>#hjson</code> on the first line.</p>

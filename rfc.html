@@ -406,7 +406,7 @@
 
   <meta name="dct.creator" content="Zangl, C." />
   <meta name="dct.identifier" content="urn:ietf:id:hjson-draft" />
-  <meta name="dct.issued" scheme="ISO8601" content="2016-5-2" />
+  <meta name="dct.issued" scheme="ISO8601" content="2016-5-3" />
   <meta name="dct.abstract" content="Human JSON (Hjson) is a configuration file format based on the JavaScript Object Notation " />
   <meta name="description" content="Human JSON (Hjson) is a configuration file format based on the JavaScript Object Notation " />
 
@@ -423,14 +423,14 @@
 </tr>
 <tr>
   <td class="left">Internet-Draft</td>
-  <td class="right">May 2, 2016</td>
+  <td class="right">May 3, 2016</td>
 </tr>
 <tr>
   <td class="left">Intended status: Standards Track</td>
   <td class="right"></td>
 </tr>
 <tr>
-  <td class="left">Expires: November 3, 2016</td>
+  <td class="left">Expires: November 4, 2016</td>
   <td class="right"></td>
 </tr>
 
@@ -451,7 +451,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 3, 2016.</p>
+<p>This Internet-Draft will expire on November 4, 2016.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -624,11 +624,11 @@
 <pre>
    name = json-string / keyname
 
-   keyname =  1*non-control-char
+   keyname =  1*non-punctuator-char
 
-   non-control-char = %x21-2B / %x2D-39 / %x3B-5A /
-                      %x5C / %x5E-7A / %x7C / %x7E-10FFFF
-      ; any non-control character (excludes ,:[]{} and ws)
+   non-punctuator-char = %x21-2B / %x2D-39 / %x3B-5A /
+                         %x5C / %x5E-7A / %x7C / %x7E-10FFFF
+   ; any non-punctuator character (excludes ,:[]{} and ws)
 </pre>
 <p id="rfc.section.5.p.4">For interoperability issues regarding the uniquness of names and object member ordering, see <a href="#RFC7159">[RFC7159]</a> Section 4.</p>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#arrays" id="arrays">Arrays</a></h1>
@@ -713,9 +713,9 @@
    unescaped = %x20-21 / %x23-5B / %x5D-10FFFF
 </pre>
 <h1 id="rfc.section.8.2"><a href="#rfc.section.8.2">8.2.</a> <a href="#quoteless-strings" id="quoteless-strings">Quoteless Strings</a></h1>
-<p id="rfc.section.8.2.p.1">Hjson allows strings to be represented only by their content without quotes. A quoteless string may contain any character except the control characters (U+0000 through U+001F) and excluding trailing whitespace. It ends at the first linefeed. Strings are taken as is without escapes.</p>
+<p id="rfc.section.8.2.p.1">Hjson allows strings to be represented only by their content without quotes. A quoteless string may contain any character except the control characters (U+0000 through U+001F), excluding trailing whitespace. It cannot start with a punctuator character (,:[]{}). It ends at the first linefeed. Strings are taken as is without escapes.</p>
 <pre>
-   ql-string = non-control-char
+   ql-string = non-punctuator-char
                *( !ql-end ql-char )
 
    ql-end    = *( space / tab / cr ) lf
@@ -725,8 +725,17 @@
    ; SABNF: define ql-end to exclude trailing
    ;        whitespace from the ql-string
 </pre>
-<p id="rfc.section.8.2.p.2">Valid Hjson tokens cannot start a quoteless string. That means that, for example, { will still start an object and a valid number will be parsed as such. Likewise a ] would end an array while it will create a quoteless string inside an object.</p>
-<p id="rfc.section.8.2.p.3">Not allowing escapes inside the quoteless string allows you to specify HTML fragments, regular expressions or Windows style paths as-is, keeping them readable.</p>
+<p id="rfc.section.8.2.p.2">A Hjson parser must still detect values (<em>number</em>, <samp>true</samp>, <samp>false</samp> or <samp>null</samp>) and parse them correctly. For example</p>
+<p/>
+
+<ul>
+  <li>&#8216;3&#8217; is the number 3</li>
+  <li>&#8216;5 times&#8217; is the string &#8220;5 times&#8221;</li>
+  <li>&#8216;true&#8217; is the boolean true</li>
+  <li>&#8216;7 # minutes&#8217; is the number 7 followed by a comment</li>
+  <li>&#8216;\s#([0-9a-fA-F]{3})&#8217; is the string &#8220;\s#([0-9a-fA-F]{3})&#8221;</li>
+</ul>
+<p id="rfc.section.8.2.p.4">Not allowing escapes inside the quoteless string allows you to specify HTML fragments, regular expressions or Windows style paths as-is, keeping them readable.</p>
 <h1 id="rfc.section.8.3"><a href="#rfc.section.8.3">8.3.</a> <a href="#multiline-strings" id="multiline-strings">Multiline Strings</a></h1>
 <p id="rfc.section.8.3.p.1">A multiline string begins and ends with three single quotes.</p>
 <pre>
@@ -746,7 +755,7 @@
    ;        while stopping at '''
 </pre>
 <p id="rfc.section.8.3.p.2">The carrige return character is generally ignored to make the parser platform independent.</p>
-<p id="rfc.section.8.3.p.3">Whitespace handling cannot be expressed in the ABNF grammar and is thus defined as text:</p>
+<p id="rfc.section.8.3.p.3">Whitespace handling cannot be expressed in the ABNF grammar and is thus defined as:</p>
 <p/>
 
 <ul>
