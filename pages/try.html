@@ -24,7 +24,9 @@
 
 </style>
 
-<div class="all">
+<div id="loading">Loading...</div>
+<div class="all" style="display: none">
+
   <div class="edcon" id="hjson">{
 
   // Live demo.
@@ -75,7 +77,7 @@
 </div>
 
 <script src="js/hjson.js" type="text/javascript" charset="utf-8"></script>
-<script src="http://ajaxorg.github.io/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
   var locked, orgText;
   var hjson=ace.edit("hjson");
@@ -118,4 +120,7 @@
 
   orgText=hjson.getSession().getValue();
   changeHjson();
+
+  $("#loading").hide();
+  $(".all").show();
 </script>
