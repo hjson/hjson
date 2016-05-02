@@ -1,0 +1,245 @@
+
+<script src="https://tabatkins.github.io/railroad-diagrams/railroad-diagrams.js"></script>
+<style type="text/css">
+#rr {
+  margin: 0 0 0 50px;
+}
+#rr h2 {
+  margin: 0 0 0 -50px;
+  font-size: 1.5em;
+}
+#rr h3 {
+  font-size: 1em;
+}
+
+svg.railroad-diagram {
+}
+svg.railroad-diagram path {
+    stroke-width: 3;
+    stroke: black;
+    fill: rgba(0,0,0,0);
+}
+svg.railroad-diagram text {
+    font: bold 14px monospace;
+    text-anchor: middle;
+}
+svg.railroad-diagram text.diagram-text {
+    font-size: 12px;
+}
+svg.railroad-diagram text.diagram-arrow {
+    font-size: 16px;
+}
+svg.railroad-diagram text.label {
+    text-anchor: start;
+}
+svg.railroad-diagram text.comment {
+    font: italic 12px monospace;
+}
+svg.railroad-diagram g.non-terminal text {
+    /*font-style: italic;*/
+}
+svg.railroad-diagram rect {
+    stroke-width: 3;
+    stroke: black;
+    fill: hsl(120,100%,90%);
+}
+svg.railroad-diagram path.diagram-text {
+    stroke-width: 3;
+    stroke: black;
+    fill: white;
+    cursor: help;
+}
+svg.railroad-diagram g.diagram-text:hover path.diagram-text {
+    fill: #eee;
+}
+</style>
+
+<div id="rr">
+
+<h2>Object</h2>
+
+<script>
+Diagram(
+  Terminal('{'),
+  Optional(Sequence(
+      NonTerminal('member'),
+      Optional(OneOrMore(
+        Sequence(
+          Choice(0, 'LF', ','),
+          NonTerminal('member')
+        )
+      )),
+      Optional(',')
+  )),
+  Terminal('}')
+).addTo();
+</script>
+
+<h2>Member</h2>
+
+<script>
+Diagram(
+  Sequence(
+    Choice(1,
+      NonTerminal('JSON-string'),
+      OneOrMore(
+        NonTerminal(' any character except ,:[]{} and whitespace ')
+      )
+    ),
+    ':',
+    NonTerminal('value')
+  )
+).addTo();
+</script>
+
+
+<h2>Array</h2>
+<script>
+Diagram(
+  Terminal('['),
+  Optional(Sequence(
+      NonTerminal('member'),
+      Optional(OneOrMore(
+        Sequence(
+          Choice(0, 'LF', ','),
+          NonTerminal('member')
+        )
+      )),
+      Optional(',')
+  )),
+  Terminal(']')
+).addTo();
+</script>
+
+<h2>Value</h2>
+<script>
+Diagram(
+  Choice(0,
+    NonTerminal('string'),
+    NonTerminal('number'),
+    NonTerminal('object'),
+    NonTerminal('array'),
+    Terminal('true'),
+    Terminal('false'),
+    Terminal('null')
+  )
+).addTo();
+</script>
+
+<h2>String</h2>
+
+<script>
+Diagram(
+  Choice(1,
+    NonTerminal('JSON-String'),
+    NonTerminal('Quoteless-String'),
+    NonTerminal('Multiline-String')
+  )
+).addTo();
+</script>
+
+<h3>JSON-String</h3>
+<script>
+Diagram(
+  Terminal('"'),
+  Optional(OneOrMore(
+    Choice(0,
+      NonTerminal(' any character except " or \\ '),
+      Sequence(
+        Terminal('\\'),
+        Choice(2,
+          Sequence(Terminal('"'), Comment('quotation mark')),
+          Sequence(Terminal('\\'), Comment('reverse solidus')),
+          Sequence(Terminal('/'), Comment('solidus')),
+          Sequence(Terminal('b'), Comment('backspace')),
+          Sequence(Terminal('f'), Comment('formfeed')),
+          Sequence(Terminal('n'), Comment('newline')),
+          Sequence(Terminal('r'), Comment('carriage return')),
+          Sequence(Terminal('t'), Comment('horizontal tab')),
+          Sequence(Terminal('u'), NonTerminal('4 hexadecimal digits'))
+        )
+      )
+    )
+  )),
+  Terminal('"')
+).addTo();
+</script>
+
+<h3>Quoteless-String</h3>
+<script>
+Diagram(
+  NonTerminal(' any character except ,:[]{} '),
+  ZeroOrMore(
+    NonTerminal(' any character except LF ')
+  )
+).addTo();
+</script>
+
+<h3>Multiline-String</h3>
+<script>
+Diagram(
+  Terminal("'''"),
+  ZeroOrMore(
+    NonTerminal(" any character except three ' in a row ")
+  ),
+  Terminal("'''")
+).addTo();
+</script>
+
+<h2>Number</h2>
+
+<script>
+Diagram(
+  Stack(
+    Sequence(
+      Optional('-', 'skip'),
+      Choice(0,
+        '0',
+        Sequence(
+          NonTerminal('digit 1-9'),
+          ZeroOrMore(NonTerminal('digit'))
+        )
+      )
+    ),
+    Sequence(
+      Optional(Sequence(
+        '.',
+        OneOrMore(NonTerminal('digit'))
+      )),
+      Optional(Sequence(
+        Choice(0, 'e', 'E'),
+        Choice(1, '+', Skip(), '-'),
+        OneOrMore(NonTerminal('digit'))
+      ), 'skip')
+    )
+  )
+).addTo();
+</script>
+
+<h2>Comments</h2>
+<script>
+Diagram(
+  Choice(1,
+    Sequence(
+      '#',
+      ZeroOrMore(NonTerminal(' any character except LF '))
+    ),
+    Sequence(
+      '//',
+      ZeroOrMore(NonTerminal(' any character except LF '))
+    ),
+    Sequence(
+      '/*',
+      ZeroOrMore(
+        NonTerminal("anything but * followed by /")),
+      '*/'
+    )
+
+  )
+).addTo();
+</script>
+
+</div>
+
+<p>Character means any UNICODE character except the control characters.</p>
+

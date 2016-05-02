@@ -11,6 +11,10 @@ The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but al
 
 You are also allowed to omit the root `{}` braces for objects.
 
+<a href="rfc.html" target="_blank">View the RFC draft</a>
+
+%%%
+
 #### Cheat Sheet
 
 Simple rules to remember:
@@ -23,7 +27,7 @@ Simple rules to remember:
 
 - Keys
 
-  You only need to add quotes if the key name includes whitespace or any of these JSON control characters: `{}[],:`.
+  You only need to add quotes if the key name includes whitespace or any of the JSON control characters (`{}[],:`).
 
 - Strings
 
@@ -31,7 +35,7 @@ Simple rules to remember:
 
   A value that is a *number*, `true`, `false` or `null` in JSON is parsed as a value. E.g. `3` is a valid *number* while `3 times` is a string.
 
-  Naturally a quoteless string cannot start with `{` or `[`.
+  A quoteless string cannot start with any of the JSON control characters (`{}[],:`).
 
   Use quotes to have your string handled like in JSON. This also allows you to specify a comment after the string.
 
