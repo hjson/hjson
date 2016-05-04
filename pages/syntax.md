@@ -1,43 +1,55 @@
 
 ## Syntax
 
-The Hjson syntax is a superset of JSON ([see json.org](http://json.org/)) but allows you to
+The Hjson syntax is like [JSON](http://json.org/) but allows you to
 
 - add `#`, `//` or `/**/` comments,
 - omit `""` for keys,
-- omit `""` for strings,
-- omit `,` at the end of a line and
+- omit `""` for strings (terminated by LF),
+- omit `,` at the end of a line,
+- add trailing commas and
 - use multiline strings with proper whitespace handling.
 
-You are also allowed to omit the root `{}` braces for objects.
+Because the punctuator characters `{}[],:` are used to define the structure of the Hjson text, you need to use quotes
+
+- if your key includes a punctuator or space
+- if your string starts with a punctuator
+
+Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.
+
+Braces for the root object are optional.
 
 <a href="rfc.html" target="_blank">View the RFC draft</a>
 
 %%%
 
-#### Cheat Sheet
+### Details
 
-Simple rules to remember:
-
-- if your key includes a JSON control character like `{}[],:` or space, use quotes
-- if your string starts with `{` or `[`, use quotes
-- remember that quoteless strings include everything up to the end of the line, excluding trailing whitespace.
-
-#### Details
+As Hjson is a superset of [JSON](http://json.org/), the basic syntax is the same.
 
 - Keys
 
-  You only need to add quotes if the key name includes whitespace or any of the JSON control characters (`{}[],:`).
+  You only need to add quotes if the key name includes whitespace or any of the punctuators (`{}[],:`).
 
-- Strings
+  For example:
 
-  When you omit quotes the string ends at the newline. Preceding and trailing whitespace is ignored as are escapes.
+  - `foo`
+  - `"test case"`
+  - `"{option}"`
 
-  A value that is a *number*, `true`, `false` or `null` in JSON is parsed as a value. E.g. `3` is a valid *number* while `3 times` is a string.
+- Quoteless Strings
 
-  A quoteless string cannot start with any of the JSON control characters (`{}[],:`).
+  A quoteless string cannot start with any of the punctuators (`{}[],:`).
 
-  Use quotes to have your string handled like in JSON. This also allows you to specify a comment after the string.
+  It is taken exactly as is up to the linefeed/newline, preceding and trailing whitespace is ignored. As there are no escapes, you do not need to escape the backslash. If you wish to add comments place them on the previous or next line.
+
+  The Hjson parser will still detect values (*number*, `true`, `false` or `null`) and parse them correctly. For example
+
+  - `3` is the *number* `3`
+  - `5 times` is the *string* `"5 times"`
+  - `true` is the *boolean* `true`
+  - `7 # minutes` is the *number* `7` followed by a comment
+  - `\s#([0-9a-fA-F]{3})` is the *string* `"\\s#([0-9a-fA-F]{3})"`
 
 - Multiline Strings
 
@@ -48,21 +60,56 @@ Simple rules to remember:
 
   A multiline string is OS and file independent. The line feed is always `\n`.
 
+  For example
+
+  ```
+  haiku:
+    '''
+    My half empty glass,
+    I will fill your empty half.
+    Now you are half full.
+    '''
+  ```
+
+  Is the *string* `"My half empty glass,\nI will fill your empty half.\nNow you are half full."`
+
 - Commas
 
-  Commas are optional at the end of a line. You only need commas to specify multiple values on one line (e.g. `[1,2,3]`).
+  You can separate your values/members either with a comma or a new line.
 
-  Trailing commas are ignored.
+  Unlike JSON, trailing commas are ignored and do not produce a syntax error.
+
+  For example:
+
+  ```
+  {
+    one: 1
+    two: 2,
+    more: [3,4,5]
+    trailing: 6,
+  }
+  ```
 
 - Comments
 
-  `#` and `//` start a single line comment.
+  `#` or `//` starts a single line comment.
 
   `/*` starts a multiline comment that ends with `*/`.
 
-- Root braces
+- Root Object
 
-  Can be omitted for objects.
+  Braces for the root object (meaning it is not included in another object) are optional.
+
+  For example:
+
+  ```
+  # this is the root object
+  top: blue
+  side: { # a child object, requires braces
+    border: black
+  }
+  bottom: red
+  ```
 
 - File extension
 
@@ -70,7 +117,7 @@ Simple rules to remember:
 
 - Encoding
 
-  `.hjson` files must be encoded in UTF-8 (preferably without a BOM).
+  `.hjson` files must be encoded in UTF-8 (without a BOM).
 
 - Header
 
