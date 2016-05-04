@@ -144,7 +144,7 @@ var Hjson = (function () {
     while (ch && ch <= ' ') next();
 
     if (stopAtNext) {
-      // end scan if we find a control character like ,}] or a comment
+      // end scan if we find a punctuator character like ,}] or a comment
       if (ch === ',' || ch === '}' || ch === ']' ||
         ch === '#' || ch === '/' && (text[at] === '/' || text[at] === '*')) ch = 0;
     }
@@ -186,7 +186,7 @@ var Hjson = (function () {
       ch = ' ';
     }
 
-    function isControlChar(c) {
+    function isPunctuatorChar(c) {
       return c === '{' || c === '}' || c === '[' || c === ']' || c === ',' || c === ':';
     }
 
@@ -315,7 +315,7 @@ var Hjson = (function () {
           if (!ch) error("Found EOF while looking for a key name (check your syntax)");
           else if (space < 0) space = name.length;
         }
-        else if (isControlChar(ch)) {
+        else if (isPunctuatorChar(ch)) {
           error("Found '" + ch + "' where a key name was expected (check your syntax or use quotes if the key name includes {}[],: or whitespace)");
         }
         else name += ch;
@@ -345,8 +345,8 @@ var Hjson = (function () {
       // Hjson strings can be quoteless
       // returns string, true, false, or null.
       var value = ch;
-      if (isControlChar(ch))
-        error("Found a control character '" + ch + "' when excpecting a quoteless string (check your syntax)");
+      if (isPunctuatorChar(ch))
+        error("Found a punctuator character '" + ch + "' when excpecting a quoteless string (check your syntax)");
 
       for(;;) {
         next();

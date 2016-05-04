@@ -79,13 +79,14 @@
 <li>add <code>#</code>, <code>//</code> or <code>/**/</code> comments,</li>
 <li>omit <code>&quot;&quot;</code> for keys,</li>
 <li>omit <code>&quot;&quot;</code> for strings (terminated by LF),</li>
-<li>omit <code>,</code> at the end of a line and</li>
+<li>omit <code>,</code> at the end of a line,</li>
+<li>add trailing commas and</li>
 <li>use multiline strings with proper whitespace handling.</li>
 </ul>
-<p>Because the punctuators <code>{}[],:</code> are used to define the structure of the Hjson text, you need to use quotes</p>
+<p>Because the punctuator characters <code>{}[],:</code> are used to define the structure of the Hjson text, you need to use quotes</p>
 <ul>
-<li>if your key includes a punctuators or space</li>
-<li>if your string starts with a punctuators</li>
+<li>if your key includes a punctuator or space</li>
+<li>if your string starts with a punctuator</li>
 </ul>
 <p>Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.</p>
 <p>Braces for the root object are optional.</p>

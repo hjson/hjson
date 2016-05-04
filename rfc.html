@@ -396,8 +396,10 @@
 <link href="#rfc.section.12" rel="Chapter" title="12 IANA Considerations"/>
 <link href="#rfc.section.13" rel="Chapter" title="13 Security Considerations"/>
 <link href="#rfc.section.14" rel="Chapter" title="14 Examples"/>
-<link href="#rfc.section.15" rel="Chapter" title="15 Contributors"/>
-<link href="#rfc.references" rel="Chapter" title="16 Normative References"/>
+<link href="#rfc.section.15" rel="Chapter" title="15 Syntax compared to JSON"/>
+<link href="#rfc.section.15.1" rel="Chapter" title="15.1 Examples"/>
+<link href="#rfc.section.16" rel="Chapter" title="16 Contributors"/>
+<link href="#rfc.references" rel="Chapter" title="17 Normative References"/>
 <link href="#rfc.authors" rel="Chapter"/>
 
 
@@ -406,7 +408,7 @@
 
   <meta name="dct.creator" content="Zangl, C." />
   <meta name="dct.identifier" content="urn:ietf:id:hjson-draft" />
-  <meta name="dct.issued" scheme="ISO8601" content="2016-5-3" />
+  <meta name="dct.issued" scheme="ISO8601" content="2016-5-5" />
   <meta name="dct.abstract" content="Human JSON (Hjson) is a configuration file format based on the JavaScript Object Notation " />
   <meta name="description" content="Human JSON (Hjson) is a configuration file format based on the JavaScript Object Notation " />
 
@@ -423,14 +425,14 @@
 </tr>
 <tr>
   <td class="left">Internet-Draft</td>
-  <td class="right">May 3, 2016</td>
+  <td class="right">May 5, 2016</td>
 </tr>
 <tr>
   <td class="left">Intended status: Standards Track</td>
   <td class="right"></td>
 </tr>
 <tr>
-  <td class="left">Expires: November 4, 2016</td>
+  <td class="left">Expires: November 6, 2016</td>
   <td class="right"></td>
 </tr>
 
@@ -451,7 +453,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 4, 2016.</p>
+<p>This Internet-Draft will expire on November 6, 2016.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -486,8 +488,10 @@
 <li>12.   <a href="#rfc.section.12">IANA Considerations</a></li>
 <li>13.   <a href="#rfc.section.13">Security Considerations</a></li>
 <li>14.   <a href="#rfc.section.14">Examples</a></li>
-<li>15.   <a href="#rfc.section.15">Contributors</a></li>
-<li>16.   <a href="#rfc.references">Normative References</a></li>
+<li>15.   <a href="#rfc.section.15">Syntax compared to JSON</a></li>
+<ul><li>15.1.   <a href="#rfc.section.15.1">Examples</a></li>
+</ul><li>16.   <a href="#rfc.section.16">Contributors</a></li>
+<li>17.   <a href="#rfc.references">Normative References</a></li>
 <li><a href="#rfc.authors">Author's Address</a></li>
 
 
@@ -508,6 +512,8 @@
   <li>to maintain backward compatibility, so that any valid JSON is valid Hjson</li>
   <li>to provide a reasonable alternative to plain JSON configs</li>
 </ul>
+<p id="rfc.section.1.p.9">Hjson SHOULD be used for data whose primary purpose is to be viewed or edited by a human. For example configuration, resource files or debug data dumps.</p>
+<p id="rfc.section.1.p.10">Hjson SHOULD NOT be used in other cases, like transfer protocols.</p>
 <h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> <a href="#conventions-used-in-this-document" id="conventions-used-in-this-document">Conventions Used in This Document</a></h1>
 <p id="rfc.section.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in <a href="#RFC2119">[RFC2119]</a>.</p>
 <p id="rfc.section.1.1.p.2">The grammatical rules in this document are to be interpreted as described in <a href="#RFC5234">[RFC5234]</a> except where they are specifically marked as <a href="#SABNF">[SABNF]</a>.</p>
@@ -733,7 +739,7 @@
   <li>&#8216;5 times&#8217; is the string &#8220;5 times&#8221;</li>
   <li>&#8216;true&#8217; is the boolean true</li>
   <li>&#8216;7 # minutes&#8217; is the number 7 followed by a comment</li>
-  <li>&#8216;\s#([0-9a-fA-F]{3})&#8217; is the string &#8220;\s#([0-9a-fA-F]{3})&#8221;</li>
+  <li>&#8217;\s#([0-9a-fA-F]{3})&#8217; is the string &#8220;\\s#([0-9a-fA-F]{3})&#8221;</li>
 </ul>
 <p id="rfc.section.8.2.p.4">Not allowing escapes inside the quoteless string allows you to specify HTML fragments, regular expressions or Windows style paths as-is, keeping them readable.</p>
 <h1 id="rfc.section.8.3"><a href="#rfc.section.8.3">8.3.</a> <a href="#multiline-strings" id="multiline-strings">Multiline Strings</a></h1>
@@ -769,10 +775,9 @@
 <p id="rfc.section.9.1.p.1">Hjson text SHALL be encoded in UTF-8. Since Hjson parsers can read JSON they may be able to read texts in other encodings (such as UTF-16 and UTF-32). Hjson texts that are encoded in UTF-8 are interoperable in the sense that they will be read successfully by the maximum number of implementations.</p>
 <p id="rfc.section.9.1.p.2">Implementations MUST NOT add a byte order mark to the beginning of a Hjson text. In the interests of interoperability, implementations that parse Hjson texts MAY ignore the presence of a byte order mark rather than treating it as an error.</p>
 <h1 id="rfc.section.9.2"><a href="#rfc.section.9.2">9.2.</a> <a href="#unicode-characters" id="unicode-characters">Unicode Characters</a></h1>
-<p id="rfc.section.9.2.p.1">When all the strings represented in a Hjson text are composed entirely of Unicode characters <a href="#UNICODE">[UNICODE]</a> (however escaped), then that Hjson text is interoperable in the sense that all software implementations that parse it will agree on the contents of names and of string values in objects and arrays.</p>
-<p id="rfc.section.9.2.p.2">However, the ABNF in this specification allows member names and string values to contain bit sequences that cannot encode Unicode characters; for example, &#8220;\uDEAD&#8221; (a single unpaired UTF-16 surrogate). Instances of this have been observed, for example, when a library truncates a UTF-16 string without checking whether the truncation split a surrogate pair. The behavior of software that receives Hjson texts containing such values is unpredictable; for example, implementations might return different values for the length of a string value or even suffer fatal runtime exceptions.</p>
+<p id="rfc.section.9.2.p.1">See <a href="#RFC7159">[RFC7159]</a> Section 8.2.</p>
 <h1 id="rfc.section.9.3"><a href="#rfc.section.9.3">9.3.</a> <a href="#string-comparison" id="string-comparison">String Comparison</a></h1>
-<p id="rfc.section.9.3.p.1">Software implementations are typically required to test names of object members for equality. Implementations that transform the textual representation into sequences of Unicode code units and then perform the comparison numerically, code unit by code unit, are interoperable in the sense that implementations will agree in all cases on equality or inequality of two strings. For example, implementations that compare strings with escaped characters unconverted may incorrectly find that &#8220;a\b&#8221; and &#8220;a\u005Cb&#8221; are not equal.</p>
+<p id="rfc.section.9.3.p.1">See <a href="#RFC7159">[RFC7159]</a> Section 8.3.</p>
 <h1 id="rfc.section.10"><a href="#rfc.section.10">10.</a> <a href="#parsers" id="parsers">Parsers</a></h1>
 <p id="rfc.section.10.p.1">A Hjson parser transforms a Hjson text into another representation. A Hjson parser MUST accept all texts that conform to the Hjson grammar.  A Hjson parser MAY accept non-Hjson forms or extensions.</p>
 <p id="rfc.section.10.p.2">An implementation may set limits on the size of texts that it accepts. An implementation may set limits on the maximum depth of nesting. An implementation may set limits on the range and precision of numbers. An implementation may set limits on the length and character contents of strings.</p>
@@ -801,13 +806,149 @@
 <h1 id="rfc.section.14"><a href="#rfc.section.14">14.</a> <a href="#examples" id="examples">Examples</a></h1>
 <p id="rfc.section.14.p.1">This is a Hjson object:</p>
 <pre>
+   # comments are useful
+
+   # specify rate in requests/second
+   rate: 1000
+
+   #  you may also use
+   // c style
+   /* or block
+      comments */
+
+   # key names do not need to be placed in
+   # quotes unless they contain a punctuator
+   # character {}[],:
+   key: 1
+
+   # strings may also omit quotes if they do
+   # not start with a punctuator
+   text: look ma, no quotes!
+
+   # quoteless strings do not use escapes
+   # and end at the LF/newline
+
+   # commas are optional
+   commas:
    {
-     TODO
+     one: 1
+     two: 2
+   }
+
+   # trailing commas are allowed
+   trailing:
+   {
+     one: 1,
+     two: 2,
+   }
+
+   # multiline string
+   haiku:
+     '''
+     JSON I love you.
+     But you strangle my expression.
+     This is so much better.
+     '''
+
+   # Hjson is a superset of JSON so you
+   # may use any valid JSON syntax:
+   favNumbers: [ 1, 2, 3, 6, 42 ]
+</pre>
+<h1 id="rfc.section.15"><a href="#rfc.section.15">15.</a> <a href="#syntax-compared-to-json" id="syntax-compared-to-json">Syntax compared to JSON</a></h1>
+<p id="rfc.section.15.p.1">Hjson is a superset of JSON. Its syntax allows you to</p>
+<p/>
+
+<ul>
+  <li>add #, // or /**/ comments,</li>
+  <li>omit quotes for keys,</li>
+  <li>omit quotes for strings (terminated by LF),</li>
+  <li>omit braces for the root object,</li>
+  <li>omit the comma at the end of a line</li>
+  <li>add trailing commas and</li>
+  <li>use multiline strings with proper whitespace handling.</li>
+</ul>
+<p id="rfc.section.15.p.3">Because the punctuator characters <samp>{}[],:</samp> are used to define the structure of the Hjson text, you need to use quotes</p>
+<p/>
+
+<ul>
+  <li>if your key includes a punctuator or space</li>
+  <li>if your string starts with a punctuator</li>
+</ul>
+<p id="rfc.section.15.p.5">Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.</p>
+<h1 id="rfc.section.15.1"><a href="#rfc.section.15.1">15.1.</a> <a href="#examples-1" id="examples-1">Examples</a></h1>
+<p id="rfc.section.15.1.p.1">Example of a document processor configuration, first in JSON:</p>
+<pre>
+   {
+     "header": "The Foo Manual\nCopyright Bar Inc.",
+     "source": {
+       "include": [
+         "./src"
+       ],
+       "includePattern": ".+\\.foo(doc)?$",
+       "excludePattern": "(^|\\/|\\\\)_"
+     },
+     "templates": {
+       "cleverLinks": false,
+       "monospaceLinks": false
+     }
    }
 </pre>
-<h1 id="rfc.section.15"><a href="#rfc.section.15">15.</a> <a href="#contributors" id="contributors">Contributors</a></h1>
-<p id="rfc.section.15.p.1">This document is based on <a href="#RFC4627">[RFC4627]</a> and <a href="#RFC7159">[RFC7159]</a> which were written by Douglas Crockford and Tim Bray. This document was constructed by extending it with the elements of the Hjson syntax.</p>
-<h1 id="rfc.references"><a href="#rfc.references">16.</a> Normative References</h1>
+<p id="rfc.section.15.1.p.2">and in Hjson:</p>
+<pre>
+   # define the header using a multiline string
+   header:
+     '''
+     The Foo Manual
+     Copyright Bar Inc.
+     '''
+   source:
+   {
+     # generate documentation for these paths
+     include:
+     [
+       ./src
+     ]
+     # include/exclude files
+     # notice that no escapes are required
+     includePattern: .+\.foo(doc)?$
+     excludePattern: (^|\/|\\)_
+   }
+   templates: {
+     # trailing commas are allowed
+     cleverLinks: false,
+     monospaceLinks: false,
+   }
+</pre>
+<p id="rfc.section.15.1.p.3">Example of a npm dependency configuration in JSON:</p>
+<pre>
+   {
+     "dependencies": {
+       "foo": "2.0.1",
+       "bar": "*",
+       "til": "~1.2.1",
+       "elf": "^1.2.3"
+     }
+   }
+</pre>
+<p id="rfc.section.15.1.p.4">and in Hjson:</p>
+<pre>
+   {
+     dependencies:
+     {
+       // match version exactly
+       foo: 2.0.1
+       // * matches any version
+       bar: *
+       // approximately, allows patch-level changes
+       til: ~1.2.1
+       // compatible with major version
+       elf: ^1.2.3
+     }
+   }
+</pre>
+<h1 id="rfc.section.16"><a href="#rfc.section.16">16.</a> <a href="#contributors" id="contributors">Contributors</a></h1>
+<p id="rfc.section.16.p.1">This document is based on <a href="#RFC4627">[RFC4627]</a> and <a href="#RFC7159">[RFC7159]</a> which were written by Douglas Crockford and Tim Bray. This document was constructed by extending it with the elements of the Hjson syntax.</p>
+<h1 id="rfc.references"><a href="#rfc.references">17.</a> Normative References</h1>
 <table>
   <tbody>
     <tr>
