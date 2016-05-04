@@ -3,9 +3,9 @@
 
 
 none                                                            C. Zangl
-Internet-Draft                                               May 3, 2016
+Internet-Draft                                               May 5, 2016
 Intended status: Standards Track
-Expires: November 4, 2016
+Expires: November 6, 2016
 
 
               The Human JSON (Hjson) Configuration Format
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 4, 2016.
+   This Internet-Draft will expire on November 6, 2016.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Zangl                   Expires November 4, 2016                [Page 1]
+Zangl                   Expires November 6, 2016                [Page 1]
 
 Internet-Draft                    Hjson                         May 2016
 
@@ -72,9 +72,9 @@ Internet-Draft                    Hjson                         May 2016
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
      1.1.  Conventions Used in This Document . . . . . . . . . . . .   3
-     1.2.  Specifications of Hjson . . . . . . . . . . . . . . . . .   3
+     1.2.  Specifications of Hjson . . . . . . . . . . . . . . . . .   4
    2.  Hjson Grammar . . . . . . . . . . . . . . . . . . . . . . . .   4
    3.  Values  . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
    4.  Value Separators  . . . . . . . . . . . . . . . . . . . . . .   6
@@ -82,37 +82,42 @@ Table of Contents
    6.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
    7.  Numbers . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
    8.  Strings . . . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     8.1.  JSON Strings  . . . . . . . . . . . . . . . . . . . . . .   8
-     8.2.  Quoteless Strings . . . . . . . . . . . . . . . . . . . .   9
-     8.3.  Multiline Strings . . . . . . . . . . . . . . . . . . . .  10
-   9.  String and Character Issues . . . . . . . . . . . . . . . . .  11
-     9.1.  Character Encoding  . . . . . . . . . . . . . . . . . . .  11
-     9.2.  Unicode Characters  . . . . . . . . . . . . . . . . . . .  11
+     8.1.  JSON Strings  . . . . . . . . . . . . . . . . . . . . . .   9
+     8.2.  Quoteless Strings . . . . . . . . . . . . . . . . . . . .  10
+     8.3.  Multiline Strings . . . . . . . . . . . . . . . . . . . .  11
+   9.  String and Character Issues . . . . . . . . . . . . . . . . .  12
+     9.1.  Character Encoding  . . . . . . . . . . . . . . . . . . .  12
+     9.2.  Unicode Characters  . . . . . . . . . . . . . . . . . . .  12
      9.3.  String Comparison . . . . . . . . . . . . . . . . . . . .  12
    10. Parsers . . . . . . . . . . . . . . . . . . . . . . . . . . .  12
    11. Generators  . . . . . . . . . . . . . . . . . . . . . . . . .  12
    12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
    13. Security Considerations . . . . . . . . . . . . . . . . . . .  13
    14. Examples  . . . . . . . . . . . . . . . . . . . . . . . . . .  13
-   15. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  13
-   16. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     16.1.  Normative References . . . . . . . . . . . . . . . . . .  13
-     16.2.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  14
+   15. Syntax compared to JSON . . . . . . . . . . . . . . . . . . .  15
+     15.1.  Examples . . . . . . . . . . . . . . . . . . . . . . . .  15
+   16. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  17
+   17. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     17.1.  Normative References . . . . . . . . . . . . . . . . . .  17
+     17.2.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  18
+
+
+
+
+
+
+
+
+Zangl                   Expires November 6, 2016                [Page 2]
+
+Internet-Draft                    Hjson                         May 2016
+
 
 1.  Introduction
 
    Human JSON (Hjson) is a configuration file format.  It is a superset
    of the JavaScript Object Notation [RFC7159].
-
-
-
-
-
-Zangl                   Expires November 4, 2016                [Page 2]
-
-Internet-Draft                    Hjson                         May 2016
-
 
    Hjson uses the same four primitive types (strings, numbers, booleans,
    and null) and two structured types (objects and arrays) as JSON.
@@ -141,6 +146,12 @@ Internet-Draft                    Hjson                         May 2016
 
    o  to provide a reasonable alternative to plain JSON configs
 
+   Hjson SHOULD be used for data whose primary purpose is to be viewed
+   or edited by a human.  For example configuration, resource files or
+   debug data dumps.
+
+   Hjson SHOULD NOT be used in other cases, like transfer protocols.
+
 1.1.  Conventions Used in This Document
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -150,6 +161,14 @@ Internet-Draft                    Hjson                         May 2016
    The grammatical rules in this document are to be interpreted as
    described in [RFC5234] except where they are specifically marked as
    [SABNF].
+
+
+
+
+Zangl                   Expires November 6, 2016                [Page 3]
+
+Internet-Draft                    Hjson                         May 2016
+
 
    SABNF is used to express grammars that are not possible in ABNF, like
    the block-comment, and to define terminators, like ql-end, that allow
@@ -161,14 +180,6 @@ Internet-Draft                    Hjson                         May 2016
 
    This document describes Hjson and registers the media type
    "application/hjson".
-
-
-
-
-Zangl                   Expires November 4, 2016                [Page 3]
-
-Internet-Draft                    Hjson                         May 2016
-
 
 2.  Hjson Grammar
 
@@ -208,23 +219,14 @@ Internet-Draft                    Hjson                         May 2016
       lf    = %x0A    ; Line feed or New line
       cr    = %x0D    ; Carriage return
 
-   Comments can be specified as line or block comments.
 
 
-
-
-
-
-
-
-
-
-
-
-Zangl                   Expires November 4, 2016                [Page 4]
+Zangl                   Expires November 6, 2016                [Page 4]
 
 Internet-Draft                    Hjson                         May 2016
 
+
+   Comments can be specified as line or block comments.
 
       comment = line-comment / block-comment
 
@@ -260,6 +262,26 @@ Internet-Draft                    Hjson                         May 2016
    The literal names MUST be lowercase.  No other literal names are
    allowed.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Zangl                   Expires November 6, 2016                [Page 5]
+
+Internet-Draft                    Hjson                         May 2016
+
+
       value = literal / object / array / number / string
 
       literal = ( false / null / true ) !literal-end
@@ -273,14 +295,6 @@ Internet-Draft                    Hjson                         May 2016
       ; SABNF: define literal-end to prevent matches
       ;        that are actually a ql-string
       ;        (like "true blue")
-
-
-
-
-Zangl                   Expires November 4, 2016                [Page 5]
-
-Internet-Draft                    Hjson                         May 2016
-
 
 4.  Value Separators
 
@@ -315,6 +329,15 @@ Internet-Draft                    Hjson                         May 2016
 
       member = name ws-c name-separator ws-c value
 
+
+
+
+
+Zangl                   Expires November 6, 2016                [Page 6]
+
+Internet-Draft                    Hjson                         May 2016
+
+
    If the Hjson text defines an object it does not have to include the
    braces at the root level:
 
@@ -324,19 +347,6 @@ Internet-Draft                    Hjson                         May 2016
 
    A name can be specified as a JSON string (with quotes) or as a name
    without quotes.
-
-
-
-
-
-
-
-
-
-Zangl                   Expires November 4, 2016                [Page 6]
-
-Internet-Draft                    Hjson                         May 2016
-
 
       name = json-string / keyname
 
@@ -375,24 +385,21 @@ Internet-Draft                    Hjson                         May 2016
 
    A fraction part is a decimal point followed by one or more digits.
 
+
+
+
+
+Zangl                   Expires November 6, 2016                [Page 7]
+
+Internet-Draft                    Hjson                         May 2016
+
+
    An exponent part begins with the letter E in upper or lower case,
    which may be followed by a plus or minus sign.  The E and optional
    sign are followed by one or more digits.
 
    Numeric values that cannot be represented in the grammar below (such
    as Infinity and NaN) are not permitted.
-
-
-
-
-
-
-
-
-Zangl                   Expires November 4, 2016                [Page 7]
-
-Internet-Draft                    Hjson                         May 2016
-
 
       number = [ minus ] int [ frac ] [ exp ] !num-end
 
@@ -434,6 +441,15 @@ Internet-Draft                    Hjson                         May 2016
 
       string = json-string / ml-string / ql-string
 
+
+
+
+
+Zangl                   Expires November 6, 2016                [Page 8]
+
+Internet-Draft                    Hjson                         May 2016
+
+
 8.1.  JSON Strings
 
    The representation of JSON strings is similar to conventions used in
@@ -442,13 +458,6 @@ Internet-Draft                    Hjson                         May 2016
    quotation marks, except for the characters that must be escaped:
    quotation mark, reverse solidus, and the control characters (U+0000
    through U+001F).
-
-
-
-Zangl                   Expires November 4, 2016                [Page 8]
-
-Internet-Draft                    Hjson                         May 2016
-
 
    Any character may be escaped.  If the character is in the Basic
    Multilingual Plane (U+0000 through U+FFFF), then it may be
@@ -469,6 +478,33 @@ Internet-Draft                    Hjson                         May 2016
    encoding the UTF-16 surrogate pair.  So, for example, a string
    containing only the G clef character (U+1D11E) may be represented as
    "\uD834\uDD1E".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Zangl                   Expires November 6, 2016                [Page 9]
+
+Internet-Draft                    Hjson                         May 2016
+
 
       json-string = quotation-mark *char quotation-mark
 
@@ -498,14 +534,6 @@ Internet-Draft                    Hjson                         May 2016
    quotes.  A quoteless string may contain any character except the
    control characters (U+0000 through U+001F), excluding trailing
    whitespace.  It cannot start with a punctuator character (,:[]{}).
-
-
-
-Zangl                   Expires November 4, 2016                [Page 9]
-
-Internet-Draft                    Hjson                         May 2016
-
-
    It ends at the first linefeed.  Strings are taken as is without
    escapes.
 
@@ -526,11 +554,19 @@ Internet-Draft                    Hjson                         May 2016
 
    o  '5 times' is the string "5 times"
 
+
+
+
+Zangl                   Expires November 6, 2016               [Page 10]
+
+Internet-Draft                    Hjson                         May 2016
+
+
    o  'true' is the boolean true
 
    o  '7 # minutes' is the number 7 followed by a comment
 
-   o  '\s#([0-9a-fA-F]{3})' is the string "\s#([0-9a-fA-F]{3})"
+   o  '\s#([0-9a-fA-F]{3})' is the string "\\s#([0-9a-fA-F]{3})"
 
    Not allowing escapes inside the quoteless string allows you to
    specify HTML fragments, regular expressions or Windows style paths
@@ -555,13 +591,6 @@ Internet-Draft                    Hjson                         May 2016
       ;        ! operator to allow ' in the text
       ;        while stopping at '''
 
-
-
-Zangl                   Expires November 4, 2016               [Page 10]
-
-Internet-Draft                    Hjson                         May 2016
-
-
    The carrige return character is generally ignored to make the parser
    platform independent.
 
@@ -577,6 +606,17 @@ Internet-Draft                    Hjson                         May 2016
    o  All other whitespace is assumed to be part of the string.
 
    o  The last newline is ignored to allow for better formatting.
+
+
+
+
+
+
+
+Zangl                   Expires November 6, 2016               [Page 11]
+
+Internet-Draft                    Hjson                         May 2016
+
 
 9.  String and Character Issues
 
@@ -595,40 +635,11 @@ Internet-Draft                    Hjson                         May 2016
 
 9.2.  Unicode Characters
 
-   When all the strings represented in a Hjson text are composed
-   entirely of Unicode characters [UNICODE] (however escaped), then that
-   Hjson text is interoperable in the sense that all software
-   implementations that parse it will agree on the contents of names and
-   of string values in objects and arrays.
-
-   However, the ABNF in this specification allows member names and
-   string values to contain bit sequences that cannot encode Unicode
-   characters; for example, "\uDEAD" (a single unpaired UTF-16
-   surrogate).  Instances of this have been observed, for example, when
-   a library truncates a UTF-16 string without checking whether the
-   truncation split a surrogate pair.  The behavior of software that
-   receives Hjson texts containing such values is unpredictable; for
-   example, implementations might return different values for the length
-   of a string value or even suffer fatal runtime exceptions.
-
-
-
-Zangl                   Expires November 4, 2016               [Page 11]
-
-Internet-Draft                    Hjson                         May 2016
-
+   See [RFC7159] Section 8.2.
 
 9.3.  String Comparison
 
-   Software implementations are typically required to test names of
-   object members for equality.  Implementations that transform the
-   textual representation into sequences of Unicode code units and then
-   perform the comparison numerically, code unit by code unit, are
-   interoperable in the sense that implementations will agree in all
-   cases on equality or inequality of two strings.  For example,
-   implementations that compare strings with escaped characters
-   unconverted may incorrectly find that "a\b" and "a\u005Cb" are not
-   equal.
+   See [RFC7159] Section 8.3.
 
 10.  Parsers
 
@@ -655,6 +666,14 @@ Internet-Draft                    Hjson                         May 2016
 
    Subtype name: hjson
 
+
+
+
+Zangl                   Expires November 6, 2016               [Page 12]
+
+Internet-Draft                    Hjson                         May 2016
+
+
    Required parameters: n/a
 
    Optional parameters: n/a
@@ -666,13 +685,6 @@ Internet-Draft                    Hjson                         May 2016
    Interoperability considerations: Described in XXXX
 
    Published specification: XXXX
-
-
-
-Zangl                   Expires November 4, 2016               [Page 12]
-
-Internet-Draft                    Hjson                         May 2016
-
 
    Applications that use this media type: Hjson has been used to provide
    configuration data for applications written in all of these
@@ -704,31 +716,216 @@ Internet-Draft                    Hjson                         May 2016
 
    This is a Hjson object:
 
+
+
+
+
+
+
+
+
+
+Zangl                   Expires November 6, 2016               [Page 13]
+
+Internet-Draft                    Hjson                         May 2016
+
+
+      # comments are useful
+
+      # specify rate in requests/second
+      rate: 1000
+
+      #  you may also use
+      // c style
+      /* or block
+         comments */
+
+      # key names do not need to be placed in
+      # quotes unless they contain a punctuator
+      # character {}[],:
+      key: 1
+
+      # strings may also omit quotes if they do
+      # not start with a punctuator
+      text: look ma, no quotes!
+
+      # quoteless strings do not use escapes
+      # and end at the LF/newline
+
+      # commas are optional
+      commas:
       {
-        TODO
+        one: 1
+        two: 2
       }
 
-15.  Contributors
+      # trailing commas are allowed
+      trailing:
+      {
+        one: 1,
+        two: 2,
+      }
+
+      # multiline string
+      haiku:
+        '''
+        JSON I love you.
+        But you strangle my expression.
+        This is so much better.
+        '''
+
+      # Hjson is a superset of JSON so you
+      # may use any valid JSON syntax:
+      favNumbers: [ 1, 2, 3, 6, 42 ]
+
+
+
+
+Zangl                   Expires November 6, 2016               [Page 14]
+
+Internet-Draft                    Hjson                         May 2016
+
+
+15.  Syntax compared to JSON
+
+   Hjson is a superset of JSON.  Its syntax allows you to
+
+   o  add #, // or /**/ comments,
+
+   o  omit quotes for keys,
+
+   o  omit quotes for strings (terminated by LF),
+
+   o  omit braces for the root object,
+
+   o  omit the comma at the end of a line
+
+   o  add trailing commas and
+
+   o  use multiline strings with proper whitespace handling.
+
+   Because the punctuator characters "{}[],:" are used to define the
+   structure of the Hjson text, you need to use quotes
+
+   o  if your key includes a punctuator or space
+
+   o  if your string starts with a punctuator
+
+   Note that quoteless strings do not use escapes and include everything
+   up to the end of the line, excluding trailing whitespace.
+
+15.1.  Examples
+
+   Example of a document processor configuration, first in JSON:
+
+      {
+        "header": "The Foo Manual\nCopyright Bar Inc.",
+        "source": {
+          "include": [
+            "./src"
+          ],
+          "includePattern": ".+\\.foo(doc)?$",
+          "excludePattern": "(^|\\/|\\\\)_"
+        },
+        "templates": {
+          "cleverLinks": false,
+          "monospaceLinks": false
+        }
+      }
+
+   and in Hjson:
+
+
+
+Zangl                   Expires November 6, 2016               [Page 15]
+
+Internet-Draft                    Hjson                         May 2016
+
+
+      # define the header using a multiline string
+      header:
+        '''
+        The Foo Manual
+        Copyright Bar Inc.
+        '''
+      source:
+      {
+        # generate documentation for these paths
+        include:
+        [
+          ./src
+        ]
+        # include/exclude files
+        # notice that no escapes are required
+        includePattern: .+\.foo(doc)?$
+        excludePattern: (^|\/|\\)_
+      }
+      templates: {
+        # trailing commas are allowed
+        cleverLinks: false,
+        monospaceLinks: false,
+      }
+
+   Example of a npm dependency configuration in JSON:
+
+      {
+        "dependencies": {
+          "foo": "2.0.1",
+          "bar": "*",
+          "til": "~1.2.1",
+          "elf": "^1.2.3"
+        }
+      }
+
+   and in Hjson:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Zangl                   Expires November 6, 2016               [Page 16]
+
+Internet-Draft                    Hjson                         May 2016
+
+
+      {
+        dependencies:
+        {
+          // match version exactly
+          foo: 2.0.1
+          // * matches any version
+          bar: *
+          // approximately, allows patch-level changes
+          til: ~1.2.1
+          // compatible with major version
+          elf: ^1.2.3
+        }
+      }
+
+16.  Contributors
 
    This document is based on [RFC4627] and [RFC7159] which were written
    by Douglas Crockford and Tim Bray.  This document was constructed by
    extending it with the elements of the Hjson syntax.
 
-16.  References
+17.  References
 
-16.1.  Normative References
+17.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
-
-
-
-Zangl                   Expires November 4, 2016               [Page 13]
-
-Internet-Draft                    Hjson                         May 2016
-
 
    [RFC4627]  Crockford, D., "The application/json Media Type for
               JavaScript Object Notation (JSON)", RFC 4627,
@@ -749,10 +946,18 @@ Internet-Draft                    Hjson                         May 2016
               js2/blob/2fa136e00e5932d70ed1bd4786101c87afa8ca2e/
               SABNF.md>.
 
+
+
+
+Zangl                   Expires November 6, 2016               [Page 17]
+
+Internet-Draft                    Hjson                         May 2016
+
+
    [UNICODE]  The Unicode Consortium, "The Unicode Standard", n.d.,
               <http://www.unicode.org/versions/latest/>.
 
-16.2.  URIs
+17.2.  URIs
 
    [1] mailto:iesg@ietf.org
 
@@ -781,4 +986,23 @@ Author's Address
 
 
 
-Zangl                   Expires November 4, 2016               [Page 14]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Zangl                   Expires November 6, 2016               [Page 18]

@@ -81,6 +81,11 @@ Hjson's design goals were
 - to maintain backward compatibility, so that any valid JSON is valid Hjson
 - to provide a reasonable alternative to plain JSON configs
 
+Hjson SHOULD be used for data whose primary purpose is to be viewed or edited by a human. For example configuration, resource files or debug data dumps.
+
+Hjson SHOULD NOT be used in other cases, like transfer protocols.
+
+
 ## Conventions Used in This Document
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -308,7 +313,6 @@ as Infinity and NaN) are not permitted.
 
 For limits on the range and precision of numbers see {{RFC7159}} Section 6.
 
-
 # Strings
 
 Hjson allows strings to be represented in three different formats.
@@ -374,7 +378,7 @@ containing only the G clef character (U+1D11E) may be represented as
 
 ## Quoteless Strings
 
-Hjson allows strings to be represented only by their content without quotes. A quoteless string may contain any character except the control characters (U+0000 through U+001F), excluding trailing whitespace. It cannot start with a punctuator character (,:[]{}). It ends at the first linefeed. Strings are taken as is without escapes.
+Hjson allows strings to be represented only by their content without quotes. A quoteless string may contain any character except the control characters (U+0000 through U+001F), excluding trailing whitespace. It cannot start with a punctuator character (,:\[\]{}). It ends at the first linefeed. Strings are taken as is without escapes.
 
 ~~~abnf
    ql-string = non-punctuator-char
@@ -394,7 +398,7 @@ A Hjson parser must still detect values (*number*, `true`, `false` or `null`) an
 - '5 times' is the string "5 times"
 - 'true' is the boolean true
 - '7 # minutes' is the number 7 followed by a comment
-- '\s#([0-9a-fA-F]{3})' is the string "\\s#([0-9a-fA-F]{3})"
+- '\\s#(\[0-9a-fA-F\]{3})' is the string "\\\\s#(\[0-9a-fA-F\]{3})"
 
 Not allowing escapes inside the quoteless string allows you to specify HTML fragments, regular expressions or Windows style paths as-is, keeping them readable.
 
@@ -440,33 +444,11 @@ Implementations MUST NOT add a byte order mark to the beginning of a Hjson text.
 
 ## Unicode Characters
 
-When all the strings represented in a Hjson text are composed entirely
-of Unicode characters {{UNICODE}} (however escaped), then that Hjson
-text is interoperable in the sense that all software implementations
-that parse it will agree on the contents of names and of string
-values in objects and arrays.
-
-However, the ABNF in this specification allows member names and
-string values to contain bit sequences that cannot encode Unicode
-characters; for example, "\uDEAD" (a single unpaired UTF-16
-surrogate). Instances of this have been observed, for example, when
-a library truncates a UTF-16 string without checking whether the
-truncation split a surrogate pair. The behavior of software that
-receives Hjson texts containing such values is unpredictable; for
-example, implementations might return different values for the length
-of a string value or even suffer fatal runtime exceptions.
+See {{RFC7159}} Section 8.2.
 
 ## String Comparison
 
-Software implementations are typically required to test names of
-object members for equality. Implementations that transform the
-textual representation into sequences of Unicode code units and then
-perform the comparison numerically, code unit by code unit, are
-interoperable in the sense that implementations will agree in all
-cases on equality or inequality of two strings. For example,
-implementations that compare strings with escaped characters
-unconverted may incorrectly find that "a\\b" and "a\u005Cb" are not
-equal.
+See {{RFC7159}} Section 8.3.
 
 
 # Parsers
@@ -481,10 +463,12 @@ nesting. An implementation may set limits on the range and precision
 of numbers. An implementation may set limits on the length and
 character contents of strings.
 
+
 # Generators
 
 A Hjson generator produces Hjson text. The resulting text MUST
 strictly conform to the Hjson grammar.
+
 
 # IANA Considerations
 
@@ -544,10 +528,156 @@ Unlike JSON, Hjson is not a subset of Javascript and cannot be parsed using "eva
 This is a Hjson object:
 
 ~~~
+   # comments are useful
+
+   # specify rate in requests/second
+   rate: 1000
+
+   #  you may also use
+   // c style
+   /* or block
+      comments */
+
+   # key names do not need to be placed in
+   # quotes unless they contain a punctuator
+   # character {}[],:
+   key: 1
+
+   # strings may also omit quotes if they do
+   # not start with a punctuator
+   text: look ma, no quotes!
+
+   # quoteless strings do not use escapes
+   # and end at the LF/newline
+
+   # commas are optional
+   commas:
    {
-     TODO
+     one: 1
+     two: 2
+   }
+
+   # trailing commas are allowed
+   trailing:
+   {
+     one: 1,
+     two: 2,
+   }
+
+   # multiline string
+   haiku:
+     '''
+     JSON I love you.
+     But you strangle my expression.
+     This is so much better.
+     '''
+
+   # Hjson is a superset of JSON so you
+   # may use any valid JSON syntax:
+   favNumbers: [ 1, 2, 3, 6, 42 ]
+~~~
+
+
+# Syntax compared to JSON
+
+Hjson is a superset of JSON. Its syntax allows you to
+
+- add #, // or /**/ comments,
+- omit quotes for keys,
+- omit quotes for strings (terminated by LF),
+- omit braces for the root object,
+- omit the comma at the end of a line
+- add trailing commas and
+- use multiline strings with proper whitespace handling.
+
+Because the punctuator characters `{}[],:` are used to define the structure of the Hjson text, you need to use quotes
+
+- if your key includes a punctuator or space
+- if your string starts with a punctuator
+
+Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.
+
+## Examples
+
+Example of a document processor configuration, first in JSON:
+
+~~~
+   {
+     "header": "The Foo Manual\nCopyright Bar Inc.",
+     "source": {
+       "include": [
+         "./src"
+       ],
+       "includePattern": ".+\\.foo(doc)?$",
+       "excludePattern": "(^|\\/|\\\\)_"
+     },
+     "templates": {
+       "cleverLinks": false,
+       "monospaceLinks": false
+     }
    }
 ~~~
+
+and in Hjson:
+
+~~~
+   # define the header using a multiline string
+   header:
+     '''
+     The Foo Manual
+     Copyright Bar Inc.
+     '''
+   source:
+   {
+     # generate documentation for these paths
+     include:
+     [
+       ./src
+     ]
+     # include/exclude files
+     # notice that no escapes are required
+     includePattern: .+\.foo(doc)?$
+     excludePattern: (^|\/|\\)_
+   }
+   templates: {
+     # trailing commas are allowed
+     cleverLinks: false,
+     monospaceLinks: false,
+   }
+~~~
+
+Example of a npm dependency configuration in JSON:
+
+~~~
+   {
+     "dependencies": {
+       "foo": "2.0.1",
+       "bar": "*",
+       "til": "~1.2.1",
+       "elf": "^1.2.3"
+     }
+   }
+~~~
+
+and in Hjson:
+
+~~~
+   {
+     dependencies:
+     {
+       // match version exactly
+       foo: 2.0.1
+       // * matches any version
+       bar: *
+       // approximately, allows patch-level changes
+       til: ~1.2.1
+       // compatible with major version
+       elf: ^1.2.3
+     }
+   }
+~~~
+
+
 
 # Contributors
 

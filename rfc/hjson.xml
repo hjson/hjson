@@ -75,6 +75,10 @@ JavaScript.</t>
   <t>to provide a reasonable alternative to plain JSON configs</t>
 </list></t>
 
+<t>Hjson SHOULD be used for data whose primary purpose is to be viewed or edited by a human. For example configuration, resource files or debug data dumps.</t>
+
+<t>Hjson SHOULD NOT be used in other cases, like transfer protocols.</t>
+
 <section anchor="conventions-used-in-this-document" title="Conventions Used in This Document">
 
 <t>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”,
@@ -395,7 +399,7 @@ containing only the G clef character (U+1D11E) may be represented as
   <t>‘5 times’ is the string “5 times”</t>
   <t>‘true’ is the boolean true</t>
   <t>‘7 # minutes’ is the number 7 followed by a comment</t>
-  <t>‘\s#([0-9a-fA-F]{3})’ is the string “\s#([0-9a-fA-F]{3})”</t>
+  <t>’\s#([0-9a-fA-F]{3})’ is the string “\\s#([0-9a-fA-F]{3})”</t>
 </list></t>
 
 <t>Not allowing escapes inside the quoteless string allows you to specify HTML fragments, regular expressions or Windows style paths as-is, keeping them readable.</t>
@@ -446,34 +450,12 @@ containing only the G clef character (U+1D11E) may be represented as
 </section>
 <section anchor="unicode-characters" title="Unicode Characters">
 
-<t>When all the strings represented in a Hjson text are composed entirely
-of Unicode characters <xref target="UNICODE"/> (however escaped), then that Hjson
-text is interoperable in the sense that all software implementations
-that parse it will agree on the contents of names and of string
-values in objects and arrays.</t>
-
-<t>However, the ABNF in this specification allows member names and
-string values to contain bit sequences that cannot encode Unicode
-characters; for example, “\uDEAD” (a single unpaired UTF-16
-surrogate). Instances of this have been observed, for example, when
-a library truncates a UTF-16 string without checking whether the
-truncation split a surrogate pair. The behavior of software that
-receives Hjson texts containing such values is unpredictable; for
-example, implementations might return different values for the length
-of a string value or even suffer fatal runtime exceptions.</t>
+<t>See <xref target="RFC7159"/> Section 8.2.</t>
 
 </section>
 <section anchor="string-comparison" title="String Comparison">
 
-<t>Software implementations are typically required to test names of
-object members for equality. Implementations that transform the
-textual representation into sequences of Unicode code units and then
-perform the comparison numerically, code unit by code unit, are
-interoperable in the sense that implementations will agree in all
-cases on equality or inequality of two strings. For example,
-implementations that compare strings with escaped characters
-unconverted may incorrectly find that “a\b” and “a\u005Cb” are not
-equal.</t>
+<t>See <xref target="RFC7159"/> Section 8.3.</t>
 
 </section>
 </section>
@@ -554,11 +536,160 @@ strictly conform to the Hjson grammar.</t>
 <t>This is a Hjson object:</t>
 
 <figure><artwork><![CDATA[
+   # comments are useful
+
+   # specify rate in requests/second
+   rate: 1000
+
+   #  you may also use
+   // c style
+   /* or block
+      comments */
+
+   # key names do not need to be placed in
+   # quotes unless they contain a punctuator
+   # character {}[],:
+   key: 1
+
+   # strings may also omit quotes if they do
+   # not start with a punctuator
+   text: look ma, no quotes!
+
+   # quoteless strings do not use escapes
+   # and end at the LF/newline
+
+   # commas are optional
+   commas:
    {
-     TODO
+     one: 1
+     two: 2
+   }
+
+   # trailing commas are allowed
+   trailing:
+   {
+     one: 1,
+     two: 2,
+   }
+
+   # multiline string
+   haiku:
+     '''
+     JSON I love you.
+     But you strangle my expression.
+     This is so much better.
+     '''
+
+   # Hjson is a superset of JSON so you
+   # may use any valid JSON syntax:
+   favNumbers: [ 1, 2, 3, 6, 42 ]
+]]></artwork></figure>
+
+</section>
+<section anchor="syntax-compared-to-json" title="Syntax compared to JSON">
+
+<t>Hjson is a superset of JSON. Its syntax allows you to</t>
+
+<t><list style="symbols">
+  <t>add #, // or /**/ comments,</t>
+  <t>omit quotes for keys,</t>
+  <t>omit quotes for strings (terminated by LF),</t>
+  <t>omit braces for the root object,</t>
+  <t>omit the comma at the end of a line</t>
+  <t>add trailing commas and</t>
+  <t>use multiline strings with proper whitespace handling.</t>
+</list></t>
+
+<t>Because the punctuator characters <spanx style="verb">{}[],:</spanx> are used to define the structure of the Hjson text, you need to use quotes</t>
+
+<t><list style="symbols">
+  <t>if your key includes a punctuator or space</t>
+  <t>if your string starts with a punctuator</t>
+</list></t>
+
+<t>Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.</t>
+
+<section anchor="examples-1" title="Examples">
+
+<t>Example of a document processor configuration, first in JSON:</t>
+
+<figure><artwork><![CDATA[
+   {
+     "header": "The Foo Manual\nCopyright Bar Inc.",
+     "source": {
+       "include": [
+         "./src"
+       ],
+       "includePattern": ".+\\.foo(doc)?$",
+       "excludePattern": "(^|\\/|\\\\)_"
+     },
+     "templates": {
+       "cleverLinks": false,
+       "monospaceLinks": false
+     }
    }
 ]]></artwork></figure>
 
+<t>and in Hjson:</t>
+
+<figure><artwork><![CDATA[
+   # define the header using a multiline string
+   header:
+     '''
+     The Foo Manual
+     Copyright Bar Inc.
+     '''
+   source:
+   {
+     # generate documentation for these paths
+     include:
+     [
+       ./src
+     ]
+     # include/exclude files
+     # notice that no escapes are required
+     includePattern: .+\.foo(doc)?$
+     excludePattern: (^|\/|\\)_
+   }
+   templates: {
+     # trailing commas are allowed
+     cleverLinks: false,
+     monospaceLinks: false,
+   }
+]]></artwork></figure>
+
+<t>Example of a npm dependency configuration in JSON:</t>
+
+<figure><artwork><![CDATA[
+   {
+     "dependencies": {
+       "foo": "2.0.1",
+       "bar": "*",
+       "til": "~1.2.1",
+       "elf": "^1.2.3"
+     }
+   }
+]]></artwork></figure>
+
+<t>and in Hjson:</t>
+
+<figure><artwork><![CDATA[
+   {
+     dependencies:
+     {
+       // match version exactly
+       foo: 2.0.1
+       // * matches any version
+       bar: *
+       // approximately, allows patch-level changes
+       til: ~1.2.1
+       // compatible with major version
+       elf: ^1.2.3
+     }
+   }
+]]></artwork></figure>
+
+</section>
 </section>
 <section anchor="contributors" title="Contributors">
 
