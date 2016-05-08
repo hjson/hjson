@@ -180,7 +180,7 @@ A more forgiving format makes it easier for Humans to write, it reduces unnecess
 
 YAML expresses structure through whitespace. Significant whitespace is a common source of mistakes that we shouldn't have to deal with.
 
-Both HOCON and YAML make the mistake of implementing too many features (like anchors, sustitutions or concatenation).
+Both HOCON and YAML make the mistake of implementing too many features (like anchors, substitutions or concatenation).
 
 JSON5 adds "some minimal syntax features directly from ECMAScript 5". It's focused on developers.
 
