@@ -103,8 +103,9 @@ body {
 }
 
 .ynavb {
-  background-color: rgba(240, 239, 231, 0.51);
+  background: linear-gradient(to right, #fcfcfa 0%,#dbdce2 22%,#f0efe7 49%,#dddfe3 80%,#fcfcfa 100%);
   border-radius: 5px;
+  border: 1px solid #f2f2f1;
 }
 
 .ynav > a:after {
