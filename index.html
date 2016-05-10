@@ -1,13 +1,15 @@
-<html><head>
+<!DOCTYPE html>
+<html>
+<head>
   <meta charset="utf-8">
   <title>Hjson, the Human JSON</title>
   <meta name="description" content="Hjson is a configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.">
   <meta name="viewport" content="width=device-width">
-  <link rel="canonical" href="https://hjson.org/">
+  <link rel="canonical" href="https://hjson.org/"/>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="css/md.css">
-  <link rel="stylesheet" type="text/css" href="css/pg1.css">
+  <link rel="stylesheet" type="text/css" href="css/md.css" />
+  <link rel="stylesheet" type="text/css" href="css/pg2.css" />
   <script type="text/javascript">if (window.location.href.indexOf("github.io")>0) window.location.href="https://hjson.org";</script>
 
   <meta name="twitter:card" content="summary">
@@ -46,7 +48,7 @@
           <a class="btn navbar-btn btn-success" href="download.html">Download</a>
         </li>
         <li>
-          <a href="syntax.html">Syntax</a>
+          <a href="why.html">Why</a>
         </li>
         <li>
           <a class="btn navbar-btn btn-danger" href="try.html">Try It!</a>
@@ -72,184 +74,202 @@
 
 <div id="main">
 <div class="content"><p><img src="hjson1.gif" class="img-responsive center-block"></p>
-<h1 id="hjson-the-human-json">Hjson, the Human JSON</h1>
+<h2 id="hjson-the-human-json">Hjson, the Human JSON</h2>
 <p><span class="big">A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.</span> <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hjson.org/" data-text="Human JSON for configs!" data-hashtags="hjson" data-dnt="true">Tweet</a></p>
-<h2 id="intro">Intro</h2>
-<div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
-  # specify rate in requests/second
-  "rate": 1000
+<p>The Hjson syntax is similar to <a href="http://json.org/">JSON</a> but allows you to</p>
+<ul>
+<li>add <code>#</code>, <code>//</code> or <code>/**/</code> comments,</li>
+<li>omit <code>&quot;&quot;</code> for keys,</li>
+<li>omit <code>&quot;&quot;</code> for strings (terminated by LF),</li>
+<li>omit <code>,</code> at the end of a line,</li>
+<li>add trailing commas and</li>
+<li>use multiline strings with proper whitespace handling.</li>
+</ul>
+<div class="ynav ynavb"><a href="why.html">Why</a><a href="download.html">Download</a><a href="why.html#faq">FAQ</a><a href="try.html">Try It!</a></div>
 
-  // prefer c-style comments?
-  /* feeling old fashioned? */
+<p>
+<style type="text/css">
+#rr {
+  margin: 0 0 0 50px;
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quotes">Quotes</h3><h4><strong>"Why do I have to place key names in quotes?"</strong></h4><p>Glad you asked. Actually you don't need to do that!</p></div><div class="bb"><pre><code>{
-  key: "value"
+#rr h2 {
+  margin: 0 0 0 -50px;
+  font-size: 1.5em;
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="commas">Commas</h3><h4><strong>"Now I forgot the comma at the end."</strong></h4><p>So you did. But Hjson does not mind as long as you put each value on a new line.</p></div><div class="bb"><pre><code>{
+#rr h3 {
+  font-size: 1em;
+}
+
+svg.railroad-diagram {
+}
+svg.railroad-diagram path {
+    stroke-width: 3;
+    stroke: black;
+    fill: rgba(0,0,0,0);
+}
+svg.railroad-diagram text {
+    font: bold 14px monospace;
+    text-anchor: middle;
+}
+svg.railroad-diagram text.diagram-text {
+    font-size: 12px;
+}
+svg.railroad-diagram text.diagram-arrow {
+    font-size: 16px;
+}
+svg.railroad-diagram text.label {
+    text-anchor: start;
+}
+svg.railroad-diagram text.comment {
+    font: italic 12px monospace;
+}
+svg.railroad-diagram g.non-terminal text {
+    /*font-style: italic;*/
+}
+svg.railroad-diagram rect {
+    stroke-width: 3;
+    stroke: black;
+    fill: hsl(120,100%,90%);
+}
+svg.railroad-diagram path.diagram-text {
+    stroke-width: 3;
+    stroke: black;
+    fill: white;
+    cursor: help;
+}
+svg.railroad-diagram g.diagram-text:hover path.diagram-text {
+    fill: #eee;
+}
+</style>
+
+<div id="rr">
+
+<h2>Object</h2>
+
+<svg class="railroad-diagram img-responsive" width="576" height="117" viewBox="0 0 576 117"><g transform="translate(.5 .5)"><path d="M 20 38 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path><path d="M40 48h10"></path><g class="terminal"><path d="M50 48h0"></path><path d="M78 48h0"></path><rect x="50" y="37" width="28" height="22" rx="10" ry="10"></rect><text x="64" y="52">{</text></g><path d="M78 48h10"></path><g><path d="M88 48h0"></path><path d="M488 48h0"></path><path d="M88 48a10 10 0 0 0 10 -10v-8a10 10 0 0 1 10 -10"></path><g><path d="M108 20h360"></path></g><path d="M468 20a10 10 0 0 1 10 10v8a10 10 0 0 0 10 10"></path><path d="M88 48h20"></path><g><path d="M108 48h0"></path><path d="M468 48h0"></path><g class="non-terminal"><path d="M108 48h0"></path><path d="M176 48h0"></path><rect x="108" y="37" width="68" height="22"></rect><text x="142" y="52">member</text></g><path d="M176 48h10"></path><g><path d="M186 48h0"></path><path d="M400 48h0"></path><path d="M186 48a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M206 28h174"></path></g><path d="M380 28a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M186 48h20"></path><g><path d="M206 48h0"></path><path d="M380 48h0"></path><path d="M206 48h10"></path><g><path d="M216 48h0"></path><path d="M370 48h0"></path><g><path d="M216 48h0"></path><path d="M292 48h0"></path><path d="M216 48h20"></path><g class="terminal"><path d="M236 48h0"></path><path d="M272 48h0"></path><rect x="236" y="37" width="36" height="22" rx="10" ry="10"></rect><text x="254" y="52">LF</text></g><path d="M272 48h20"></path><path d="M216 48a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M236 78h4"></path><path d="M268 78h4"></path><rect x="240" y="67" width="28" height="22" rx="10" ry="10"></rect><text x="254" y="82">,</text></g><path d="M272 78a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M292 48h10"></path><g class="non-terminal"><path d="M302 48h0"></path><path d="M370 48h0"></path><rect x="302" y="37" width="68" height="22"></rect><text x="336" y="52">member</text></g></g><path d="M370 48h10"></path><path d="M216 48a10 10 0 0 0 -10 10v29a10 10 0 0 0 10 10"></path><g><path d="M216 97h154"></path></g><path d="M370 97a10 10 0 0 0 10 -10v-29a10 10 0 0 0 -10 -10"></path></g><path d="M380 48h20"></path></g><g><path d="M400 48h0"></path><path d="M468 48h0"></path><path d="M400 48a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M420 28h28"></path></g><path d="M448 28a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M400 48h20"></path><g class="terminal"><path d="M420 48h0"></path><path d="M448 48h0"></path><rect x="420" y="37" width="28" height="22" rx="10" ry="10"></rect><text x="434" y="52">,</text></g><path d="M448 48h20"></path></g></g><path d="M468 48h20"></path></g><path d="M488 48h10"></path><g class="terminal"><path d="M498 48h0"></path><path d="M526 48h0"></path><rect x="498" y="37" width="28" height="22" rx="10" ry="10"></rect><text x="512" y="52">}</text></g><path d="M526 48h10"></path><path d="M 536 48 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+
+<h2>Member</h2>
+
+<svg class="railroad-diagram img-responsive" width="650" height="101" viewBox="0 0 650 101"><g transform="translate(.5 .5)"><path d="M 20 51 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path><path d="M40 61h10"></path><g><path d="M50 61h0"></path><path d="M600 61h0"></path><g><path d="M50 61h0"></path><path d="M482 61h0"></path><path d="M50 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><g class="non-terminal"><path d="M70 31h142"></path><path d="M320 31h142"></path><rect x="212" y="20" width="108" height="22"></rect><text x="266" y="35">JSON-string</text></g><path d="M462 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><path d="M50 61h20"></path><g><path d="M70 61h0"></path><path d="M462 61h0"></path><path d="M70 61h10"></path><g class="non-terminal"><path d="M80 61h0"></path><path d="M452 61h0"></path><rect x="80" y="50" width="372" height="22"></rect><text x="266" y="65"> any character except ,:[]{} and whitespace </text></g><path d="M452 61h10"></path><path d="M80 61a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M80 81h372"></path></g><path d="M452 81a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M462 61h20"></path></g><path d="M482 61h10"></path><g class="terminal"><path d="M492 61h0"></path><path d="M520 61h0"></path><rect x="492" y="50" width="28" height="22" rx="10" ry="10"></rect><text x="506" y="65">:</text></g><path d="M520 61h10"></path><path d="M530 61h10"></path><g class="non-terminal"><path d="M540 61h0"></path><path d="M600 61h0"></path><rect x="540" y="50" width="60" height="22"></rect><text x="570" y="65">value</text></g></g><path d="M600 61h10"></path><path d="M 610 61 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+
+
+<h2>Array</h2>
+<svg class="railroad-diagram img-responsive" width="576" height="117" viewBox="0 0 576 117"><g transform="translate(.5 .5)"><path d="M 20 38 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path><path d="M40 48h10"></path><g class="terminal"><path d="M50 48h0"></path><path d="M78 48h0"></path><rect x="50" y="37" width="28" height="22" rx="10" ry="10"></rect><text x="64" y="52">[</text></g><path d="M78 48h10"></path><g><path d="M88 48h0"></path><path d="M488 48h0"></path><path d="M88 48a10 10 0 0 0 10 -10v-8a10 10 0 0 1 10 -10"></path><g><path d="M108 20h360"></path></g><path d="M468 20a10 10 0 0 1 10 10v8a10 10 0 0 0 10 10"></path><path d="M88 48h20"></path><g><path d="M108 48h0"></path><path d="M468 48h0"></path><g class="non-terminal"><path d="M108 48h0"></path><path d="M176 48h0"></path><rect x="108" y="37" width="68" height="22"></rect><text x="142" y="52">member</text></g><path d="M176 48h10"></path><g><path d="M186 48h0"></path><path d="M400 48h0"></path><path d="M186 48a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M206 28h174"></path></g><path d="M380 28a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M186 48h20"></path><g><path d="M206 48h0"></path><path d="M380 48h0"></path><path d="M206 48h10"></path><g><path d="M216 48h0"></path><path d="M370 48h0"></path><g><path d="M216 48h0"></path><path d="M292 48h0"></path><path d="M216 48h20"></path><g class="terminal"><path d="M236 48h0"></path><path d="M272 48h0"></path><rect x="236" y="37" width="36" height="22" rx="10" ry="10"></rect><text x="254" y="52">LF</text></g><path d="M272 48h20"></path><path d="M216 48a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M236 78h4"></path><path d="M268 78h4"></path><rect x="240" y="67" width="28" height="22" rx="10" ry="10"></rect><text x="254" y="82">,</text></g><path d="M272 78a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M292 48h10"></path><g class="non-terminal"><path d="M302 48h0"></path><path d="M370 48h0"></path><rect x="302" y="37" width="68" height="22"></rect><text x="336" y="52">member</text></g></g><path d="M370 48h10"></path><path d="M216 48a10 10 0 0 0 -10 10v29a10 10 0 0 0 10 10"></path><g><path d="M216 97h154"></path></g><path d="M370 97a10 10 0 0 0 10 -10v-29a10 10 0 0 0 -10 -10"></path></g><path d="M380 48h20"></path></g><g><path d="M400 48h0"></path><path d="M468 48h0"></path><path d="M400 48a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M420 28h28"></path></g><path d="M448 28a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M400 48h20"></path><g class="terminal"><path d="M420 48h0"></path><path d="M448 48h0"></path><rect x="420" y="37" width="28" height="22" rx="10" ry="10"></rect><text x="434" y="52">,</text></g><path d="M448 48h20"></path></g></g><path d="M468 48h20"></path></g><path d="M488 48h10"></path><g class="terminal"><path d="M498 48h0"></path><path d="M526 48h0"></path><rect x="498" y="37" width="28" height="22" rx="10" ry="10"></rect><text x="512" y="52">]</text></g><path d="M526 48h10"></path><path d="M 536 48 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+
+<h2>Value</h2>
+<svg class="railroad-diagram img-responsive" width="188" height="242" viewBox="0 0 188 242"><g transform="translate(.5 .5)"><path d="M 20 21 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path><g><path d="M40 31h0"></path><path d="M148 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M128 31h0"></path><rect x="60" y="20" width="68" height="22"></rect><text x="94" y="35">string</text></g><path d="M128 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h0"></path><path d="M128 61h0"></path><rect x="60" y="50" width="68" height="22"></rect><text x="94" y="65">number</text></g><path d="M128 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 91h0"></path><path d="M128 91h0"></path><rect x="60" y="80" width="68" height="22"></rect><text x="94" y="95">object</text></g><path d="M128 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 121h4"></path><path d="M124 121h4"></path><rect x="64" y="110" width="60" height="22"></rect><text x="94" y="125">array</text></g><path d="M128 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 151h8"></path><path d="M120 151h8"></path><rect x="68" y="140" width="52" height="22" rx="10" ry="10"></rect><text x="94" y="155">true</text></g><path d="M128 151a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 181h4"></path><path d="M124 181h4"></path><rect x="64" y="170" width="60" height="22" rx="10" ry="10"></rect><text x="94" y="185">false</text></g><path d="M128 181a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 211h8"></path><path d="M120 211h8"></path><rect x="68" y="200" width="52" height="22" rx="10" ry="10"></rect><text x="94" y="215">null</text></g><path d="M128 211a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path></g><path d="M 148 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+
+<h2>String</h2>
+
+<svg class="railroad-diagram img-responsive" width="268" height="122" viewBox="0 0 268 122"><g transform="translate(.5 .5)"><path d="M 20 51 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path><g><path d="M40 61h0"></path><path d="M228 61h0"></path><path d="M40 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><g class="non-terminal"><path d="M60 31h20"></path><path d="M188 31h20"></path><rect x="80" y="20" width="108" height="22"></rect><text x="134" y="35">JSON-String</text></g><path d="M208 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><path d="M40 61h20"></path><g class="non-terminal"><path d="M60 61h0"></path><path d="M208 61h0"></path><rect x="60" y="50" width="148" height="22"></rect><text x="134" y="65">Quoteless-String</text></g><path d="M208 61h20"></path><path d="M40 61a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 91h0"></path><path d="M208 91h0"></path><rect x="60" y="80" width="148" height="22"></rect><text x="134" y="95">Multiline-String</text></g><path d="M208 91a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 228 61 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+
+<h3>JSON-String</h3>
+<svg class="railroad-diagram img-responsive" width="582" height="349" viewBox="0 0 582 349"><g transform="translate(.5 .5)"><path d="M 20 30 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path><path d="M40 40h10"></path><g class="terminal"><path d="M50 40h0"></path><path d="M78 40h0"></path><rect x="50" y="29" width="28" height="22" rx="10" ry="10"></rect><text x="64" y="44">"</text></g><path d="M78 40h10"></path><g><path d="M88 40h0"></path><path d="M494 40h0"></path><path d="M88 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M108 20h366"></path></g><path d="M474 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M88 40h20"></path><g><path d="M108 40h0"></path><path d="M474 40h0"></path><path d="M108 40h10"></path><g><path d="M118 40h0"></path><path d="M464 40h0"></path><path d="M118 40h20"></path><g class="non-terminal"><path d="M138 40h27"></path><path d="M417 40h27"></path><rect x="165" y="29" width="252" height="22"></rect><text x="291" y="44"> any character except " or \ </text></g><path d="M444 40h20"></path><path d="M118 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g><path d="M138 130h0"></path><path d="M444 130h0"></path><g class="terminal"><path d="M138 130h0"></path><path d="M166 130h0"></path><rect x="138" y="119" width="28" height="22" rx="10" ry="10"></rect><text x="152" y="134">\</text></g><path d="M166 130h10"></path><g><path d="M176 130h0"></path><path d="M444 130h0"></path><path d="M176 130a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><g><path d="M196 100h32.5"></path><path d="M391.5 100h32.5"></path><g class="terminal"><path d="M228.5 100h0"></path><path d="M256.5 100h0"></path><rect x="228.5" y="89" width="28" height="22" rx="10" ry="10"></rect><text x="242.5" y="104">\</text></g><path d="M256.5 100h10"></path><path d="M266.5 100h10"></path><g><path d="M276.5 100h0"></path><path d="M391.5 100h0"></path><text x="334" y="105" class="comment">reverse solidus</text></g></g><path d="M424 100a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><path d="M176 130a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><g><path d="M196 70h36"></path><path d="M388 70h36"></path><g class="terminal"><path d="M232 70h0"></path><path d="M260 70h0"></path><rect x="232" y="59" width="28" height="22" rx="10" ry="10"></rect><text x="246" y="74">"</text></g><path d="M260 70h10"></path><path d="M270 70h10"></path><g><path d="M280 70h0"></path><path d="M388 70h0"></path><text x="334" y="75" class="comment">quotation mark</text></g></g><path d="M424 70a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><path d="M176 130h20"></path><g><path d="M196 130h60.5"></path><path d="M363.5 130h60.5"></path><g class="terminal"><path d="M256.5 130h0"></path><path d="M284.5 130h0"></path><rect x="256.5" y="119" width="28" height="22" rx="10" ry="10"></rect><text x="270.5" y="134">/</text></g><path d="M284.5 130h10"></path><path d="M294.5 130h10"></path><g><path d="M304.5 130h0"></path><path d="M363.5 130h0"></path><text x="334" y="135" class="comment">solidus</text></g></g><path d="M424 130h20"></path><path d="M176 130a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g><path d="M196 160h53.5"></path><path d="M370.5 160h53.5"></path><g class="terminal"><path d="M249.5 160h0"></path><path d="M277.5 160h0"></path><rect x="249.5" y="149" width="28" height="22" rx="10" ry="10"></rect><text x="263.5" y="164">b</text></g><path d="M277.5 160h10"></path><path d="M287.5 160h10"></path><g><path d="M297.5 160h0"></path><path d="M370.5 160h0"></path><text x="334" y="165" class="comment">backspace</text></g></g><path d="M424 160a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M176 130a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g><path d="M196 190h57"></path><path d="M367 190h57"></path><g class="terminal"><path d="M253 190h0"></path><path d="M281 190h0"></path><rect x="253" y="179" width="28" height="22" rx="10" ry="10"></rect><text x="267" y="194">f</text></g><path d="M281 190h10"></path><path d="M291 190h10"></path><g><path d="M301 190h0"></path><path d="M367 190h0"></path><text x="334" y="195" class="comment">formfeed</text></g></g><path d="M424 190a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M176 130a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g><path d="M196 220h60.5"></path><path d="M363.5 220h60.5"></path><g class="terminal"><path d="M256.5 220h0"></path><path d="M284.5 220h0"></path><rect x="256.5" y="209" width="28" height="22" rx="10" ry="10"></rect><text x="270.5" y="224">n</text></g><path d="M284.5 220h10"></path><path d="M294.5 220h10"></path><g><path d="M304.5 220h0"></path><path d="M363.5 220h0"></path><text x="334" y="225" class="comment">newline</text></g></g><path d="M424 220a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M176 130a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g><path d="M196 250h32.5"></path><path d="M391.5 250h32.5"></path><g class="terminal"><path d="M228.5 250h0"></path><path d="M256.5 250h0"></path><rect x="228.5" y="239" width="28" height="22" rx="10" ry="10"></rect><text x="242.5" y="254">r</text></g><path d="M256.5 250h10"></path><path d="M266.5 250h10"></path><g><path d="M276.5 250h0"></path><path d="M391.5 250h0"></path><text x="334" y="255" class="comment">carriage return</text></g></g><path d="M424 250a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M176 130a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g><path d="M196 280h36"></path><path d="M388 280h36"></path><g class="terminal"><path d="M232 280h0"></path><path d="M260 280h0"></path><rect x="232" y="269" width="28" height="22" rx="10" ry="10"></rect><text x="246" y="284">t</text></g><path d="M260 280h10"></path><path d="M270 280h10"></path><g><path d="M280 280h0"></path><path d="M388 280h0"></path><text x="334" y="285" class="comment">horizontal tab</text></g></g><path d="M424 280a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M176 130a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g><path d="M196 310h0"></path><path d="M424 310h0"></path><g class="terminal"><path d="M196 310h0"></path><path d="M224 310h0"></path><rect x="196" y="299" width="28" height="22" rx="10" ry="10"></rect><text x="210" y="314">u</text></g><path d="M224 310h10"></path><path d="M234 310h10"></path><g class="non-terminal"><path d="M244 310h0"></path><path d="M424 310h0"></path><rect x="244" y="299" width="180" height="22"></rect><text x="334" y="314">4 hexadecimal digits</text></g></g><path d="M424 310a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path></g></g><path d="M444 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path></g><path d="M464 40h10"></path><path d="M118 40a10 10 0 0 0 -10 10v269a10 10 0 0 0 10 10"></path><g><path d="M118 329h346"></path></g><path d="M464 329a10 10 0 0 0 10 -10v-269a10 10 0 0 0 -10 -10"></path></g><path d="M474 40h20"></path></g><path d="M494 40h10"></path><g class="terminal"><path d="M504 40h0"></path><path d="M532 40h0"></path><rect x="504" y="29" width="28" height="22" rx="10" ry="10"></rect><text x="518" y="44">"</text></g><path d="M532 40h10"></path><path d="M 542 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+
+<h3>Quoteless-String</h3>
+<svg class="railroad-diagram img-responsive" width="632" height="80" viewBox="0 0 632 80"><g transform="translate(.5 .5)"><path d="M 20 30 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path><path d="M40 40h10"></path><g class="non-terminal"><path d="M50 40h0"></path><path d="M302 40h0"></path><rect x="50" y="29" width="252" height="22"></rect><text x="176" y="44"> any character except ,:[]{} </text></g><path d="M302 40h10"></path><g><path d="M312 40h0"></path><path d="M592 40h0"></path><path d="M312 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M332 20h240"></path></g><path d="M572 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M312 40h20"></path><g><path d="M332 40h0"></path><path d="M572 40h0"></path><path d="M332 40h10"></path><g class="non-terminal"><path d="M342 40h0"></path><path d="M562 40h0"></path><rect x="342" y="29" width="220" height="22"></rect><text x="452" y="44"> any character except LF </text></g><path d="M562 40h10"></path><path d="M342 40a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M342 60h220"></path></g><path d="M562 60a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M572 40h20"></path></g><path d="M 592 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+
+<h3>Multiline-String</h3>
+<svg class="railroad-diagram img-responsive" width="600" height="80" viewBox="0 0 600 80"><g transform="translate(.5 .5)"><path d="M 20 30 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path><path d="M40 40h10"></path><g class="terminal"><path d="M50 40h0"></path><path d="M94 40h0"></path><rect x="50" y="29" width="44" height="22" rx="10" ry="10"></rect><text x="72" y="44">'''</text></g><path d="M94 40h10"></path><g><path d="M104 40h0"></path><path d="M496 40h0"></path><path d="M104 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M124 20h352"></path></g><path d="M476 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M104 40h20"></path><g><path d="M124 40h0"></path><path d="M476 40h0"></path><path d="M124 40h10"></path><g class="non-terminal"><path d="M134 40h0"></path><path d="M466 40h0"></path><rect x="134" y="29" width="332" height="22"></rect><text x="300" y="44"> any character except three ' in a row </text></g><path d="M466 40h10"></path><path d="M134 40a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M134 60h332"></path></g><path d="M466 60a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M476 40h20"></path></g><path d="M496 40h10"></path><g class="terminal"><path d="M506 40h0"></path><path d="M550 40h0"></path><rect x="506" y="29" width="44" height="22" rx="10" ry="10"></rect><text x="528" y="44">'''</text></g><path d="M550 40h10"></path><path d="M 560 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+
+<h2>Number</h2>
+
+<svg class="railroad-diagram img-responsive" width="554" height="226" viewBox="0 0 554 226"><g transform="translate(.5 .5)"><path d="M 20 21 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M50 31h10"></path><g><path d="M60 31h52"></path><path d="M442 31h52"></path><g><path d="M112 31h0"></path><path d="M180 31h0"></path><path d="M112 31h20"></path><g><path d="M132 31h28"></path></g><path d="M160 31h20"></path><path d="M112 31a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M132 51h0"></path><path d="M160 51h0"></path><rect x="132" y="40" width="28" height="22" rx="10" ry="10"></rect><text x="146" y="55">-</text></g><path d="M160 51a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path></g><g><path d="M180 31h0"></path><path d="M442 31h0"></path><path d="M180 31h20"></path><g class="terminal"><path d="M200 31h97"></path><path d="M325 31h97"></path><rect x="297" y="20" width="28" height="22" rx="10" ry="10"></rect><text x="311" y="35">0</text></g><path d="M422 31h20"></path><path d="M180 31a10 10 0 0 1 10 10v19a10 10 0 0 0 10 10"></path><g><path d="M200 70h0"></path><path d="M422 70h0"></path><g class="non-terminal"><path d="M200 70h0"></path><path d="M292 70h0"></path><rect x="200" y="59" width="92" height="22"></rect><text x="246" y="74">digit 1-9</text></g><path d="M292 70h10"></path><g><path d="M302 70h0"></path><path d="M422 70h0"></path><path d="M302 70a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M322 50h80"></path></g><path d="M402 50a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M302 70h20"></path><g><path d="M322 70h0"></path><path d="M402 70h0"></path><path d="M322 70h10"></path><g class="non-terminal"><path d="M332 70h0"></path><path d="M392 70h0"></path><rect x="332" y="59" width="60" height="22"></rect><text x="362" y="74">digit</text></g><path d="M392 70h10"></path><path d="M332 70a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M332 90h60"></path></g><path d="M392 90a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M402 70h20"></path></g></g><path d="M422 70a10 10 0 0 0 10 -10v-19a10 10 0 0 1 10 -10"></path></g></g><path d="M494 31a10 10 0 0 1 10 10v47a10 10 0 0 1 -10 10h-434a10 10 0 0 0 -10 10v8a10 10 0 0 0 10 10"></path><g><path d="M60 126h0"></path><path d="M494 126h0"></path><g><path d="M60 126h0"></path><path d="M228 126h0"></path><path d="M60 126a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M80 106h128"></path></g><path d="M208 106a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M60 126h20"></path><g><path d="M80 126h0"></path><path d="M208 126h0"></path><g class="terminal"><path d="M80 126h0"></path><path d="M108 126h0"></path><rect x="80" y="115" width="28" height="22" rx="10" ry="10"></rect><text x="94" y="130">.</text></g><path d="M108 126h10"></path><path d="M118 126h10"></path><g><path d="M128 126h0"></path><path d="M208 126h0"></path><path d="M128 126h10"></path><g class="non-terminal"><path d="M138 126h0"></path><path d="M198 126h0"></path><rect x="138" y="115" width="60" height="22"></rect><text x="168" y="130">digit</text></g><path d="M198 126h10"></path><path d="M138 126a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M138 146h60"></path></g><path d="M198 146a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g></g><path d="M208 126h20"></path></g><g><path d="M228 126h0"></path><path d="M494 126h0"></path><path d="M228 126h20"></path><g><path d="M248 126h226"></path></g><path d="M474 126h20"></path><path d="M228 126a10 10 0 0 1 10 10v19a10 10 0 0 0 10 10"></path><g><path d="M248 165h0"></path><path d="M474 165h0"></path><g><path d="M248 165h0"></path><path d="M316 165h0"></path><path d="M248 165h20"></path><g class="terminal"><path d="M268 165h0"></path><path d="M296 165h0"></path><rect x="268" y="154" width="28" height="22" rx="10" ry="10"></rect><text x="282" y="169">e</text></g><path d="M296 165h20"></path><path d="M248 165a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M268 195h0"></path><path d="M296 195h0"></path><rect x="268" y="184" width="28" height="22" rx="10" ry="10"></rect><text x="282" y="199">E</text></g><path d="M296 195a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><g><path d="M316 165h0"></path><path d="M384 165h0"></path><path d="M316 165a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g class="terminal"><path d="M336 145h0"></path><path d="M364 145h0"></path><rect x="336" y="134" width="28" height="22" rx="10" ry="10"></rect><text x="350" y="149">+</text></g><path d="M364 145a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M316 165h20"></path><g><path d="M336 165h28"></path></g><path d="M364 165h20"></path><path d="M316 165a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M336 185h0"></path><path d="M364 185h0"></path><rect x="336" y="174" width="28" height="22" rx="10" ry="10"></rect><text x="350" y="189">-</text></g><path d="M364 185a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path></g><path d="M384 165h10"></path><g><path d="M394 165h0"></path><path d="M474 165h0"></path><path d="M394 165h10"></path><g class="non-terminal"><path d="M404 165h0"></path><path d="M464 165h0"></path><rect x="404" y="154" width="60" height="22"></rect><text x="434" y="169">digit</text></g><path d="M464 165h10"></path><path d="M404 165a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M404 185h60"></path></g><path d="M464 185a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g></g><path d="M474 165a10 10 0 0 0 10 -10v-19a10 10 0 0 1 10 -10"></path></g></g><path d="M494 126h10"></path><path d="M504 126h0"></path></g><path d="M504 126h10"></path><path d="M 514 126 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+
+<h2>Comments</h2>
+<svg class="railroad-diagram img-responsive" width="516" height="176" viewBox="0 0 516 176"><g transform="translate(.5 .5)"><path d="M 20 78 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path><g><path d="M40 88h0"></path><path d="M476 88h0"></path><path d="M40 88a10 10 0 0 0 10 -10v-28a10 10 0 0 1 10 -10"></path><g><path d="M60 40h39"></path><path d="M417 40h39"></path><g class="terminal"><path d="M99 40h0"></path><path d="M127 40h0"></path><rect x="99" y="29" width="28" height="22" rx="10" ry="10"></rect><text x="113" y="44">#</text></g><path d="M127 40h10"></path><g><path d="M137 40h0"></path><path d="M417 40h0"></path><path d="M137 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M157 20h240"></path></g><path d="M397 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M137 40h20"></path><g><path d="M157 40h0"></path><path d="M397 40h0"></path><path d="M157 40h10"></path><g class="non-terminal"><path d="M167 40h0"></path><path d="M387 40h0"></path><rect x="167" y="29" width="220" height="22"></rect><text x="277" y="44"> any character except LF </text></g><path d="M387 40h10"></path><path d="M167 40a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M167 60h220"></path></g><path d="M387 60a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M397 40h20"></path></g></g><path d="M456 40a10 10 0 0 1 10 10v28a10 10 0 0 0 10 10"></path><path d="M40 88h20"></path><g><path d="M60 88h35"></path><path d="M421 88h35"></path><g class="terminal"><path d="M95 88h0"></path><path d="M131 88h0"></path><rect x="95" y="77" width="36" height="22" rx="10" ry="10"></rect><text x="113" y="92">//</text></g><path d="M131 88h10"></path><g><path d="M141 88h0"></path><path d="M421 88h0"></path><path d="M141 88a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M161 68h240"></path></g><path d="M401 68a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M141 88h20"></path><g><path d="M161 88h0"></path><path d="M401 88h0"></path><path d="M161 88h10"></path><g class="non-terminal"><path d="M171 88h0"></path><path d="M391 88h0"></path><rect x="171" y="77" width="220" height="22"></rect><text x="281" y="92"> any character except LF </text></g><path d="M391 88h10"></path><path d="M171 88a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M171 108h220"></path></g><path d="M391 108a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M401 88h20"></path></g></g><path d="M456 88h20"></path><path d="M40 88a10 10 0 0 1 10 10v28a10 10 0 0 0 10 10"></path><g><path d="M60 136h0"></path><path d="M456 136h0"></path><g class="terminal"><path d="M60 136h0"></path><path d="M96 136h0"></path><rect x="60" y="125" width="36" height="22" rx="10" ry="10"></rect><text x="78" y="140">/*</text></g><path d="M96 136h10"></path><g><path d="M106 136h0"></path><path d="M410 136h0"></path><path d="M106 136a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M126 116h264"></path></g><path d="M390 116a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M106 136h20"></path><g><path d="M126 136h0"></path><path d="M390 136h0"></path><path d="M126 136h10"></path><g class="non-terminal"><path d="M136 136h0"></path><path d="M380 136h0"></path><rect x="136" y="125" width="244" height="22"></rect><text x="258" y="140">anything but * followed by /</text></g><path d="M380 136h10"></path><path d="M136 136a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M136 156h244"></path></g><path d="M380 156a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M390 136h20"></path></g><path d="M410 136h10"></path><g class="terminal"><path d="M420 136h0"></path><path d="M456 136h0"></path><rect x="420" y="125" width="36" height="22" rx="10" ry="10"></rect><text x="438" y="140">*/</text></g></g><path d="M456 136a10 10 0 0 0 10 -10v-28a10 10 0 0 1 10 -10"></path></g><path d="M 476 88 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+
+</div>
+
+<p>Character means any UNICODE character except the control characters.</p>
+
+</p>
+<h3 id="details">Details</h3>
+<h4 id="tl-dr">tl;dr</h4>
+<p>Because the punctuator characters <code>{}[],:</code> are used to define the structure of the Hjson text, you need to use quotes</p>
+<ul>
+<li>if your key includes a punctuator or space</li>
+<li>if your string starts with a punctuator</li>
+</ul>
+<p>Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.</p>
+<p>Braces for the root object are optional.</p>
+<h4 id="keys">Keys</h4>
+<p>You only need to add quotes if the key name includes whitespace or any of the punctuators (<code>{}[],:</code>).</p>
+<p>For example:</p>
+<ul>
+<li><code>foo</code></li>
+<li><code>&quot;test case&quot;</code></li>
+<li><code>&quot;{option}&quot;</code></li>
+</ul>
+<h4 id="quoteless-strings">Quoteless Strings</h4>
+<p>A quoteless string cannot start with any of the punctuators (<code>{}[],:</code>).</p>
+<p>It is taken exactly as is up to the linefeed/newline, preceding and trailing whitespace is ignored. As there are no escapes, you do not need to escape the backslash. If you wish to add comments place them on the previous or next line.</p>
+<p>The Hjson parser will still detect values (<em>number</em>, <code>true</code>, <code>false</code> or <code>null</code>) and parse them correctly. For example</p>
+<ul>
+<li><code>3</code> is the <em>number</em> <code>3</code></li>
+<li><code>5 times</code> is the <em>string</em> <code>&quot;5 times&quot;</code></li>
+<li><code>true</code> is the <em>boolean</em> <code>true</code></li>
+<li><code>7 # minutes</code> is the <em>number</em> <code>7</code> followed by a comment</li>
+<li><code>\s#([0-9a-fA-F]{3})</code> is the <em>string</em> <code>&quot;\\s#([0-9a-fA-F]{3})&quot;</code></li>
+</ul>
+<h4 id="multiline-strings">Multiline Strings</h4>
+<ul>
+<li>Start with triple quotes <code>&#39;&#39;&#39;</code>, whitespace on the first line is ignored</li>
+<li><code>&#39;&#39;&#39;</code> defines the head, on the following lines all whitespace up to this column is ignored</li>
+<li>all other whitespace is assumed to be part of the string.</li>
+<li>ends with triple quotes <code>&#39;&#39;&#39;</code>. The last newline is ignored to allow for better formatting.</li>
+</ul>
+<p>A multiline string is OS and file independent. The line feed is always <code>\n</code>.</p>
+<p>For example</p>
+<pre><code>haiku:
+  &#39;&#39;&#39;
+  My half empty glass,
+  I will fill your empty half.
+  Now you are half full.
+  &#39;&#39;&#39;
+</code></pre><p>Is the <em>string</em> <code>&quot;My half empty glass,\nI will fill your empty half.\nNow you are half full.&quot;</code></p>
+<h4 id="commas">Commas</h4>
+<p>You can separate your values/members either with a comma or a new line.</p>
+<p>Unlike JSON, trailing commas are ignored and do not produce a syntax error.</p>
+<p>For example:</p>
+<pre><code>{
   one: 1
-  two: 2
-  three: 4 # oops
+  two: 2,
+  more: [3,4,5]
+  trailing: 6,
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quoteless">Quoteless</h3><h4><strong>"Come to think of it, why do I have to place strings in quotes?"</strong></h4><p>You are right. Let's make quotes for strings optional as well.</p></div><div class="bb"><pre><code>{
-  text: look ma, no quotes!
-
-  # To make your life easy, put the next
-  # value or comment on a new line.
-  # It's also easier to read!
+</code></pre><h4 id="comments">Comments</h4>
+<p><code>#</code> or <code>//</code> starts a single line comment.</p>
+<p><code>/*</code> starts a multiline comment that ends with <code>*/</code>.</p>
+<h4 id="root-object">Root Object</h4>
+<p>Braces for the root object (meaning it is not included in another object) are optional.</p>
+<p>For example:</p>
+<pre><code># this is the root object
+top: blue
+side: { # a child object, requires braces
+  border: black
 }
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="escapes">Escapes</h3><h4><strong>"When there are no quotes, do I need escapes?"</strong></h4><p>No, escapes are gone from unquoted strings.</p></div><div class="bb"><pre><code>{
-  # write a regex without escaping the escape
-  regex: ^\d*\.{0,1}\d+$
-
-  # quotes in the content need no escapes
-  inject: &lt;div class="important"&gt;&lt;/div&gt;
-
-  # inside quotes, escapes work
-  # just like in JSON
-  escape: "\\ \n \t \""
-}
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="multiline">Multiline</h3><h4><strong>"Multiline strings are kind of hard to read."</strong></h4><p><code>"I wonder\nwhy you\nsay that."</code> Hjson will let you write them with proper whitespace handling.</p></div><div class="bb"><pre><code>{
-  haiku:
-    '''
-    JSON I love you.
-    But strangled is my data.
-    This, so much better.
-    '''
-}
-</code></pre></div><div class="clear"></div></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h2 id="-a-id-faq-a-div-class-hicon-div-faq"><a id="faq"></a><div class="hicon"></div> FAQ</h2>
-<div class="sam"><div class="aa"><h3 id="what-are-good-uses-for-human-json-">What are good uses for Human JSON?</h3><h4><strong>"I'd like to use Hjson everywhere!"</strong></h4><p>Use it for</p><ul>
-<li>config files</li>
-<li>resource files (e.g. a language definition)</li>
-<li>inspection/debugging (e.g. the watch output)</li>
-<li>anytime where the primary purpose is for a Human to view or edit</li>
-</ul></div><div class="bb"><pre><code>/*
- * Hjson is for Humans,
- * not machines!
- *
- * You should convert Hjson to JSON
- * before you send it to one.
- */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="what-are-bad-uses-for-human-json-">What are bad uses for Human JSON?</h3><h4><strong>"Hjson is a bad idea!"</strong></h4><p>Do not use it for</p><ul>
-<li>protocols</li>
-<li>databases</li>
-</ul><p>Something like a REST service should never use Hjson. If you are writing a REST debugger you can convert to/from Hjson when the data is viewed by a human.</p></div><div class="bb"><pre><code>/*
- * Always use the right tool for the job.
- */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-javascript-">But JavaScript!?</h3><h4><strong>"OMG, you broke JavaScript!"</strong></h4><p>JSON is not JavaScript, it's a data interchange format that can be used in many languages (50+, see <a href="http://hjson.org">hjson.org</a>).</p></div><div class="bb"><pre><code>/*
- * Hjson, like JSON, is not limited
- * to JavaScript.
- */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-json-">But JSON!?</h3><h4><strong>"OK but OMG, now you broke JSON!"</strong></h4><p>JSON is a great data format that can be edited by hand but it has a very strict syntax.</p><p>A more forgiving format makes it easier for Humans to write, it reduces unnecessary mistakes and is also nicer to read.</p></div><div class="bb"><pre><code>/*
- * Hjson does not replace JSON.
- * Use it for configuration files
- * and things like debug dumps.
- *
- * For protocols and anything
- * else use JSON.
- */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-yaml-hocon-">But YAML/HOCON/...!?</h3><h4><strong>"OK but still, do we need another YAML/HOCON/etc.?"</strong></h4><p>YAML expresses structure through whitespace. Significant whitespace is a common source of mistakes that we shouldn't have to deal with.</p><p>Both HOCON and YAML make the mistake of implementing too many features (like anchors, substitutions or concatenation).</p><p>JSON5 adds "some minimal syntax features directly from ECMAScript 5". It's focused on developers.</p><p>Using JSON for config files is an antipattern. But <a href="https://docs.npmjs.com/files/package.json">apparently</a> it's still better than YAML. Hjson is trying to change that.</p></div><div class="bb"><pre><code>/*
- * A data format for Humans
- * should be lean and simple.
- *
- * Human !== Developer
- * Human != Developer
- * Human &lt;&gt; Developer
- * Human .NE. Developer
- * Human ne Developer
- * Human /= Developer
- * Human '= Developer
- * Human ~= Developer
- * Human -ne Developer
- */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="can-i-minify-hjson-">Can I minify Hjson?</h3><h4><strong>"Just because!"</strong></h4><p>Hjson is for Humans so minifying it would kind of defeat its purpose.</p></div><div class="bb"><pre><code>/*
- * Er... no!
- */
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="round-trip">Round trip</h3><h4><strong>"Can Hjson keep my comments when updating a config file?"</strong></h4><p>Yes, Hjson allows you to round-trip your data, including your comments.</p><p>* But not yet with all implementations, PRs welcome :)</p></div><div class="bb"><pre><code>var data = Hjson.rt.parse(text);
-
-// use data like a normal object
-data.foo = "text";
-
-// stringify with comments
-text = Hjson.rt.stringify(data);
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="-insert-name-here-does-not-yet-support-hjson-can-i-still-use-it-">[insert name here] does not yet support Hjson, can I still use it?</h3><h4><strong>"I really need comments in my config!"</strong></h4><p>If <em>[insert name here]</em> supports at least JSON configs you can.</p></div><div class="bb"><pre><code># convert to Hjson (once)
-$ hjson config.json &gt; config.hjson
-
-# edit/document the config
-$ nano config.hjson
-
-# then convert back to json
-# every time you update config.hjson
-$ hjson -j config.hjson &gt; config.json
-</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="-a-id-pronounce-a-how-do-i-pronounce-hjson-"><a id="pronounce"></a> How do I pronounce Hjson?</h3><h4><strong>What should I call this thing?</strong></h4><p>You should/can pronounce it "H-json".</p><p>As for how to pronounce JSON, <a href="https://www.youtube.com/watch?v=zhVdWQWKRqM">watch this</a>.</p></div><div class="bb"><pre><code>/*
- * h-jason
- */
-</code></pre></div><div class="clear"></div></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bottom: red
+</code></pre><h4 id="file-extension">File extension</h4>
+<p><code>.hjson</code></p>
+<h4 id="encoding">Encoding</h4>
+<p><code>.hjson</code> files must be encoded in UTF-8 (without a BOM).</p>
+<h4 id="header">Header</h4>
+<p>Hjson does not have a header but if you want to indicate the file type you can use <code>#hjson</code> on the first line.</p>
+<p><a href="rfc.html" target="_blank">View the RFC draft</a></p>
 </div>
 
-<div class="footer">
-  <a href="download.html">Download</a>
-  <a href="syntax.html">Syntax</a>
-  <a href=".#faq">FAQ</a>
-  <a href="try.html">Try It!</a>
-  <a href="https://github.com/laktak/hjson/issues">Issues</a>
-  <a href="history.html">History</a>
-</div>
+  <div class="ynav">
+    <a href="why.html">Why</a>
+    <a href="download.html">Download</a>
+    <a href="why.html#faq">FAQ</a>
+    <a href="try.html">Try It!</a>
+    <a href="https://github.com/laktak/hjson/issues">Issues</a>
+    <a href="history.html">History</a>
+  </div>
 </div>
 
-
+</body>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -265,8 +285,7 @@ $ hjson -j config.hjson &gt; config.json
       $(this).collapse("hide");
   });
 </script>
-<script async="" defer="" id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
-<script async="" defer="">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+<script async defer>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-
-<script class="jsdom" src="node_modules/jquery/dist/jquery.js"></script><script class="jsdom" src="dom.js"></script></body></html>
+</html>

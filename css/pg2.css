@@ -1,11 +1,11 @@
 
 body {
-  padding-top: 70px;
+  padding-top: 60px;
 }
 
 .big {
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 20px;
+  line-height: 28px;
 }
 
 .ref {
@@ -96,20 +96,25 @@ body {
   margin-left: auto;
 }
 
-.footer {
+.ynav {
   text-align: center;
   font-size: 14px;
   margin-bottom: 10px;
 }
 
-.footer > a:after {
+.ynavb {
+  background-color: rgba(240, 239, 231, 0.51);
+  border-radius: 5px;
+}
+
+.ynav > a:after {
   content: "-";
   display: inline-block;
   text-decoration: none;
   margin: 5px;
 }
 
-.footer > a:last-child:after {
+.ynav > a:last-child:after {
   display: none;
 }
 
