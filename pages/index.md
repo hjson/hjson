@@ -1,7 +1,7 @@
 
 <img src="hjson1.gif" class="img-responsive center-block">
 
-# Hjson, the Human JSON
+## Hjson, the Human JSON
 
 <span class="big">A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.</span> <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hjson.org/" data-text="Human JSON for configs!" data-hashtags="hjson" data-dnt="true">Tweet</a>
 
@@ -102,165 +102,50 @@ No, escapes are gone from unquoted strings.
 }
 ```
 
-## <a id="faq"></a><div class="hicon"></div> FAQ
+### Braces
 
-### What are good uses for Human JSON?
+**"Are you joking? You can't remove the braces!"**
 
-**"I'd like to use Hjson everywhere!"**
-
-Use it for
-
-- config files
-- resource files (e.g. a language definition)
-- inspection/debugging (e.g. the watch output)
-- anytime where the primary purpose is for a Human to view or edit
+The most common case is to start the config with an object. In this case you may omit the braces for the root object.
 
 ```
-/*
- * Hjson is for Humans,
- * not machines!
- *
- * You should convert Hjson to JSON
- * before you send it to one.
- */
+// this is a valid config file
+joke: My backslash escaped!
 ```
+### Hjson
 
-### What are bad uses for Human JSON?
+**"So this is Hjson."**
 
-**"Hjson is a bad idea!"**
+You like it? Please go ahead [and star it](https://github.com/laktak/hjson)!
 
-Do not use it for
+<a aria-label="Star laktak/hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/laktak/hjson#stargazers_count" data-count-href="/laktak/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/laktak/hjson" class="github-button">Star</a>
 
-- protocols
-- databases
+[No? Are you a skeptic?](faq.html)
 
-Something like a REST service should never use Hjson. If you are writing a REST debugger you can convert to/from Hjson when the data is viewed by a human.
+<br>Look at nice [Syntax diagrams](syntax.html), [Download](download.html) or read the [FAQ](faq.html).
 
 ```
-/*
- * Always use the right tool for the job.
- */
-```
-
-### But JavaScript!?
-
-**"OMG, you broke JavaScript!"**
-
-JSON is not JavaScript, it's a data interchange format that can be used in many languages (50+, see [hjson.org](http://hjson.org)).
-
-```
-/*
- * Hjson, like JSON, is not limited
- * to JavaScript.
- */
-```
-
-### But JSON!?
-
-**"OK but OMG, now you broke JSON!"**
-
-JSON is a great data format that can be edited by hand but it has a very strict syntax.
-
-A more forgiving format makes it easier for Humans to write, it reduces unnecessary mistakes and is also nicer to read.
-
-```
-/*
- * Hjson does not replace JSON.
- * Use it for configuration files
- * and things like debug dumps.
- *
- * For protocols and anything
- * else use JSON.
- */
-```
-
-### But YAML/HOCON/...!?
-
-**"OK but still, do we need another YAML/HOCON/etc.?"**
-
-YAML expresses structure through whitespace. Significant whitespace is a common source of mistakes that we shouldn't have to deal with.
-
-Both HOCON and YAML make the mistake of implementing too many features (like anchors, substitutions or concatenation).
-
-JSON5 adds "some minimal syntax features directly from ECMAScript 5". It's focused on developers.
-
-Using JSON for config files is an antipattern. But [apparently](https://docs.npmjs.com/files/package.json) it's still better than YAML. Hjson is trying to change that.
-
-```
-/*
- * A data format for Humans
- * should be lean and simple.
- *
- * Human !== Developer
- * Human != Developer
- * Human <> Developer
- * Human .NE. Developer
- * Human ne Developer
- * Human /= Developer
- * Human '= Developer
- * Human ~= Developer
- * Human -ne Developer
- */
-```
-
-### Can I minify Hjson?
-
-**"Just because!"**
-
-Hjson is for Humans so minifying it would kind of defeat its purpose.
-
-```
-/*
- * Er... no!
- */
-```
-
-### Round trip
-
-**"Can Hjson keep my comments when updating a config file?"**
-
-Yes, Hjson allows you to round-trip your data, including your comments.
-
-\* But not yet with all implementations, PRs welcome :)
-
-```
-var data = Hjson.rt.parse(text);
-
-// use data like a normal object
-data.foo = "text";
-
-// stringify with comments
-text = Hjson.rt.stringify(data);
-```
-
-### [insert name here] does not yet support Hjson, can I still use it?
-
-**"I really need comments in my config!"**
-
-If *[insert name here]* supports at least JSON configs you can.
-
-```
-# convert to Hjson (once)
-$ hjson config.json > config.hjson
-
-# edit/document the config
-$ nano config.hjson
-
-# then convert back to json
-# every time you update config.hjson
-$ hjson -j config.hjson > config.json
-```
-
-### <a id="pronounce"></a> How do I pronounce Hjson?
-
-**What should I call this thing?**
-
-You should/can pronounce it "H-json".
-
-As for how to pronounce JSON, [watch this](https://www.youtube.com/watch?v=zhVdWQWKRqM).
-
-```
-/*
- * h-jason
- */
+// for your config
+// use #, // or /**/ comments,
+// omit quotes for keys
+key: 1
+// omit quotes for strings
+string: contains everything until LF
+// omit commas at the end of a line
+cool: {
+  foo: 1
+  bar: 2
+}
+// allow trailing commas
+list: [
+  1,
+  2,
+]
+// and use multiline strings
+realist:
+  '''
+  My half empty glass,
+  I will fill your empty half.
+  Now you are half full.
+  '''
 ```

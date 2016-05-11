@@ -23,22 +23,27 @@ function unwrapDoc(html) {
 
 if (args.length>2) {
   var target=args[2];
-  mkHtml("../index.md", target+"/index.html", "md", function(html, save) {
+
+  function prepIntro(html, save) {
     jsdom.env({
       html: html,
       virtualConsole: jsdom.createVirtualConsole().sendTo(console),
-      scripts: ["node_modules/jquery/dist/jquery.js", "dom.js"],
+      scripts: ["node_modules/jquery/dist/jquery.js", "intro.js"],
       done: function (errors, window) {
         var $=window.$;
         $(function(){ save(extractDoc(window)); });
       },
     });
-  });
+  }
+
+  mkHtml("../index.md", target+"/index.html", "md", prepIntro);
+  mkHtml("../faq.md", target+"/faq.html", "md", prepIntro);
 
   mkHtml("../download.md", target+"/download.html", "md");
   mkHtml("../history.md", target+"/history.html", "md");
 
   mkHtml("../try.html", target+"/try.html", "html");
+  mkHtml("../why.html", target+"/why.html", "raw");
 
   mkHtml("../syntax.md", target+"/syntax.html", "md", function(syntax, save) {
     mkHtml("../diagram.html", target+"/diagram.html", "html", null, function(html) {
@@ -77,7 +82,11 @@ function mkHtml(source, target, type, exec, prep) {
 
   var content=fs.readFileSync(source, "utf8");
 
-  if (type==="md") {
+  if (type==="raw") {
+    save(content);
+    return;
+  }
+  else if (type==="md") {
     content=marked(content, {
       gfm: true,
       tables: true,
@@ -85,6 +94,7 @@ function mkHtml(source, target, type, exec, prep) {
     });
     content='<div class="content">'+content+'</div>';
   }
+
 
   var tpl=fs.readFileSync(__dirname+"/tpl.html", "utf8");
 
