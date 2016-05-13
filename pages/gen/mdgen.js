@@ -43,6 +43,8 @@ if (args.length>2) {
   mkHtml("../history.md", target+"/history.html", "md");
 
   mkHtml("../try.html", target+"/try.html", "html");
+  mkHtml("../shirt.html", target+"/shirt.html", "html");
+  mkHtml("../shirt-eu.html", target+"/shirt-eu.html", "html");
   mkHtml("../why.html", target+"/why.html", "raw");
 
   mkHtml("../syntax.md", target+"/syntax.html", "md", function(syntax, save) {

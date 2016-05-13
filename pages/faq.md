@@ -161,3 +161,18 @@ As for how to pronounce JSON, [watch this](https://www.youtube.com/watch?v=zhVdW
  * h-jason
  */
 ```
+
+### Where is this Jason?
+
+**I was expecting to see a Human Json!**
+
+I'm sorry to disappoint you. But do [send me](https://twitter.com/laktakk) a picture if [you see him ... or her](shirt.html)!
+
+```
+ __   __
+|_ \_/ _|
+  |   |
+  |___|
+
+```
+
