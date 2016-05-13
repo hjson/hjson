@@ -66,6 +66,17 @@ body {
   margin-top: -10px;
 }
 
+#shirt {
+  padding: 5px 0 0 10px;
+}
+
+#shirt img {
+  display: inline;
+  vertical-align: text-top;
+  width: 40px;
+  height: 40px;
+}
+
 .navbar-nav>li>a.btn-danger, .navbar-nav>li>a.btn-success {
   color: #fff;
 }
