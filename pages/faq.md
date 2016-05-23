@@ -75,13 +75,16 @@ A more forgiving format makes it easier for Humans to write, it reduces unnecess
 
 **"OK but still, do we need another YAML/HOCON/etc.?"**
 
-YAML expresses structure through whitespace. Significant whitespace is a common source of mistakes that we shouldn't have to deal with.
+A lot of projects use JSON for config. Why don't they use YAML or another config format?
 
-Both HOCON and YAML make the mistake of implementing too many features (like anchors, substitutions or concatenation).
+IMHO it's because
 
-JSON5 adds "some minimal syntax features directly from ECMAScript 5". It's focused on developers.
+- JSON is easier to explain (compare the JSON and YAML specs)
+- JSON does not suffer from significant whitespace
+- JSON is not bloated (it does not have anchors, substitutions or concatenation).
+- JSON is easier to implement
 
-Using JSON for config files is an antipattern. But [apparently](https://docs.npmjs.com/files/package.json) it's still better than YAML. Hjson is trying to change that.
+So there is obviously a need for a better config format.
 
 ```
 /*
