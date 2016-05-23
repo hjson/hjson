@@ -86,6 +86,25 @@ Hjson SHOULD be used for data whose primary purpose is to be viewed or edited by
 Hjson SHOULD NOT be used in other cases, like transfer protocols.
 
 
+## Syntax compared to JSON
+
+Hjson is a superset of JSON. Its syntax allows you to
+
+- add #, // or /**/ comments,
+- omit quotes for keys,
+- omit quotes for strings (terminated by LF, no escapes),
+- omit braces for the root object,
+- omit the comma at the end of a line
+- add trailing commas and
+- use multiline strings with proper whitespace handling.
+
+Because the punctuator characters `{}[],:` are used to define the structure of the Hjson text, you need to use quotes
+
+- if your key includes a punctuator or space
+- if your string starts with a punctuator
+
+For examples see {{json-vs-hjson}}.
+
 ## Conventions Used in This Document
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -99,6 +118,7 @@ SABNF is used to express grammars that are not possible in ABNF, like the block-
 ## Specifications of Hjson
 
 This document describes Hjson and registers the media type "application/hjson".
+
 
 # Hjson Grammar
 
@@ -577,27 +597,7 @@ This is a Hjson object:
    favNumbers: [ 1, 2, 3, 6, 42 ]
 ~~~
 
-
-# Syntax compared to JSON
-
-Hjson is a superset of JSON. Its syntax allows you to
-
-- add #, // or /**/ comments,
-- omit quotes for keys,
-- omit quotes for strings (terminated by LF),
-- omit braces for the root object,
-- omit the comma at the end of a line
-- add trailing commas and
-- use multiline strings with proper whitespace handling.
-
-Because the punctuator characters `{}[],:` are used to define the structure of the Hjson text, you need to use quotes
-
-- if your key includes a punctuator or space
-- if your string starts with a punctuator
-
-Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.
-
-## Examples
+## JSON vs Hjson  {#json-vs-hjson}
 
 Example of a document processor configuration, first in JSON:
 

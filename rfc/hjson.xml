@@ -79,6 +79,30 @@ JavaScript.</t>
 
 <t>Hjson SHOULD NOT be used in other cases, like transfer protocols.</t>
 
+<section anchor="syntax-compared-to-json" title="Syntax compared to JSON">
+
+<t>Hjson is a superset of JSON. Its syntax allows you to</t>
+
+<t><list style="symbols">
+  <t>add #, // or /**/ comments,</t>
+  <t>omit quotes for keys,</t>
+  <t>omit quotes for strings (terminated by LF, no escapes),</t>
+  <t>omit braces for the root object,</t>
+  <t>omit the comma at the end of a line</t>
+  <t>add trailing commas and</t>
+  <t>use multiline strings with proper whitespace handling.</t>
+</list></t>
+
+<t>Because the punctuator characters <spanx style="verb">{}[],:</spanx> are used to define the structure of the Hjson text, you need to use quotes</t>
+
+<t><list style="symbols">
+  <t>if your key includes a punctuator or space</t>
+  <t>if your string starts with a punctuator</t>
+</list></t>
+
+<t>For examples see <xref target="json-vs-hjson"/>.</t>
+
+</section>
 <section anchor="conventions-used-in-this-document" title="Conventions Used in This Document">
 
 <t>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”,
@@ -585,31 +609,7 @@ strictly conform to the Hjson grammar.</t>
    favNumbers: [ 1, 2, 3, 6, 42 ]
 ]]></artwork></figure>
 
-</section>
-<section anchor="syntax-compared-to-json" title="Syntax compared to JSON">
-
-<t>Hjson is a superset of JSON. Its syntax allows you to</t>
-
-<t><list style="symbols">
-  <t>add #, // or /**/ comments,</t>
-  <t>omit quotes for keys,</t>
-  <t>omit quotes for strings (terminated by LF),</t>
-  <t>omit braces for the root object,</t>
-  <t>omit the comma at the end of a line</t>
-  <t>add trailing commas and</t>
-  <t>use multiline strings with proper whitespace handling.</t>
-</list></t>
-
-<t>Because the punctuator characters <spanx style="verb">{}[],:</spanx> are used to define the structure of the Hjson text, you need to use quotes</t>
-
-<t><list style="symbols">
-  <t>if your key includes a punctuator or space</t>
-  <t>if your string starts with a punctuator</t>
-</list></t>
-
-<t>Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.</t>
-
-<section anchor="examples-1" title="Examples">
+<section anchor="json-vs-hjson" title="JSON vs Hjson">
 
 <t>Example of a document processor configuration, first in JSON:</t>
 
