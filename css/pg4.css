@@ -66,17 +66,6 @@ body {
   margin-top: -10px;
 }
 
-#shirt {
-  padding: 5px 0 0 10px;
-}
-
-#shirt img {
-  display: inline;
-  vertical-align: text-top;
-  width: 40px;
-  height: 40px;
-}
-
 .navbar-nav>li>a.btn-danger, .navbar-nav>li>a.btn-success {
   color: #fff;
 }
@@ -123,6 +112,17 @@ body {
 .ynav > a:last-child:after {
   display: none;
 }
+
+#shirt {
+  display: inline;
+  vertical-align: text-bottom;
+  width: 60px;
+  height: 40px;
+/*  width: 206px;
+  height: 142px;
+  padding: 5px 0 0 10px; */
+}
+
 
 .hicon {
   background-image: url("../icon/hjson-m.png");

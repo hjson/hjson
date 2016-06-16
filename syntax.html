@@ -62,9 +62,6 @@
         <li>
           <a aria-label="Star laktak/hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/laktak/hjson#stargazers_count" data-count-href="/laktak/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/laktak/hjson" class="github-button">Star</a>
         </li>
-        <li>
-          <a id="shirt" href="shirt.html"><img src="img/shirt.png"></a>
-        </li>
       </ul>
     </div>
     <!-- /.navbar-collapse -->
@@ -78,7 +75,8 @@
 <ul>
 <li>add <code>#</code>, <code>//</code> or <code>/**/</code> comments,</li>
 <li>omit <code>&quot;&quot;</code> for keys,</li>
-<li>omit <code>&quot;&quot;</code> for strings (terminated by LF),</li>
+<li>omit <code>&quot;&quot;</code> for strings (terminated by LF, no escapes),</li>
+<li>omit <code>{}</code> for the root object,</li>
 <li>omit <code>,</code> at the end of a line,</li>
 <li>add trailing commas and</li>
 <li>use multiline strings with proper whitespace handling.</li>
@@ -88,8 +86,6 @@
 <li>if your key includes a punctuator or space</li>
 <li>if your string starts with a punctuator</li>
 </ul>
-<p>Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.</p>
-<p>Braces for the root object are optional.</p>
 <p><a href="rfc.html" target="_blank">View the RFC draft</a></p>
 <p>
 <style type="text/css">
@@ -261,8 +257,8 @@ bottom: red
     <a href="try.html">Try It!</a>
     <a href="https://github.com/laktak/hjson/issues">Feedback</a>
     <a href="history.html">History</a>
-    <a href="shirt.html">Shirts US</a>
-    <a href="shirt-eu.html">Shirts EU</a>
+    <a href="shirt.html"><img id="shirt" src="img/shirt.png"> US</a>
+    <a href="shirt-eu.html">EU</a>
   </div>
 </div>
 
