@@ -5,7 +5,8 @@ The Hjson syntax is similar to [JSON](http://json.org/) but allows you to
 
 - add `#`, `//` or `/**/` comments,
 - omit `""` for keys,
-- omit `""` for strings (terminated by LF),
+- omit `""` for strings (terminated by LF, no escapes),
+- omit `{}` for the root object,
 - omit `,` at the end of a line,
 - add trailing commas and
 - use multiline strings with proper whitespace handling.
@@ -14,10 +15,6 @@ Because the punctuator characters `{}[],:` are used to define the structure of t
 
 - if your key includes a punctuator or space
 - if your string starts with a punctuator
-
-Note that quoteless strings do not use escapes and include everything up to the end of the line, excluding trailing whitespace.
-
-Braces for the root object are optional.
 
 <a href="rfc.html" target="_blank">View the RFC draft</a>
 
