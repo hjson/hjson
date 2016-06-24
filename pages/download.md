@@ -64,9 +64,9 @@ PHP      | [hjson-php](https://github.com/laktak/hjson-php) | [![Packagist](http
 
 #### Partial implementations
 
-Platform | Description | Source
--------- | ----------- | ------
-Rust     | [hjson-rust](https://github.com/laktak/hjson-rust) | see repo
+Platform | Description | Source/Package
+-------- | ----------- | --------------
+Rust     | [hjson-rust](https://github.com/laktak/hjson-rust) | [![crate](https://img.shields.io/crates/v/serde-hjson.svg)](https://crates.io/crates/serde-hjson)
 Go       | Parser and unmarshaller using a [slightly different syntax](https://github.com/client9/xson/tree/master/hjson#differences-andor-bugs) | [xson](https://github.com/client9/xson)
 C        | jzon variant, based on Hjson | [jzon-c](https://github.com/KarlZylinski/jzon-c)
 
