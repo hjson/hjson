@@ -85,6 +85,7 @@
 <ul>
 <li>Install <a href="http://nodejs.org/"><strong>node.js</strong></a> if it&#39;s not already on your system</li>
 <li>Install the Hjson tool by running <code>npm install hjson -g</code> on the command line</li>
+<li>Also see <a href="#alternative-tools">alternatives</a></li>
 </ul>
 <h3 id="usage">Usage</h3>
 <ul>
@@ -106,6 +107,14 @@
 <li>Install <a href="https://pypi.python.org/pypi/hjson">Hjson</a> with <code>pip install hjson</code></li>
 <li><code>python -m hjson.tool file.json</code> will convert to Hjson.</li>
 <li><code>python -m hjson.tool -j file.hjson</code> will convert to JSON.</li>
+</ul>
+<h4 id="rust-cargo">Rust / Cargo</h4>
+<ul>
+<li>Install <a href="http://rust-lang.org/"><strong>Rust</strong></a></li>
+<li>Install <a href="https://crates.io/crates/hjson">Hjson</a> with <code>cargo install hjson</code></li>
+<li>run <code>hjson --help</code></li>
+<li><code>hjson file.json</code> will convert to Hjson.</li>
+<li><code>hjson -j file.hjson</code> will convert to JSON.</li>
 </ul>
 <h4 id="chocolatey-windows-only-">chocolatey (Windows only)</h4>
 <ul>
@@ -140,6 +149,11 @@
 <td><a href="https://pypi.python.org/pypi/hjson"><img src="https://img.shields.io/pypi/v/hjson.svg?style=flat-square" alt="PyPI version"></a></td>
 </tr>
 <tr>
+<td>Rust</td>
+<td><a href="https://github.com/laktak/hjson-rust">hjson-rust</a></td>
+<td><a href="https://crates.io/crates/serde-hjson"><img src="https://img.shields.io/crates/v/serde-hjson.svg" alt="crate"></a></td>
+</tr>
+<tr>
 <td>C#, .Net</td>
 <td><a href="https://github.com/laktak/hjson-cs">hjson-cs</a></td>
 <td><a href="https://www.nuget.org/packages/Hjson/"><img src="https://img.shields.io/nuget/v/Hjson.svg?style=flat-square" alt="nuget version"></a></td>
@@ -161,11 +175,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Rust</td>
-<td><a href="https://github.com/laktak/hjson-rust">hjson-rust</a></td>
-<td><a href="https://crates.io/crates/serde-hjson"><img src="https://img.shields.io/crates/v/serde-hjson.svg" alt="crate"></a></td>
-</tr>
 <tr>
 <td>Go</td>
 <td>Parser and unmarshaller using a <a href="https://github.com/client9/xson/tree/master/hjson#differences-andor-bugs">slightly different syntax</a></td>
