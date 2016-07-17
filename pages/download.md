@@ -17,6 +17,7 @@ The preferred tool works on all operating systems and only requires node.js.
 
 - Install [**node.js**](http://nodejs.org/) if it's not already on your system
 - Install the Hjson tool by running `npm install hjson -g` on the command line
+- Also see [alternatives](#alternative-tools)
 
 ### Usage
 
@@ -45,6 +46,14 @@ If you don't want to install node.js you can also use one of the following tools
 - `python -m hjson.tool file.json` will convert to Hjson.
 - `python -m hjson.tool -j file.hjson` will convert to JSON.
 
+#### Rust / Cargo
+
+- Install [**Rust**](http://rust-lang.org/)
+- Install [Hjson](https://crates.io/crates/hjson) with `cargo install hjson`
+- run `hjson --help`
+- `hjson file.json` will convert to Hjson.
+- `hjson -j file.hjson` will convert to JSON.
+
 #### chocolatey (Windows only)
 
 - Install [chocolatey](https://chocolatey.org)
@@ -59,6 +68,7 @@ Platform | Source | Package
 JavaScript, Node.js & Browser | [hjson-js](https://github.com/laktak/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
 Java     | [hjson-java](https://github.com/laktak/hjson-java) | [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
 Python   | [hjson-py](https://github.com/laktak/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
+Rust     | [hjson-rust](https://github.com/laktak/hjson-rust) | [![crate](https://img.shields.io/crates/v/serde-hjson.svg)](https://crates.io/crates/serde-hjson)
 C#, .Net | [hjson-cs](https://github.com/laktak/hjson-cs) | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
 PHP      | [hjson-php](https://github.com/laktak/hjson-php) | [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson)
 
@@ -66,7 +76,6 @@ PHP      | [hjson-php](https://github.com/laktak/hjson-php) | [![Packagist](http
 
 Platform | Description | Source/Package
 -------- | ----------- | --------------
-Rust     | [hjson-rust](https://github.com/laktak/hjson-rust) | [![crate](https://img.shields.io/crates/v/serde-hjson.svg)](https://crates.io/crates/serde-hjson)
 Go       | Parser and unmarshaller using a [slightly different syntax](https://github.com/client9/xson/tree/master/hjson#differences-andor-bugs) | [xson](https://github.com/client9/xson)
 C        | jzon variant, based on Hjson | [jzon-c](https://github.com/KarlZylinski/jzon-c)
 
