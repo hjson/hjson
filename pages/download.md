@@ -13,11 +13,11 @@ If an application does not yet use native Hjson configs you use it to convert yo
 
 The preferred tool works on all operating systems and only requires node.js.
 
-### Setup
+### Setup (with node.js)
 
 - Install [**node.js**](http://nodejs.org/) if it's not already on your system
 - Install the Hjson tool by running `npm install hjson -g` on the command line
-- Also see [alternatives](#alternative-tools)
+- Also see [alternative tools.](#alternative-tools)
 
 ### Usage
 
@@ -39,18 +39,19 @@ The preferred tool works on all operating systems and only requires node.js.
 
 If you don't want to install node.js you can also use one of the following tools.
 
-#### Python
+#### Python Setup
 
 - Install [**Python**](https://www.python.org/)
 - Install [Hjson](https://pypi.python.org/pypi/hjson) with `pip install hjson`
-- `python -m hjson.tool file.json` will convert to Hjson.
-- `python -m hjson.tool -j file.hjson` will convert to JSON.
+- run `hjson -h` for help
+- `hjson file.json` will convert to Hjson.
+- `hjson -j file.hjson` will convert to JSON.
 
-#### Rust / Cargo
+#### Rust / Cargo Setup
 
 - Install [**Rust**](http://rust-lang.org/)
 - Install [Hjson](https://crates.io/crates/hjson) with `cargo install hjson`
-- run `hjson --help`
+- run `hjson -h` for help
 - `hjson file.json` will convert to Hjson.
 - `hjson -j file.hjson` will convert to JSON.
 
