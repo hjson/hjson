@@ -81,11 +81,11 @@
 <p>You can always check the syntax of an Hjson file by simply running <code>hjson FILE</code>. It will show you the exact location if it contains any errors.</p>
 <p>If an application does not yet use native Hjson configs you use it to convert your config to JSON.</p>
 <p>The preferred tool works on all operating systems and only requires node.js.</p>
-<h3 id="setup">Setup</h3>
+<h3 id="setup-with-node-js-">Setup (with node.js)</h3>
 <ul>
 <li>Install <a href="http://nodejs.org/"><strong>node.js</strong></a> if it&#39;s not already on your system</li>
 <li>Install the Hjson tool by running <code>npm install hjson -g</code> on the command line</li>
-<li>Also see <a href="#alternative-tools">alternatives</a></li>
+<li>Also see <a href="#alternative-tools">alternative tools.</a></li>
 </ul>
 <h3 id="usage">Usage</h3>
 <ul>
@@ -101,18 +101,19 @@
 </ul>
 <h3 id="alternative-tools">Alternative tools</h3>
 <p>If you don&#39;t want to install node.js you can also use one of the following tools.</p>
-<h4 id="python">Python</h4>
+<h4 id="python-setup">Python Setup</h4>
 <ul>
 <li>Install <a href="https://www.python.org/"><strong>Python</strong></a></li>
 <li>Install <a href="https://pypi.python.org/pypi/hjson">Hjson</a> with <code>pip install hjson</code></li>
-<li><code>python -m hjson.tool file.json</code> will convert to Hjson.</li>
-<li><code>python -m hjson.tool -j file.hjson</code> will convert to JSON.</li>
+<li>run <code>hjson -h</code> for help</li>
+<li><code>hjson file.json</code> will convert to Hjson.</li>
+<li><code>hjson -j file.hjson</code> will convert to JSON.</li>
 </ul>
-<h4 id="rust-cargo">Rust / Cargo</h4>
+<h4 id="rust-cargo-setup">Rust / Cargo Setup</h4>
 <ul>
 <li>Install <a href="http://rust-lang.org/"><strong>Rust</strong></a></li>
 <li>Install <a href="https://crates.io/crates/hjson">Hjson</a> with <code>cargo install hjson</code></li>
-<li>run <code>hjson --help</code></li>
+<li>run <code>hjson -h</code> for help</li>
 <li><code>hjson file.json</code> will convert to Hjson.</li>
 <li><code>hjson -j file.hjson</code> will convert to JSON.</li>
 </ul>
