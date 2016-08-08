@@ -1,0 +1,34 @@
+{
+  "\"": test
+  "#c1": test
+  "'''": test
+  -test: test
+  .key: test
+  "/*": test
+  "/*foo*/": test
+  "//bar": test
+  ":": test
+  "[": test
+  "]": test
+  _unquoted: test
+  "foo\"bar": test
+  "foo#bar": test
+  "foo'''bar": test
+  "foo/*bar": test
+  "foo/*foo*/bar": test
+  "foo//bar": test
+  "foo:bar": test
+  "foo[bar": test
+  "foo]bar": test
+  "foo{bar": test
+  "foo}bar": test
+  nl1: test
+  nl2: test
+  nl3: test
+  test-key: test
+  trailing: test
+  trailing2: test
+  unquoted_key: test
+  "{": test
+  "}": test
+}

@@ -6,7 +6,9 @@
 
   text3: "You need quotes\tfor escapes"
 
-  text4: " untrimmed "
+  text4a: " untrimmed "
+  text4b: " untrimmed"
+  text4c: "untrimmed "
 
   # multiline string
 

@@ -1,0 +1,55 @@
+{
+  "arr": [
+    "one",
+    "two",
+    "three",
+    "four"
+  ],
+  "foo1a": "asdf\\\"'a\\s\\w",
+  "foo1b": "asdf\\\"'a\\s\\w",
+  "foo1c": "asdf\\\"'a\\s\\w",
+  "foo2a": "\"asdf\"",
+  "foo2b": "\"asdf\"",
+  "foo3a": "asdf'''",
+  "foo3b": "'''asdf",
+  "foo4a": "asdf'''\nasdf",
+  "foo4b": "asdf\n'''asdf",
+  "multiline1": "first line\n  indented line\nlast line",
+  "multiline2": "first line\n  indented line\nlast line",
+  "multiline3": "first line\n  indented line\nlast line\n",
+  "not": {
+    "array": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      0,
+      -1,
+      0.5
+    ],
+    "negative": -4.2,
+    "no": false,
+    "null": null,
+    "number": 5,
+    "yes": true
+  },
+  "special": {
+    "false": "false",
+    "minus": "-3",
+    "null": "null",
+    "one": "1",
+    "true": "true",
+    "two": "2"
+  },
+  "text1": "This is a valid string value.",
+  "text2": "a \\ is just a \\",
+  "text3": "You need quotes\tfor escapes",
+  "text4a": " untrimmed ",
+  "text4b": " untrimmed",
+  "text4c": "untrimmed "
+}
