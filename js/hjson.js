@@ -1,5 +1,5 @@
 /*! @preserve
- * Hjson v2.0.1
+ * Hjson v2.0.3
  * http://hjson.org
  *
  * Copyright 2014-2016 Christian Zangl, MIT license
@@ -77,16 +77,8 @@
       parse and stringify functions.
 
 
-    OBSOLETE: Hjson.bracesSameLine()
-    OBSOLETE: Hjson.setBracesSameLine(b)
-
-      OBSOLETE: use stringify options instead of this global setting.
-      Gets or sets if braces should appear on the same line (for stringify).
-
-
   This is a reference implementation. You are free to copy, modify, or
   redistribute.
-
 
 */
 
@@ -94,7 +86,6 @@ var Hjson = (function () {
   "use strict";
 
   var EOL = '\n';
-  var defaultBracesSameLine = false;
 
   var tryParseNumber = function (text, stopAtNext) {
     // Parse a number value.
@@ -150,9 +141,7 @@ var Hjson = (function () {
     }
 
     number = +string;
-    if (ch || leadingZeros || !isFinite(number)) {
-      return undefined;
-    }
+    if (ch || leadingZeros || !isFinite(number)) return undefined;
     else return number;
   };
 
@@ -198,15 +187,8 @@ var Hjson = (function () {
       throw new Error(m + " at line " + line + "," + col + " >>>" + text.substr(at-col, 20) + " ...");
     };
 
-    var next = function (c) {
-      // If a c parameter is provided, verify that it matches the current character.
-
-      if (c && c !== ch)
-        error("Expected '" + c + "' instead of '" + ch + "'");
-
-      // Get the next character. When there are no more characters,
-      // return the empty string.
-
+    var next = function () {
+      // get the next character.
       ch = text.charAt(at);
       at++;
       return ch;
@@ -219,7 +201,7 @@ var Hjson = (function () {
 
     var string = function () {
       // Parse a string value.
-      var hex, i, string = '', uffff;
+      var string = '';
 
       // When parsing for string values, we must look for " and \ characters.
       if (ch === '"') {
@@ -231,19 +213,23 @@ var Hjson = (function () {
           if (ch === '\\') {
             next();
             if (ch === 'u') {
-              uffff = 0;
-              for (i = 0; i < 4; i++) {
-                hex = parseInt(next(), 16);
-                if (!isFinite(hex))
-                  break;
+              var uffff = 0;
+              for (var i = 0; i < 4; i++) {
+                next();
+                var c = ch.charCodeAt(0), hex;
+                if (ch >= '0' && ch <= '9') hex = c - 48;
+                else if (ch >= 'a' && ch <= 'f') hex = c - 97 + 0xa;
+                else if (ch >= 'A' && ch <= 'F') hex = c - 65 + 0xa;
+                else error("Bad \\u char " + ch);
                 uffff = uffff * 16 + hex;
               }
               string += String.fromCharCode(uffff);
-            }
-            else if (typeof escapee[ch] === 'string') string += escapee[ch];
-            else break;
+            } else if (typeof escapee[ch] === 'string') {
+              string += escapee[ch];
+            } else break;
+          } else {
+            string += ch;
           }
-          else string += ch;
         }
       }
       error("Bad string");
@@ -272,26 +258,26 @@ var Hjson = (function () {
 
       // When parsing multiline string values, we must look for ' characters.
       while (true) {
-        if (!ch) error("Bad multiline string");
-        else if (ch === '\'') {
+        if (!ch) {
+          error("Bad multiline string");
+        } else if (ch === '\'') {
           triple++;
           next();
           if (triple === 3) {
             if (string.slice(-1) === '\n') string=string.slice(0, -1); // remove last EOL
             return string;
+          } else continue;
+        } else {
+          while (triple > 0) {
+            string += '\'';
+            triple--;
           }
-          else continue;
-        }
-        else while (triple > 0) {
-          string += '\'';
-          triple--;
         }
         if (ch === '\n') {
           string += '\n';
           next();
           skipIndent();
-        }
-        else {
+        } else {
           if (ch !== '\r') string += ch;
           next();
         }
@@ -310,15 +296,14 @@ var Hjson = (function () {
           if (!name) error("Found ':' but no key name (for an empty key name use quotes)");
           else if (space >=0 && space !== name.length) { at = start + space; error("Found whitespace in your key name (use quotes to include)"); }
           return name;
-        }
-        else if (ch <= ' ') {
+        } else if (ch <= ' ') {
           if (!ch) error("Found EOF while looking for a key name (check your syntax)");
           else if (space < 0) space = name.length;
-        }
-        else if (isPunctuatorChar(ch)) {
+        } else if (isPunctuatorChar(ch)) {
           error("Found '" + ch + "' where a key name was expected (check your syntax or use quotes if the key name includes {}[],: or whitespace)");
+        } else {
+          name += ch;
         }
-        else name += ch;
         next();
       }
     };
@@ -330,14 +315,11 @@ var Hjson = (function () {
         // Hjson allows comments
         if (ch === '#' || ch === '/' && peek(0) === '/') {
           while (ch && ch !== '\n') next();
-        }
-        else if (ch === '/' && peek(0) === '*')
-        {
+        } else if (ch === '/' && peek(0) === '*') {
           next(); next();
           while (ch && !(ch === '*' && peek(0) === '/')) next();
           if (ch) { next(); next(); }
-        }
-        else break;
+        } else break;
       }
     };
 
@@ -393,7 +375,7 @@ var Hjson = (function () {
 
     var array = function () {
       // Parse an array value.
-      // assumeing ch === '['
+      // assuming ch === '['
 
       var array = [];
       var kw, wat;
@@ -445,8 +427,7 @@ var Hjson = (function () {
         // assuming ch === '{'
         next();
         wat = at;
-      }
-      else wat = 1;
+      } else wat = 1;
 
       white();
       if (kw) pushWhite("");
@@ -457,7 +438,8 @@ var Hjson = (function () {
       while (ch) {
         key = keyname();
         white();
-        next(':');
+        if (ch !== ':') error("Expected ':' instead of '" + ch + "'");
+        next();
         // duplicate keys overwrite the previous value
         object[key] = value();
         wat = at;
@@ -532,7 +514,7 @@ var Hjson = (function () {
     var needsEscape = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
     // like needsEscape but without \\ and \"
     var needsQuotes = /[\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
-    var needsQuotes2 = /^\s|^"|^'''|^#|^\/\*|^\/\/|^\{|^\[|\s$"/g;
+    var needsQuotes2 = /^\s|^"|^'''|^#|^\/\*|^\/\/|^\{|^\[|\s$/g;
     // ''' || (needsQuotes but without \n and \r)
     var needsEscapeML = /'''|[\x00-\x09\x0b\x0c\x0e-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
     // starts with a keyword and optionally is followed by a comment
@@ -587,8 +569,7 @@ var Hjson = (function () {
         if (!needsEscape.test(string)) return '"' + string + '"';
         else if (!needsEscapeML.test(string) && !isRootObject) return mlString(string, gap);
         else return '"' + quoteReplace(string) + '"';
-      }
-      else {
+      } else {
         // return without quotes
         return string;
       }
@@ -605,8 +586,7 @@ var Hjson = (function () {
         // format as it avoids escaping the \ character (e.g. when used in a
         // regex).
         return "'''" + a[0] + "'''";
-      }
-      else {
+      } else {
         var res = eol + gap + "'''";
         for (i = 0; i < a.length; i++) {
           res += eol;
@@ -624,8 +604,7 @@ var Hjson = (function () {
       if (needsEscapeName.test(name)) {
         needsEscape.lastIndex = 0;
         return '"' + (needsEscape.test(name) ? quoteReplace(name) : name) + '"';
-      }
-      else {
+      } else {
         // return without quotes
         return name;
       }
@@ -703,8 +682,7 @@ var Hjson = (function () {
             if (kw) v = prefix + '[' + partial.join('') + ']';
             else if (partial.length === 0) v = '[]';
             else v = prefix + '[' + eolGap + partial.join(eolGap) + eolMind + ']';
-          }
-          else {
+          } else {
             // Otherwise, iterate through all of the keys in the object.
 
             if (kw) {
@@ -723,8 +701,7 @@ var Hjson = (function () {
                 if (v) partial.push(quoteName(k) + (startsWithNL(v) ? ':' : ': ') + v);
               }
               if (showBraces || kwl) partial.push(kwl + eolMind);
-            }
-            else {
+            } else {
               for (k in value) {
                 if (Object.prototype.hasOwnProperty.call(value, k)) {
                   v = str(value[k]);
@@ -734,13 +711,15 @@ var Hjson = (function () {
             }
 
             // Join all of the member texts together, separated with newlines
-            if (partial.length === 0) v = '{}';
-            else if (showBraces) {
+            if (partial.length === 0) {
+              v = '{}';
+            } else if (showBraces) {
               // and wrap them in braces
               if (kw) v = prefix + '{' + partial.join('') + '}';
               else v = prefix + '{' + eolGap + partial.join(eolGap) + eolMind + '}';
+            } else {
+              v = partial.join(kw ? '' : eolGap);
             }
-            else v = partial.join(kw ? '' : eolGap);
           }
 
           gap = mind;
@@ -757,7 +736,7 @@ var Hjson = (function () {
       eol = EOL;
       indent = '  ';
       keepWsc = false;
-      bracesSameLine = defaultBracesSameLine;
+      bracesSameLine = false;
       emitRootBraces = true;
       quoteAlways = false;
 
@@ -765,7 +744,7 @@ var Hjson = (function () {
         if (opt.eol === '\n' || opt.eol === '\r\n') eol = opt.eol;
         space = opt.space;
         keepWsc = opt.keepWsc;
-        bracesSameLine = opt.bracesSameLine || defaultBracesSameLine;
+        bracesSameLine = opt.bracesSameLine;
         emitRootBraces = opt.emitRootBraces;
         quoteAlways = opt.quotes === 'always';
       }
@@ -776,9 +755,9 @@ var Hjson = (function () {
       if (typeof space === 'number') {
         indent = '';
         for (i = 0; i < space; i++) indent += ' ';
-      }
-      else if (typeof space === 'string')
+      } else if (typeof space === 'string') {
         indent = space;
+      }
 
       // Return the result of stringifying the value.
       return str(value, null, true, true);
@@ -792,8 +771,6 @@ var Hjson = (function () {
     setEndOfLine: function(eol) {
       if (eol === '\n' || eol === '\r\n') EOL = eol;
     },
-    bracesSameLine: function() { return defaultBracesSameLine; },
-    setBracesSameLine: function(v) { defaultBracesSameLine = v; },
 
     // round trip shortcut
     rt: {

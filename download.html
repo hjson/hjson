@@ -70,7 +70,7 @@
 </nav>
 
 <div id="main">
-<div class="content"><p><a href="http://www.npmjs.com/package/hjson"><img src="https://img.shields.io/npm/v/hjson.svg?style=flat-square" alt="NPM"></a> <a href="http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22"><img src="https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square" alt="Maven Central"></a> <a href="https://pypi.python.org/pypi/hjson"><img src="https://img.shields.io/pypi/v/hjson.svg?style=flat-square" alt="PyPI"></a> <a href="https://www.nuget.org/packages/Hjson/"><img src="https://img.shields.io/nuget/v/Hjson.svg?style=flat-square" alt="nuget"></a> <a href="https://packagist.org/packages/laktak/hjson"><img src="https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square" alt="Packagist"></a> <a href="https://crates.io/crates/serde-hjson"><img src="https://img.shields.io/crates/v/serde-hjson.svg" alt="crate"></a></p>
+<div class="content"><p><a href="http://www.npmjs.com/package/hjson"><img src="https://img.shields.io/npm/v/hjson.svg?style=flat-square" alt="NPM"></a> <a href="http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22"><img src="https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square" alt="Maven Central"></a> <a href="https://pypi.python.org/pypi/hjson"><img src="https://img.shields.io/pypi/v/hjson.svg?style=flat-square" alt="PyPI"></a> <a href="https://www.nuget.org/packages/Hjson/"><img src="https://img.shields.io/nuget/v/Hjson.svg?style=flat-square" alt="nuget"></a> <a href="https://packagist.org/packages/laktak/hjson"><img src="https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square" alt="Packagist"></a> <a href="https://crates.io/crates/serde-hjson"><img src="https://img.shields.io/crates/v/serde-hjson.svg" alt="crate"></a> <a href="https://github.com/laktak/hjson-go/releases"><img src="https://img.shields.io/github/release/laktak/hjson-go.svg?style=flat-square" alt="Go Release"></a></p>
 <h2 id="downloads">Downloads</h2>
 <ul>
 <li><a href="#users">Tools for Users</a></li>
@@ -126,6 +126,14 @@
 <li><code>hjson file.json</code> will convert to Hjson.</li>
 <li><code>hjson -j file.hjson</code> will convert to JSON.</li>
 </ul>
+<h4 id="go-setup">Go Setup</h4>
+<ul>
+<li>Install <a href="http://golang.org/doc/install.html"><strong>Go</strong></a></li>
+<li>Install <a href="https://github.com/laktak/hjson-go">Hjson</a> with <code>go get -u github.com/laktak/hjson-go/hjson-cli</code></li>
+<li>run <code>hjson-cli -h</code> for help</li>
+<li><code>hjson-cli file.json</code> will convert to Hjson.</li>
+<li><code>hjson-cli -j file.hjson</code> will convert to JSON.</li>
+</ul>
 <h4 id="chocolatey-windows-only-">chocolatey (Windows only)</h4>
 <ul>
 <li>Install <a href="https://chocolatey.org">chocolatey</a></li>
@@ -149,9 +157,24 @@
 <td><a href="http://www.npmjs.com/package/hjson"><img src="https://img.shields.io/npm/v/hjson.svg?style=flat-square" alt="NPM version"></a></td>
 </tr>
 <tr>
+<td>C#, .Net</td>
+<td><a href="https://github.com/laktak/hjson-cs">hjson-cs</a></td>
+<td><a href="https://www.nuget.org/packages/Hjson/"><img src="https://img.shields.io/nuget/v/Hjson.svg?style=flat-square" alt="nuget version"></a></td>
+</tr>
+<tr>
+<td>Go</td>
+<td><a href="https://github.com/laktak/hjson-go">hjson-go</a></td>
+<td><a href="https://github.com/laktak/hjson-go/releases"><img src="https://img.shields.io/github/release/laktak/hjson-go.svg?style=flat-square" alt="Go Release"></a></td>
+</tr>
+<tr>
 <td>Java</td>
 <td><a href="https://github.com/laktak/hjson-java">hjson-java</a></td>
 <td><a href="http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22"><img src="https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square" alt="Maven Central"></a></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td><a href="https://github.com/laktak/hjson-php">hjson-php</a></td>
+<td><a href="https://packagist.org/packages/laktak/hjson"><img src="https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square" alt="Packagist"></a></td>
 </tr>
 <tr>
 <td>Python</td>
@@ -162,16 +185,6 @@
 <td>Rust</td>
 <td><a href="https://github.com/laktak/hjson-rust">hjson-rust</a></td>
 <td><a href="https://crates.io/crates/serde-hjson"><img src="https://img.shields.io/crates/v/serde-hjson.svg" alt="crate"></a></td>
-</tr>
-<tr>
-<td>C#, .Net</td>
-<td><a href="https://github.com/laktak/hjson-cs">hjson-cs</a></td>
-<td><a href="https://www.nuget.org/packages/Hjson/"><img src="https://img.shields.io/nuget/v/Hjson.svg?style=flat-square" alt="nuget version"></a></td>
-</tr>
-<tr>
-<td>PHP</td>
-<td><a href="https://github.com/laktak/hjson-php">hjson-php</a></td>
-<td><a href="https://packagist.org/packages/laktak/hjson"><img src="https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square" alt="Packagist"></a></td>
 </tr>
 </tbody>
 </table>
@@ -185,11 +198,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Go</td>
-<td>Parser and unmarshaller using a <a href="https://github.com/client9/xson/tree/master/hjson#differences-andor-bugs">slightly different syntax</a></td>
-<td><a href="https://github.com/client9/xson">xson</a></td>
-</tr>
 <tr>
 <td>C</td>
 <td>jzon variant, based on Hjson</td>
