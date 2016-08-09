@@ -1,4 +1,4 @@
-[![NPM](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson) [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22) [![PyPI](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson) [![nuget](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/) [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson) [![crate](https://img.shields.io/crates/v/serde-hjson.svg)](https://crates.io/crates/serde-hjson) [![Go Release](https://img.shields.io/github/release/laktak/hjson-go.svg?style=flat-square)](https://github.com/laktak/hjson-go/releases)
+[![NPM](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson) [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22) [![PyPI](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson) [![nuget](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/) [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson) [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson) [![Go Pkg](https://img.shields.io/github/release/laktak/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/laktak/hjson-go/releases)
 
 ## Downloads
 
@@ -86,11 +86,11 @@ Platform | Source | Package
 -------- | ------ | -------
 JavaScript, Node.js & Browser | [hjson-js](https://github.com/laktak/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
 C#, .Net | [hjson-cs](https://github.com/laktak/hjson-cs) | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
-Go       | [hjson-go](https://github.com/laktak/hjson-go) | [![Go Release](https://img.shields.io/github/release/laktak/hjson-go.svg?style=flat-square)](https://github.com/laktak/hjson-go/releases)
+Go       | [hjson-go](https://github.com/laktak/hjson-go) | [![Go Pkg](https://img.shields.io/github/release/laktak/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/laktak/hjson-go/releases)
 Java     | [hjson-java](https://github.com/laktak/hjson-java) | [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
 PHP      | [hjson-php](https://github.com/laktak/hjson-php) | [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson)
 Python   | [hjson-py](https://github.com/laktak/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
-Rust     | [hjson-rust](https://github.com/laktak/hjson-rust) | [![crate](https://img.shields.io/crates/v/serde-hjson.svg)](https://crates.io/crates/serde-hjson)
+Rust     | [hjson-rust](https://github.com/laktak/hjson-rust) | [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson)
 
 #### Partial implementations
 
