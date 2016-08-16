@@ -31,6 +31,8 @@ fail8_test.json
 failKey1_test.hjson
 failKey2_test.hjson
 failKey3_test.hjson
+failKey4_test.hjson
+failMLStr1_test.hjson
 failObj1_test.hjson
 failObj2_test.hjson
 failObj3_test.hjson
@@ -40,6 +42,7 @@ failStr3_test.hjson
 failStr4_test.hjson
 failStr5_test.hjson
 failStr6_test.hjson
+failStr7_test.hjson
 kan_test.hjson
 keys_test.hjson
 oa_test.hjson
