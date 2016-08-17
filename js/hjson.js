@@ -4,7 +4,7 @@
  *
  * Copyright 2014-2016 Christian Zangl, MIT license
  * Details and documentation:
- * https://github.com/laktak/hjson-js
+ * https://github.com/hjson/hjson-js
  *
  * This code is based on the the JSON version by Douglas Crockford:
  * https://github.com/douglascrockford/JSON-js (json_parse.js, json2.js)
