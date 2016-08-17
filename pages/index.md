@@ -116,9 +116,9 @@ joke: My backslash escaped!
 
 **"So this is Hjson."**
 
-You like it? Please go ahead [and star it](https://github.com/laktak/hjson)!
+You like it? Please go ahead [and star it](https://github.com/hjson/hjson), then **ask the developers of your favorite application to add Hjson support**!
 
-<a aria-label="Star laktak/hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/laktak/hjson#stargazers_count" data-count-href="/laktak/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/laktak/hjson" class="github-button">Star</a>
+<a aria-label="Star hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/hjson/hjson#stargazers_count" data-count-href="/hjson/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/hjson/hjson" class="github-button">Star</a>
 
 [No? Are you a skeptic?](faq.html)
 

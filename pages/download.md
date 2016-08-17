@@ -1,4 +1,4 @@
-[![NPM](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson) [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22) [![PyPI](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson) [![nuget](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/) [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson) [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson) [![Go Pkg](https://img.shields.io/github/release/laktak/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/laktak/hjson-go/releases)
+[![NPM](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson) [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22) [![PyPI](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson) [![nuget](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/) [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson) [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson) [![Go Pkg](https://img.shields.io/github/release/hjson/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/hjson/hjson-go/releases)
 
 ## Downloads
 
@@ -44,7 +44,7 @@ If you don't want to install node.js you can also use one of the following tools
 #### Java Setup
 
 - Install [**Java**](https://java.com/)
-- Install Hjson by downloading and unpacking the latest latest [*hjson.zip*](https://github.com/laktak/hjson-java/releases).
+- Install Hjson by downloading and unpacking the latest latest [*hjson.zip*](https://github.com/hjson/hjson-java/releases).
 - run `hjson -h` for help
 - `hjson file.json` will convert to Hjson.
 - `hjson -j file.hjson` will convert to JSON.
@@ -68,7 +68,7 @@ If you don't want to install node.js you can also use one of the following tools
 #### Go Setup
 
 - Install [**Go**](http://golang.org/doc/install.html)
-- Install [Hjson](https://github.com/laktak/hjson-go) with `go get -u github.com/laktak/hjson-go/hjson-cli`
+- Install [Hjson](https://github.com/hjson/hjson-go) with `go get -u github.com/hjson/hjson-go/hjson-cli`
 - run `hjson-cli -h` for help
 - `hjson-cli file.json` will convert to Hjson.
 - `hjson-cli -j file.hjson` will convert to JSON.
@@ -84,13 +84,13 @@ If you don't want to install node.js you can also use one of the following tools
 
 Platform | Source | Package
 -------- | ------ | -------
-JavaScript, Node.js & Browser | [hjson-js](https://github.com/laktak/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
-C#, .Net | [hjson-cs](https://github.com/laktak/hjson-cs) | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
-Go       | [hjson-go](https://github.com/laktak/hjson-go) | [![Go Pkg](https://img.shields.io/github/release/laktak/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/laktak/hjson-go/releases)
-Java     | [hjson-java](https://github.com/laktak/hjson-java) | [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
-PHP      | [hjson-php](https://github.com/laktak/hjson-php) | [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson)
-Python   | [hjson-py](https://github.com/laktak/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
-Rust     | [hjson-rust](https://github.com/laktak/hjson-rust) | [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson)
+JavaScript, Node.js & Browser | [hjson-js](https://github.com/hjson/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
+C#, .Net | [hjson-cs](https://github.com/hjson/hjson-cs) | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
+Go       | [hjson-go](https://github.com/hjson/hjson-go) | [![Go Pkg](https://img.shields.io/github/release/hjson/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/hjson/hjson-go/releases)
+Java     | [hjson-java](https://github.com/hjson/hjson-java) | [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
+PHP      | [hjson-php](https://github.com/hjson/hjson-php) | [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson)
+Python   | [hjson-py](https://github.com/hjson/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
+Rust     | [hjson-rust](https://github.com/hjson/hjson-rust) | [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson)
 
 #### Partial implementations
 
@@ -99,7 +99,7 @@ Platform | Description | Source/Package
 Ruby     | Hjson Ruby parser | [namusyaka/hjson](https://github.com/namusyaka/hjson)
 C        | jzon variant, based on Hjson | [jzon-c](https://github.com/KarlZylinski/jzon-c)
 
-Please [open an issue](https://github.com/laktak/hjson/issues) if you port Hjson to another platform/language.
+Please [open an issue](https://github.com/hjson/hjson/issues) if you port Hjson to another platform/language.
 
 ## <a id="ed"></a> Editor Support
 
@@ -114,8 +114,8 @@ Notepad++    | [npp-hjson](https://github.com/laktak/npp-hjson) | see source
 Name     | Link | Details
 -------- | ---- | -------
 **any-json**: convert (almost) anything to JSON | [![NPM version](https://img.shields.io/npm/v/any-json.svg?style=flat-square)](http://www.npmjs.com/package/any-json) | [see readme](https://github.com/laktak/any-json#usage)
-**gulp**: the streaming build system | [![NPM version](https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square)](http://www.npmjs.com/package/gulp-hjson) | [see readme](https://github.com/laktak/gulp-hjson#usage)
-**grunt**: the JavaScript task runner | [![NPM version](https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square)](http://www.npmjs.com/package/grunt-hjson) | [see readme](https://github.com/laktak/grunt-hjson#usage)
+**gulp**: the streaming build system | [![NPM version](https://img.shields.io/npm/v/gulp-hjson.svg?style=flat-square)](http://www.npmjs.com/package/gulp-hjson) | [see readme](https://github.com/hjson/gulp-hjson#usage)
+**grunt**: the JavaScript task runner | [![NPM version](https://img.shields.io/npm/v/grunt-hjson.svg?style=flat-square)](http://www.npmjs.com/package/grunt-hjson) | [see readme](https://github.com/hjson/grunt-hjson#usage)
 **hjsonify**: a browserify transform to require Hjson files | [![NPM version](https://img.shields.io/npm/v/hjsonify.svg?style=flat-square)](http://www.npmjs.com/package/hjsonify) | [see readme](https://github.com/dannyfritz/hjsonify#usage)
 **node-config**: node.js application configuration | [![NPM version](https://img.shields.io/npm/v/config.svg?style=flat-square)](http://www.npmjs.com/package/config) | [see wiki](https://github.com/lorenwest/node-config/wiki/Configuration-Files#human-json---hjson)
 **nconf**: hierarchical node.js configuration | [![NPM version](https://img.shields.io/npm/v/nconf.svg?style=flat-square)](http://www.npmjs.com/package/nconf) | `nconf.file({ file: 'file.hjson',`<br>`   format: require('hjson').rt });`<br>`// round trips your comments`
