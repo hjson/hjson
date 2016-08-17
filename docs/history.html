@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hjson, the Human JSON</title>
+  <meta name="description" content="Hjson is a configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.">
+  <meta name="viewport" content="width=device-width">
+  <link rel="canonical" href="https://hjson.org/"/>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/md.css" />
+  <link rel="stylesheet" type="text/css" href="css/pg4.css" />
+  <script type="text/javascript">if (window.location.href.indexOf("github.io")>0) window.location.href="https://hjson.org";</script>
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laktakk">
+  <meta name="twitter:creator" content="@laktakk">
+  <meta name="twitter:title" content="Hjson, the Human JSON">
+  <meta name="twitter:description" content="A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.">
+  <meta name="twitter:image" content="http://hjson.org/icon/hjson-s.png">
+
+  <link rel="icon" type="image/png" sizes="192x192" href="fav/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="fav/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="fav/icon-96x96.png">
+  <link rel="apple-touch-icon" href="fav/icon-192x192.png">
+  <meta name="msapplication-TileImage" content="fav/icon-192x192.png">
+</head>
+
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="."><img src="icon/hjson-st.png">Hjson</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a class="btn navbar-btn btn-success" href="download.html">Download</a>
+        </li>
+        <li>
+          <a href="syntax.html">Syntax</a>
+        </li>
+        <li>
+          <a class="btn navbar-btn btn-danger" href="try.html">Try It!</a>
+        </li>
+        <li>
+          <a href="faq.html">FAQ</a>
+        </li>
+        <li>
+          <a href="https://twitter.com/laktakk" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name="false" data-dnt="true">Follow @laktakk</a>
+        </li>
+        <li>
+          <a aria-label="Star hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/hjson/hjson#stargazers_count" data-count-href="/hjson/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/hjson/hjson" class="github-button">Star</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<div id="main">
+<div class="content"><h1 id="-div-class-hicon-style-font-size-80px-div-history"><div class="hicon" style="font-size: 80px;"></div> History</h1>
+<p>Human JSON was born out of frustration while editing JSON config files (e.g. <code>package.json</code>).</p>
+<ul>
+<li>2014-03-19: First draft</li>
+<li>2014-05-09: Added multiline strings.</li>
+<li>2014-12-02: Added mime type and file extension.</li>
+<li>2015-01-02: Added // and /**/ comment support</li>
+<li>2015-01-06: Simplified the syntax for quoteless strings. Previously unquoted strings starting with a <em>number</em>, <code>true</code>, <code>false</code> or <code>null</code> were not allowed.</li>
+<li>2015-01-11: Fixed multiline strings: OS/file independent (EOL is always <code>\n</code>). Also the last LF is removed to allow for better formatting.</li>
+<li>2015-01-11: Simplified the syntax for quoteless keys. Previously only alphanumeric keys were allowed without quotes.</li>
+<li>2015-05-06: Allow root braces to be omitted.</li>
+</ul>
+</div>
+
+  <div class="ynav">
+    <a href="syntax.html">Syntax</a>
+    <a href="download.html">Download</a>
+    <a href="faq.html">FAQ</a>
+    <a href="try.html">Try It!</a>
+    <a href="https://github.com/hjson/hjson/issues">Feedback</a>
+    <a href="history.html">History</a>
+    <a href="shirt.html"><img id="shirt" src="img/shirt.png"> US</a>
+    <a href="shirt-eu.html">EU</a>
+  </div>
+</div>
+
+</body>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49208230-1', 'auto');
+  ga('send', 'pageview');
+
+  $(document).on("click", ".navbar-collapse.in", function(e) {
+    if ($(e.target).is("a") && $(e.target).attr("class")!="dropdown-toggle")
+      $(this).collapse("hide");
+  });
+</script>
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+<script async defer>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</html>

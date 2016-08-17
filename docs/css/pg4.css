@@ -1,0 +1,135 @@
+
+body {
+  padding-top: 60px;
+}
+
+.big {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.ref {
+  font-size: 60%;
+}
+
+.sam {
+  font-size: 16px;
+  line-height: 1.4;
+}
+.sam h3 {
+  color: #AAA;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin: 0;
+}
+.sam h4 {
+  margin: 5px 0;
+  line-height: 1.4;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+}
+
+.sam hr {
+  margin: 35px auto 50px;
+}
+
+.clear { clear: both; }
+
+@media (min-width: 768px) {
+  .aa
+  {
+    float: left;
+    width: 40%;
+    margin: 0 40px 0 0;
+  }
+  .bb
+  {
+    float: left;
+    width: 45%;
+  }
+}
+
+.navbar iframe {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.navbar a.btn {
+  line-height: 0;
+}
+
+.navbar-brand img {
+  display: inline;
+  vertical-align: text-top;
+  width: 40px;
+  height: 40px;
+  margin-top: -10px;
+}
+
+.navbar-nav>li>a.btn-danger, .navbar-nav>li>a.btn-success {
+  color: #fff;
+}
+
+@media only screen and (max-width : 768px) {
+  .navbar-collapse li a.btn-danger, .navbar-collapse li a.btn-success {
+    width: 100px;
+    margin-left: 10px;
+  }
+}
+
+:target:before {
+  content:"";
+  display:block;
+  height:70px;
+  margin:-70px 0 0;
+}
+
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.ynav {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.ynav > a:after {
+  content: "-";
+  display: inline-block;
+  text-decoration: none;
+  margin: 5px;
+}
+
+.ynav > a:last-child:after {
+  display: none;
+}
+
+#shirt {
+  display: inline;
+  vertical-align: text-bottom;
+  width: 60px;
+  height: 40px;
+/*  width: 206px;
+  height: 142px;
+  padding: 5px 0 0 10px; */
+}
+
+
+.hicon {
+  background-image: url("../icon/hjson-m.png");
+  background-position: 0;
+  background-size: 100%;
+  border-radius: 4px;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+}

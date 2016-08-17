@@ -1,0 +1,202 @@
+<html><head>
+  <meta charset="utf-8">
+  <title>Hjson, the Human JSON</title>
+  <meta name="description" content="Hjson is a configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.">
+  <meta name="viewport" content="width=device-width">
+  <link rel="canonical" href="https://hjson.org/">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/md.css">
+  <link rel="stylesheet" type="text/css" href="css/pg4.css">
+  <script type="text/javascript">if (window.location.href.indexOf("github.io")>0) window.location.href="https://hjson.org";</script>
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laktakk">
+  <meta name="twitter:creator" content="@laktakk">
+  <meta name="twitter:title" content="Hjson, the Human JSON">
+  <meta name="twitter:description" content="A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.">
+  <meta name="twitter:image" content="http://hjson.org/icon/hjson-s.png">
+
+  <link rel="icon" type="image/png" sizes="192x192" href="fav/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="fav/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="fav/icon-96x96.png">
+  <link rel="apple-touch-icon" href="fav/icon-192x192.png">
+  <meta name="msapplication-TileImage" content="fav/icon-192x192.png">
+</head>
+
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="."><img src="icon/hjson-st.png">Hjson</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a class="btn navbar-btn btn-success" href="download.html">Download</a>
+        </li>
+        <li>
+          <a href="syntax.html">Syntax</a>
+        </li>
+        <li>
+          <a class="btn navbar-btn btn-danger" href="try.html">Try It!</a>
+        </li>
+        <li>
+          <a href="faq.html">FAQ</a>
+        </li>
+        <li>
+          <a href="https://twitter.com/laktakk" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name="false" data-dnt="true">Follow @laktakk</a>
+        </li>
+        <li>
+          <a aria-label="Star hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/hjson/hjson#stargazers_count" data-count-href="/hjson/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/hjson/hjson" class="github-button">Star</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<div id="main">
+<div class="content"><p><img src="hjson1.gif" class="img-responsive center-block"></p>
+<h2 id="hjson-the-human-json">Hjson, the Human JSON</h2>
+<p><span class="big">A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.</span> <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hjson.org/" data-text="Human JSON for configs!" data-hashtags="hjson" data-dnt="true">Tweet</a></p>
+<h2 id="intro">Intro</h2>
+<div class="sam"><div class="aa"><h3 id="comments-yay-">Comments, yay!</h3><h4><strong>"What exactly is this value? A comment would help!"</strong></h4><p>Sure, comments allow you to document your data.</p></div><div class="bb"><pre><code>{
+  # specify rate in requests/second
+  "rate": 1000
+
+  // prefer c-style comments?
+  /* feeling old fashioned? */
+}
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quotes">Quotes</h3><h4><strong>"Why do I have to place key names in quotes?"</strong></h4><p>Glad you asked. Actually you don't need to do that!</p></div><div class="bb"><pre><code>{
+  key: "value"
+}
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="commas">Commas</h3><h4><strong>"Now I forgot the comma at the end."</strong></h4><p>So you did. But Hjson does not mind as long as you put each value on a new line.</p></div><div class="bb"><pre><code>{
+  one: 1
+  two: 2
+  three: 4 # oops
+}
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="quoteless">Quoteless</h3><h4><strong>"Come to think of it, why do I have to place strings in quotes?"</strong></h4><p>You are right. Let's make quotes for strings optional as well.</p></div><div class="bb"><pre><code>{
+  text: look ma, no quotes!
+
+  # To make your life easy, put the next
+  # value or comment on a new line.
+  # It's also easier to read!
+}
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="escapes">Escapes</h3><h4><strong>"When there are no quotes, do I need escapes?"</strong></h4><p>No, escapes are gone from unquoted strings.</p></div><div class="bb"><pre><code>{
+  # write a regex without escaping the escape
+  regex: ^\d*\.{0,1}\d+$
+
+  # quotes in the content need no escapes
+  inject: &lt;div class="important"&gt;&lt;/div&gt;
+
+  # inside quotes, escapes work
+  # just like in JSON
+  escape: "\\ \n \t \""
+}
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="multiline">Multiline</h3><h4><strong>"Multiline strings are kind of hard to read."</strong></h4><p><code>"I wonder\nwhy you\nsay that."</code> Hjson will let you write them with proper whitespace handling.</p></div><div class="bb"><pre><code>{
+  haiku:
+    '''
+    JSON I love you.
+    But strangled is my data.
+    This, so much better.
+    '''
+}
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="braces">Braces</h3><h4><strong>"Are you joking? You can't remove the braces!"</strong></h4><p>The most common case is to start the config with an object. In this case you may omit the braces for the root object.</p></div><div class="bb"><pre><code>// this is a valid config file
+joke: My backslash escaped!
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="hjson">Hjson</h3><h4><strong>"So this is Hjson."</strong></h4><p>You like it? Please go ahead <a href="https://github.com/hjson/hjson">and star it</a>, then <strong>ask the developers of your favorite application to add Hjson support</strong>!</p><p><a aria-label="Star hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/hjson/hjson#stargazers_count" data-count-href="/hjson/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/hjson/hjson" class="github-button">Star</a></p><p><a href="faq.html">No? Are you a skeptic?</a></p><p><br>Look at nice <a href="syntax.html">Syntax diagrams</a>, <a href="download.html">Download</a> or read the <a href="faq.html">FAQ</a>.</p></div><div class="bb"><pre><code>// for your config
+// use #, // or /**/ comments,
+// omit quotes for keys
+key: 1
+// omit quotes for strings
+string: contains everything until LF
+// omit commas at the end of a line
+cool: {
+  foo: 1
+  bar: 2
+}
+// allow trailing commas
+list: [
+  1,
+  2,
+]
+// and use multiline strings
+realist:
+  '''
+  My half empty glass,
+  I will fill your empty half.
+  Now you are half full.
+  '''
+</code></pre></div><div class="clear"></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+  <div class="ynav">
+    <a href="syntax.html">Syntax</a>
+    <a href="download.html">Download</a>
+    <a href="faq.html">FAQ</a>
+    <a href="try.html">Try It!</a>
+    <a href="https://github.com/hjson/hjson/issues">Feedback</a>
+    <a href="history.html">History</a>
+    <a href="shirt.html"><img id="shirt" src="img/shirt.png"> US</a>
+    <a href="shirt-eu.html">EU</a>
+  </div>
+</div>
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49208230-1', 'auto');
+  ga('send', 'pageview');
+
+  $(document).on("click", ".navbar-collapse.in", function(e) {
+    if ($(e.target).is("a") && $(e.target).attr("class")!="dropdown-toggle")
+      $(this).collapse("hide");
+  });
+</script>
+<script async="" defer="" id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+<script async="" defer="">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
+<script class="jsdom" src="node_modules/jquery/dist/jquery.js"></script><script class="jsdom" src="intro.js"></script></body></html>

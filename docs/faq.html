@@ -1,0 +1,220 @@
+<html><head>
+  <meta charset="utf-8">
+  <title>Hjson, the Human JSON</title>
+  <meta name="description" content="Hjson is a configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.">
+  <meta name="viewport" content="width=device-width">
+  <link rel="canonical" href="https://hjson.org/">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/md.css">
+  <link rel="stylesheet" type="text/css" href="css/pg4.css">
+  <script type="text/javascript">if (window.location.href.indexOf("github.io")>0) window.location.href="https://hjson.org";</script>
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@laktakk">
+  <meta name="twitter:creator" content="@laktakk">
+  <meta name="twitter:title" content="Hjson, the Human JSON">
+  <meta name="twitter:description" content="A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.">
+  <meta name="twitter:image" content="http://hjson.org/icon/hjson-s.png">
+
+  <link rel="icon" type="image/png" sizes="192x192" href="fav/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="fav/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="fav/icon-96x96.png">
+  <link rel="apple-touch-icon" href="fav/icon-192x192.png">
+  <meta name="msapplication-TileImage" content="fav/icon-192x192.png">
+</head>
+
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="."><img src="icon/hjson-st.png">Hjson</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a class="btn navbar-btn btn-success" href="download.html">Download</a>
+        </li>
+        <li>
+          <a href="syntax.html">Syntax</a>
+        </li>
+        <li>
+          <a class="btn navbar-btn btn-danger" href="try.html">Try It!</a>
+        </li>
+        <li>
+          <a href="faq.html">FAQ</a>
+        </li>
+        <li>
+          <a href="https://twitter.com/laktakk" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name="false" data-dnt="true">Follow @laktakk</a>
+        </li>
+        <li>
+          <a aria-label="Star hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/hjson/hjson#stargazers_count" data-count-href="/hjson/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/hjson/hjson" class="github-button">Star</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<div id="main">
+<div class="content"><h2 id="-a-id-faq-a-div-class-hicon-div-hjson-faq"><a id="faq"></a><div class="hicon"></div> Hjson FAQ</h2>
+<div class="sam"><div class="aa"><h3 id="what-are-good-uses-for-human-json-">What are good uses for Human JSON?</h3><h4><strong>"I'd like to use Hjson everywhere!"</strong></h4><p>Use it for</p><ul>
+<li>config files</li>
+<li>resource files (e.g. a language definition)</li>
+<li>inspection/debugging (e.g. the watch output)</li>
+<li>anytime where the primary purpose is for a Human to view or edit</li>
+</ul></div><div class="bb"><pre><code>/*
+ * Hjson is for Humans,
+ * not machines!
+ *
+ * You should convert Hjson to JSON
+ * before you send it to one.
+ */
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="what-are-bad-uses-for-human-json-">What are bad uses for Human JSON?</h3><h4><strong>"Hjson is a bad idea!"</strong></h4><p>Do not use it for</p><ul>
+<li>protocols</li>
+<li>databases</li>
+</ul><p>Something like a REST service should never use Hjson. If you are writing a REST debugger you can convert to/from Hjson when the data is viewed by a human.</p></div><div class="bb"><pre><code>/*
+ * Always use the right tool for the job.
+ */
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-javascript-">But JavaScript!?</h3><h4><strong>"OMG, you broke JavaScript!"</strong></h4><p>JSON is not JavaScript, it's a data interchange format that can be used in many languages (50+, see <a href="http://hjson.org">hjson.org</a>).</p></div><div class="bb"><pre><code>/*
+ * Hjson, like JSON, is not limited
+ * to JavaScript.
+ */
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-json-">But JSON!?</h3><h4><strong>"OK but OMG, now you broke JSON!"</strong></h4><p>JSON is a great data format that can be edited by hand but it has a very strict syntax.</p><p>A more forgiving format makes it easier for Humans to write, it reduces unnecessary mistakes and is also nicer to read.</p></div><div class="bb"><pre><code>/*
+ * Hjson does not replace JSON.
+ * Use it for configuration files
+ * and things like debug dumps.
+ *
+ * For protocols and anything
+ * else use JSON.
+ */
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="but-yaml-hocon-">But YAML/HOCON/...!?</h3><h4><strong>"OK but still, do we need another YAML/HOCON/etc.?"</strong></h4><p>A lot of projects use JSON for config. Why don't they use YAML or another config format?</p><p>IMHO it's because</p><ul>
+<li>JSON is easier to explain (compare the JSON and YAML specs)</li>
+<li>JSON does not suffer from significant whitespace</li>
+<li>JSON is not bloated (it does not have anchors, substitutions or concatenation).</li>
+<li>JSON is easier to implement</li>
+</ul><p>So there is obviously a need for a better config format.</p></div><div class="bb"><pre><code>/*
+ * A data format for Humans
+ * should be lean and simple.
+ *
+ * Human !== Developer
+ * Human != Developer
+ * Human &lt;&gt; Developer
+ * Human .NE. Developer
+ * Human ne Developer
+ * Human /= Developer
+ * Human '= Developer
+ * Human ~= Developer
+ * Human -ne Developer
+ */
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="can-i-minify-hjson-">Can I minify Hjson?</h3><h4><strong>"Just because!"</strong></h4><p>Hjson is for Humans so minifying it would kind of defeat its purpose.</p></div><div class="bb"><pre><code>/*
+ * Er... no!
+ */
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="round-trip">Round trip</h3><h4><strong>"Can Hjson keep my comments when updating a config file?"</strong></h4><p>Yes, Hjson allows you to round-trip your data, including your comments.</p><p>* But not yet with all implementations, PRs welcome :)</p></div><div class="bb"><pre><code>var data = Hjson.rt.parse(text);
+
+// use data like a normal object
+data.foo = "text";
+
+// stringify with comments
+text = Hjson.rt.stringify(data);
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="-insert-name-here-does-not-yet-support-hjson-can-i-still-use-it-">[insert name here] does not yet support Hjson, can I still use it?</h3><h4><strong>"I really need comments in my config!"</strong></h4><p>If <em>[insert name here]</em> supports at least JSON configs you can.</p></div><div class="bb"><pre><code># convert to Hjson (once)
+$ hjson config.json &gt; config.hjson
+
+# edit/document the config
+$ nano config.hjson
+
+# then convert back to json
+# every time you update config.hjson
+$ hjson -j config.hjson &gt; config.json
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="-a-id-pronounce-a-how-do-i-pronounce-hjson-"><a id="pronounce"></a> How do I pronounce Hjson?</h3><h4><strong>What should I call this thing?</strong></h4><p>You should/can pronounce it "H-json".</p><p>As for how to pronounce JSON, <a href="https://www.youtube.com/watch?v=zhVdWQWKRqM">watch this</a>.</p></div><div class="bb"><pre><code>/*
+ * h-jason
+ */
+</code></pre></div><div class="clear"></div><hr><div class="aa"><h3 id="where-is-this-jason-">Where is this Jason?</h3><h4><strong>I was expecting to see a Human Json!</strong></h4><p>I'm sorry to disappoint you. But do <a href="https://twitter.com/laktakk">send me</a> a picture if <a href="shirt.html">you see him ... or her</a>!</p></div><div class="bb"><pre><code> __   __
+|_ \_/ _|
+  |   |
+  |___|
+</code></pre></div><div class="clear"></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+  <div class="ynav">
+    <a href="syntax.html">Syntax</a>
+    <a href="download.html">Download</a>
+    <a href="faq.html">FAQ</a>
+    <a href="try.html">Try It!</a>
+    <a href="https://github.com/hjson/hjson/issues">Feedback</a>
+    <a href="history.html">History</a>
+    <a href="shirt.html"><img id="shirt" src="img/shirt.png"> US</a>
+    <a href="shirt-eu.html">EU</a>
+  </div>
+</div>
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49208230-1', 'auto');
+  ga('send', 'pageview');
+
+  $(document).on("click", ".navbar-collapse.in", function(e) {
+    if ($(e.target).is("a") && $(e.target).attr("class")!="dropdown-toggle")
+      $(this).collapse("hide");
+  });
+</script>
+<script async="" defer="" id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+<script async="" defer="">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
+<script class="jsdom" src="node_modules/jquery/dist/jquery.js"></script><script class="jsdom" src="intro.js"></script></body></html>
