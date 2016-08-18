@@ -96,7 +96,7 @@ Rust     | [hjson-rust](https://github.com/hjson/hjson-rust) | [![crate](https:/
 
 Platform | Description | Source/Package
 -------- | ----------- | --------------
-Ruby     | Hjson Ruby parser | [namusyaka/hjson](https://github.com/namusyaka/hjson)
+Ruby     | Hjson Ruby parser | [hjson-rb](https://github.com/hjson/hjson-rb) [![gem](https://img.shields.io/gem/v/hjson.svg?style=flat-square)](https://rubygems.org/gems/hjson)
 C        | jzon variant, based on Hjson | [jzon-c](https://github.com/KarlZylinski/jzon-c)
 
 Please [open an issue](https://github.com/hjson/hjson/issues) if you port Hjson to another platform/language.
