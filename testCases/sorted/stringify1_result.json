@@ -15,8 +15,12 @@
     "num4": "-1e--10,"
   },
   "quotes": {
-    "close1": "1 }",
+    "close1": "1}",
+    "close1b": "1 }",
     "close2": "1]",
+    "close2b": "1 ]",
+    "close3": "1,",
+    "close3b": "1 ,",
     "comment1": "1#str",
     "comment2": "1//str",
     "comment3": "1/*str*/",
@@ -26,6 +30,18 @@
     "num1": "1,2",
     "num2": "-1.1 ,",
     "num3": "1e10 ,2",
-    "num4": "-1e-10,"
+    "num4": "-1e-10,",
+    "punc1": "{",
+    "punc1b": "{foo",
+    "punc2": "}",
+    "punc2b": "}foo",
+    "punc3": "[",
+    "punc3b": "[foo",
+    "punc4": "]",
+    "punc4b": "]foo",
+    "punc5": ",",
+    "punc5b": ",foo",
+    "punc6": ":",
+    "punc6b": ":foo"
   }
 }
