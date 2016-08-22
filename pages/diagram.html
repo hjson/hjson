@@ -98,11 +98,11 @@ Diagram(
 Diagram(
   Terminal('['),
   Optional(Sequence(
-      NonTerminal('member'),
+      NonTerminal('value'),
       Optional(OneOrMore(
         Sequence(
           Choice(0, 'LF', ','),
-          NonTerminal('member')
+          NonTerminal('value')
         )
       )),
       Optional(',')
