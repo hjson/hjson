@@ -1,5 +1,5 @@
 /*! @preserve
- * Hjson v2.0.3
+ * Hjson v2.0.6
  * http://hjson.org
  *
  * Copyright 2014-2016 Christian Zangl, MIT license
@@ -328,7 +328,7 @@ var Hjson = (function () {
       // returns string, true, false, or null.
       var value = ch;
       if (isPunctuatorChar(ch))
-        error("Found a punctuator character '" + ch + "' when excpecting a quoteless string (check your syntax)");
+        error("Found a punctuator character '" + ch + "' when expecting a quoteless string (check your syntax)");
 
       for(;;) {
         next();
@@ -470,22 +470,27 @@ var Hjson = (function () {
       }
     };
 
+    var checkTrailing = function (v) {
+      white();
+      if (ch) error("Syntax error, found trailing characters");
+      return v;
+    };
+
     var rootValue = function () {
       // Braces for the root object are optional
-
       white();
       switch (ch) {
-        case '{': return object();
-        case '[': return array();
+        case '{': return checkTrailing(object());
+        case '[': return checkTrailing(array());
       }
 
       try {
         // assume we have a root object without braces
-        return object(true);
+        return checkTrailing(object(true));
       } catch (e) {
         // test if we are dealing with a single JSON value instead (true/false/null/num/"")
         resetAt();
-        try { return value(); }
+        try { return checkTrailing(value()); }
         catch (e2) { throw e; } // throw original error
       }
     };
@@ -494,28 +499,21 @@ var Hjson = (function () {
     // functions and variables.
 
     return function (source, options) {
-      var result;
-
       keepWsc = options && options.keepWsc;
       text = source;
       resetAt();
-      result = rootValue();
-      white();
-      if (ch) error("Syntax error, found trailing characters");
-
-      return result;
+      return rootValue();
     };
   }());
 
 
   var hjson_stringify = (function () {
 
-    // needsEscape is used to detect and replace characters
+    // needsEscape tests if the string can be written without escapes
     var needsEscape = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
-    // like needsEscape but without \\ and \"
-    var needsQuotes = /[\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
-    var needsQuotes2 = /^\s|^"|^'''|^#|^\/\*|^\/\/|^\{|^\[|\s$/g;
-    // ''' || (needsQuotes but without \n and \r)
+    // needsQuotes tests if the string can be written as a quoteless string (includes needsEscape but without \\ and \")
+    var needsQuotes = /^\s|^"|^'''|^#|^\/\*|^\/\/|^\{|^\}|^\[|^\]|^:|^,|\s$|[\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
+    // needsEscapeML tests if the string can be written as a multiline string (includes needsEscape but without \n, \r, \\ and \")
     var needsEscapeML = /'''|[\x00-\x09\x0b\x0c\x0e-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
     // starts with a keyword and optionally is followed by a comment
     var startsWithKeyword = /^(true|false|null)\s*((,|\]|\}|#|\/\/|\/\*).*)?$/;
@@ -547,14 +545,13 @@ var Hjson = (function () {
       if (!string) return '""';
 
       needsQuotes.lastIndex = 0;
-      needsQuotes2.lastIndex = 0;
       startsWithKeyword.lastIndex = 0;
 
       // Check if we can insert this string without quotes
       // see hjson syntax (must not parse as true, false, null or number)
 
       if (quoteAlways || hasComment ||
-        needsQuotes.test(string) || needsQuotes2.test(string) ||
+        needsQuotes.test(string) ||
         tryParseNumber(string, true) !== undefined ||
         startsWithKeyword.test(string)) {
 
