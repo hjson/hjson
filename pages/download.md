@@ -4,7 +4,7 @@
 
 - [Tools for Users](#users)
 - [Packages for Developers](#dev)
-- [Editor Support](#ed)
+- [Editor Syntax Support](#ed)
 - [Tools with native support](#native)
 
 ## <a id="users"></a> Tools for Users
@@ -103,11 +103,12 @@ Please [open an issue](https://github.com/hjson/hjson/issues) if you port Hjson 
 
 ## <a id="ed"></a> Editor Support
 
-Name     | Source | Package
--------- | ------ | -------
-Atom | [language-hjson](https://github.com/dannyfritz/language-hjson) | [package](https://atom.io/packages/language-hjson)
-Sublime Text / TextMate | [sublime-hjson](https://github.com/laktak/sublime-hjson) | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
-Notepad++    | [npp-hjson](https://github.com/laktak/npp-hjson) | see source
+Name               | Source                                                    | Package
+------------------ | --------------------------------------------------------- | -------
+Atom               | [atom-hjson](https://github.com/hjson/atom-hjson)         | [package](https://atom.io/packages/language-hjson)
+Sublime Text       | [sublime-hjson](https://github.com/hjson/sublime-hjson)   | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
+Visual Studio Code | [vscode-hjson](https://github.com/hjson/vscode-hjson)     | [visualstudio.com]( https://marketplace.visualstudio.com/items?itemName=laktak.hjson)
+Notepad++          | [npp-hjson](https://github.com/laktak/npp-hjson)          | see source
 
 ## <a id="native"></a> Tools with native support
 

@@ -373,6 +373,36 @@ var Hjson = (function () {
       return "";
     };
 
+    var errorClosingHint = function (value, ch) {
+      function search(value) {
+        var i, k, length, res;
+        switch (typeof value) {
+          case 'string':
+            if (value.indexOf(ch) >= 0) res=value;
+            break;
+          case 'object':
+            if (Object.prototype.toString.apply(value) === '[object Array]') {
+              for (i = 0, length = value.length; i < length; i++) {
+                res=search(value[i], ch) || res;
+              }
+            } else {
+              for (k in value) {
+                if (!Object.prototype.hasOwnProperty.call(value, k)) continue;
+                res=search(value[k], ch) || res;
+              }
+            }
+        }
+        return res;
+      }
+
+      var possibleErr=search(value, ']');
+      if (possibleErr) {
+        return "\n  Found '"+ch+"' in a string value, your mistake could be with:\n"+
+          "    > "+possibleErr+"\n"+
+          "  (hint: unquoted strings contain everything up to the next line!)\n ";
+      } else return "";
+    };
+
     var array = function () {
       // Parse an array value.
       // assuming ch === '['
@@ -407,7 +437,7 @@ var Hjson = (function () {
         white();
       }
 
-      error("End of input while parsing an array (did you forget a closing ']'?)");
+      error("End of input while parsing an array (missing ']')"+errorClosingHint(array, ']'));
     };
 
     var object = function (withoutBraces) {
@@ -455,7 +485,7 @@ var Hjson = (function () {
       }
 
       if (withoutBraces) return object;
-      else error("End of input while parsing an object (did you forget a closing '}'?)");
+      else error("End of input while parsing an object (missing '}')"+errorClosingHint(object, '}'));
     };
 
     var value = function () {
