@@ -107,7 +107,8 @@ Name               | Source                                                    |
 ------------------ | --------------------------------------------------------- | -------
 Atom               | [atom-hjson](https://github.com/hjson/atom-hjson)         | [package](https://atom.io/packages/language-hjson)
 Sublime Text       | [sublime-hjson](https://github.com/hjson/sublime-hjson)   | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
-Visual Studio Code | [vscode-hjson](https://github.com/hjson/vscode-hjson)     | [visualstudio.com]( https://marketplace.visualstudio.com/items?itemName=laktak.hjson)
+Visual Studio      | [vs-hjson](https://github.com/hjson/vs-hjson)             | [microsoft.com](https://visualstudiogallery.msdn.microsoft.com/7517a276-112b-4772-b6d8-5a1e6b0eb281)
+Visual Studio Code | [vscode-hjson](https://github.com/hjson/vscode-hjson)     | [visualstudio.com](https://marketplace.visualstudio.com/items?itemName=laktak.hjson)
 Notepad++          | [npp-hjson](https://github.com/laktak/npp-hjson)          | see source
 
 ## <a id="native"></a> Tools with native support
