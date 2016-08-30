@@ -1,6 +1,5 @@
 <style type="text/css" media="screen">
-#main
-{
+#main {
   position: absolute;
   top: 50px;
   left: 0;
@@ -80,25 +79,35 @@
 </div>
 
 <script src="js/hjson.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mode-hjson.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mode-json.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/theme-ambiance.js" type="text/javascript" charset="utf-8"></script>
 <script>
   var locked, orgText;
   var hjson=ace.edit("hjson");
-  hjson.setTheme("ace/theme/monokai");
+  hjson.setTheme("ace/theme/ambiance");
   hjson.on("change", changeHjson);
   hjson.on("paste", changeHjson);
+  var hjsonMode=ace.require("ace/mode/hjson").Mode;
+  hjson.session.setMode(new hjsonMode());
 
   var json=ace.edit("json");
-  json.setTheme("ace/theme/monokai");
+  json.setTheme("ace/theme/ambiance");
   json.on("change", changeJson);
   json.on("paste", changeJson);
+  var jsonMode=ace.require("ace/mode/json").Mode;
+  json.session.setMode(new jsonMode());
 
   function changeHjson()
   {
     if (locked) return;
     var text=hjson.getSession().getValue();
     try { text=JSON.stringify(Hjson.parse(text), null, "  "); }
-    catch (e) { text=e.toString(); }
+    catch (e) {
+      text=e.toString();
+      if (e.hint) text+="\n\nhint: "+e.hint;
+    }
     locked=true;
     json.getSession().setValue(text);
     locked=false;
