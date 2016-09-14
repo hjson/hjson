@@ -31,6 +31,8 @@ if (args.length>2) {
       scripts: ["node_modules/jquery/dist/jquery.js", "intro.js"],
       done: function (errors, window) {
         var $=window.$;
+        // remove injected scripts
+        $("script[class='jsdom']").remove();
         $(function(){ save(extractDoc(window)); });
       },
     });
@@ -65,6 +67,7 @@ if (args.length>2) {
             $("script", $("#rr")).each(function(i) {
               $(this).replaceWith($(svg[i]));
             });
+            // remove the script that generated the page
             $("script").remove();
             save(syntax.replace(/%%%/, unwrapDoc(extractDoc(window))));
           });
