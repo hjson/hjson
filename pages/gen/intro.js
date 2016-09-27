@@ -11,6 +11,7 @@ $(function() {
       g.insertBefore(x);
     } else $("<hr>").appendTo(g);
 
+    var t=$("<div>").appendTo(g);
     var a=$("<div>").addClass("aa").appendTo(g);
     var b=$("<div>").addClass("bb").appendTo(g);
     $("<div>").addClass("clear").appendTo(g);
@@ -21,17 +22,24 @@ $(function() {
       var y=x.next();
       x.remove();
 
-      if (first && !x.is("h3")) {
+      if (first && x.is("h3")) {
         first=false;
-        x=$('<h4>'+x.html()+'</h4>');
+        x.appendTo(t);
+        //x=$('<h4>'+x.html()+'</h4>');
       }
+      else x.appendTo(x.is("pre")?b:a);
 
-      x.appendTo(x.is("pre")?b:a);
       x=y;
 
       if (!x || !x.prop("nodeName") || x.is("h3") || x.is("h2")) break;
     }
-
   });
+
+  var first=$($("h3")[0]);
+  if (first.text()==="Intro") {
+    first.remove();
+    var icon=$("<div>").addClass("hicon hicon2");
+    icon.insertBefore($("code")[0]);
+  }
 
 });

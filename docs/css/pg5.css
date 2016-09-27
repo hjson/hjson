@@ -30,7 +30,7 @@ body {
 }
 
 .sam hr {
-  margin: 35px auto 50px;
+  margin: 15px auto 5px;
 }
 
 .clear { clear: both; }
@@ -56,6 +56,7 @@ body {
 
 .navbar a.btn {
   line-height: 0;
+  margin-left: 5px;
 }
 
 .navbar-brand img {
@@ -132,4 +133,13 @@ body {
   width: 1em;
   height: 1em;
   display: inline-block;
+  margin-right: 5px;
+}
+
+.hicon2 {
+  width: 40px;
+  height: 40px;
+  float: right;
+  margin-top: 5px;
+  margin-right: 0;
 }

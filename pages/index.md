@@ -1,153 +1,157 @@
 
-<img src="hjson1.gif" class="img-responsive center-block">
+## Hjson, a user interface for JSON
 
-## Hjson, the Human JSON
+### Intro
 
-<span class="big">A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.</span> <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hjson.org/" data-text="Human JSON for configs!" data-hashtags="hjson" data-dnt="true">Tweet</a>
+JSON is easy for humans to read and write... in theory. *In practice* JSON gives us plenty of opportunities to make mistakes without even realizing it.
 
-[![NPM](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson) [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22) [![PyPI](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson) [![nuget](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/) [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson) [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson) [![Go Pkg](https://img.shields.io/github/release/hjson/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/hjson/hjson-go/releases) [![gem](https://img.shields.io/gem/v/hjson.svg?style=flat-square)](https://rubygems.org/gems/hjson)
+Hjson is a syntax extension to JSON. It's NOT a proposal to replace JSON or to incorporate it into the JSON spec itself. It's intended to be used like a user interface for humans, to read and edit before passing the JSON data to the machine.
 
-## Intro
+```
+{
+  # TL;DR
+  human:   Hjson
+  machine: JSON
+}
+```
 
-### Comments, yay!
+## How does Hjson help?
 
-**"What exactly is this value? A comment would help!"**
+### Commas!
 
-Sure, comments allow you to document your data.
+**Never see a syntax error because of a missing or trailing comma again (unless you try really hard)**.
+
+A good practice is to put each value onto a new line, in this case commas are optional and should be omitted.
+
+```
+{
+  first: 1
+  second: 2
+}
+```
+
+### Comments
+
+**You are allowed to use comments! *Encouraged, even!***
+
+Comments allow you to document your data inline. You can also use them to comment out values when testing.
+
+```
+{
+  # hash style comments
+  # (because it's just one character)
+
+  // line style comments
+  // (because it's like C/JavaScript/...)
+
+  /* block style comments because
+     it allows you to comment out a block */
+
+  # Everything you do in comments,
+  # stays in comments ;-}
+}
+```
+
+### Object Names (Keys)
+
+**Object names can be specified without quotes.**
+
+This makes them easier to read.
 
 ```
 {
   # specify rate in requests/second
-  "rate": 1000
-
-  // prefer c-style comments?
-  /* feeling old fashioned? */
+  rate: 1000
 }
 ```
 
-### Quotes
+### Quoteless Strings
 
-**"Why do I have to place key names in quotes?"**
+**You are can specify strings without quotes.**
 
-Glad you asked. Actually you don't need to do that!
-
-```
-{
-  key: "value"
-}
-```
-
-### Commas
-
-**"Now I forgot the comma at the end."**
-
-So you did. But Hjson does not mind as long as you put each value on a new line.
+In this case only one value per line and no commas are allowed.
 
 ```
 {
-  one: 1
-  two: 2
-  three: 4 # oops
-}
-```
+  JSON: "a string"
 
-### Quoteless
+  Hjson: a string
 
-**"Come to think of it, why do I have to place strings in quotes?"**
-
-You are right. Let's make quotes for strings optional as well.
-
-```
-{
-  text: look ma, no quotes!
-
-  # To make your life easy, put the next
-  # value or comment on a new line.
-  # It's also easier to read!
-}
-```
-
-### Escapes
-
-**"When there are no quotes, do I need escapes?"**
-
-No, escapes are gone from unquoted strings.
-
-```
-{
-  # write a regex without escaping the escape
-  regex: ^\d*\.{0,1}\d+$
-
-  # quotes in the content need no escapes
-  inject: <div class="important"></div>
-
-  # inside quotes, escapes work
-  # just like in JSON
-  escape: "\\ \n \t \""
+  # notice, no escape necessary:
+  RegEx: \s+
 }
 ```
 
 ### Multiline
 
-**"Multiline strings are kind of hard to read."**
+**Write multiline strings with proper whitespace handling.**
 
-`"I wonder\nwhy you\nsay that."` Hjson will let you write them with proper whitespace handling.
+A simple syntax and easy to read.
 
 ```
 {
-  haiku:
+  md:
     '''
-    JSON I love you.
-    But strangled is my data.
-    This, so much better.
+    First line.
+    Second line.
+      This line is indented by two spaces.
     '''
 }
 ```
 
-### Braces
+### Punctuators, Spaces and Escapes
 
-**"Are you joking? You can't remove the braces!"**
+JSON and Hjson use the characters `{}[],:` as punctuators to define the structure of the data.
 
-The most common case is to start the config with an object. In this case you may omit the braces for the root object.
+Punctuators and whitespace can't be used in an unquoted key or as the first character of a quoteless string. In this (rather uncommon) case you need to use quotes.
+
+The backslash is only used as an esacpe charater in a quoted string.
 
 ```
-// this is a valid config file
-joke: My backslash escaped!
+{
+  "key name": "{ sample }"
+  "{}": " spaces at the start/end "
+  this: is OK though: {}[],:
+}
 ```
+
 ### Hjson
 
 **"So this is Hjson."**
 
-You like it? Please go ahead [and star it](https://github.com/hjson/hjson), then **ask the developers of your favorite application to add Hjson support**!
+If you like it please go ahead and add a star!
 
 <a aria-label="Star hjson on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/hjson/hjson#stargazers_count" data-count-href="/hjson/hjson/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/hjson/hjson" class="github-button">Star</a>
 
-[No? Are you a skeptic?](faq.html)
+Are you a [user](users.html)? Then **ask the [developer](download.html) of your favorite application to add Hjson support**!
 
-<br>Look at nice [Syntax diagrams](syntax.html), [Download](download.html) or read the [FAQ](faq.html).
+Interested in details? [Take a look at the syntax.](syntax.html)
+
+Questions? [See the FAQ.](faq.html)
 
 ```
-// for your config
-// use #, // or /**/ comments,
-// omit quotes for keys
-key: 1
-// omit quotes for strings
-string: contains everything until LF
-// omit commas at the end of a line
-cool: {
-  foo: 1
-  bar: 2
+{
+  // use #, // or /**/ comments,
+  // omit quotes for keys
+  key: 1
+  // omit quotes for strings
+  contains: everything on this line
+  // omit commas at the end of a line
+  cool: {
+    foo: 1
+    bar: 2
+  }
+  // allow trailing commas
+  list: [
+    1,
+    2,
+  ]
+  // and use multiline strings
+  realist:
+    '''
+    My half empty glass,
+    I will fill your empty half.
+    Now you are half full.
+    '''
 }
-// allow trailing commas
-list: [
-  1,
-  2,
-]
-// and use multiline strings
-realist:
-  '''
-  My half empty glass,
-  I will fill your empty half.
-  Now you are half full.
-  '''
 ```

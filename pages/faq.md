@@ -1,7 +1,7 @@
 
 ## <a id="faq"></a><div class="hicon"></div> Hjson FAQ
 
-### What are good uses for Human JSON?
+### What are good uses for Hjson?
 
 **"I'd like to use Hjson everywhere!"**
 
@@ -22,7 +22,7 @@ Use it for
  */
 ```
 
-### What are bad uses for Human JSON?
+### What are bad uses for Hjson?
 
 **"Hjson is a bad idea!"**
 
@@ -103,6 +103,10 @@ So there is obviously a need for a better config format.
  */
 ```
 
+### What does the H in Hjson stand for?
+
+It's H for Human, Human JSON.
+
 ### Can I minify Hjson?
 
 **"Just because!"**
@@ -155,7 +159,7 @@ $ hjson -j config.hjson > config.json
 
 **What should I call this thing?**
 
-You should/can pronounce it "H-json".
+You should pronounce it H-json ("aitch-jason").
 
 As for how to pronounce JSON, [watch this](https://www.youtube.com/watch?v=zhVdWQWKRqM).
 
@@ -165,17 +169,4 @@ As for how to pronounce JSON, [watch this](https://www.youtube.com/watch?v=zhVdW
  */
 ```
 
-### Where is this Jason?
-
-**I was expecting to see a Human Json!**
-
-I'm sorry to disappoint you. But do [send me](https://twitter.com/laktakk) a picture if [you see him ... or her](shirt.html)!
-
-```
- __   __
-|_ \_/ _|
-  |   |
-  |___|
-
-```
 

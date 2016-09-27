@@ -1,26 +1,45 @@
 
-## <a id="faq"></a><div class="hicon"></div> Hjson Syntax
+## <div class="hicon"></div> Hjson Syntax
 
-The Hjson syntax is similar to [JSON](http://json.org/) but allows you to
-
-- add `#`, `//` or `/**/` comments,
-- omit `""` for keys,
-- omit `""` for strings (terminated by LF, no escapes),
-- omit `{}` for the root object,
-- omit `,` at the end of a line,
-- add trailing commas and
-- use multiline strings with proper whitespace handling.
-
-Because the punctuator characters `{}[],:` are used to define the structure of the Hjson text, you need to use quotes
-
-- if your key includes a punctuator or space
-- if your string starts with a punctuator
-
-<a href="rfc.html" target="_blank">View the RFC draft</a>
+TL;DR [here](/)
 
 %%%
 
 ### Details
+
+#### Commas
+
+You can separate your values/members either with a comma or a new line.
+
+Unlike JSON, trailing commas are ignored and do not produce a syntax error.
+
+For example:
+
+```
+{
+  one: 1
+  two: 2,
+  more: [3,4,5]
+  trailing: 6,
+}
+```
+
+You should omit optional commas to make your data more readable.
+
+```
+{
+  one: 1
+  two: 2
+}
+```
+
+#### Comments
+
+Hash `#` or C style `//` comments start a single line comment.
+
+The style is just a matter of preference. `#` may be easier on the eyes but `//` is sometimes used in existing JSON configs.
+
+`/*` starts a multiline comment that ends with `*/`. You can use it to comment out part of the data.
 
 #### Keys
 
@@ -36,7 +55,9 @@ For example:
 
 A quoteless string cannot start with any of the punctuators (`{}[],:`).
 
-It is taken exactly as is up to the linefeed/newline, preceding and trailing whitespace is ignored. As there are no escapes, you do not need to escape the backslash. If you wish to add comments place them on the previous or next line.
+Unlike a quoted string it automatically ends at the end of the current line. Do not add commas or comments as they would become part of the string. If you wish to add comments place them on the previous or next line.
+
+Preceding and trailing whitespace is ignored. Escapes are only supported in quoted strings.
 
 The Hjson parser will still detect values (*number*, `true`, `false` or `null`) and parse them correctly. For example
 
@@ -68,43 +89,9 @@ haiku:
 
 Is the *string* `"My half empty glass,\nI will fill your empty half.\nNow you are half full."`
 
-#### Commas
+#### Root Braces - **OBSOLETE**
 
-You can separate your values/members either with a comma or a new line.
-
-Unlike JSON, trailing commas are ignored and do not produce a syntax error.
-
-For example:
-
-```
-{
-  one: 1
-  two: 2,
-  more: [3,4,5]
-  trailing: 6,
-}
-```
-
-#### Comments
-
-`#` or `//` starts a single line comment.
-
-`/*` starts a multiline comment that ends with `*/`.
-
-#### Root Object
-
-Braces for the root object (meaning it is not included in another object) are optional.
-
-For example:
-
-```
-# this is the root object
-top: blue
-side: { # a child object, requires braces
-  border: black
-}
-bottom: red
-```
+While Hjson allows you to omit `{}` for the root object, this feature should no longer be used.
 
 #### File extension
 
@@ -118,3 +105,6 @@ bottom: red
 
 Hjson does not have a header but if you want to indicate the file type you can use `#hjson` on the first line.
 
+#### RFC
+
+<a href="rfc.html" target="_blank">View the RFC draft (pending updates)</a>

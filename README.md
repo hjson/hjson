@@ -6,34 +6,10 @@
 [![crate](https://img.shields.io/crates/v/serde-hjson.svg)](https://crates.io/crates/serde-hjson)
 [![Go Pkg](https://img.shields.io/github/release/hjson/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/hjson/hjson-go/releases)
 
-# Hjson, the Human JSON
+# Hjson, a user interface for JSON
 
 ![Hjson](http://hjson.org/icon/hjson-xs.png)
 
-A configuration file format for humans. Relaxed syntax, fewer mistakes, more comments.
-
-## Intro
-
-```
-{
-  # specify rate in requests/second (because comments are helpful!)
-  rate: 1000
-
-  // prefer c-style comments?
-  /* feeling old fashioned? */
-
-  # did you notice that rate doesn't need quotes?
-  hey: look ma, no quotes for strings either!
-
-  # best of all
-  notice: []
-  anything: ?
-
-  # yes, commas are optional!
-
-  # Obviously you can always use standard JSON syntax as well:
-  favNumbers: [ 1, 2, 3, 6, 42 ]
-}
-```
+Adds comments, makes it nicer to read and avoids comma mistakes.
 
 For details see [hjson.org](http://hjson.org).

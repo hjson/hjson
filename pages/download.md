@@ -1,84 +1,12 @@
-[![NPM](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson) [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22) [![PyPI](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson) [![nuget](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/) [![Packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson) [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson) [![Go Pkg](https://img.shields.io/github/release/hjson/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/hjson/hjson-go/releases) [![gem](https://img.shields.io/gem/v/hjson.svg?style=flat-square)](https://rubygems.org/gems/hjson)
 
-## Downloads
+## <div class="hicon"></div> Implementation
 
-- [Tools for Users](#users)
-- [Packages for Developers](#dev)
-- [Editor Syntax Support](#ed)
-- [Tools with native support](#native)
+To use Hjson in your application you have two options
 
-## <a id="users"></a> Tools for Users
+- Convert Hjson to JSON using any of the available [tools](users.html) or libraries. This can even be done by an external process.
+- Use one of the Hjson libraries directly. They are easy to use and try to be language idiomatic.
 
-You can always check the syntax of an Hjson file by simply running `hjson FILE`. It will show you the exact location if it contains any errors.
-
-If an application does not yet use native Hjson configs you use it to convert your config to JSON.
-
-The preferred tool works on all operating systems and only requires node.js.
-
-### Setup (with node.js)
-
-- Install [**node.js**](http://nodejs.org/) if it's not already on your system
-- Install the Hjson tool by running `npm install hjson -g` on the command line
-- Also see [alternative tools.](#alternative-tools)
-
-### Usage
-
-- `hjson FILE`
-
-  Loads a `.json` or `.hjson` file and outputs it as Hjson.
-
-  You can also use it to checks the specified file for syntax errors (it will print the exact location).
-
-  E.g. `hjson config.json`
-
-- `hjson -j FILE`
-
-  Will convert an Hjson file to JSON.
-
-  E.g. `hjson -j config.hjson > config.json`.
-
-### Alternative tools
-
-If you don't want to install node.js you can also use one of the following tools.
-
-#### Java Setup
-
-- Install [**Java**](https://java.com/)
-- Install Hjson by downloading and unpacking the latest latest [*hjson.zip*](https://github.com/hjson/hjson-java/releases).
-- run `hjson -h` for help
-- `hjson file.json` will convert to Hjson.
-- `hjson -j file.hjson` will convert to JSON.
-
-#### Python Setup
-
-- Install [**Python**](https://www.python.org/)
-- Install [Hjson](https://pypi.python.org/pypi/hjson) with `pip install hjson`
-- run `hjson -h` for help
-- `hjson file.json` will convert to Hjson.
-- `hjson -j file.hjson` will convert to JSON.
-
-#### Rust / Cargo Setup
-
-- Install [**Rust**](http://rust-lang.org/)
-- Install [Hjson](https://crates.io/crates/hjson) with `cargo install hjson`
-- run `hjson -h` for help
-- `hjson file.json` will convert to Hjson.
-- `hjson -j file.hjson` will convert to JSON.
-
-#### Go Setup
-
-- Install [**Go**](http://golang.org/doc/install.html)
-- Install [Hjson](https://github.com/hjson/hjson-go) with `go get -u github.com/hjson/hjson-go/hjson-cli`
-- run `hjson-cli -h` for help
-- `hjson-cli file.json` will convert to Hjson.
-- `hjson-cli -j file.hjson` will convert to JSON.
-
-#### chocolatey (Windows only)
-
-- Install [chocolatey](https://chocolatey.org)
-- Install [Hjson](https://chocolatey.org/packages/hjson) with `choco install hjson`
-- `hjsonc file.json` will convert to Hjson.
-- `hjsonc -j file.hjson` will convert to JSON.
+Your users do not need to convert their existing JSON configs and can upgrade (or not) as they like.
 
 ## <a id="dev"></a> Packages for Developers
 
@@ -92,6 +20,8 @@ PHP      | [hjson-php](https://github.com/hjson/hjson-php) | [![Packagist](https
 Python   | [hjson-py](https://github.com/hjson/hjson-py) | [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)
 Rust     | [hjson-rust](https://github.com/hjson/hjson-rust) | [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson)
 
+Also see [tools](users.html) and [editor support](users.html#ed).
+
 #### Partial implementations
 
 Platform | Description | Source/Package
@@ -101,17 +31,7 @@ C        | jzon variant, based on Hjson | [jzon-c](https://github.com/KarlZylins
 
 Please [open an issue](https://github.com/hjson/hjson/issues) if you port Hjson to another platform/language.
 
-## <a id="ed"></a> Editor Support
-
-Name               | Source                                                    | Package
------------------- | --------------------------------------------------------- | -------
-Atom               | [atom-hjson](https://github.com/hjson/atom-hjson)         | [package](https://atom.io/packages/language-hjson)
-Sublime Text       | [sublime-hjson](https://github.com/hjson/sublime-hjson)   | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
-Visual Studio      | [vs-hjson](https://github.com/hjson/vs-hjson)             | [microsoft.com](https://visualstudiogallery.msdn.microsoft.com/7517a276-112b-4772-b6d8-5a1e6b0eb281)
-Visual Studio Code | [vscode-hjson](https://github.com/hjson/vscode-hjson)     | [visualstudio.com](https://marketplace.visualstudio.com/items?itemName=laktak.hjson)
-Notepad++          | [npp-hjson](https://github.com/laktak/npp-hjson)          | see source
-
-## <a id="native"></a> Tools with native support
+## Tools with native support
 
 Name     | Link | Details
 -------- | ---- | -------

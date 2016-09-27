@@ -6,6 +6,7 @@ var fs=require("fs");
 var path=require("path");
 var marked=require("marked");
 var jsdom=require("jsdom");
+var minify=require("html-minifier").minify;
 var args=process.argv;
 
 function extractDoc(window) {
@@ -38,19 +39,26 @@ if (args.length>2) {
     });
   }
 
-  mkHtml("../index.md", target+"/index.html", "md", prepIntro);
-  mkHtml("../faq.md", target+"/faq.html", "md", prepIntro);
+  mkHtml("../index.md", target+"/index.html", { exec: prepIntro });
+  mkHtml("../faq.md", target+"/faq.html", { exec: prepIntro });
 
-  mkHtml("../download.md", target+"/download.html", "md");
-  mkHtml("../history.md", target+"/history.html", "md");
+  mkHtml("../download.md", target+"/download.html");
+  mkHtml("../users.md", target+"/users.html");
+  mkHtml("../users-bin.md", target+"/users-bin.html");
+  mkHtml("../users-src.md", target+"/users-src.html");
+  mkHtml("../users-cs.md", target+"/users-cs.html");
+  mkHtml("../users-go.md", target+"/users-go.html");
+  mkHtml("../users-java.md", target+"/users-java.html");
+  mkHtml("../users-node.md", target+"/users-node.html");
+  mkHtml("../users-python.md", target+"/users-python.html");
+  mkHtml("../users-rust.md", target+"/users-rust.html");
 
-  mkHtml("../try.html", target+"/try.html", "html");
-  mkHtml("../shirt.html", target+"/shirt.html", "html");
-  mkHtml("../shirt-eu.html", target+"/shirt-eu.html", "html");
-  mkHtml("../why.html", target+"/why.html", "raw");
+  mkHtml("../history.md", target+"/history.html");
 
-  mkHtml("../syntax.md", target+"/syntax.html", "md", function(syntax, save) {
-    mkHtml("../diagram.html", target+"/diagram.html", "html", null, function(html) {
+  mkHtml("../try.html", target+"/try.html", { type: "html", nomin: true });
+
+  mkHtml("../syntax.md", target+"/syntax.html", { exec: function(syntax, save) {
+    mkHtml("../diagram.html", target+"/diagram.html", { type: "html", prep: function(html) {
       jsdom.env({
         html: html,
         virtualConsole: jsdom.createVirtualConsole().sendTo(console),
@@ -73,25 +81,28 @@ if (args.length>2) {
           });
         },
       });
-    });
-  });
+    }});
+  }});
 
 } else console.log("mdgen TARGET");
 
-function mkHtml(source, target, type, exec, prep) {
+function mkHtml(source, target, opt) {
+  opt=opt||{};
 
   function save(html) {
+    if (!opt.nomin)
+      html=minify(html, { minifyJS: true, removeComments: true, collapseWhitespace: true });
     fs.writeFileSync(target, html);
     console.log("updated "+target);
   }
 
   var content=fs.readFileSync(source, "utf8");
 
-  if (type==="raw") {
+  if (opt.type==="raw") {
     save(content);
     return;
   }
-  else if (type==="md") {
+  else if (!opt.type || opt.type==="md") {
     content=marked(content, {
       gfm: true,
       tables: true,
@@ -100,17 +111,16 @@ function mkHtml(source, target, type, exec, prep) {
     content='<div class="content">'+content+'</div>';
   }
 
-
   var tpl=fs.readFileSync(__dirname+"/tpl.html", "utf8");
 
-  if (prep) {
-    prep(content, function(content) {
+  if (opt.prep) {
+    opt.prep(content, function(content) {
       save(tpl.replace(/%%%/, content));
     });
   }
   else {
     var html=tpl.replace(/%%%/, content);
-    if (exec) exec(html, save)
+    if (opt.exec) opt.exec(html, save)
     else save(html);
   }
 }
