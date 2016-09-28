@@ -17,6 +17,7 @@ $(function() {
     $("<div>").addClass("clear").appendTo(g);
 
     var first=true;
+    var add=a;
     for (var i=0; i<10; i++) {
 
       var y=x.next();
@@ -25,10 +26,10 @@ $(function() {
       if (first && x.is("h3")) {
         first=false;
         x.appendTo(t);
-        //x=$('<h4>'+x.html()+'</h4>');
+      } else {
+        if (x.is("pre")) add=b;
+        x.appendTo(add);
       }
-      else x.appendTo(x.is("pre")?b:a);
-
       x=y;
 
       if (!x || !x.prop("nodeName") || x.is("h3") || x.is("h2")) break;
@@ -38,8 +39,8 @@ $(function() {
   var first=$($("h3")[0]);
   if (first.text()==="Intro") {
     first.remove();
-    var icon=$("<div>").addClass("hicon hicon2");
-    icon.insertBefore($("code")[0]);
+    // var icon=$("<div>").addClass("hicon hicon2");
+    // icon.insertBefore($("code")[0]);
   }
 
 });

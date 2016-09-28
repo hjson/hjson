@@ -114,17 +114,6 @@ body {
   display: none;
 }
 
-#shirt {
-  display: inline;
-  vertical-align: text-bottom;
-  width: 60px;
-  height: 40px;
-/*  width: 206px;
-  height: 142px;
-  padding: 5px 0 0 10px; */
-}
-
-
 .hicon {
   background-image: url("../icon/hjson-m.png");
   background-position: 0;
@@ -136,10 +125,6 @@ body {
   margin-right: 5px;
 }
 
-.hicon2 {
-  width: 40px;
-  height: 40px;
-  float: right;
-  margin-top: 5px;
-  margin-right: 0;
+.pkgs a {
+  margin-right: 5px;
 }
