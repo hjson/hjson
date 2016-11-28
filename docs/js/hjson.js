@@ -3,6 +3,206 @@
 /* jslint node: true */
 "use strict";
 
+var common=require("./hjson-common");
+
+function makeComment(b, a, x) {
+  var c;
+  if (b) c={ b: b };
+  if (a) (c=c||{}).a=a;
+  if (x) (c=c||{}).x=x;
+  return c;
+}
+
+function extractComments(value, root) {
+
+  if (value===null || typeof value!=='object') return;
+  var comments=common.getComment(value);
+  if (comments) common.removeComment(value);
+
+  var i, length; // loop
+  var any, res;
+  if (Object.prototype.toString.apply(value) === '[object Array]') {
+    res={ a: [] };
+    for (i=0, length=value.length; i<length; i++) {
+      if (saveComment(res.a, i, comments.a[i], extractComments(value[i])))
+        any=true;
+    }
+    if (!any && comments.e){
+      res.e=makeComment(comments.e[0], comments.e[1]);
+      any=true;
+    }
+  } else {
+    res={ s: {} };
+
+    // get key order (comments and current)
+    var keys, currentKeys=Object.keys(value);
+    if (comments && comments.o) {
+      keys=[];
+      comments.o.concat(currentKeys).forEach(function(key) {
+        if (Object.prototype.hasOwnProperty.call(value, key) && keys.indexOf(key)<0)
+          keys.push(key);
+      });
+    } else keys=currentKeys;
+    res.o=keys;
+
+    // extract comments
+    for (i=0, length=keys.length; i<length; i++) {
+      var key=keys[i];
+      if (saveComment(res.s, key, comments.c[key], extractComments(value[key])))
+        any=true;
+    }
+    if (!any && comments.e) {
+      res.e=makeComment(comments.e[0], comments.e[1]);
+      any=true;
+    }
+  }
+
+  if (root && comments && comments.r) {
+    res.r=makeComment(comments.r[0], comments.r[1]);
+  }
+
+  return any?res:undefined;
+}
+
+function mergeStr() {
+  var res="";
+  [].forEach.call(arguments, function(c) {
+    if (c && c.trim()!=="") {
+      if (res) res+="; ";
+      res+=c.trim();
+    }
+  });
+  return res;
+}
+
+function mergeComments(comments, value) {
+  var dropped=[];
+  merge(comments, value, dropped, []);
+
+  // append dropped comments:
+  if (dropped.length>0) {
+    var text=rootComment(value, null, 1);
+    text+="\n# Orphaned comments:\n";
+    dropped.forEach(function(c) {
+      text+=("# "+c.path.join('/')+": "+mergeStr(c.b, c.a, c.e)).replace("\n", "\\n ")+"\n";
+    });
+    rootComment(value, text, 1);
+  }
+}
+
+function saveComment(res, key, item, col) {
+  var c=makeComment(item?item[0]:undefined, item?item[1]:undefined, col);
+  if (c) res[key]=c;
+  return c;
+}
+
+function droppedComment(path, c) {
+  var res=makeComment(c.b, c.a);
+  res.path=path;
+  return res;
+}
+
+function dropAll(comments, dropped, path) {
+
+  if (!comments) return;
+
+  var i, length; // loop
+
+  if (comments.a) {
+
+    for (i=0, length=comments.a.length; i<length; i++) {
+      var kpath=path.slice().concat([i]);
+      var c=comments.a[i];
+      if (c) {
+        dropped.push(droppedComment(kpath, c));
+        dropAll(c.x, dropped, kpath);
+      }
+    }
+  } else if (comments.o) {
+
+    comments.o.forEach(function(key) {
+      var kpath=path.slice().concat([key]);
+      var c=comments.s[key];
+      if (c) {
+        dropped.push(droppedComment(kpath, c));
+        dropAll(c.x, dropped, kpath);
+      }
+    });
+  }
+
+  if (comments.e)
+    dropped.push(droppedComment(path, comments.e));
+}
+
+function merge(comments, value, dropped, path) {
+
+  if (!comments) return;
+  if (value===null || typeof value!=='object') {
+    dropAll(comments, dropped, path);
+    return;
+  }
+
+  var i, length; // loop
+  var setComments=common.createComment(value);
+
+  if (path.length===0 && comments.r)
+    setComments.r=[comments.r.b, comments.r.a];
+
+  if (Object.prototype.toString.apply(value) === '[object Array]') {
+    setComments.a=[];
+    for (i=0, length=(comments.a||[]).length; i<length; i++) {
+      var kpath=path.slice().concat([i]);
+      var c=comments.a[i];
+      if (!c) continue;
+      if (i<value.length) {
+        setComments.a.push([c.b, c.a]);
+        merge(c.x, value[i], dropped, kpath);
+      } else {
+        dropped.push(droppedComment(kpath, c));
+        dropAll(c.x, dropped, kpath);
+      }
+    }
+    if (i===0 && comments.e) setComments.e=[comments.e.b, comments.e.a];
+  } else {
+    setComments.c={};
+    setComments.o=[];
+    (comments.o||[]).forEach(function(key) {
+      var kpath=path.slice().concat([key]);
+      var c=comments.s[key];
+      if (Object.prototype.hasOwnProperty.call(value, key)) {
+        setComments.o.push(key);
+        if (c) {
+          setComments.c[key]=[c.b, c.a];
+          merge(c.x, value[key], dropped, kpath);
+        }
+      } else if (c) {
+        dropped.push(droppedComment(kpath, c));
+        dropAll(c.x, dropped, kpath);
+      }
+    });
+    if (comments.e) setComments.e=[comments.e.b, comments.e.a];
+  }
+}
+
+function rootComment(value, setText, header) {
+  var comment=common.createComment(value, common.getComment(value));
+  if (!comment.r) comment.r=["", ""];
+  if (setText || setText==="") comment.r[header]=common.forceComment(setText);
+  return comment.r[header]||"";
+}
+
+module.exports={
+  extract: function(value) { return extractComments(value, true); },
+  merge: mergeComments,
+  header: function(value, setText) { return rootComment(value, setText, 0); },
+  footer: function(value, setText) { return rootComment(value, setText, 1); },
+};
+
+},{"./hjson-common":2}],2:[function(require,module,exports){
+/* Hjson http://hjson.org */
+/* jslint node: true */
+"use strict";
+
 var os=require('os'); // will be {} when used in a browser
 
 function tryParseNumber(text, stopAtNext) {
@@ -64,12 +264,52 @@ function tryParseNumber(text, stopAtNext) {
   else return number;
 }
 
+function createComment(value, comment) {
+  if (Object.defineProperty) Object.defineProperty(value, "__COMMENTS__", { enumerable: false, writable: true });
+  return (value.__COMMENTS__ = comment||{});
+}
+
+function removeComment(value) {
+  Object.defineProperty(value, "__COMMENTS__", { value: undefined });
+}
+
+function getComment(value) {
+  return value.__COMMENTS__;
+}
+
+function forceComment(text) {
+  if (!text) return "";
+  var a = text.split('\n');
+  var str, i, j, len;
+  for (j = 0; j < a.length; j++) {
+    str = a[j];
+    len = str.length;
+    for (i = 0; i < len; i++) {
+      var c = str[i];
+      if (c === '#') break;
+      else if (c === '/' && (str[i+1] === '/' || str[i+1] === '*')) {
+        if (str[i+1] === '*') j = a.length; // assume /**/ covers whole block, bail out
+        break;
+      }
+      else if (c > ' ') {
+        a[j] = '# ' + str;
+        break;
+      }
+    }
+  }
+  return a.join('\n');
+}
+
 module.exports = {
   EOL: os.EOL || '\n',
   tryParseNumber: tryParseNumber,
+  createComment: createComment,
+  removeComment: removeComment,
+  getComment: getComment,
+  forceComment: forceComment,
 };
 
-},{"os":7}],2:[function(require,module,exports){
+},{"os":8}],3:[function(require,module,exports){
 /* Hjson http://hjson.org */
 /* jslint node: true */
 "use strict";
@@ -201,7 +441,7 @@ module.exports = {
   },
 };
 
-},{"./hjson-common":1}],3:[function(require,module,exports){
+},{"./hjson-common":2}],4:[function(require,module,exports){
 /* Hjson http://hjson.org */
 /* jslint node: true */
 "use strict";
@@ -225,7 +465,7 @@ module.exports = function($source, $opt) {
     t:  '\t'
   };
 
-  var keepWsc; // keep whitespace
+  var keepComments;
   var runDsf; // domain specific formats
 
   function resetAt() {
@@ -422,18 +662,27 @@ module.exports = function($source, $opt) {
     }
   }
 
-  function getComment(wat) {
+  function getComment(cAt, first) {
     var i;
-    wat--;
+    cAt--;
     // remove trailing whitespace
-    for (i = at - 2; i > wat && text[i] <= ' ' && text[i] !== '\n'; i--);
     // but only up to EOL
+    for (i = at - 2; i > cAt && text[i] <= ' ' && text[i] !== '\n'; i--);
     if (text[i] === '\n') i--;
     if (text[i] === '\r') i--;
-    var res = text.substr(wat, i-wat+1);
-    for (i = 0; i < res.length; i++)
-      if (res[i] > ' ') return res;
-    return "";
+    var res = text.substr(cAt, i-cAt+1);
+    // return if we find anything other than whitespace
+    for (i = 0; i < res.length; i++) {
+      if (res[i] > ' ') {
+        var j = res.indexOf('\n');
+        if (j >= 0) {
+          var c = [res.substr(0, j), res.substr(j+1)];
+          if (first && c[0].trim().length === 0) c.shift();
+          return c;
+        } else return [res];
+      }
+    }
+    return [];
   }
 
   function errorClosingHint(value) {
@@ -475,31 +724,35 @@ module.exports = function($source, $opt) {
     // assuming ch === '['
 
     var array = [];
-    var kw, wat;
+    var comments, cAt, nextComment;
     try {
-      if (keepWsc) {
-        if (Object.defineProperty) Object.defineProperty(array, "__WSC__", { enumerable: false, writable: true });
-        array.__WSC__ = kw = [];
-      }
+      if (keepComments) comments = common.createComment(array, { a: [] });
 
       next();
-      wat = at;
+      cAt = at;
       white();
-      if (kw) kw.push(getComment(wat));
+      if (comments) nextComment = getComment(cAt, true).join('\n');
       if (ch === ']') {
         next();
+        if (comments) comments.e = [nextComment];
         return array;  // empty array
       }
 
       while (ch) {
         array.push(value());
-        wat = at;
+        cAt = at;
         white();
         // in Hjson the comma is optional and trailing commas are allowed
-        if (ch === ',') { next(); wat = at; white(); }
-        if (kw) kw.push(getComment(wat));
+        // note that we do not keep comments before the , if there are any
+        if (ch === ',') { next(); cAt = at; white(); }
+        if (comments) {
+          var c = getComment(cAt);
+          comments.a.push([nextComment||"", c[0]||""]);
+          nextComment = c[1];
+        }
         if (ch === ']') {
           next();
+          if (comments) comments.a[comments.a.length-1][1] += nextComment||"";
           return array;
         }
         white();
@@ -515,26 +768,22 @@ module.exports = function($source, $opt) {
   function object(withoutBraces) {
     // Parse an object value.
 
-    var key, object = {};
-    var kw, wat;
-    function pushWhite(key) { kw.c[key]=getComment(wat); if (key) kw.o.push(key); }
+    var key = "", object = {};
+    var comments, cAt, nextComment;
 
     try {
-      if (keepWsc) {
-        if (Object.defineProperty) Object.defineProperty(object, "__WSC__", { enumerable: false, writable: true });
-        object.__WSC__ = kw = { c: {}, o: []  };
-        if (withoutBraces) kw.noRootBraces = true;
-      }
+      if (keepComments) comments = common.createComment(object, { c: {}, o: []  });
 
       if (!withoutBraces) {
         // assuming ch === '{'
         next();
-        wat = at;
-      } else wat = 1;
+        cAt = at;
+      } else cAt = 1;
 
       white();
-      if (kw) pushWhite("");
+      if (comments) nextComment = getComment(cAt, true).join('\n');
       if (ch === '}' && !withoutBraces) {
+        if (comments) comments.e = [nextComment];
         next();
         return object;  // empty object
       }
@@ -545,13 +794,20 @@ module.exports = function($source, $opt) {
         next();
         // duplicate keys overwrite the previous value
         object[key] = value();
-        wat = at;
+        cAt = at;
         white();
         // in Hjson the comma is optional and trailing commas are allowed
-        if (ch === ',') { next(); wat = at; white(); }
-        if (kw) pushWhite(key);
+        // note that we do not keep comments before the , if there are any
+        if (ch === ',') { next(); cAt = at; white(); }
+        if (comments) {
+          var c = getComment(cAt);
+          comments.c[key] = [nextComment||"", c[0]||""];
+          nextComment = c[1];
+          comments.o.push(key);
+        }
         if (ch === '}' && !withoutBraces) {
           next();
+          if (comments) comments.c[key][1] += nextComment||"";
           return object;
         }
         white();
@@ -577,35 +833,45 @@ module.exports = function($source, $opt) {
     }
   }
 
-  function checkTrailing(v) {
+  function checkTrailing(v, c) {
+    var cAt = at;
     white();
     if (ch) error("Syntax error, found trailing characters");
+    if (keepComments) {
+      var b = c.join('\n'), a = getComment(cAt).join('\n');
+      if (a || b) {
+        var comments = common.createComment(v, common.getComment(v));
+        comments.r = [b, a];
+      }
+    }
     return v;
   }
 
   function rootValue() {
     // Braces for the root object are optional
     white();
+    var c = keepComments ? getComment(1) : null;
     switch (ch) {
-      case '{': return checkTrailing(object());
-      case '[': return checkTrailing(array());
+      case '{': return checkTrailing(object(), c);
+      case '[': return checkTrailing(array(), c);
     }
 
     try {
       // assume we have a root object without braces
-      return checkTrailing(object(true));
+      return checkTrailing(object(true), c);
     } catch (e) {
       // test if we are dealing with a single JSON value instead (true/false/null/num/"")
       resetAt();
-      try { return checkTrailing(value()); }
+      try { return checkTrailing(value(), c); }
       catch (e2) { throw e; } // throw original error
     }
   }
 
   function hjsonParse(source, opt) {
+    if (typeof source!=="string") throw new Error("source is not a string");
     var dsfDef = null;
     if (opt && typeof opt === 'object') {
-      keepWsc = opt.keepWsc;
+      keepComments = opt.keepWsc;
       dsfDef = opt.dsf;
     }
     runDsf = dsf.loadDsf(dsfDef, "parse");
@@ -617,7 +883,7 @@ module.exports = function($source, $opt) {
   return hjsonParse($source, $opt);
 };
 
-},{"./hjson-common":1,"./hjson-dsf":2}],4:[function(require,module,exports){
+},{"./hjson-common":2,"./hjson-dsf":3}],5:[function(require,module,exports){
 /* Hjson http://hjson.org */
 /* jslint node: true */
 "use strict";
@@ -651,7 +917,7 @@ module.exports = function($value, $opt) {
   var gap = '';
   var indent = '  ';
   // options
-  var eol, keepWsc, bracesSameLine, quoteAlways, emitRootBraces;
+  var eol, keepComments, bracesSameLine, quoteAlways;
   var token = {
     obj:  [ '{', '}' ],
     arr:  [ '[', ']' ],
@@ -749,16 +1015,14 @@ module.exports = function($value, $opt) {
     // Produce a string from value.
 
     function startsWithNL(str) { return str && str[str[0] === '\r' ? 1 : 0] === '\n'; }
-    function testWsc(str) { return str && !startsWithNL(str); }
-    function wsc(str) {
+    function commentOnThisLine(str) { return str && !startsWithNL(str); }
+    function makeComment(str, prefix, trim) {
       if (!str) return "";
+      str = common.forceComment(str);
       var i, len = str.length;
-      for (i = 0; i < len; i++) {
-        var c = str[i];
-        if (c === '#' || c === '/' && (str[i+1] === '/' || str[i+1] === '*')) break;
-        else if (c > ' ') { str = '# ' + str; break; }
-      }
-      if (i < len) return " " + wrap(token.rem, str);
+      for (i = 0; i < len && str[i] <= ' '; i++) {}
+      if (trim && i > 0) str = str.substr(i);
+      if (i < len) return prefix + wrap(token.rem, str);
       else return str;
     }
 
@@ -788,15 +1052,14 @@ module.exports = function($value, $opt) {
 
         if (!value) return wrap(token.lit, 'null');
 
-        var kw, kwl; // whitespace & comments
-        if (keepWsc) kw = value.__WSC__;
+        var comments; // whitespace & comments
+        if (keepComments) comments = common.getComment(value);
 
         var isArray = Object.prototype.toString.apply(value) === '[object Array]';
-        var showBraces = isArray || !isRootObject || (kw ? !kw.noRootBraces : emitRootBraces);
 
         // Make an array to hold the partial results of stringifying this object value.
         var mind = gap;
-        if (showBraces) gap += indent;
+        gap += indent;
         var eolMind = eol + mind;
         var eolGap = eol + gap;
         var prefix = noIndent || bracesSameLine ? '' : eolMind;
@@ -804,29 +1067,41 @@ module.exports = function($value, $opt) {
 
         var i, length; // loop
         var k, v; // key, value
+        var c, ca;
 
         if (isArray) {
           // The value is an array. Stringify every element. Use null as a placeholder
           // for non-JSON values.
 
           for (i = 0, length = value.length; i < length; i++) {
-            if (kw) partial.push(wsc(kw[i]) + eolGap);
-            partial.push(str(value[i], kw ? testWsc(kw[i + 1]) : false, true) || wrap(token.lit, 'null'));
+            if (comments) {
+              c = comments.a[i]||[];
+              ca = commentOnThisLine(c[1]);
+              partial.push(makeComment(c[0], "\n") + eolGap);
+            }
+            partial.push(str(value[i], comments ? ca : false, true) || wrap(token.lit, 'null'));
+            if (comments && c[1]) partial.push(makeComment(c[1], ca ? " " : "\n", ca));
           }
-          if (kw) partial.push(wsc(kw[i]) + eolMind);
+
+          if (comments) {
+            if (length === 0) {
+              // when empty
+              partial.push((comments.e ? makeComment(comments.e[0], "\n") : "") + eolMind);
+            }
+            else partial.push(eolMind);
+          }
 
           // Join all of the elements together, separated with newline, and wrap them in
           // brackets.
 
-          if (kw) v = prefix + wrap(token.arr, partial.join(''));
+          if (comments) v = prefix + wrap(token.arr, partial.join(''));
           else if (partial.length === 0) v = wrap(token.arr, '');
           else v = prefix + wrap(token.arr, eolGap + partial.join(eolGap) + eolMind);
         } else {
           // Otherwise, iterate through all of the keys in the object.
 
-          if (kw) {
-            kwl = wsc(kw.c[""]);
-            var keys=kw.o.slice();
+          if (comments) {
+            var keys = comments.o.slice();
             for (k in value) {
               if (Object.prototype.hasOwnProperty.call(value, k) && keys.indexOf(k) < 0)
                 keys.push(k);
@@ -834,12 +1109,20 @@ module.exports = function($value, $opt) {
 
             for (i = 0, length = keys.length; i < length; i++) {
               k = keys[i];
-              if (showBraces || i>0 || kwl) partial.push(kwl + eolGap);
-              kwl = wsc(kw.c[k]);
-              v = str(value[k], testWsc(kwl));
+              c = comments.c[k]||[];
+              ca = commentOnThisLine(c[1]);
+              partial.push(makeComment(c[0], "\n") + eolGap);
+
+              v = str(value[k], ca);
               if (v) partial.push(quoteKey(k) + token.col + (startsWithNL(v) ? '' : ' ') + v);
+              if (comments && c[1]) partial.push(makeComment(c[1], ca ? " " : "\n", ca));
             }
-            if (showBraces || kwl) partial.push(kwl + eolMind);
+            if (length === 0) {
+              // when empty
+              partial.push((comments.e ? makeComment(comments.e[0], "\n") : "") + eolMind);
+            }
+            else partial.push(eolMind);
+
           } else {
             for (k in value) {
               if (Object.prototype.hasOwnProperty.call(value, k)) {
@@ -852,12 +1135,10 @@ module.exports = function($value, $opt) {
           // Join all of the member texts together, separated with newlines
           if (partial.length === 0) {
             v = wrap(token.obj, '');
-          } else if (showBraces) {
-            // and wrap them in braces
-            if (kw) v = prefix + wrap(token.obj, partial.join(''));
-            else v = prefix + wrap(token.obj, eolGap + partial.join(eolGap) + eolMind);
           } else {
-            v = partial.join(kw ? '' : eolGap);
+            // and wrap them in braces
+            if (comments) v = prefix + wrap(token.obj, partial.join(''));
+            else v = prefix + wrap(token.obj, eolGap + partial.join(eolGap) + eolMind);
           }
         }
 
@@ -872,17 +1153,15 @@ module.exports = function($value, $opt) {
 
     eol = common.EOL;
     indent = '  ';
-    keepWsc = false;
+    keepComments = false;
     bracesSameLine = false;
-    emitRootBraces = true;
     quoteAlways = false;
 
     if (opt && typeof opt === 'object') {
       if (opt.eol === '\n' || opt.eol === '\r\n') eol = opt.eol;
       space = opt.space;
-      keepWsc = opt.keepWsc;
+      keepComments = opt.keepWsc;
       bracesSameLine = opt.bracesSameLine;
-      emitRootBraces = opt.emitRootBraces !== false;
       quoteAlways = opt.quotes === 'always';
       dsfDef = opt.dsf;
 
@@ -918,19 +1197,27 @@ module.exports = function($value, $opt) {
       indent = space;
     }
 
-    // Return the result of stringifying the value.
-    return str(value, null, true, true);
+    var res = "";
+    var comments = keepComments ? comments = (common.getComment(value) || {}).r : null;
+    if (comments && comments[0]) res = comments[0] + '\n';
+
+    // get the result of stringifying the value.
+    res += str(value, null, true, true);
+
+    if (comments) res += comments[1]||"";
+
+    return res;
   }
 
   return hjsonStringify($value, $opt);
 };
 
-},{"./hjson-common":1,"./hjson-dsf":2}],5:[function(require,module,exports){
-module.exports="2.1.0";
+},{"./hjson-common":2,"./hjson-dsf":3}],6:[function(require,module,exports){
+module.exports="2.3.1";
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /*! @preserve
- * Hjson v2.1.0
+ * Hjson v2.3.1
  * http://hjson.org
  *
  * Copyright 2014-2016 Christian Zangl, MIT license
@@ -973,7 +1260,7 @@ module.exports="2.1.0";
                     name. Default false.
 
         emitRootBraces
-                    boolean, show braces for the root object. Default true.
+                    obsolete: will always emit braces
 
         quotes      string, controls how strings are displayed.
                     "min"     - no quotes whenever possible (default)
@@ -1059,6 +1346,7 @@ var common = require("./hjson-common");
 var version = require("./hjson-version");
 var parse = require("./hjson-parse");
 var stringify = require("./hjson-stringify");
+var comments = require("./hjson-comments");
 var dsf = require("./hjson-dsf");
 
 module.exports={
@@ -1085,11 +1373,13 @@ module.exports={
     },
   },
 
+  comments: comments,
+
   dsf: dsf.std,
 
 };
 
-},{"./hjson-common":1,"./hjson-dsf":2,"./hjson-parse":3,"./hjson-stringify":4,"./hjson-version":5}],7:[function(require,module,exports){
+},{"./hjson-comments":1,"./hjson-common":2,"./hjson-dsf":3,"./hjson-parse":4,"./hjson-stringify":5,"./hjson-version":6}],8:[function(require,module,exports){
 
-},{}]},{},[6])(6)
+},{}]},{},[7])(7)
 });
