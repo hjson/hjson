@@ -33,7 +33,9 @@ You should omit optional commas to make your data more readable.
 }
 ```
 
-#### Comments
+#### Whitespace & Comments
+
+Whitespace and comments can be inserted between any pair of tokens.
 
 Hash `#` or C style `//` comments start a single line comment.
 
