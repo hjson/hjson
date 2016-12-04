@@ -107,7 +107,7 @@ JSON and Hjson use the characters `{}[],:` as punctuators to define the structur
 
 Punctuators and whitespace can't be used in an unquoted key or as the first character of a quoteless string. In this (rather uncommon) case you need to use quotes.
 
-The backslash is only used as an escape charater in a quoted string.
+The backslash is only used as an escape character in a quoted string.
 
 ```
 {
