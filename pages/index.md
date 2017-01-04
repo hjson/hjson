@@ -69,7 +69,7 @@ This makes them easier to read.
 
 ### Quoteless Strings
 
-**You are can specify strings without quotes.**
+**You can specify strings without quotes.**
 
 In this case only one value per line and no commas are allowed.
 
