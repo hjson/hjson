@@ -1,0 +1,8 @@
+{
+  foo:
+    '''
+    bar	joe
+    oki	doki
+    		two tabs
+    '''
+}

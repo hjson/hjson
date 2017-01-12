@@ -10,6 +10,11 @@
   text4b: " untrimmed"
   text4c: "untrimmed "
 
+  notml1: "\n"
+  notml2: "  \n"
+  notml3: "\n  \n  \n  \n"
+  notml4: "\t\n"
+
   # multiline string
 
   multiline1:

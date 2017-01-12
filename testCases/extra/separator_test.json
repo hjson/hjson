@@ -1,0 +1,9 @@
+{
+    "foo": "bar",
+	"unicorn": "rainbow",
+	"cat": 1,
+	"hello": [
+		"world",
+		"!"
+	]
+}

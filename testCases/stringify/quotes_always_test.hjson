@@ -1,0 +1,10 @@
+// Test if `always` keeps working as before
+{
+    "foo": "bar",
+	"unicorn": "rainbow",
+	"cat": 1,
+	"hello": [
+		"world",
+		"!"
+	]
+}

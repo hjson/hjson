@@ -57,6 +57,10 @@
     number: 5
     yes: true
   }
+  notml1: "\n"
+  notml2: "  \n"
+  notml3: "\n  \n  \n  \n"
+  notml4: "\t\n"
   special:
   {
     false: "false"
@@ -68,7 +72,7 @@
   }
   text1: This is a valid string value.
   text2: a \ is just a \
-  text3: "You need quotes\tfor escapes"
+  text3: '''You need quotes	for escapes'''
   text4a: " untrimmed "
   text4b: " untrimmed"
   text4c: "untrimmed "
