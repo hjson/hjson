@@ -1,8 +1,8 @@
 /*!
- * Hjson v2.4.1
+ * Hjson v2.4.2
  * http://hjson.org
  *
- * Copyright 2014-2016 Christian Zangl, MIT license
+ * Copyright 2014-2017 Christian Zangl, MIT license
  * Details and documentation:
  * https://github.com/hjson/hjson-js
  *
@@ -692,11 +692,13 @@ module.exports = function(source, opt) {
   }
 
   function errorClosingHint(value) {
-    function search(value, ch) {
+    function search(value, ch, first) {
       var i, k, length, res;
       switch (typeof value) {
         case 'string':
-          if (value.indexOf(ch) >= 0) res=value;
+          if (first) {
+            if (value[0] === ch) res = value;
+          } else if (value.indexOf(ch) >= 0) res = value;
           break;
         case 'object':
           if (Object.prototype.toString.apply(value) === '[object Array]') {
@@ -714,15 +716,21 @@ module.exports = function(source, opt) {
     }
 
     function report(ch) {
-      var possibleErr=search(value, ch);
+      var possibleErr=search(value, ch, ch === "'");
       if (possibleErr) {
-        return "found '"+ch+"' in a string value, your mistake could be with:\n"+
-          "  > "+possibleErr+"\n"+
-          "  (unquoted strings contain everything up to the next line!)";
+        if (ch === "'") {
+          return "found a string starting with single quotes, your mistake could be with:\n"+
+            "  > "+possibleErr+"\n"+
+            "  (use unquoted or double quoted strings)";
+        } else {
+          return "found '"+ch+"' in a string value, your mistake could be with:\n"+
+            "  > "+possibleErr+"\n"+
+            "  (unquoted strings contain everything up to the next line!)";
+        }
       } else return "";
     }
 
-    return report('}') || report(']');
+    return report("'") || report('}') || report(']');
   }
 
   function array() {
@@ -1220,14 +1228,14 @@ module.exports = function(data, opt) {
 };
 
 },{"./hjson-common":2,"./hjson-dsf":3}],6:[function(require,module,exports){
-module.exports="2.4.1";
+module.exports="2.4.2";
 
 },{}],7:[function(require,module,exports){
 /*!
- * Hjson v2.4.1
+ * Hjson v2.4.2
  * http://hjson.org
  *
- * Copyright 2014-2016 Christian Zangl, MIT license
+ * Copyright 2014-2017 Christian Zangl, MIT license
  * Details and documentation:
  * https://github.com/hjson/hjson-js
  *
