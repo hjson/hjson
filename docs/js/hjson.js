@@ -1,5 +1,5 @@
 /*!
- * Hjson v2.4.2
+ * Hjson v2.4.3
  * http://hjson.org
  *
  * Copyright 2014-2017 Christian Zangl, MIT license
@@ -531,6 +531,8 @@ module.exports = function(source, opt) {
           } else if (typeof escapee[ch] === 'string') {
             string += escapee[ch];
           } else break;
+        } else if (ch === '\n' || ch === '\r') {
+          error("Bad string containing newline");
         } else {
           string += ch;
         }
@@ -1228,11 +1230,11 @@ module.exports = function(data, opt) {
 };
 
 },{"./hjson-common":2,"./hjson-dsf":3}],6:[function(require,module,exports){
-module.exports="2.4.2";
+module.exports="2.4.3";
 
 },{}],7:[function(require,module,exports){
 /*!
- * Hjson v2.4.2
+ * Hjson v2.4.3
  * http://hjson.org
  *
  * Copyright 2014-2017 Christian Zangl, MIT license
