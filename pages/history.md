@@ -12,3 +12,4 @@ Hjson was born out of frustration while editing JSON config files (e.g. `package
 - 2015-01-11: Simplified the syntax for quoteless keys. Previously only alphanumeric keys were allowed without quotes.
 - 2015-05-06: Allow root braces to be omitted.
 - 2016-09-27: Deprecate optional root braces.
+- 2017-07-13: Added support for single quoted strings.

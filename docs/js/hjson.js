@@ -1,5 +1,5 @@
 /*!
- * Hjson v2.4.3
+ * Hjson v3.0.0
  * http://hjson.org
  *
  * Copyright 2014-2017 Christian Zangl, MIT license
@@ -462,6 +462,7 @@ module.exports = function(source, opt) {
   var ch;   // The current character
   var escapee = {
     '"': '"',
+    "'": "'",
     '\\': '\\',
     '/': '/',
     b:  '\b',
@@ -505,37 +506,41 @@ module.exports = function(source, opt) {
 
   function string() {
     // Parse a string value.
+    // callees make sure that (ch === '"' || ch === "'")
     var string = '';
 
-    // When parsing for string values, we must look for " and \ characters.
-    if (ch === '"') {
-      while (next()) {
-        if (ch === '"') {
+    // When parsing for string values, we must look for "/' and \ characters.
+    var exitCh = ch;
+    while (next()) {
+      if (ch === exitCh) {
+        next();
+        if (ch === "'" && string.length === 0) {
+          // ''' indicates a multiline string
           next();
-          return string;
-        }
-        if (ch === '\\') {
-          next();
-          if (ch === 'u') {
-            var uffff = 0;
-            for (var i = 0; i < 4; i++) {
-              next();
-              var c = ch.charCodeAt(0), hex;
-              if (ch >= '0' && ch <= '9') hex = c - 48;
-              else if (ch >= 'a' && ch <= 'f') hex = c - 97 + 0xa;
-              else if (ch >= 'A' && ch <= 'F') hex = c - 65 + 0xa;
-              else error("Bad \\u char " + ch);
-              uffff = uffff * 16 + hex;
-            }
-            string += String.fromCharCode(uffff);
-          } else if (typeof escapee[ch] === 'string') {
-            string += escapee[ch];
-          } else break;
-        } else if (ch === '\n' || ch === '\r') {
-          error("Bad string containing newline");
-        } else {
-          string += ch;
-        }
+          return mlString();
+        } else return string;
+      }
+      if (ch === '\\') {
+        next();
+        if (ch === 'u') {
+          var uffff = 0;
+          for (var i = 0; i < 4; i++) {
+            next();
+            var c = ch.charCodeAt(0), hex;
+            if (ch >= '0' && ch <= '9') hex = c - 48;
+            else if (ch >= 'a' && ch <= 'f') hex = c - 97 + 0xa;
+            else if (ch >= 'A' && ch <= 'F') hex = c - 65 + 0xa;
+            else error("Bad \\u char " + ch);
+            uffff = uffff * 16 + hex;
+          }
+          string += String.fromCharCode(uffff);
+        } else if (typeof escapee[ch] === 'string') {
+          string += escapee[ch];
+        } else break;
+      } else if (ch === '\n' || ch === '\r') {
+        error("Bad string containing newline");
+      } else {
+        string += ch;
       }
     }
     error("Bad string");
@@ -594,7 +599,7 @@ module.exports = function(source, opt) {
     // quotes for keys are optional in Hjson
     // unless they include {}[],: or whitespace.
 
-    if (ch === '"') return string();
+    if (ch === '"' || ch === "'") return string();
 
     var name = "", start = at, space = -1;
     for (;;) {
@@ -638,7 +643,7 @@ module.exports = function(source, opt) {
 
     for(;;) {
       next();
-      if (value.length === 3 && value === "'''") return mlString();
+      // (detection of ml strings was moved to string())
       var isEol = ch === '\r' || ch === '\n' || ch === '';
       if (isEol ||
         ch === ',' || ch === '}' || ch === ']' ||
@@ -694,13 +699,11 @@ module.exports = function(source, opt) {
   }
 
   function errorClosingHint(value) {
-    function search(value, ch, first) {
+    function search(value, ch) {
       var i, k, length, res;
       switch (typeof value) {
         case 'string':
-          if (first) {
-            if (value[0] === ch) res = value;
-          } else if (value.indexOf(ch) >= 0) res = value;
+          if (value.indexOf(ch) >= 0) res = value;
           break;
         case 'object':
           if (Object.prototype.toString.apply(value) === '[object Array]') {
@@ -718,21 +721,15 @@ module.exports = function(source, opt) {
     }
 
     function report(ch) {
-      var possibleErr=search(value, ch, ch === "'");
+      var possibleErr=search(value, ch);
       if (possibleErr) {
-        if (ch === "'") {
-          return "found a string starting with single quotes, your mistake could be with:\n"+
-            "  > "+possibleErr+"\n"+
-            "  (use unquoted or double quoted strings)";
-        } else {
-          return "found '"+ch+"' in a string value, your mistake could be with:\n"+
-            "  > "+possibleErr+"\n"+
-            "  (unquoted strings contain everything up to the next line!)";
-        }
+        return "found '"+ch+"' in a string value, your mistake could be with:\n"+
+          "  > "+possibleErr+"\n"+
+          "  (unquoted strings contain everything up to the next line!)";
       } else return "";
     }
 
-    return report("'") || report('}') || report(']');
+    return report('}') || report(']');
   }
 
   function array() {
@@ -844,6 +841,7 @@ module.exports = function(source, opt) {
     switch (ch) {
       case '{': return object();
       case '[': return array();
+      case "'":
       case '"': return string();
       default: return tfnns();
     }
@@ -980,7 +978,7 @@ module.exports = function(data, opt) {
   // needsEscape tests if the string can be written without escapes
   var needsEscape = new RegExp('[\\\\\\"\x00-\x1f'+commonRange+']', 'g');
   // needsQuotes tests if the string can be written as a quoteless string (like needsEscape but without \\ and \")
-  var needsQuotes = new RegExp('^\\s|^"|^\'\'\'|^#|^\\/\\*|^\\/\\/|^\\{|^\\}|^\\[|^\\]|^:|^,|\\s$|[\x00-\x1f'+commonRange+']', 'g');
+  var needsQuotes = new RegExp('^\\s|^"|^\'|^#|^\\/\\*|^\\/\\/|^\\{|^\\}|^\\[|^\\]|^:|^,|\\s$|[\x00-\x1f'+commonRange+']', 'g');
   // needsEscapeML tests if the string can be written as a multiline string (like needsEscape but without \n, \r, \\, \", \t unless multines is 'std')
   var needsEscapeML = new RegExp('\'\'\'|^[\\s]+$|[\x00-'+(multiline === 2 ? '\x09' : '\x08')+'\x0b\x0c\x0e-\x1f'+commonRange+']', 'g');
   // starts with a keyword and optionally is followed by a comment
@@ -1230,11 +1228,11 @@ module.exports = function(data, opt) {
 };
 
 },{"./hjson-common":2,"./hjson-dsf":3}],6:[function(require,module,exports){
-module.exports="2.4.3";
+module.exports="3.0.0";
 
 },{}],7:[function(require,module,exports){
 /*!
- * Hjson v2.4.3
+ * Hjson v3.0.0
  * http://hjson.org
  *
  * Copyright 2014-2017 Christian Zangl, MIT license

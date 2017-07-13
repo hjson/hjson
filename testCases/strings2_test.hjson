@@ -1,0 +1,36 @@
+{
+  # Hjson 3 allows the use of single quotes
+
+  'key1': a key in single quotes
+  'key 2': a key in single quotes
+  'key "': a key in single quotes
+
+  text: [
+    'single quoted string'
+    'You need quotes\tfor escapes'
+    ' untrimmed '
+    'untrimmed '
+    'containing " double quotes'
+    'containing \" double quotes'
+    "containing \" double quotes"
+    '"containing more " double quotes"'
+    'containing \' single quotes'
+    "containing ' single quotes"
+    "containing \' single quotes"
+    "'containing more ' single quotes'"
+    "\'containing more \' single quotes\'"
+
+    '\n'
+    '  \n'
+    '\n  \n  \n  \n'
+    '\t\n'
+  ]
+
+  # escapes/no escape
+
+  foo3a: 'asdf\'\'\''
+  foo3b: '\'\'\'asdf'
+
+  foo4a: 'asdf\'\'\'\nasdf'
+  foo4b: 'asdf\n\'\'\'asdf'
+}

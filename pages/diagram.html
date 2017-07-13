@@ -141,14 +141,18 @@ Diagram(
 <h3>JSON-String</h3>
 <script>
 Diagram(
-  Terminal('"'),
+  Choice(1,
+    Terminal('"'),
+    Terminal("'")
+  ),
   Optional(OneOrMore(
     Choice(0,
-      NonTerminal(' any character except " or \\ '),
+      NonTerminal(' any character except starting quote and \\ '),
       Sequence(
         Terminal('\\'),
         Choice(2,
           Sequence(Terminal('"'), Comment('quotation mark')),
+          Sequence(Terminal("'"), Comment('single quote')),
           Sequence(Terminal('\\'), Comment('reverse solidus')),
           Sequence(Terminal('/'), Comment('solidus')),
           Sequence(Terminal('b'), Comment('backspace')),
@@ -161,7 +165,10 @@ Diagram(
       )
     )
   )),
-  Terminal('"')
+  Choice(1,
+    Terminal('"'),
+    Terminal("'")
+  )
 ).addTo();
 </script>
 

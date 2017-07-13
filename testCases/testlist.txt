@@ -20,7 +20,6 @@ failJSON20_test.json
 failJSON21_test.json
 failJSON22_test.json
 failJSON23_test.json
-failJSON24_test.json
 failJSON26_test.json
 failJSON28_test.json
 failJSON29_test.json
@@ -73,6 +72,7 @@ pass4_test.json
 passSingle_test.hjson
 root_test.hjson
 stringify1_test.hjson
+strings2_test.hjson
 strings_test.hjson
 trail_test.hjson
 stringify/quotes_all_test.hjson

@@ -91,6 +91,12 @@ haiku:
 
 Is the *string* `"My half empty glass,\nI will fill your empty half.\nNow you are half full."`
 
+#### Strings
+
+Quoted strings can be written with 'single' or "double" quotes.
+
+Note: single quotes are new (2017/7) and may not yet be supported on all platforms.
+
 #### Root Braces - **OBSOLETE**
 
 While Hjson allows you to omit `{}` for the root object, this feature should no longer be used.
@@ -109,4 +115,4 @@ Hjson does not have a header but if you want to indicate the file type you can u
 
 #### RFC
 
-<a href="rfc.html" target="_blank">View the RFC draft (pending updates)</a>
+<a href="rfc.html" target="_blank">View the RFC draft (pending updates/root braces/single quotes)</a>
