@@ -70,7 +70,6 @@ pass2_test.json
 pass3_test.json
 pass4_test.json
 passSingle_test.hjson
-root_test.hjson
 stringify1_test.hjson
 strings2_test.hjson
 strings_test.hjson
@@ -81,4 +80,5 @@ stringify/quotes_keys_test.hjson
 stringify/quotes_strings_ml_test.json
 stringify/quotes_strings_test.hjson
 extra/notabs_test.json
+extra/root_test.hjson
 extra/separator_test.json
