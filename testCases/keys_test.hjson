@@ -22,6 +22,9 @@
   "foo\"bar": test
   "'''": test
   "foo'''bar": test
+  "'": test
+  "'foo": test
+  "foo'bar": test
   # control char in key name
   ":": test
   "foo:bar": test

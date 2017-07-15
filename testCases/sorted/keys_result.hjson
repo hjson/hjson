@@ -1,7 +1,9 @@
 {
   "\"": test
   "#c1": test
+  "'": test
   "'''": test
+  "'foo": test
   -test: test
   .key: test
   "/*": test
@@ -14,6 +16,7 @@
   "foo\"bar": test
   "foo#bar": test
   "foo'''bar": test
+  "foo'bar": test
   "foo/*bar": test
   "foo/*foo*/bar": test
   "foo//bar": test
