@@ -1,0 +1,4 @@
+{
+  # invalid ml-string
+  foo : ""'text'''
+}

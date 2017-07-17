@@ -32,6 +32,7 @@ failKey1_test.hjson
 failKey2_test.hjson
 failKey3_test.hjson
 failKey4_test.hjson
+failKey5_test.hjson
 failMLStr1_test.hjson
 failObj1_test.hjson
 failObj2_test.hjson
@@ -61,6 +62,7 @@ failStr6b_test.hjson
 failStr6c_test.hjson
 failStr6d_test.hjson
 failStr7a_test.hjson
+failStr8a_test.hjson
 kan_test.hjson
 keys_test.hjson
 mltabs_test.json
