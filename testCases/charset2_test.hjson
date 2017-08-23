@@ -1,0 +1,5 @@
+{
+  uescape: "\u0000,\u0001,\uffff"
+  umlaut: äöüßÄÖÜ
+  hex: "\u0123\u4567\u89AB\uCDEF\uabcd\uef4A"
+}
