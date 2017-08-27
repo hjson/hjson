@@ -1,5 +1,5 @@
 /*!
- * Hjson v3.0.0
+ * Hjson v3.1.0
  * http://hjson.org
  *
  * Copyright 2014-2017 Christian Zangl, MIT license
@@ -504,9 +504,9 @@ module.exports = function(source, opt) {
     return text.charAt(at + offs);
   }
 
-  function string() {
+  function string(allowML) {
     // Parse a string value.
-    // callees make sure that (ch === '"' || ch === "'")
+    // callers make sure that (ch === '"' || ch === "'")
     var string = '';
 
     // When parsing for string values, we must look for "/' and \ characters.
@@ -514,7 +514,7 @@ module.exports = function(source, opt) {
     while (next()) {
       if (ch === exitCh) {
         next();
-        if (ch === "'" && string.length === 0) {
+        if (allowML && exitCh === "'" && ch === "'" && string.length === 0) {
           // ''' indicates a multiline string
           next();
           return mlString();
@@ -599,7 +599,7 @@ module.exports = function(source, opt) {
     // quotes for keys are optional in Hjson
     // unless they include {}[],: or whitespace.
 
-    if (ch === '"' || ch === "'") return string();
+    if (ch === '"' || ch === "'") return string(false);
 
     var name = "", start = at, space = -1;
     for (;;) {
@@ -842,7 +842,7 @@ module.exports = function(source, opt) {
       case '{': return object();
       case '[': return array();
       case "'":
-      case '"': return string();
+      case '"': return string(true);
       default: return tfnns();
     }
   }
@@ -862,6 +862,16 @@ module.exports = function(source, opt) {
   }
 
   function rootValue() {
+    white();
+    var c = keepComments ? getComment(1) : null;
+    switch (ch) {
+      case '{': return checkTrailing(object(), c);
+      case '[': return checkTrailing(array(), c);
+      default: return checkTrailing(value(), c);
+    }
+  }
+
+  function legacyRootValue() {
     // Braces for the root object are optional
     white();
     var c = keepComments ? getComment(1) : null;
@@ -883,14 +893,16 @@ module.exports = function(source, opt) {
 
   if (typeof source!=="string") throw new Error("source is not a string");
   var dsfDef = null;
+  var legacyRoot = true;
   if (opt && typeof opt === 'object') {
     keepComments = opt.keepWsc;
     dsfDef = opt.dsf;
+    legacyRoot = opt.legacyRoot !== false; // default true
   }
   runDsf = dsf.loadDsf(dsfDef, "parse");
   text = source;
   resetAt();
-  return rootValue();
+  return legacyRoot ? legacyRootValue() : rootValue();
 };
 
 },{"./hjson-common":2,"./hjson-dsf":3}],5:[function(require,module,exports){
@@ -902,22 +914,13 @@ module.exports = function(data, opt) {
   var common = require("./hjson-common");
   var dsf = require("./hjson-dsf");
 
-  // options
-  var eol = common.EOL;
-  var indent = '  ';
-  var keepComments = false;
-  var bracesSameLine = false;
-  var quoteKeys = false;
-  var quoteStrings = false;
-  var multiline = 1; // std=1, no-tabs=2, off=0
-  var separator = ''; // comma separator
-  var dsfDef = null;
-  var token = {
+  var plainToken = {
     obj:  [ '{', '}' ],
     arr:  [ '[', ']' ],
     key:  [ '',  '' ],
     qkey: [ '"', '"' ],
-    col:  [ ':' ],
+    col:  [ ':', '' ],
+    com:  [ ',', '' ],
     str:  [ '', '' ],
     qstr: [ '"', '"' ],
     mstr: [ "'''", "'''" ],
@@ -929,17 +932,31 @@ module.exports = function(data, opt) {
     rem:  [ '', '' ],
   };
 
+  // options
+  var eol = common.EOL;
+  var indent = '  ';
+  var keepComments = false;
+  var bracesSameLine = false;
+  var quoteKeys = false;
+  var quoteStrings = false;
+  var condense = 0;
+  var multiline = 1; // std=1, no-tabs=2, off=0
+  var separator = ''; // comma separator
+  var dsfDef = null;
+  var token = plainToken;
+
   if (opt && typeof opt === 'object') {
     opt.quotes = opt.quotes === 'always' ? 'strings' : opt.quotes; // legacy
 
     if (opt.eol === '\n' || opt.eol === '\r\n') eol = opt.eol;
     keepComments = opt.keepWsc;
+    condense = opt.condense || 0;
     bracesSameLine = opt.bracesSameLine;
     quoteKeys = opt.quotes === 'all' || opt.quotes === 'keys';
     quoteStrings = opt.quotes === 'all' || opt.quotes === 'strings' || opt.separator === true;
     if (quoteStrings || opt.multiline == 'off') multiline = 0;
     else multiline = opt.multiline == 'no-tabs' ? 2 : 1;
-    separator = opt.separator === true ? ',' : '';
+    separator = opt.separator === true ? token.com[0] : '';
     dsfDef = opt.dsf;
 
     // If the space parameter is a number, make an indent string containing that
@@ -957,7 +974,8 @@ module.exports = function(data, opt) {
         arr:  [ '\x1b[37m[\x1b[0m', '\x1b[37m]\x1b[0m' ],
         key:  [ '\x1b[33m',  '\x1b[0m' ],
         qkey: [ '\x1b[33m"', '"\x1b[0m' ],
-        col:  [ '\x1b[37m:\x1b[0m' ],
+        col:  [ '\x1b[37m:\x1b[0m', '' ],
+        com:  [ '\x1b[37m,\x1b[0m', '' ],
         str:  [ '\x1b[37;1m', '\x1b[0m' ],
         qstr: [ '\x1b[37;1m"', '"\x1b[0m' ],
         mstr: [ "\x1b[37;1m'''", "'''\x1b[0m" ],
@@ -968,6 +986,12 @@ module.exports = function(data, opt) {
         uni:  [ '\x1b[31m\\u', '\x1b[0m' ],
         rem:  [ '\x1b[35m', '\x1b[0m' ],
       };
+    }
+
+    var i, ckeys=Object.keys(plainToken);
+    for (i = ckeys.length - 1; i >= 0; i--) {
+      var k = ckeys[i];
+      token[k].push(plainToken[k][0].length, plainToken[k][1].length);
     }
   }
 
@@ -993,10 +1017,15 @@ module.exports = function(data, opt) {
     '"' : '"',
     '\\': '\\'
   };
-  var needsEscapeName = /[,\{\[\}\]\s:#"]|\/\/|\/\*|'''/;
+  var needsEscapeName = /[,\{\[\}\]\s:#"']|\/\/|\/\*/;
   var gap = '';
+  //
+  var wrapLen = 0;
 
-  function wrap(tk, v) { return tk[0] + v + tk[1]; }
+  function wrap(tk, v) {
+    wrapLen += tk[0].length + tk[1].length - tk[2] - tk[3];
+    return tk[0] + v + tk[1];
+  }
 
   function quoteReplace(string) {
     return string.replace(needsEscape, function (a) {
@@ -1125,90 +1154,134 @@ module.exports = function(data, opt) {
         var eolGap = eol + gap;
         var prefix = noIndent || bracesSameLine ? '' : eolMind;
         var partial = [];
+        var setsep;
+        // condense helpers:
+        var cpartial = condense ? [] : null;
+        var saveQuoteStrings = quoteStrings, saveMultiline = multiline;
+        var iseparator = separator ? '' : token.com[0];
+        var cwrapLen = 0;
 
         var i, length; // loop
-        var k, v; // key, value
+        var k, v, vs; // key, value
         var c, ca;
+        var res, cres;
 
         if (isArray) {
           // The value is an array. Stringify every element. Use null as a placeholder
           // for non-JSON values.
 
           for (i = 0, length = value.length; i < length; i++) {
+            setsep = i < length -1;
             if (comments) {
               c = comments.a[i]||[];
               ca = commentOnThisLine(c[1]);
               partial.push(makeComment(c[0], "\n") + eolGap);
+              if (cpartial && (c[0] || c[1] || ca)) cpartial = null;
             }
-            partial.push(str(value[i], comments ? ca : false, true) + (i < length -1 ? separator : '') || wrap(token.lit, 'null'));
+            else partial.push(eolGap);
+            wrapLen = 0;
+            v = value[i];
+            partial.push(str(v, comments ? ca : false, true) + (setsep ? separator : ''));
+            if (cpartial) {
+              // prepare the condensed version
+              switch (typeof v) {
+                case 'string':
+                  wrapLen = 0;
+                  quoteStrings = true; multiline = 0;
+                  cpartial.push(str(v, false, true) + (setsep ? token.com[0] : ''));
+                  quoteStrings = saveQuoteStrings; multiline = saveMultiline;
+                  break;
+                case 'object': if (v) { cpartial = null; break; } // falls through
+                default: cpartial.push(partial[partial.length - 1] + (setsep ? iseparator : '')); break;
+              }
+              if (setsep) wrapLen += token.com[0].length - token.com[2];
+              cwrapLen += wrapLen;
+            }
             if (comments && c[1]) partial.push(makeComment(c[1], ca ? " " : "\n", ca));
           }
 
-          if (comments) {
-            if (length === 0) {
-              // when empty
-              partial.push((comments.e ? makeComment(comments.e[0], "\n") : "") + eolMind);
-            }
-            else partial.push(eolMind);
+          if (length === 0) {
+            // when empty
+            if (comments && comments.e) partial.push(makeComment(comments.e[0], "\n") + eolMind);
           }
+          else partial.push(eolMind);
 
           // Join all of the elements together, separated with newline, and wrap them in
           // brackets.
 
-          if (comments) v = prefix + wrap(token.arr, partial.join(''));
-          else if (partial.length === 0) v = wrap(token.arr, '');
-          else v = prefix + wrap(token.arr, eolGap + partial.join(eolGap) + eolMind);
+          if (partial.length === 0) res = wrap(token.arr, '');
+          else {
+            res = prefix + wrap(token.arr, partial.join(''));
+            // try if the condensed version can fit (parent key name is not included)
+            if (cpartial) {
+              cres = cpartial.join(' ');
+              if (cres.length - cwrapLen <= condense) res = wrap(token.arr, cres);
+            }
+          }
         } else {
           // Otherwise, iterate through all of the keys in the object.
-          var keys;
+          var keys = comments ? comments.o.slice() : [];
+          for (k in value) {
+            if (Object.prototype.hasOwnProperty.call(value, k) && keys.indexOf(k) < 0)
+              keys.push(k);
+          }
 
-          if (comments) {
-            keys = comments.o.slice();
-            for (k in value) {
-              if (Object.prototype.hasOwnProperty.call(value, k) && keys.indexOf(k) < 0)
-                keys.push(k);
-            }
-
-            for (i = 0, length = keys.length; i < length; i++) {
-              k = keys[i];
+          for (i = 0, length = keys.length; i < length; i++) {
+            setsep = i < length - 1;
+            k = keys[i];
+            if (comments) {
               c = comments.c[k]||[];
               ca = commentOnThisLine(c[1]);
               partial.push(makeComment(c[0], "\n") + eolGap);
-
-              v = str(value[k], ca);
-              if (v) partial.push(quoteKey(k) + token.col + (startsWithNL(v) ? '' : ' ') + v + (i < length - 1 ? separator : ''));
-              if (comments && c[1]) partial.push(makeComment(c[1], ca ? " " : "\n", ca));
+              if (cpartial && (c[0] || c[1] || ca)) cpartial = null;
             }
-            if (length === 0) {
-              // when empty
-              partial.push((comments.e ? makeComment(comments.e[0], "\n") : "") + eolMind);
-            }
-            else partial.push(eolMind);
+            else partial.push(eolGap);
 
-          } else {
-            keys = Object.keys(value);
-
-            for (i = 0, length = keys.length; i < length; i++) {
-              k = keys[i];
-              if (Object.prototype.hasOwnProperty.call(value, k)) {
-                v = str(value[k]);
-                if (v) partial.push(quoteKey(k) + token.col + (startsWithNL(v) ? '' : ' ') + v + (i < length - 1 ? separator : ''));
+            wrapLen = 0;
+            v = value[k];
+            vs = str(v, comments && ca);
+            partial.push(quoteKey(k) + token.col[0] + (startsWithNL(vs) ? '' : ' ') + vs + (setsep ? separator : ''));
+            if (comments && c[1]) partial.push(makeComment(c[1], ca ? " " : "\n", ca));
+            if (cpartial) {
+              // prepare the condensed version
+              switch (typeof v) {
+                case 'string':
+                  wrapLen = 0;
+                  quoteStrings = true; multiline = 0;
+                  vs = str(v, false);
+                  quoteStrings = saveQuoteStrings; multiline = saveMultiline;
+                  cpartial.push(quoteKey(k) + token.col[0] + ' ' + vs + (setsep ? token.com[0] : ''));
+                  break;
+                case 'object': if (v) { cpartial = null; break; } // falls through
+                default: cpartial.push(partial[partial.length - 1] + (setsep ? iseparator : '')); break;
               }
+              wrapLen += token.col[0].length - token.col[2];
+              if (setsep) wrapLen += token.com[0].length - token.com[2];
+              cwrapLen += wrapLen;
             }
           }
+          if (length === 0) {
+            // when empty
+            if (comments && comments.e) partial.push(makeComment(comments.e[0], "\n") + eolMind);
+          }
+          else partial.push(eolMind);
 
           // Join all of the member texts together, separated with newlines
           if (partial.length === 0) {
-            v = wrap(token.obj, '');
+            res = wrap(token.obj, '');
           } else {
             // and wrap them in braces
-            if (comments) v = prefix + wrap(token.obj, partial.join(''));
-            else v = prefix + wrap(token.obj, eolGap + partial.join(eolGap) + eolMind);
+            res = prefix + wrap(token.obj, partial.join(''));
+            // try if the condensed version can fit
+            if (cpartial) {
+              cres = cpartial.join(' ');
+              if (cres.length - cwrapLen <= condense) res = wrap(token.obj, cres);
+            }
           }
         }
 
         gap = mind;
-        return v;
+        return res;
     }
   }
 
@@ -1228,11 +1301,11 @@ module.exports = function(data, opt) {
 };
 
 },{"./hjson-common":2,"./hjson-dsf":3}],6:[function(require,module,exports){
-module.exports="3.0.0";
+module.exports="3.1.0";
 
 },{}],7:[function(require,module,exports){
 /*!
- * Hjson v3.0.0
+ * Hjson v3.1.0
  * http://hjson.org
  *
  * Copyright 2014-2017 Christian Zangl, MIT license
@@ -1256,6 +1329,8 @@ module.exports="3.0.0";
                     preserving comments (default false)
 
         dsf         array of DSF (see Hjson.dsf)
+
+        legacyRoot  boolean, support omitting root braces (default true)
       }
 
       This method parses Hjson text to produce an object or array.
@@ -1270,12 +1345,13 @@ module.exports="3.0.0";
 
         keepWsc     boolean, keep white space. See parse.
 
+        condense    integer, will try to fit objects/arrays onto one line
+                    when the output is shorter than condense characters
+                    and the fragment contains no comments. Default 0 (off).
+
         bracesSameLine
                     boolean, makes braces appear on the same line as the key
                     name. Default false.
-
-        emitRootBraces
-                    obsolete: will always emit braces
 
         quotes      string, controls how strings are displayed.
                     setting separator implies "strings"
@@ -1304,6 +1380,9 @@ module.exports="3.0.0";
         colors      boolean, output ascii color codes
 
         dsf         array of DSF (see Hjson.dsf)
+
+        emitRootBraces
+                    obsolete: will always emit braces
       }
 
       This method produces Hjson text from a JavaScript value.
