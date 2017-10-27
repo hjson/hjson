@@ -1,5 +1,8 @@
 {
   uescape: "\u0000,\u0001,\uffff"
-  umlaut: äöüßÄÖÜ
+  French: ° î â ê Î Â Ê é É è à ù È À Ù ë Ë ç Ç œ « »
+  German: ä Ä ö Ö ü Ü ß
+  Italian: ° é ç à è ì ò ù À È Ì Ò Ù
+  Spanish: ñ Ñ ü Ü á é í ó ú Á É Í Ó Ú º ¿ ¡
   hex: "\u0123\u4567\u89AB\uCDEF\uabcd\uef4A"
 }
