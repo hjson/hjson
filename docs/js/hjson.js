@@ -1,5 +1,5 @@
 /*!
- * Hjson v3.1.0
+ * Hjson v3.1.1
  * http://hjson.org
  *
  * Copyright 2014-2017 Christian Zangl, MIT license
@@ -1301,11 +1301,11 @@ module.exports = function(data, opt) {
 };
 
 },{"./hjson-common":2,"./hjson-dsf":3}],6:[function(require,module,exports){
-module.exports="3.1.0";
+module.exports="3.1.1";
 
 },{}],7:[function(require,module,exports){
 /*!
- * Hjson v3.1.0
+ * Hjson v3.1.1
  * http://hjson.org
  *
  * Copyright 2014-2017 Christian Zangl, MIT license
