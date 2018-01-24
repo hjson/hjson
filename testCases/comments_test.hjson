@@ -45,4 +45,10 @@ styles
   str1: 00 # part of the string
   str2: 00.0 // part of the string
   str3: 02 /* part of the string */
+
+  # this causes problems with the syntax definitions for some editors:
+  URL1: "http://example.com",
+  "URL2": "http://example.com",
+  URL3: http://example.com
+  "URL4": http://example.com
 }

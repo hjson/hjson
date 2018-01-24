@@ -1,4 +1,8 @@
 {
+  "URL1": "http://example.com",
+  "URL2": "http://example.com",
+  "URL3": "http://example.com",
+  "URL4": "http://example.com",
   "bar1": "This is a string value. // part of the string",
   "bar2": "This is a string value.",
   "false1": false,

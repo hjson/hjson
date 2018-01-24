@@ -23,4 +23,8 @@
   str1: 00 # part of the string
   str2: 00.0 // part of the string
   str3: 02 /* part of the string */
+  URL1: http://example.com
+  URL2: http://example.com
+  URL3: http://example.com
+  URL4: http://example.com
 }
