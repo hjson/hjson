@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd "`dirname \"$0\"`/gen"
+node mdgen.js ../../docs
+
+echo open ../docs/index.html to preview
+echo update hjson.js in ../docs/js/ if required
