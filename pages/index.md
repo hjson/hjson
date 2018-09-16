@@ -3,21 +3,12 @@
 
 ### Status
 
-When I started this project in 2014 I was aiming to deliver a better experience when managing configuration files in JSON and other formats like YAML.
+This project is now entirely community-supported. If you would like to help or want to report an issue, please see our [GitHub](https://github.com/hjson/).
 
-But now it's time to admid that Hjson has failed to be picked up by any major projects and this is unlikely to change.
-
-Hjson is stable and you are welcome to do with it as you may wish, but because my time is limited I will no longer be updating the spec, the implementations or the syntax definitions.
-
-I would like to thank all contributors for their help! While the project was not as successful as it deserved to be, it was a great learning experience in every way.
+We are also looking for maintainers for our [.NET](https://github.com/hjson/hjson-cs), [Go](https://github.com/hjson/hjson-go), [Java](https://github.com/hjson/hjson-java), [Python](https://github.com/hjson/hjson-py) and [Ruby](https://github.com/hjson/hjson-rb) packages. If you like Hjson and want to keep it alive, please consider helping out.
 
 ```
-Goodbye Hjson!
-
-This prjoect has reached EOL.
-You are welcome to continue
-using it, just don't expect
-any updates.
+Hjson is back, baby!
 ```
 
 <div class="pkgs"> [![npm](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)  [![nuget](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)  [![go](https://img.shields.io/github/release/hjson/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/hjson/hjson-go/releases)  [![maven](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square&label=maven)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)  [![packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson)  [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)  [![C++](https://img.shields.io/github/release/hjson/hjson-cpp.svg?style=flat-square&label=c%2b%2b)](https://github.com/hjson/hjson-cpp/releases)  [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson)  [![gem](https://img.shields.io/gem/v/hjson.svg?style=flat-square)](https://rubygems.org/gems/hjson) </div>
