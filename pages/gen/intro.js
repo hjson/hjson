@@ -27,7 +27,7 @@ $(function() {
         first=false;
         x.appendTo(t);
       } else {
-        if (x.is("pre")) add=b;
+        if (x.is("pre") || x.hasClass('col2')) add=b;
         x.appendTo(add);
       }
       x=y;
