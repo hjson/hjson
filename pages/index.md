@@ -5,10 +5,18 @@
 
 This project is now entirely community-supported. If you would like to help or want to report an issue, please see our [GitHub](https://github.com/hjson/).
 
-We are also looking for maintainers for our [.NET](https://github.com/hjson/hjson-cs), [Go](https://github.com/hjson/hjson-go), [Java](https://github.com/hjson/hjson-java), [Python](https://github.com/hjson/hjson-py) and [Ruby](https://github.com/hjson/hjson-rb) packages. If you like Hjson and want to keep it alive, please consider helping out.
+We are also looking for maintainers for our [.NET](https://github.com/hjson/hjson-cs), [Go](https://github.com/hjson/hjson-go) and [Java](https://github.com/hjson/hjson-java) packages. If you think you could help or you just think that Hjson is fantastic, then please consider contributing or becoming a maintainer.
 
 ```
-Hjson is back, baby!
+{
+  creator: @laktak
+  maintainers: [
+    @dqsully
+    @trobro
+    @sffc
+    @peter279k
+  ]
+}
 ```
 
 <div class="pkgs"> [![npm](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)  [![nuget](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)  [![go](https://img.shields.io/github/release/hjson/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/hjson/hjson-go/releases)  [![maven](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square&label=maven)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)  [![packagist](https://img.shields.io/packagist/v/laktak/hjson.svg?style=flat-square)](https://packagist.org/packages/laktak/hjson)  [![PyPI version](https://img.shields.io/pypi/v/hjson.svg?style=flat-square)](https://pypi.python.org/pypi/hjson)  [![C++](https://img.shields.io/github/release/hjson/hjson-cpp.svg?style=flat-square&label=c%2b%2b)](https://github.com/hjson/hjson-cpp/releases)  [![crate](https://img.shields.io/crates/v/serde-hjson.svg?style=flat-square)](https://crates.io/crates/serde-hjson)  [![gem](https://img.shields.io/gem/v/hjson.svg?style=flat-square)](https://rubygems.org/gems/hjson) </div>
