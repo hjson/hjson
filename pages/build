@@ -1,6 +1,11 @@
 #!/bin/bash
 
 cd "`dirname \"$0\"`/gen"
+
+if [[ ! -f node_modules ]]; then
+  npm i
+fi
+
 node mdgen.js ../../docs
 
 echo open ../docs/index.html to preview
