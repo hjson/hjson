@@ -12,4 +12,4 @@
 
 Adds comments, makes it nicer to read and avoids comma mistakes.
 
-Goodbye Hjson! This prjoect has reached EOL. For details see [hjson.org](http://hjson.org).
+For details see [hjson.org](http://hjson.org).
