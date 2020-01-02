@@ -8,8 +8,8 @@
 
 # Hjson, a user interface for JSON
 
-![Hjson](http://hjson.org/icon/hjson-xs.png)
+![Hjson](https://hjson.github.io/icon/hjson-xs.png)
 
 Adds comments, makes it nicer to read and avoids comma mistakes.
 
-For details see [hjson.org](http://hjson.org).
+For details see [hjson.github.io](https://hjson.github.io).

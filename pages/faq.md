@@ -43,7 +43,7 @@ Something like a REST service should never use Hjson. If you are writing a REST 
 
 **"OMG, you broke JavaScript!"**
 
-JSON is not JavaScript, it's a data interchange format that can be used in many languages (50+, see [hjson.org](http://hjson.org)).
+JSON is not JavaScript, it's a data interchange format that can be used in many languages (50+, see [hjson.github.io](https://hjson.github.io)).
 
 ```
 /*

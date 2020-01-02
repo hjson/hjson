@@ -1,12 +1,16 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then echo usage: build TARGET; exit 1; fi
+if [[ "$1" != "/"* ]]; then echo "Please specify an absolute path."; exit 1; fi
+if [ ! -d "$1" ]; then echo Target $1 does not exist.; exit 1; fi
+
 cd "`dirname \"$0\"`/gen"
 
 if [[ ! -f node_modules ]]; then
   npm i
 fi
 
-node mdgen.js ../../docs
+node mdgen.js $1
 
-echo open ../docs/index.html to preview
-echo update hjson.js in ../docs/js/ if required
+echo open $1/index.html to preview
+echo update hjson.js in $1/js/ if required
