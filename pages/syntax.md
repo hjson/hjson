@@ -99,9 +99,9 @@ Note: single quotes are new (2017/7) and may not yet be supported on all platfor
 
 #### Root Braces
 
-Hjson allows you to omit `{}` for the root object, so that a config file contains nothing but keys and values, without indentation.
+Hjson allows you to omit `{}` for the root object so that a config file can contain nothing but keys and values, similar to YAML.
 
-Note: This feature was marked as deprecated for some years, but is now officially supported again. If you require maximum portability for your Hjson files, you are adviced to not omit root braces, in case third party implementations lack support for it.
+Note: This feature was previously marked as deprecated but is now officially supported again. If you need maximum portability with your Hjson files, then we recommend you keep the root braces in case a third party implementation doesn't support it.
 
 #### File extension
 
