@@ -97,9 +97,11 @@ Quoted strings can be written with 'single' or "double" quotes.
 
 Note: single quotes are new (2017/7) and may not yet be supported on all platforms.
 
-#### Root Braces - **OBSOLETE**
+#### Root Braces
 
-While Hjson allows you to omit `{}` for the root object, this feature should no longer be used.
+Hjson allows you to omit `{}` for the root object so that a config file can contain nothing but keys and values, similar to YAML.
+
+Note: This feature was previously marked as deprecated but is now officially supported again. If you need maximum portability with your Hjson files, then we recommend you keep the root braces in case a third party implementation doesn't support it.
 
 #### File extension
 
