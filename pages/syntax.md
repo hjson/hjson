@@ -37,6 +37,8 @@ You should omit optional commas to make your data more readable.
 
 Whitespace and comments can be inserted between any pair of tokens.
 
+Whitespace is defined as in the JSON specification (space, linefeed, carriage return, or horizontal tab).
+
 Hash `#` or C style `//` comments start a single line comment.
 
 The style is just a matter of preference. `#` may be easier on the eyes but `//` is sometimes used in existing JSON configs.
