@@ -1,4 +1,4 @@
 
 # Hjson
 
-This repository contains the source for the [Hjson site](http://hjson.org).
+This repository contains the source for the [Hjson site](https://hjson.github.io).

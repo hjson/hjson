@@ -1,6 +1,6 @@
 /*!
  * Hjson v3.1.1
- * http://hjson.org
+ * https://hjson.github.io
  *
  * Copyright 2014-2017 Christian Zangl, MIT license
  * Details and documentation:
@@ -11,7 +11,7 @@
  */
 
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Hjson = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/* Hjson http://hjson.org */
+/* Hjson https://hjson.github.io */
 "use strict";
 
 var common=require("./hjson-common");
@@ -210,7 +210,7 @@ module.exports={
 };
 
 },{"./hjson-common":2}],2:[function(require,module,exports){
-/* Hjson http://hjson.org */
+/* Hjson https://hjson.github.io */
 "use strict";
 
 var os=require('os'); // will be {} when used in a browser
@@ -320,7 +320,7 @@ module.exports = {
 };
 
 },{"os":8}],3:[function(require,module,exports){
-/* Hjson http://hjson.org */
+/* Hjson https://hjson.github.io */
 "use strict";
 
 function loadDsf(col, type) {
@@ -449,7 +449,7 @@ module.exports = {
 };
 
 },{}],4:[function(require,module,exports){
-/* Hjson http://hjson.org */
+/* Hjson https://hjson.github.io */
 "use strict";
 
 module.exports = function(source, opt) {
@@ -906,7 +906,7 @@ module.exports = function(source, opt) {
 };
 
 },{"./hjson-common":2,"./hjson-dsf":3}],5:[function(require,module,exports){
-/* Hjson http://hjson.org */
+/* Hjson https://hjson.github.io */
 "use strict";
 
 module.exports = function(data, opt) {
@@ -1306,7 +1306,7 @@ module.exports="3.1.1";
 },{}],7:[function(require,module,exports){
 /*!
  * Hjson v3.1.1
- * http://hjson.org
+ * https://hjson.github.io
  *
  * Copyright 2014-2017 Christian Zangl, MIT license
  * Details and documentation:
@@ -1415,7 +1415,7 @@ module.exports="3.1.1";
     Hjson.dsf
 
       Domain specific formats are extensions to the Hjson syntax (see
-      hjson.org). These formats will be parsed and made available to
+      hjson.github.io). These formats will be parsed and made available to
       the application in place of strings (e.g. enable math to allow
       NaN values).
 
