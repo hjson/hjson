@@ -6,6 +6,7 @@
 [![crate](https://img.shields.io/crates/v/serde-hjson.svg)](https://crates.io/crates/serde-hjson)
 [![crate](https://img.shields.io/crates/v/deser-hjson.svg)](https://crates.io/crates/deser-hjson)
 [![Go Pkg](https://img.shields.io/github/release/hjson/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/hjson/hjson-go/releases)
+[![LuaRocks](https://img.shields.io/luarocks/v/cryi/hjson-lua?style=flat-square)](https://luarocks.org/modules/cryi/hjson-lua)
 
 # Hjson, a user interface for JSON
 
