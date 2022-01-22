@@ -28,8 +28,9 @@ Also see [tools](users.html) and [editor support](users.html#ed).
 
 Platform | Description | Source/Package
 -------- | ----------- | --------------
-Ruby     | Hjson Ruby parser | [hjson-rb](https://github.com/hjson/hjson-rb) [![gem](https://img.shields.io/gem/v/hjson.svg?style=flat-square)](https://rubygems.org/gems/hjson)
 C        | jzon variant, based on Hjson | [jzon-c](https://github.com/KarlZylinski/jzon-c)
+Kotlin   | does not pass all tests | [kotlin.hjson](https://github.com/dhakehurst/net.akehurst.kotlin.hjson)
+Ruby     | Hjson Ruby parser | [hjson-rb](https://github.com/hjson/hjson-rb) [![gem](https://img.shields.io/gem/v/hjson.svg?style=flat-square)](https://rubygems.org/gems/hjson)
 Rust     | Deserialization only | [deser-hjson](https://github.com/Canop/deser-hjson) [![crate](https://img.shields.io/crates/v/deser-hjson.svg?style=flat-square)](https://crates.io/crates/deser-hjson)
 
 Please [open an issue](https://github.com/hjson/hjson/issues) if you port Hjson to another platform/language.
