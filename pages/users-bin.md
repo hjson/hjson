@@ -7,23 +7,21 @@ To install the Hjson CLI tool
 
   ```
   # in bash
-  GET=$URL/hjson-cli_$VERSION_Linux
-  curl -sSLo /usr/local/bin/hjson-cli $GET
-  chmod +x /usr/local/bin/hjson-cli
+  GET=$URL/hjson_$VERSION_linux_amd64.tar.gz
+  curl -sSL $GET | sudo tar -xz -C /usr/local/bin
   ```
 
 - macOS & OS X
 
   ```
-  # run in Terminal
-  GET=$URL/hjson-cli_$VERSION_macOS
-  curl -sSLo /usr/local/bin/hjson-cli $GET
-  chmod +x /usr/local/bin/hjson-cli
+  # run in Terminal (replace amd64 with arm64 if you have an arm CPU)
+  GET=$URL/hjson_$VERSION_darwin_amd64.tar.gz
+  curl -sSL $GET | sudo tar -xz -C /usr/local/bin
   ```
 
 - Windows
 
-  [Download](https://github.com/hjson/hjson-go/releases/latest#hjson-cli_$VERSION_Windows.exe)
+  [Download](https://github.com/hjson/hjson-go/releases/latest#hjson_$VERSION_windows_amd64.zip) and unzip
 
 - [All Downloads](https://github.com/hjson/hjson-go/releases/latest)
 
