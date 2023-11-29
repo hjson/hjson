@@ -30,6 +30,7 @@ Platform | Description | Source/Package
 -------- | ----------- | --------------
 C        | jzon variant, based on Hjson | [jzon-c](https://github.com/KarlZylinski/jzon-c)
 Kotlin   | does not pass all tests | [kotlin.hjson](https://github.com/dhakehurst/net.akehurst.kotlin.hjson)
+Raku     | Deserialization only | [JSON::Hjson](https://github.com/akiym/JSON-Hjson) [![cpan](https://raku.land/cpan:AKIYM/JSON::Hjson/badges/version)](https://raku.land/cpan:AKIYM/JSON::Hjson)
 Ruby     | Hjson Ruby parser | [hjson-rb](https://github.com/hjson/hjson-rb) [![gem](https://img.shields.io/gem/v/hjson.svg?style=flat-square)](https://rubygems.org/gems/hjson)
 Rust     | Deserialization only | [deser-hjson](https://github.com/Canop/deser-hjson) [![crate](https://img.shields.io/crates/v/deser-hjson.svg?style=flat-square)](https://crates.io/crates/deser-hjson)
 
