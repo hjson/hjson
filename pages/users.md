@@ -42,6 +42,7 @@ Name                | Source                                                    
 ------------------- | --------------------------------------------------------- | -------
 Ace                 | [ace](https://github.com/ajaxorg/ace)                     | [use mode-hjson](https://github.com/ajaxorg/ace-builds)
 Atom                | [atom-hjson](https://github.com/hjson/atom-hjson)         | [package](https://atom.io/packages/language-hjson)
+Emacs               | [emacs-hjson](https://github.com/hjson/hjson-emacs)       | [read me](https://github.com/hjson/hjson-emacs)
 IntelliJ            | [textmate-hjson](https://github.com/hjson/textmate-hjson) | [read me](https://github.com/hjson/textmate-hjson)
 Notepad++           | [npp-hjson](https://github.com/laktak/npp-hjson)          | [read me](https://github.com/laktak/npp-hjson)
 Sublime Text        | [sublime-hjson](https://github.com/hjson/sublime-hjson)   | [packagecontrol.io](https://packagecontrol.io/packages/Hjson)
