@@ -57,7 +57,7 @@ For example:
 
 #### Quoteless Strings
 
-A quoteless string cannot start with any of the punctuators (`{}[],:`) or a start of comment sequence (`#`, `//`, `/*`).
+A quoteless string cannot start with any of the punctuators (`{}[],:`) or quotation marks (`'"`) used in Hjson syntax. It is also not possible for a quoteless string to start with a start of comment sequence (`#`, `//`, `/*`).
 
 Unlike a quoted string it automatically ends at the end of the current line. Do not add commas or comments as they would become part of the string. If you wish to add comments place them on the previous or next line.
 
