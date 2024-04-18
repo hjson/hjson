@@ -72,12 +72,12 @@ The Hjson parser will only parse data as a quoteless string if any other interpr
 - `5#comment` is the *number* `5` followed by a comment
 - `\s#([0-9a-fA-F]{3})` is the *string* `"\\s#([0-9a-fA-F]{3})"`
 
-Special note regarding hex values in an object: Due to oversight different implementations might handle this in different ways, but anything that starts with `#` will be treated as a comment. In hjson-js this input will be parsed as an object only containing the key `one` with the value `two: 2`:
+Special note regarding hex values in an object: Due to oversight different implementations might handle this in different ways, but anything that starts with `#` will be treated as a comment. In hjson-js this input will be parsed as an object only containing the key `one` with the value `two: #00FF00`:
 
 ```
 {
-  one: #1
-  two: 2
+  one: #FF00AA
+  two: #00FF00
 }
 ```
 
