@@ -57,19 +57,29 @@ For example:
 
 #### Quoteless Strings
 
-A quoteless string cannot start with any of the punctuators (`{}[],:`).
+A quoteless string cannot start with any of the punctuators (`{}[],:`) or a start of comment sequence (`#`, `//`, `/*`).
 
 Unlike a quoted string it automatically ends at the end of the current line. Do not add commas or comments as they would become part of the string. If you wish to add comments place them on the previous or next line.
 
 Preceding and trailing whitespace is ignored. Escapes are only supported in quoted strings.
 
-The Hjson parser will still detect values (*number*, `true`, `false` or `null`) and parse them correctly. For example
+The Hjson parser will only parse data as a quoteless string if any other interpretation fails, and therefore it will still detect values (*number*, `true`, `false` or `null`) and parse them correctly. For example
 
 - `3` is the *number* `3`
 - `5 times` is the *string* `"5 times"`
 - `true` is the *boolean* `true`
 - `7 # minutes` is the *number* `7` followed by a comment
+- `5#comment` is the *number* `5` followed by a comment
 - `\s#([0-9a-fA-F]{3})` is the *string* `"\\s#([0-9a-fA-F]{3})"`
+
+Special note regarding hex values in an object: Due to oversight different implementations might handle this in different ways. In hjson-js this will be parsed as a key `one` containing the value `two: 2`:
+
+```
+{
+  one: #1
+  two: 2
+}
+```
 
 #### Multiline Strings
 
