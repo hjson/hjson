@@ -14,6 +14,7 @@ Platform | Source | Package
 -------- | ------ | -------
 JavaScript, Node.js & Browser | [hjson-js](https://github.com/hjson/hjson-js) | [![NPM version](https://img.shields.io/npm/v/hjson.svg?style=flat-square)](http://www.npmjs.com/package/hjson)
 C#, .Net | [hjson-cs](https://github.com/hjson/hjson-cs)                      | [![nuget version](https://img.shields.io/nuget/v/Hjson.svg?style=flat-square)](https://www.nuget.org/packages/Hjson/)
+C#, .Net | [HjsonSharp](https://github.com/Joy-less/HjsonSharp)                      | [![nuget version](https://img.shields.io/nuget/v/HjsonSharp.svg?style=flat-square)](https://www.nuget.org/packages/HjsonSharp/)
 C++      | [hjson-cpp](https://github.com/hjson/hjson-cpp)                    | [![C++](https://img.shields.io/github/release/hjson/hjson-cpp.svg?style=flat-square&label=c%2b%2b)](https://github.com/hjson/hjson-cpp/releases)
 Go       | [hjson-go](https://github.com/hjson/hjson-go)                      | [![Go Pkg](https://img.shields.io/github/release/hjson/hjson-go.svg?style=flat-square&label=go-pkg)](https://github.com/hjson/hjson-go/releases)
 Java     | [hjson-java](https://github.com/hjson/hjson-java)                  | [![Maven Central](https://img.shields.io/maven-central/v/org.hjson/hjson.svg?style=flat-square)](http://search.maven.org/#search&#124;ga&#124;1&#124;g%3A%22org.hjson%22%20a%3A%22hjson%22)
